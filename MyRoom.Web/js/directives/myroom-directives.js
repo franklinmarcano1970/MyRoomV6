@@ -585,7 +585,11 @@
                                         Translation: valueCategory.Translation
 
                                     };
-
+                                    if ($state.current.name == 'app.page.catalogue_assignProducts') {
+                                        if (valueCategory.IsFinal) {
+                                            $scope.sourceItems[keyModule].children[keyCategory].ActiveCheckbox = true;
+                                        }
+                                    }
                                     $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
                                 });
                                 
@@ -625,7 +629,11 @@
                               nextsibling: "category",
                               Translation: branch.Translation
                           };
-
+                          if ($state.current.name == 'app.page.catalogue_assignProducts') {
+                              if (branch.IsFinal) {
+                                  sourceitems.children[keyCategory].ActiveCheckbox = true;
+                              }
+                          }
                           if (branch.CategoryChildren == null)
                               return sourceitems;
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
