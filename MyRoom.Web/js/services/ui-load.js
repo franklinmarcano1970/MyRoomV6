@@ -32,7 +32,7 @@ angular.module('ui.load', [])
 		}
 		function getHotelCatalogId(idUser) {
 			var deferred = $q.defer();
-			return $http.get(serviceBase + 'odata/ActiveHotelCatalogue?$filter=IdHotel eq ' + idUser).success(function (response) {
+			return $http.get(serviceBase + 'api/hotels/catalog/' + idUser).success(function (response) {
 				deferred.resolve(response);
 			}, function (err) {
 				deferred.reject(err);

@@ -156,11 +156,8 @@
                   $scope.hotel = {};
                   $scope.selectActionHotel = function ()
                   {
-                      debugger
-                      //http://localhost:49698/odata/ActiveHotelCatalogue?$filter=IdHotel%20eq%201
                       hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
-                          debugger
-                          var IdCatalog = response.data.value[0].IdCatalogue;
+                          var IdCatalog = response.data[0].IdCatalogue;
                           $scope.loadHotelTreeCatalog(IdCatalog);
                       });
                   }
@@ -224,13 +221,14 @@
                   ];
 
                   $scope.loadHotelTreeCatalog = function (id) {
+
                       $scope.items = {};
                       $scope.sourceItems = {};
                       catalogService.getCatalogComplex(id).then(function (response) {
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
                           $scope.catalogComplex = JSON.parse(response.data);
-
+                          debugger
                           $scope.Modules = {};
                           angular.forEach($scope.catalogComplex, function (value, key) {
                               $scope.Modules = value.Modules;
