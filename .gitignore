@@ -1,0 +1,17 @@
+MyRoom.Data/bin/*
+MyRoom.Data/obj/*
+MyRoom.Model/bin/*
+MyRoom.Model/obj/*
+MyRoom.Web/bin/*
+MyRoom.Web/obj/*
+MyRoom.Data.Contracts/obj/*
+MyRoom.Data.Contracts/bin/*
+MyRoom.API/bin/*
+MyRoom.API/obj/*
+MyRoom.Data/MyRoom.Data.csproj.user
+MyRoom/MyRoom/MyRoom.API/bin/*
+MyRoom.Web/MyRoom.Web.csproj.user
+MyRoom.v11.suo
+MyRoom.API/MyRoom.API.csproj.user
+*.user
+MyRoom.API/MyRoom.API.csproj.user

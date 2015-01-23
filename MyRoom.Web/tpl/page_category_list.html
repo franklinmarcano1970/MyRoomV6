@@ -1,0 +1,52 @@
+﻿<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">CATEGORIES LIST</h1>
+</div>
+<div class="container" ng-controller="CategoriesController">
+
+    <div class="wrapper-md">
+        <div class="col-md-12 column">
+            <div class="panel panel-default shadow">
+                <div class="panel-heading">
+                    Categories
+                </div>
+
+                <div class="table-responsive">
+                    <input type="hidden" ng-model="Id" />
+                    <table ui-jq="dataTable" ui-options="" class="table table-striped m-b-none">
+                        <thead>
+                            <tr>
+                                <th>...</th>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Image</th>
+                                <th>Prefix</th>
+                                <td>Comment</td>
+                                <td>Order</td>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="category in categories">
+                                <td>
+                                    <button class="btn-link" ng-click="getCategories(category.Id)">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>
+                                    </button>
+                                </td>
+                                <td>{{ category.Id }}</td>
+                                <td>{{ category.Name }}</td>
+                                <td><img src="" alt="{{Category.name}}" /></td>
+                                <td>{{ category.Prefix }}</td>
+                                <td>{{ category.Comment }}</td>
+                                <td>{{ category.Order }}</td>
+                                <td>{{ category.Active }}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <button class="btn m-b-xs btn-sm btn-info btn-addon" ng-click="createCategory()"><i class="fa fa-plus"></i>CREATE</button>
+        </div>
+    </div>
+</div>

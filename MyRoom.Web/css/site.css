@@ -1,0 +1,49 @@
+﻿/*Custom Styles*/
+.navbar-inverse {
+    background-color: #315193;
+    border-color: #F48C02;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    font-weight: bold;
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open .dropdown-toggle.btn-info {
+    color: #ffffff;
+    background-color: #FE9F2D;
+    border-color: #F48C02;
+}
+
+.btn-info {
+    color: #ffffff;
+    background-color: rgba(254, 159, 45, 0.85);
+    border-color: #F48C02;
+}
+
+
+.btn-warning.disabled, .btn-warning[disabled], fieldset[disabled] .btn-warning, .btn-warning.disabled:hover, .btn-warning[disabled]:hover, fieldset[disabled] .btn-warning:hover, .btn-warning.disabled:focus, .btn-warning[disabled]:focus, fieldset[disabled] .btn-warning:focus, .btn-warning.disabled:active, .btn-warning[disabled]:active, fieldset[disabled] .btn-warning:active, .btn-warning.disabled.active, .btn-warning[disabled].active, fieldset[disabled] .btn-warning.active {
+    background-color: #F48C02;
+    border-color: #F48C02;
+}
+
+.table-responsive {
+    overflow-x: hidden;
+    padding: 1em;
+}
+
+.modal-header {
+    background: blue;
+    color: white;
+}
+
+li {
+    list-style-type: none;
+}
+
+.shadow {
+    background-color: #FFFFFF;
+    border: 1px solid #c8c8c8;
+    box-shadow: 0 0 8px #c8c8c8;
+    padding: 4px;
+    margin: 10px 0;
+}

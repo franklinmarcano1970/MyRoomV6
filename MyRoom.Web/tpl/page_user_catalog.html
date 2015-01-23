@@ -1,0 +1,52 @@
+﻿<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">Catalog Item Access</h1>
+</div>
+
+<div class="wrapper-md" ng-controller="UserCatalogController">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="row clearfix">
+                <div class="col-md-6 column">
+                    <div class="panel panel-default shadow">
+                        <div class="panel-body">
+                            <h4>SELECT USER AND CATALOG</h4>
+                            <hr />
+                            <div class="row clearfix">
+                                <div class="col-md-6 column">
+                                    <h5>Select User</h5>
+                                      <user-select></user-select>
+                                </div>
+                                <div class="col-md-6 column">
+                                    <h5>Select Catalog</h5>
+                                    <catalog-select></catalog-select>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 column">
+
+                    <div class="panel panel-default shadow">
+                        <div class="panel-body">
+                            <div class="col-md-12 column">
+                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="saveUserCatalog()"><i class="fa fa-plus"></i>SAVE</button>
+                            </div>
+                            <h4>GRANT/DENY PERMISSION TO CATALOGUE ITEMS‏</h4>
+
+                            <hr>
+                            <catalog-tree></catalog-tree>
+                            <div class="col-md-12 column">
+                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="saveUserCatalog()"><i class="fa fa-plus"></i>SAVE</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

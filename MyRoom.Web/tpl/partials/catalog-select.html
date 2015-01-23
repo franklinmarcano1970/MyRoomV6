@@ -1,0 +1,6 @@
+﻿<ui-select ng-model="cata.selected" theme="bootstrap" reset-search-input="true" ng-change="selectActionCatalog(cata.selected)">
+    <ui-select-match id="itemselect" placeholder="Select or search a Catalog">{{$select.selected.Name}}</ui-select-match>
+    <ui-select-choices repeat="item in catalogues | filter: $select.search">
+        <div ng-bind-html="item.Name | highlight: $select.search"></div>
+    </ui-select-choices>
+</ui-select>

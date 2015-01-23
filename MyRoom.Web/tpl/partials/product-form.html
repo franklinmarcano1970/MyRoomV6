@@ -1,0 +1,132 @@
+﻿<div class="wrapper-md" ng-controller="ProductsController">
+    <!-- toaster directive -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <!-- / toaster directive -->
+
+    <div class="col-md-12 column">
+        <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false}">
+           
+             <tab heading="Product" active="steps.step1" select="steps.percent=20">               
+                <form name="step1" class="form-validation">
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <p class="m-t">Prefix:</p>
+                            <input type="text" name="prefix" maxlength="10" class="form-control" placeholder="Please enter a Prefix"  ng-model="product.Prefix" required>
+                        </div>
+                        <div class="col-md-6 column">
+                            <p class="m-t">Name</p>
+                            <input type="text" name="prodName" maxlength="150" placeholder="Please enter a Product Name" class="form-control ng-valid" ng-model="product.Name" required>
+                        </div>
+
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <p class="m-t">Description</p>
+                            <textarea rows="6" cols="68" name="prodDescription" placeholder="Please enter a Product description" class="form-control" ng-model="product.Description"></textarea>
+                        </div>
+                        <div class="col-md-6 column">
+                            <p class="m-t"><strong>Product Ìmage</strong></p>
+                            <img src="img/no-image.jpg" ng-model="product.Image" ng-init="product.Image = 'img/no-image.jpg' " width="100" height="100"/>      
+                            <input type="file" class="filestyle" data-input="false" data-buttonName="btn-success">
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <p class="m-t">Type</p>
+                             <product-type></product-type>                            
+                        </div>
+                        <div class="col-md-6 column">
+                            <p class="m-t">Price</p>
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">$</span>
+                                <input name="prodPrice" oninput="maxLengthCheck(this)" type="number"  maxlength="9" min="1" max="100000000" class="form-control" ng-model="product.Price" required>
+                                <span class="input-group-addon">.00</span>
+                            </div>      
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <p class="m-t">Order:</p>
+                            <input ui-jq="TouchSpin" type="text"  name="prodOrder" ng-model="product.Order" class="form-control" data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
+                        </div>
+                        <div class="col-md-6 column">
+                            <div style="margin-top: 2em!important;">
+                                <label class="m-t i-checks">
+                                    <input type="checkbox" ng-checked="product.Active" ng-model="product.Active" ng-init="product.Active = true" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Active?
+                                </label>
+                            </div>    
+                        </div>
+                    </div>                                        
+                    <div class="m-t m-b">
+                        <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+                    </div>
+                </form>
+            </tab>
+            <tab heading="Translate" disabled="step1.$invalid" active="steps.step2">
+                <form name="step2" class="form-validation">
+                    <p class="m-t">Spanish:</p>
+                    <input type="text" name="translateSpanish" maxlength="150" placeholder="Enter a Spanish Translation" class="form-control" ng-model="product.Translation.Spanish" required />
+                    <p class="m-t">English:</p>
+                    <input type="text" name="translateEnglish" maxlength="150" placeholder="Enter a English Translation" class="form-control" ng-model="product.Translation.English" required />
+                    <p class="m-t">French:</p>
+                    <input type="text" name="translateFrench" maxlength="150" placeholder="Enter a French Translation" class="form-control" ng-model="product.Translation.French" />
+                    <p class="m-t">German:</p>
+                    <input type="text" name="translateGerman" maxlength="150" placeholder="Enter a German Translation" class="form-control" ng-model="product.Translation.German" />
+                    
+                    <p class="m-t">Language 5:</p>
+                    <input type="text" name="translateLang5" maxlength="150" placeholder="Enter Another Translation" class="form-control" ng-model="product.Translation.Language5" />
+                    <p class="m-t">Language 6:</p>
+                    <input type="text" name="translateLang6" maxlength="150" placeholder="Enter Another Translation" class="form-control" ng-model="product.Translation.Language6" />
+                    <p class="m-t">Language 7:</p>
+                    <input type="text" name="translateLang7" maxlength="150" placeholder="Enter Another Translation" class="form-control" ng-model="product.Translation.Language7" />
+                    <p class="m-t">Language 8:</p>
+                    <input type="text" name="translateLang8" maxlength="150" placeholder="Enter Another Translation" class="form-control" ng-model="product.Translation.Language8" />
+
+                    <div class="m-t m-b">
+                        <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>
+                        <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step3=true">Next</button>
+                    </div>
+                </form>
+            </tab>
+            <tab heading="Related Products" disabled="step2.$invalid" active="steps.step3" select="steps.percent=80">
+                <!--<p>Just one click to finish it.</p>-->
+                <div class="table-responsive"  >
+                    <table  ng-model="product.RelatedProduct" id="products" datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped m-b-none">
+                        <thead>
+                            <tr>
+                                <th style="width:20px;">
+                                    <label class="i-checks m-b-none">
+                                        
+                                    </label>
+                                </th>
+                                <th>Id</th>
+                                <th>Related Product</th>
+                                <th>Price</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="prod in products">
+                                <td><label class="i-checks m-b-none"><input type="checkbox" ng-model="prod.checked" value="product.Id" ng-checked="prod.checked" name="post[]"><i></i></label></td>
+                                <td>{{prod.Id}}</td>
+                                <td>{{prod.Name}}</td>
+                                <td>{{prod.Price}}</td>
+                                <td>{{prod.Active}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>    
+                <p class="p-20">
+                    <strong>Important: Only 6 Related product are permited</strong>
+                </p>
+                <div class="m-t m-b">
+                    <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Prev</button>    
+                    <button type="button" class="btn btn-default btn-rounded" ng-click="saveProduct(this)">Save To Finish</button>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>
+<script>
+    $(":file").filestyle({ input: false, buttonName: "btn-success" });
+</script>

@@ -1,0 +1,61 @@
+﻿<div class="wrapper-md" ng-controller="HotelsController">
+    <!-- toaster directive -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <!-- / toaster directive -->
+    <div class="col-md-6 column">
+        <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false}">
+            <tab heading="Hotel" active="steps.step1" select="steps.percent=20">
+                
+                <form name="step1" class="form-validation">
+                    <p>Name:</p>
+                    <input type="text" name="name" class="form-control" ng-model="hotel.Name" required ng-change="step1.name.$valid ? (steps.percent=30) : (steps.percent=20)">
+
+                    <p class="m-t"><strong>Hotel Image</strong></p>
+                    <img src="img/no-image.jpg" ng-model="hotel.Image" width="100" height="100"/>         
+                    <div ng-controller="FileUploadCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+                    <input type="file" ng-file-select="" nv-file-select="" uploader="uploader"  class="filestyle" data-input="false" data-buttonname="btn-success">
+                    </div>
+                    <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="hotel.Active" checked="hotel.Active" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Active?
+                        </label>
+                    </div>
+
+                    <div class="m-t m-b">
+                        <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+                    </div>
+                </form>
+            </tab>
+            <tab heading="Translate" disabled="step1.$invalid" active="steps.step2" select="steps.percent=40">
+                <form name="step2" class="form-validation">
+                    <p class="m-t">Spanish:</p>
+                    <input type="text" name="translateSpanish" placeholder="Enter a Spanish Translation" class="form-control" ng-model="hotel.Translation.Spanish" required />
+                    <p class="m-t">English:</p>
+                    <input type="text" name="translateEnglish" placeholder="Enter a English Translation" class="form-control" ng-model="hotel.Translation.English" required  />
+                    <p class="m-t">French:</p>
+                    <input type="text" name="translateFrench" placeholder="Enter a French Translation" class="form-control" ng-model="hotel.Translation.French"  />
+                    <p class="m-t">German:</p>
+                    <input type="text" name="translateGerman" placeholder="Enter a German Translation" class="form-control" ng-model="hotel.Translation.German" />
+                    
+                    <p class="m-t">Language 5:</p>
+                    <input type="text" name="translateLang5" placeholder="Enter Another Translation" class="form-control" ng-model="hotel.Translation.Language5" />
+                    <p class="m-t">Language 6:</p>
+                    <input type="text" name="translateLang6" placeholder="Enter Another Translation" class="form-control" ng-model="hotel.Translation.Language6" />
+                    <p class="m-t">Language 7:</p>
+                    <input type="text" name="translateLang7" placeholder="Enter Another Translation" class="form-control" ng-model="hotel.Translation.Language7" />
+                    <p class="m-t">Language 8:</p>
+                    <input type="text" name="translateLang8" placeholder="Enter Another Translation" class="form-control" ng-model="hotel.Translation.Language8" />
+
+                    <div class="m-t m-b">
+                        <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>
+                        <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="saveHotel(this)">Save To Finish</button>
+
+                    </div>
+                </form>
+            </tab>
+        </tabset>
+    </div>
+</div>
+<script>
+    $(":file").filestyle({ input: false, buttonName: "btn-success" });
+</script>

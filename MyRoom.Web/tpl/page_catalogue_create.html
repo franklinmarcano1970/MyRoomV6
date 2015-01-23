@@ -1,0 +1,257 @@
+﻿<div class="bg-light lter b-b wrapper-md" ng-controller="CataloguesController">
+    <h1 class="m-n font-thin h3">CREATE / MODIFY CATALOGUE</h1>
+</div>
+
+<div class="wrapper-md" ng-controller="CataloguesController">
+    <!-- toaster directive -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <!-- / toaster directive -->
+    <div class="row clearfix m-b">
+        <div class="col-md-3">
+            <catalog-select></catalog-select>
+        </div>
+
+        <div class="col-md-3">
+            <div class="btn-group dropdown open" dropdown="">
+                <button class="btn btn-default" dropdown-toggle="" aria-haspopup="true" aria-expanded="true">Action <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="" ng-model="create" ng-click="createCatalogPopup()"><i class="fa fa-plus"></i> New Catalog</a></li>
+                    <li><a href="" ng-model="modify" ng-click="editCatalogPopup()"><i class="fa fa-edit"></i> Modify Catalog</a></li>
+                    <li><a href="" ng-click="removeCatalogPopup()" ><i class="fa fa-trash-o"></i> Delete Catalog</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr />
+        <div class="modal fade" id="newCatalog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" ng-if="modify==false" id="H2">Enter Catalog</h4>
+                        <h4 class="modal-title" ng-if="modify==true" id="H3">Modify Catalog</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <!--<div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="Name" placeholder="Please enter a Catalog" />
+                        </div>-->
+                        <tabset class="tab-container" ng-init="showTabsetModule = true" >
+                            <tab heading="Catalog" active="steps.step1">                                  
+                                <form name="step1" class="form-validation">
+                                    <p class="m-t">Name</p>
+                                    <input type="text" placeholder="Enter a Name" class="form-control" ng-model="catalog.Name" required  />
+                                    <p class="m-t">Ìmage</p>
+                                    <img src="img/no-image.jpg" ng-model="catalog.Image" width="100" height="100"/>                                       
+                                    <div class="checkbox">
+                                        <label class="m-t i-checks">
+                                            <input type="checkbox" ng-model="catalog.Pending" ng-checked="catalog.Pending" ng-init="catalog.Pending=true"  class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Pending?
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label class="m-t i-checks">
+                                            <input type="checkbox" ng-model="catalog.Active" ng-checked="catalog.Active" ng-init="catalog.Active=true" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Active?
+                                        </label>
+                                    </div>
+                                    <div class="m-t m-b">
+                                        <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+                                    </div>
+                                </form>
+                            </tab>
+                            <tab heading="Translate" disabled="step1.$invalid" active="steps.step2" select="steps.percent=60">
+                                <form name="step2" class="form-validation">
+                                    <p class="m-t">Spanish:</p>
+                                    <input type="text" name="translateSpanish" placeholder="Enter a Spanish Translation" class="form-control" ng-model="catalog.Translation.Spanish" required />
+                                    <p class="m-t">English:</p>
+                                    <input type="text" name="translateEnglish" placeholder="Enter a English Translation" class="form-control" ng-model="catalog.Translation.English" required />
+                                    <p class="m-t">French:</p>
+                                    <input type="text" name="translateFrench" placeholder="Enter a French Translation" class="form-control" ng-model="catalog.Translation.French" />
+                                    <p class="m-t">German:</p>
+                                    <input type="text" name="translateGerman" placeholder="Enter a German Translation" class="form-control" ng-model="catalog.Translation.German" />
+                    
+                                    <p class="m-t">Language 5:</p>
+                                    <input type="text" name="translateLang5" placeholder="Enter Another Translation" class="form-control" ng-model="catalog.Translation.Language5" />
+                                    <p class="m-t">Language 6:</p>
+                                    <input type="text" name="translateLang6" placeholder="Enter Another Translation" class="form-control" ng-model="catalog.Translation.Language6" />
+                                    <p class="m-t">Language 7:</p>
+                                    <input type="text" name="translateLang7" placeholder="Enter Another Translation" class="form-control" ng-model="catalog.Translation.Language7" />
+                                    <p class="m-t">Language 8:</p>
+                                    <input type="text" name="translateLang8" placeholder="Enter Another Translation" class="form-control" ng-model="catalog.Translation.Language8" />
+
+                                    <div class="m-t m-b">
+                                        <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
+                                        <!--<button type="button" class="btn btn-default btn-rounded" ng-click="createCatalog(this)" data-dismiss="modal">Save To Finish</button>-->
+                                        <button type="button" class="btn btn-default btn-rounded" ng-if="modify==false" ng-click="saveCatalog(catalog)" data-dismiss="modal">Save To Finish</button>
+                                        <button type="button" class="btn btn-default btn-rounded" ng-if="modify==true" ng-click="updateCatalog(catalog)" data-dismiss="modal">Update To Finish</button>
+                                    </div>
+                                </form>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteCatalog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="H1">Delete Catalog?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Are you sure you want to delete the selected user?</h3>                     
+                        <h4>This step has no return back</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" ng-click="deleteCatalog(this)" class="btn btn-default" data-dismiss="modal">OK</button>                         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="row clearfix">
+                <div class="col-md-6 column">
+                    <div class="panel panel-default shadow">
+                        <div class="panel-body">
+                            <div class="row clearfix">
+                                <div class="col-md-8">
+                                    <h4>CATALOGUE STRUCTURE</h4>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn m-b-xs btn-md btn-success btn-addon" ng-click="initTabsets()"><i class="fa fa-plus"></i>NEW MODULE</button>
+                                </div>
+                            </div>
+                            <hr>
+                            <catalog-tree></catalog-tree>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 column">
+                    <div class="panel panel-default shadow">
+                        <div class="panel-body">
+                            <tabset class="tab-container" ng-init="showTabsetModule = true" ng-show="showTabsetModule">
+                                <tab heading="Module" active="steps.step1" select="steps.percent=0">                                  
+                                    <form name="step1" class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted">
+                                        <p>Prefix:</p>
+                                        <input type="text" name="modulePrefix" maxlength="150" placeholder="Enter a Prefix" class="form-control" ng-model="module.Prefix" required ng-change="step1.name.$valid ? (steps.percent=20) : (steps.percent=10)" />
+                                        <p class="m-t">Name</p>
+                                        <input type="text" name="moduleName" maxlength="150" placeholder="Enter a Name" class="form-control" ng-model="module.Name" required ng-change="step1.name.$valid ? (steps.percent=40) : (steps.percent=30)" />
+                                        <p class="m-t">Ìmage</p>
+                                        <img src="img/no-image.jpg" ng-model="module.image" width="100" height="100"/>   
+                                        <input type="file" class="filestyle" data-input="false" data-buttonName="btn-success">                                    
+                                        <p class="m-t">Order</p>
+                                        <input ui-jq="TouchSpin" type="text"  name="moduleOrder" placeholder="Enter a Order" ng-model="module.Orden" class="form-control" data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
+                                        <div class="m-t m-b">
+                                            <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+                                        </div>
+                                    </form>
+                                </tab>
+                                <tab heading="Translate" disabled="step1.$invalid" active="steps.step2" select="steps.percent=60">
+                                    <form name="step2" class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted">
+                                        <p class="m-t">Spanish:</p>
+                                        <input type="text" name="translateSpanish" placeholder="Enter a Spanish Translation" class="form-control" ng-model="module.Translation.Spanish" required />
+                                        <p class="m-t">English:</p>
+                                        <input type="text" name="translateEnglish" placeholder="Enter a English Translation" class="form-control" ng-model="module.Translation.English" required />
+                                        <p class="m-t">French:</p>
+                                        <input type="text" name="translateFrench" placeholder="Enter a French Translation" class="form-control" ng-model="module.Translation.French" />
+                                        <p class="m-t">German:</p>
+                                        <input type="text" name="translateGerman" placeholder="Enter a German Translation" class="form-control" ng-model="module.Translation.German" />
+                    
+                                        <p class="m-t">Language 5:</p>
+                                        <input type="text" name="translateLang5" placeholder="Enter Another Translation" class="form-control" ng-model="module.Translation.Language5" />
+                                        <p class="m-t">Language 6:</p>
+                                        <input type="text" name="translateLang6" placeholder="Enter Another Translation" class="form-control" ng-model="module.Translation.Language6" />
+                                        <p class="m-t">Language 7:</p>
+                                        <input type="text" name="translateLang7" placeholder="Enter Another Translation" class="form-control" ng-model="module.Translation.Language7" />
+                                        <p class="m-t">Language 8:</p>
+                                        <input type="text" name="translateLang8" placeholder="Enter Another Translation" class="form-control" ng-model="module.Translation.Language8" />
+
+                                        <div class="m-t m-b">
+                                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
+                                            <button type="button" class="btn btn-default btn-rounded" ng-click="saveModule(module)">Save To Finish</button>
+                                        </div>
+                                    </form>
+                                </tab>
+                            </tabset>
+                            <tabset class="tab-container" ng-model="tab_category" ng-init="steps={percent:20, step1:true, step2:false}" ng-show="showTabsetCategory">
+                                <tab heading="Category" active="steps.step1" select="steps.percent=0">                                  
+                                    <form name="step1" class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted">
+                                        <p class="m-t">Prefix:</p>
+                                        <input type="text" name="prefix" maxlength="10" class="form-control" placeholder="Please enter a Prefix"  ng-model="category.Prefix" required>
+                                        <p class="m-t">Name</p>
+                                        <input type="text" name="categoryName" placeholder="Enter a Name" class="form-control" ng-model="category.Name" required ng-change="step1.name.$valid ? (steps.percent=40) : (steps.percent=30)" />
+                                        <p class="m-t">Ìmage</p>
+                                        <img src="img/no-image.jpg" ng-model="categpry.image" width="100" height="100"/>                                       
+                                        <input type="file" class="filestyle" data-input="false" data-buttonName="btn-success">                                                                       
+
+                                        <p class="m-t">Order</p>
+                                        <input ui-jq="TouchSpin" type="text"  name="categoryOrder" placeholder="Enter a Order" ng-model="category.Orden" class="form-control" data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
+ 
+                                        <p class="m-t">Comment</p>
+                                        <textarea rows="4" cols="68" name="categoryComment" placeholder="Enter a Category comment" class="form-control" ng-model="category.Comment" ng-change="step1.categoryComment.$valid ? (steps.percent=30) : (steps.percent=20)"></textarea>
+                    
+                                        <div class="checkbox">
+                                            <label class="m-t i-checks">
+                                                <input type="checkbox" ng-model="category.Pending" ng-checked="category.Pending"  class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Pending?
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label class="m-t i-checks">
+                                                <input type="checkbox" ng-model="category.IsFinal" ng-checked="category.IsFinal"  class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Final?
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label class="m-t i-checks">
+                                                <input type="checkbox" ng-model="category.Active" ng-checked="category.Active" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Active?
+                                            </label>
+                                        </div>
+                                        <div class="m-t m-b">
+                                            <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+                                        </div>
+                                    </form>
+                                    
+                            
+                                </tab>
+                                <tab heading="Translate" disabled="step1.$invalid" active="steps.step2" select="steps.percent=60">
+                                    <form name="step2" class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted">
+                                        <p class="m-t">Spanish:</p>
+                                        <input type="text" name="translateSpanish" placeholder="Enter a Spanish Translation" class="form-control" ng-model="category.Translation.Spanish" required />
+                                        <p class="m-t">English:</p>
+                                        <input type="text" name="translateEnglish" placeholder="Enter a English Translation" class="form-control" ng-model="category.Translation.English" required  />
+                                        <p class="m-t">French:</p>
+                                        <input type="text" name="translateFrench" placeholder="Enter a French Translation" class="form-control" ng-model="category.Translation.French"  />
+                                        <p class="m-t">German:</p>
+                                        <input type="text" name="translateGerman" placeholder="Enter a German Translation" class="form-control" ng-model="category.Translation.German" />
+                    
+                                        <p class="m-t">Language 5:</p>
+                                        <input type="text" name="translateLang5" placeholder="Enter Another Translation" class="form-control" ng-model="category.Translation.Language5" />
+                                        <p class="m-t">Language 6:</p>
+                                        <input type="text" name="translateLang6" placeholder="Enter Another Translation" class="form-control" ng-model="category.Translation.Language6" />
+                                        <p class="m-t">Language 7:</p>
+                                        <input type="text" name="translateLang7" placeholder="Enter Another Translation" class="form-control" ng-model="category.Translation.Language7" />
+                                        <p class="m-t">Language 8:</p>
+                                        <input type="text" name="translateLang8" placeholder="Enter Another Translation" class="form-control" ng-model="category.Translation.Language8" />
+
+                                        <div class="m-t m-b">
+                                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
+                                            <button type="button" class="btn btn-default btn-rounded" ng-click="saveCategory(category)">Save To Finish</button>
+                                        </div>
+                                    </form>
+                                </tab>
+                            </tabset>          <pre> {{category| json}}
+                                    </pre>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(":file").filestyle({ input: false, buttonName: "btn-success" });
+</script>

@@ -1,0 +1,30 @@
+    <div class="container w-xxl w-auto-xs" ng-controller="SignupFormController" ng-init="app.settings.container = false;">
+      <img sclass="navbar-brand block m-t" src="../img/logo.png" width="150" />
+      <div class="m-b-lg">
+        <div class="wrapper text-center">
+          <strong>Sign up an Account</strong>
+        </div>
+        <form name="form" class="form-validation">
+          <div class="text-danger wrapper text-center" ng-show="authError">
+              {{authError}}
+          </div>
+          <div class="list-group list-group-sm">
+            <div class="list-group-item">
+              <input name="userName" placeholder="Name" class="form-control ng-dirty ng-valid-parse ng-valid-required ng-valid ng-valid-pattern ng-touched no-border" ng-model="user.name" required  ng-change="userName.$valid  ? true : false" />
+            </div>
+            <div class="list-group-item">
+              <input name="userEmail" type="email" placeholder="Email" class="form-control ng-dirty ng-valid-required ng-valid ng-valid-email ng-touched no-border" ng-model="user.email" required ng-change="userEmail.$valid  ? true : false" />
+            </div>
+            <div class="list-group-item">
+               <input name="userPass" type="password" placeholder="Password" class="form-control ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched no-border" ng-model="user.password" required ng-change="userPass.$valid  ? true : false">
+            </div>
+          </div>
+      
+          <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="signup()" ng-disabled='form.$invalid'>Sign up</button>
+          <div class="line line-dashed"></div>
+          <p class="text-center"><small>Already have an account?</small></p>
+          <a ui-sref="access.signin" class="btn btn-lg btn-default btn-block">Sign in</a>
+        </form>
+      </div>
+      <div class="text-center" ng-include="'tpl/blocks/page_footer.html'"></div>
+    </div>

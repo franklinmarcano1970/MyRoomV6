@@ -1,0 +1,6 @@
+﻿<ui-select ng-model="hotel.selected" theme="bootstrap" ng-change="selectActionHotel($select.selected.Id)">
+    <ui-select-match placeholder="Select or search a Hotel">{{$select.selected.Name}}</ui-select-match>
+    <ui-select-choices repeat="item in hotels | filter: $select.search">
+        <div ng-bind-html="item.Name | highlight: $select.search"></div>
+    </ui-select-choices>
+</ui-select>

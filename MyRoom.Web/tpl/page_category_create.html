@@ -1,0 +1,66 @@
+﻿<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">CATEGORY CREATE</h1>
+</div>
+<div class="wrapper-md" ng-controller="CategoriesController">
+    <div class="col-md-12 column">
+        <tabset class="tab-container" ng-init="steps={percent:20, step1:true, step2:false}">
+            <tab heading="Category" active="steps.step1" select="steps.percent=20">
+                <p class="m-b">Complete Category data.</p>
+                <progressbar value="steps.percent" class="progress-xs" type="success"></progressbar>
+
+                <form name="step1" class="form-validation">
+                    <p>Name:</p>
+                    <input type="text" name="categoryName" class="form-control" ng-model="categoryName" required ng-change="step1.categoryName.$valid ? (steps.percent=30) : (steps.percent=20)">
+                 
+                    <p class="m-t">Order:</p>
+                    <input type="text" name="categoryOrder" class="m-t form-control" ng-model="categoryOrder" required ng-change="step1.categoryOrder.$valid ? (steps.percent=30) : (steps.percent=20)">
+                    
+                    <p class="m-t">Category Image</p>
+                    <img src="" alt="{{categoryName}}" ng-model="categoryImage" />
+                    
+                    <p class="m-t">Comment</p>
+                    <textarea rows="4" cols="68" name="categoryComment" placeholder="Please enter a Category comment" class="form-control" ng-model="categoryComment" required ng-change="step1.categoryComment.$valid ? (steps.percent=30) : (steps.percent=20)"></textarea>
+                    
+                    <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="ispending" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Pending?
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="isactive" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Active?
+                        </label>
+                    </div>
+
+                    <div class="m-t m-b">
+                        <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+                    </div>
+                </form>
+            </tab>
+            <tab heading="Translate" disabled="step1.$invalid" active="steps.step2" select="steps.percent=60">
+                <p class="m-b label label-primary">Congraduations! You got the last step.</p>
+                <progressbar value="steps.percent" class="m-t progress-xs" type="success"></progressbar>
+                <p>Just one click to finish it.</p>
+
+                <p class="m-t">English:</p>
+                <input type="text" name="categoryOrder" class="m-t form-control" ng-model="categoryOrder" required ng-change="step1.categoryOrder.$valid ? (steps.percent=30) : (steps.percent=20)">
+                    
+
+                <div class="checkbox">
+                    <label class="m-t i-checks">
+                        <input type="checkbox" ng-model="isactive" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Active?
+                    </label>
+                </div>
+
+                <div class="m-t m-b">
+                    <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>
+                    <!--<button type="button" class="btn btn-default btn-rounded" ng-click="steps.percent=100">Save To Finish</button>-->
+                    <button type="button" class="btn btn-default btn-rounded" ng-click="saveCategory(this)">Save To Finish</button>
+                </div>
+                <div class="m-t m-b">
+                    <pre class="alert alert-info ng-binding"> Info: {{Mensaje}}</pre>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>

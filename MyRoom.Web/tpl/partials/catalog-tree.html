@@ -1,0 +1,71 @@
+﻿ <!--Ejemplo TreeView basado en https://www.youtube.com/watch?v=kE-W4gE7NBw 
+    http://gurustop.net/blog/2014/07/15/angularjs-using-templates-ng-include-create-infinite-tree/
+-->
+<script type="text/ng-template" id="treeLevel.html">
+    <ul>
+      <li ng-repeat="item in items" ng-class="{'selected':item.selected}">          
+            <label class="m-t i-checks" ng-show="item.ActiveCheckbox">
+                <input type="checkbox" ng-model="item.active" class="ng-valid ng-dirty ng-valid-parse ng-touched ng-pristine ng-untouched" name="post[]" checked="checked"><i></i>
+            </label>
+                                                                                                       
+        <i class="fa fa-folder-open fa-2x"></i> <a href="" ng-click="toggle(item)">{{item.text}}</a>
+        <div class="m-l btn-group dropdown open" dropdown="" ng-model="operations" ng-show="$state.current.name == 'app.page.catalogue_create' ">
+                <button class="btn btn-success m-b-xs" dropdown-toggle="" aria-haspopup="true" aria-expanded="true">Action <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li ng-show="disableListItem(item)"><a href="" ng-click="addItems(item, this)"><i class="fa fa-plus"></i>New {{item.nextsibling | capitalize }}</a></li>
+                    <li><a href="" ng-click="modifyItems(item)"><i class="fa fa-trash-o"></i> Modify {{item.type | capitalize }}</a></li>
+                    <li><a href="" ng-click="deleteItems(item)"><i class="fa fa-trash-o"></i> Delete {{item.type | capitalize }}</a></li>
+                    <!--<li><a href="" ng-click="getItems(item)"><i class="fa fa-trash-o"></i> Select {{item.nextsibling | capitalize }}</a></li>-->
+                </ul>
+       </div>
+          <div ng-include=" 'treeLevel.html'"
+               ng-click="getItems(item.children)"
+               onload="items = item.children">
+          </div>
+
+      </li>
+    </ul>
+</script>
+<div class="modal fade" id="deleteModule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-check">Please Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure you want to delete the selected Module?</h3>
+                <h4>This step has no return back</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" ng-click="removeModule(ModulelId)" class="btn btn-default" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteCategory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title"><span class="glyphicon glyphicon-check">Please Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure you want to delete the selected Category?</h3>
+                <h4>This step has no return back</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" ng-click="removeCategory(CategoryId)" class="btn btn-default" data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include=" 'treeLevel.html' "
+     ng-click="getItems(item)"
+     onload="items = sourceItems">
+</div>
+
+<pre> {{sourceItems | json}}
+</pre>

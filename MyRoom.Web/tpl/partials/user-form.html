@@ -1,0 +1,38 @@
+﻿<div class="wrapper-md" ng-controller="UsersController">
+    <!-- toaster directive -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <!-- / toaster directive -->
+    <div class="col-md-8 column">
+        <tabset class="tab-container" ng-init="steps={percent:0, step1:true, step2:false}">
+            <tab heading="User" active="steps.step1"> 
+                <form name="step1" class="form-horizontal form-validation ng-valid-email ng-invalid ng-invalid-required ng-valid-url ng-valid-validator ng-valid-blacklist ng-dirty ng-valid-parse ng-invalid-pattern" >                 
+                    <p class="m-t">Name:</p>
+                    <input type="text" name="Name" class="form-control" ng-model="account.Name" placeholder="Please enter a Name" required >
+
+                    <p class="m-t">Surname:</p>
+                    <input type="text" name="Surname" class="m-t form-control" ng-model="account.Surname" placeholder="Please enter a Surname" required >
+
+                    <p class="m-t">Email</p>
+                    <input rows="4" cols="68" type="email" name="Email" placeholder="Please enter a email" class="form-control" ng-model="account.Email" required >
+
+                    <p class="m-t">Password</p>
+                    <input rows="4" cols="68" type="password" name="Password" placeholder="Please enter a password" class="form-control" ng-model="account.Password" required  ng-required="state.current.name=='app.page.user_create'">
+                    
+                    <p class="m-t">Confirm Password</p>
+                   <!-- <input rows="4" cols="68" type="password" name="userConnfirmPassword" placeholder="Please enter a password" class="form-control" ng-model="ConfirmPassword" ui-validate=" '$value==userPassword' " ui-validate-watch=" 'userPassword'" required ng-change=" step1.userPassword.$valid ? (steps.percent=30) : (steps.percent=20)">-->
+                    <input type="password" class="form-control ng-pristine ng-invalid ng-invalid-required ng-invalid-validator ng-touched" placeholder="Please enter a confirm password" name="confirm_password" required ng-required="state.current.name=='app.page.user_create'" ng-model="account.ConfirmPassword" ui-validate=" '$value==account.Password' " ui-validate-watch=" 'account.Password' " >
+                    
+                    <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="account.Active" ng-checked="true" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Active?
+                        </label>
+                    </div>
+
+                    <div class="m-t m-b">
+                        <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="saveUser()">Save To Finish</button>
+                    </div>
+                </form>
+            </tab>
+        </tabset>
+    </div>
+</div>
