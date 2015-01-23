@@ -37,7 +37,7 @@ namespace MyRoom.Data.Repositories
 
         internal Category GetCategoriesChildren(int categoryId)
         {
-            List<Category> categories = this.Context.Categories.Where(c => c.CategoryItem == categoryId && c.Active == true).ToList();
+            List<Category> categories = this.Context.Categories.Include("Translation").Where(c => c.CategoryItem == categoryId && c.Active == true).ToList();
 
             Category category = null;
             Category nextChild = null;
