@@ -9,6 +9,7 @@ using MyRoom.Data;
 using MyRoom.Data.Repositories;
 using System.IO;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace MyRoom.API.Controllers
 {
@@ -18,7 +19,7 @@ namespace MyRoom.API.Controllers
         CatalogRepository catalogRepository = new CatalogRepository(new MyRoomDbContext());
 
         // GET: api/Catalogues
-        public IHttpActionResult  GetCatalogues()
+        public IHttpActionResult GetCatalogues()
         {
             return Ok(catalogRepository.GetAll());
         }
@@ -89,40 +90,49 @@ namespace MyRoom.API.Controllers
 
             try
             {
-                await catalogRepository.InsertAsync(catalog);
+                catalogRepository.Insert(catalog);
                 int catalogid = catalog.CatalogId;
+
                 this.CreateStructureDirectories(catalogid);
+                return Ok("The catalog has been inserted");
+
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception(ex.Message);
             }
-            return Ok(catalog);
         }
 
 
         private void CreateStructureDirectories(int catalogid)
         {
+
             string uploadFolder = ConfigurationManager.AppSettings["UploadImages"];
-            //string directoryCatalog = string.Format( HttpContext.Current.Server.MapPath("images/{0}"), catalogid);
 
             try
             {
-                Directory.CreateDirectory(uploadFolder);
-                if (Directory.Exists(uploadFolder))
-                {
-                    uploadFolder = string.Format("{0}\\{1}", uploadFolder, catalogid);
-                    string[] directories = new string[] {
-                        uploadFolder  + "\\modules",
-                        uploadFolder + "\\categories",
-                        uploadFolder + "\\products",
-                        uploadFolder + "\\moreinfo"            
-                    };
-                    for (int n = 0; n < directories.Length; n++)
-                    {
-                        Directory.CreateDirectory(directories[n]);
-                    }
+
+                uploadFolder = System.Web.HttpContext.Current.Server.MapPath(uploadFolder);
+
+                if (!Directory.Exists(uploadFolder))
+                { 
+                    Directory.CreateDirectory(uploadFolder);
                 }
+
+             
+                uploadFolder = string.Format("{0}\\{1}", uploadFolder, catalogid);
+             
+                string[] directories = new string[] {
+                                uploadFolder  + "\\modules",
+                                uploadFolder + "\\categories",
+                                uploadFolder + "\\products",
+                                uploadFolder + "\\moreinfo"            
+                            };
+                for (int n = 0; n < directories.Length; n++)
+                {
+                    Directory.CreateDirectory(directories[n]);
+                }
+                
             }
             catch (Exception ex)
             {
@@ -130,7 +140,7 @@ namespace MyRoom.API.Controllers
             }
         }
         // DELETE: api/Catalogues/5
-         [Route("{key}")]
+        [Route("{key}")]
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteCatalogues(int key)
         {
