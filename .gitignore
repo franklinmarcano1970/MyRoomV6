@@ -16,3 +16,8 @@ MyRoom.API/MyRoom.API.csproj.user
 *.user
 MyRoom.API/MyRoom.API.csproj.user
 MyRoom.API/obj/*
+*.dll
+MyRoom.API/bin/*
+MyRoom.API/obj/*
+MyRoom.API/obj/Debug/*
+*.cache
