@@ -145,7 +145,15 @@ app.controller('UsersListController', ['$scope', '$http', '$state', 'accountServ
         $scope.createUser = function () {
             $state.go('app.page.user_create');
         }
-
+        $scope.clickMenuAccess = function () {
+            $state.go('app.page.usermenuaccess');
+        }
+        $scope.clickHotelAccess = function () {
+            $state.go('app.page.userhotel');
+        }
+        $scope.clickCatalogAccess = function () {
+            $state.go('app.page.usercatalog');
+        }
         $scope.modifyUser = function (id) {
             $scope.currentUsers.Id = id;
             $state.go('app.page.user_edit', { "id": id});

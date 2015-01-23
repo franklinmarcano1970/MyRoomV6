@@ -532,8 +532,7 @@ angular.module('app')
               })
               .state('app.page.hotel_assignProducts', {
                   url: '/hotels/assignProducts',
-                  templateUrl: 'tpl/page_hotel_assignproducts.html',
-                  controller: 'HotelsController',                
+                  templateUrl: 'tpl/page_hotel_assignproducts.html',             
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
