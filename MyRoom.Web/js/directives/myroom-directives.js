@@ -491,6 +491,11 @@
                   //Cargo la estructura compleja del catalogo
                   $scope.loadTreeCatalog = function (id)
                   {
+                      if (!$scope.cata) {
+                          $scope.items = {};
+                          $scope.sourceItems = {};
+                          return;
+                      }
                       $scope.items = {};
                       $scope.sourceItems = {};
                       catalogService.getCatalogComplex(id).then(function (response) {
