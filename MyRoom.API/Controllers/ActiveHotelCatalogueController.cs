@@ -18,7 +18,7 @@ using MyRoom.Data;
 namespace MyRoom.API.Controllers
 {
 
-    public class ActiveHotelCatalogueController : ODataController
+    public class ActiveHotelCatalogueController : ApiController
     {
         private MyRoomDbContext db = new MyRoomDbContext();
 

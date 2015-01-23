@@ -230,6 +230,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         }
         $scope.IsNew = true;
         $scope.initTabsets();
+        $scope.module = { Active: true, Pending: true, IsFinal: true };
     };
     $scope.pop = function () {
         toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);

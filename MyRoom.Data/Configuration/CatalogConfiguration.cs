@@ -20,6 +20,13 @@ namespace MyRoom.Data.Configuration
 
             this.Property(e => e.Comment)
                 .IsUnicode(false);
+
+
+            this.HasMany(e => e.HotelCatalogues)
+                .WithRequired(e => e.Catalog)
+                .HasForeignKey(e => e.IdCatalogue)
+                .WillCascadeOnDelete(true);
+
         }
     }
 }

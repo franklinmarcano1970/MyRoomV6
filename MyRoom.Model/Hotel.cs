@@ -13,13 +13,14 @@ namespace MyRoom.Model
     {
         public Hotel()
         {
-     //       ActiveHotelCatalogue = new HashSet<ActiveHotelCatalogue>();
+            HotelCatalogues = new HashSet<ActiveHotelCatalogue>();
             //ActiveHotelCategory = new HashSet<ActiveHotelCategory>();
             //ActiveHotelModule = new HashSet<ActiveHotelModule>();
             //ActiveHotelProduct = new HashSet<ActiveHotelProduct>();
             Users = new HashSet<ApplicationUser>();
-        }
+        }       
 
+        [Key]
         [Column("Id")]
         public int HotelId { get; set; }
 
@@ -33,7 +34,7 @@ namespace MyRoom.Model
 
         public bool Active { get; set; }
 
-       // public virtual ICollection<ActiveHotelCatalogue> ActiveHotelCatalogue { get; set; }
+        public  virtual ICollection<ActiveHotelCatalogue> HotelCatalogues { get; set; }
 
         //public virtual ICollection<ActiveHotelCategory> ActiveHotelCategory { get; set; }
 

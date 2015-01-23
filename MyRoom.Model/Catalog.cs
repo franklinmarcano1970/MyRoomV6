@@ -11,7 +11,7 @@ namespace MyRoom.Model
     {
         public Catalog()
         {
-            ActiveHotelCatalogue = new HashSet<ActiveHotelCatalogue>();
+            HotelCatalogues = new HashSet<ActiveHotelCatalogue>();
     //        RelCatalogueModule = new HashSet<RelCatalogueModule>();
             RelUserCatalogue = new HashSet<RelUserCatalogue>();
         }
@@ -38,11 +38,12 @@ namespace MyRoom.Model
         public ICollection<Module> Modules { get; set; }
 
 
-        public  ICollection<ActiveHotelCatalogue> ActiveHotelCatalogue { get; set; }
+       // public  ICollection<ActiveHotelCatalogue> ActiveHotelCatalogue { get; set; }
 
         public Translation Translation { get; set; }
 
         //public  ICollection<RelCatalogueModule> RelCatalogueModule { get; set; }
+        public virtual ICollection<ActiveHotelCatalogue> HotelCatalogues { get; set; }
 
         public  ICollection<RelUserCatalogue> RelUserCatalogue { get; set; }
     }

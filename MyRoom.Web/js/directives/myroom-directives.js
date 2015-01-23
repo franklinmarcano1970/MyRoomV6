@@ -154,19 +154,21 @@
                   };
 
                   $scope.hotel = {};
-                  $scope.selectActionHotel = function (id)
+                  $scope.selectActionHotel = function ()
                   {
+                      debugger
                       //http://localhost:49698/odata/ActiveHotelCatalogue?$filter=IdHotel%20eq%201
-                      hotelService.getHotelCatalogId(id).then(function (response) {
+                      hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
+                          debugger
                           var IdCatalog = response.data.value[0].IdCatalogue;
                           $scope.loadHotelTreeCatalog(IdCatalog);
                       });
                   }
                   hotelService.getAll().then(function (response) {
-                      $scope.hotel = response.data.value;
+                      $scope.hotel = response.data;
                       $scope.hotels = [$scope.hotel.length]
                       angular.forEach($scope.hotel, function (value, key) {
-                          $scope.hotels[key] = { Id: value.Id, Name: value.Name };
+                          $scope.hotels[key] = { Id: value.HotelId, Name: value.Name };
                       });
                   },
                   function (err) {

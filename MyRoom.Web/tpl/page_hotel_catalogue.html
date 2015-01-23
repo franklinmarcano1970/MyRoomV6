@@ -4,84 +4,83 @@
 <div class="wrapper-md" ng-controller="HotelsTreeController">
     <div class="row clearfix">
         <div class="col-md-12 column">
-            <div class="row clearfix">
-                <div class="col-md-6 column">
-                    <div class="panel panel-default shadow">
-                        <div class="panel-body">
-                            <div class="row clearfix">
-                                <div class="col-md-6 column">
-                                    <h4>HOTEL LIST</h4>
-                                </div>
-                                <div class="col-md-6 column">
-                                    <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="deactiveCatalog()"><i class="fa fa-plus"></i>DEACTIVE</button>
-                                </div>
+
+            <div class="col-md-6 column">
+                <div class="panel panel-default shadow">
+                    <div class="panel-body">
+                        <div class="row clearfix">
+                            <div class="col-md-6 column">
+                                <h4>HOTEL LIST</h4>
                             </div>
-                            <hr />
-                            <div class="b-a bg-light dk r r-2x">
-                                <span ng-if="doing_async">...loading...</span>
-                                <abn-tree tree-data="my_data"
-                                          tree-control="my_tree"
-                                          on-select="my_tree_handler(branch)"
-                                          expand-level="2"
-                                          initial-selection=""
-                                          icon-leaf="fa fa-file-o"
-                                          icon-expand="fa fa-plus"
-                                          icon-collapse="fa fa-minus">
+                            <div class="col-md-6 column">
+                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="deactiveCatalog()"><i class="fa fa-plus"></i>DEACTIVE</button>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="b-a bg-light dk r r-2x">
+                            <span ng-if="doing_async">...loading...</span>
+                            <abn-tree tree-data="my_data"
+                                tree-control="my_tree"
+                                on-select="my_tree_handler(branch)"
+                                expand-level="2"
+                                initial-selection=""
+                                icon-leaf="fa fa-file-o"
+                                icon-expand="fa fa-plus"
+                                icon-collapse="fa fa-minus">
                                 </abn-tree>
-                            </div>
-                            <hr />
-                            <div class="row clearfix">
-                                <div class="col-md-12 column">
-                                    <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="deactiveCatalog()"><i class="fa fa-plus"></i>DEACTIVE</button>
-                                </div>
+                        </div>
+                        <hr />
+                        <div class="row clearfix">
+                            <div class="col-md-12 column">
+                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="deactiveCatalog()"><i class="fa fa-plus"></i>DEACTIVE</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="wrapper-md">
-                    <div class="col-md-6 column">
-                        <div class="panel panel-default shadow">
-                            <div class="panel-body">
-                                <div class="row clearfix">
-                                    <div class="col-md-6 column">
-                                        <h4>CATALOGUES LIST</h4>
-                                    </div>
-                                    <div class="col-md-6 column">
-                                        <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>ACTIVE</button>
-                                    </div>
-                                </div>
-                                <hr />
+            </div>
 
-                                <div class="table-responsive">
-                                    <input type="hidden" ng-model="Id" />
-                                    <table ui-jq="dataTable" ui-options="" class="table table-striped m-b-none">
-                                        <thead>
-                                            <tr>
-                                                <th>...</th>
-                                                <th>Catalog Name</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="catalog in catalogues">
-                                                <td>
-                                                    <button class="btn-link" ng-click="getCatalog(catalog.Id)">
-                                                        <span class="glyphicon glyphicon-ok-circle"></span>
-                                                    </button>
-                                                </td>
-                                                <td>{{ catalog.Name }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                                <div class="col-md-12 column">
-                                    <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>ACTIVE</button>
-                                </div>
+            <div class="col-md-6 column">
+                <div class="panel panel-default shadow">
+                    <div class="panel-body">
+                        <div class="row clearfix">
+                            <div class="col-md-6 column">
+                                <h4>CATALOGUES LIST</h4>
                             </div>
+                            <div class="col-md-6 column">
+                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>ACTIVE</button>
+                            </div>
+                        </div>
+                        <hr />
+
+                        <div class="table-responsive">
+                            <input type="hidden" ng-model="Id" />
+                            <table ui-jq="dataTable" ui-options="" class="table table-striped m-b-none">
+                                <thead>
+                                    <tr>
+                                        <th>...</th>
+                                        <th>Catalog Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="catalog in catalogues">
+                                        <td>
+                                            <button class="btn-link" ng-click="getCatalog(catalog.Id)">
+                                                <span class="glyphicon glyphicon-ok-circle"></span>
+                                            </button>
+                                        </td>
+                                        <td>{{ catalog.Name }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="col-md-12 column">
+                            <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>ACTIVE</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 

@@ -27,7 +27,7 @@ namespace MyRoom.Data
         public DbSet<Client> Clients { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
-        public virtual DbSet<ActiveHotelCatalogue> ActiveHotelCatalogue { get; set; }
+        public virtual DbSet<ActiveHotelCatalogue> HotelCatalogues { get; set; }
         public virtual DbSet<ActiveHotelCategory> ActiveHotelCategory { get; set; }
         public virtual DbSet<ActiveHotelModule> ActiveHotelModule { get; set; }
         public virtual DbSet<ActiveHotelProduct> ActiveHotelProduct { get; set; }
@@ -39,8 +39,8 @@ namespace MyRoom.Data
         public virtual DbSet<MenuAccess> MenuAccess { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-     //   public virtual DbSet<RelCatalogueModule> RelCatalogueModule { get; set; }
-     //   public virtual DbSet<RelCategoryProduct> RelCategoryProduct { get; set; }
+        //   public virtual DbSet<RelCatalogueModule> RelCatalogueModule { get; set; }
+        //   public virtual DbSet<RelCategoryProduct> RelCategoryProduct { get; set; }
         //public virtual DbSet<RelModuleCategory> RelModuleCategory { get; set; }
         //public virtual DbSet<RelUserAccess> RelUserAccess { get; set; }
         public virtual DbSet<RelUserCatalogue> RelUserCatalogue { get; set; }
@@ -60,12 +60,15 @@ namespace MyRoom.Data
             modelBuilder.Configurations.Add(new MenuAccessConfiguration());
             modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
             modelBuilder.Configurations.Add(new ProductsConfiguration());
-         //   modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
+            modelBuilder.Configurations.Add(new HotelConfiguration());
+
+
+            //   modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
 
 
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id).Property(p => p.Name).IsRequired();
             modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
-            modelBuilder.Entity<IdentityUserLogin>().HasKey(u => new { u.UserId, u.LoginProvider, u.ProviderKey });         
+            modelBuilder.Entity<IdentityUserLogin>().HasKey(u => new { u.UserId, u.LoginProvider, u.ProviderKey });
 
             //modelBuilder.Entity<User>()
             //    .HasMany(e => e.RelUserCatalogue)
@@ -73,7 +76,7 @@ namespace MyRoom.Data
             //    .HasForeignKey(e => e.IdUser)
             //    .WillCascadeOnDelete(false);
 
-        
+
             //modelBuilder.Entity<User>()
             //    .HasMany(e => e.RelUserHotel)
             //    .WithRequired(e => e.User)
@@ -147,13 +150,13 @@ namespace MyRoom.Data
             //    .HasForeignKey(e => e.IdCategory)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Hotel>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Hotel>()
+            //    .Property(e => e.Name)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Hotel>()
-                .Property(e => e.Image)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Hotel>()
+            //    .Property(e => e.Image)
+            //    .IsUnicode(false);
 
             //modelBuilder.Entity<Hotel>()
             //    .HasMany(e => e.ActiveHotelCatalogue)
@@ -353,8 +356,7 @@ namespace MyRoom.Data
             //    .HasMany(e => e.Products1)
             //    .WithOptional(e => e.Translation1)
             //    .HasForeignKey(e => e.IdTranslationDescription);
-            
-            base.OnModelCreating(modelBuilder);
+
 
         }
     }

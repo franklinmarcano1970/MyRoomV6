@@ -46,6 +46,16 @@ namespace MyRoom.API.Controllers
             //return hotelRepository.Context.Hotels.Where(hotels => hotels.Id == key);//.Include(hotels => hotels.Translation).ToList();//.Select(hotels => hotels.Translation);//.Select(hotels => hotels.Translation));
         }
 
+        // GET: api/hotels/catalog/5
+        [Route("catalog/{key}")]
+        [HttpGet]        
+        public IHttpActionResult GetCatalogActives(int key)
+        {
+            List<ActiveHotelCatalogue> catalogues = hotelRepository.GetHotelCatalogActives(key);
+            return Ok(catalogues);
+        }
+
+
         // PUT: api/Hotels
         public async Task<IHttpActionResult> PutHotels(Hotel hotel)
         {
