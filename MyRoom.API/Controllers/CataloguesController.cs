@@ -1,23 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using System.Web.Http.OData;
-using System.Web.Http.OData.Routing;
 using MyRoom.Model;
-using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
 using System.IO;
-using System.Security.AccessControl;
-using System.Web;
 using System.Configuration;
 
 namespace MyRoom.API.Controllers
@@ -25,26 +15,26 @@ namespace MyRoom.API.Controllers
     [RoutePrefix("api/catalogues")]
     public class CataloguesController : ApiController
     {
-        CatalogRepository _genericRepository = new CatalogRepository(new MyRoomDbContext());
+        CatalogRepository catalogRepository = new CatalogRepository(new MyRoomDbContext());
 
         // GET: api/Catalogues
-        public IQueryable<Catalog> GetCatalogues()
+        public IHttpActionResult  GetCatalogues()
         {
-            return _genericRepository.GetAll();
+            return Ok(catalogRepository.GetAll());
         }
 
         [Route("{key}")]
         [HttpGet]
         public string GetCatalogues(int key)
         {
-            return _genericRepository.GetStructureComplete(key);
+            return catalogRepository.GetStructureComplete(key);
         }
 
         [Route("catalogbyid/{key}")]
         [HttpGet]
         public string GetCatalogueById(int key)
         {
-            return  _genericRepository.GetCatalogueById(key);
+            return catalogRepository.GetCatalogueById(key);
 
         }
         // GET: odata/Catalogues(5)
@@ -68,7 +58,7 @@ namespace MyRoom.API.Controllers
 
             try
             {
-                await _genericRepository.EditAsync(catalog);
+                await catalogRepository.EditAsync(catalog);
             }
             catch (Exception ex)
             {
@@ -99,7 +89,7 @@ namespace MyRoom.API.Controllers
 
             try
             {
-                await _genericRepository.InsertAsync(catalog);
+                await catalogRepository.InsertAsync(catalog);
                 int catalogid = catalog.CatalogId;
                 this.CreateStructureDirectories(catalogid);
             }
@@ -144,13 +134,13 @@ namespace MyRoom.API.Controllers
         [HttpDelete]
         public async Task<IHttpActionResult> DeleteCatalogues(int key)
         {
-            Catalog catalog = await _genericRepository.GetByIdAsync(key);
+            Catalog catalog = await catalogRepository.GetByIdAsync(key);
             if (catalog == null)
             {
                 return NotFound();
             }
 
-            await _genericRepository.DeleteAsync(catalog);
+            await catalogRepository.DeleteAsync(catalog);
 
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -197,14 +187,14 @@ namespace MyRoom.API.Controllers
         {
             if (disposing)
             {
-                _genericRepository.Dispose();
+                catalogRepository.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool CataloguesExists(int key)
         {
-            return _genericRepository.Context.Catalogues.Count(e => e.CatalogId == key) > 0;
+            return catalogRepository.Context.Catalogues.Count(e => e.CatalogId == key) > 0;
         }
     }
 }

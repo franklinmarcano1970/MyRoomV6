@@ -607,21 +607,24 @@ angular.module('app')
                   templateUrl: 'tpl/page_hotel_catalogue.html',
                   resolve: {
                       deps: ['$ocLazyLoad',
-                        function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('angularBootstrapNavTree').then(
-                                function () {
-                                    return $ocLazyLoad.load(
-                                        {
-                                            files: ['js/controllers/hotels.js',
-                                                'js/controllers/hotelsTree.js'
-                                            ]
-                                        });
 
-                                }
-
-                            );
-                        }
-                      ]
+                            function ($ocLazyLoad) {
+                                return $ocLazyLoad.load('toaster').then(
+                                  function () {                                   
+                                        return $ocLazyLoad.load('datatables').then(
+                                            function () {
+                                                return $ocLazyLoad.load(
+                                                        {
+                                                            files: [                                                          
+                                                                'js/controllers/hotelscatalogues.js'
+                                                            ]
+                                                        }
+                                                )
+                                            });                                          
+                                  });
+                            }]
+                   
+                      
                   }
               })
               .state('app.page.catalogue_create', {

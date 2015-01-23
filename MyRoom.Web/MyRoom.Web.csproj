@@ -98,6 +98,7 @@
     <Content Include="js\app\mail\mails.json" />
     <Content Include="js\app\note\notes.json" />
     <Content Include="js\controllers\catalogues.js" />
+    <Content Include="js\controllers\hotelscatalogues.js" />
     <Content Include="js\controllers\hotels.js" />
     <Content Include="js\controllers\categories.js" />
     <Content Include="js\controllers\hotelsTree.js" />

@@ -1,13 +1,15 @@
 ﻿<div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3">Assign Catalogues to Hotel</h1>
 </div>
-<div class="wrapper-md" ng-controller="HotelsTreeController">
+<div class="wrapper-md" ng-controller="HotelsCataloguesController">
     <div class="row clearfix">
         <div class="col-md-12 column">
 
             <div class="col-md-6 column">
                 <div class="panel panel-default shadow">
                     <div class="panel-body">
+
+
                         <div class="row clearfix">
                             <div class="col-md-6 column">
                                 <h4>HOTEL LIST</h4>
@@ -52,28 +54,27 @@
                         </div>
                         <hr />
 
-                        <div class="table-responsive">
-                            <input type="hidden" ng-model="Id" />
-                            <table ui-jq="dataTable" ui-options="" class="table table-striped m-b-none">
+                         <div class="table-responsive">
+                            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped m-b-none">
                                 <thead>
                                     <tr>
-                                        <th>...</th>
-                                        <th>Catalog Name</th>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="catalog in catalogues">
-                                        <td>
-                                            <button class="btn-link" ng-click="getCatalog(catalog.Id)">
-                                                <span class="glyphicon glyphicon-ok-circle"></span>
-                                            </button>
-                                        </td>
+                                        <td><span class="badge bg-info">{{ catalog.CatalogId }}</span></td>
                                         <td>{{ catalog.Name }}</td>
+                                        <td><label class="i-checks m-b-none"><input type="checkbox" ng-model="catalog.checked" ng-checked="catalog.checked"  name="post[]" value="{{ catalog.Id }}"><i></i></label></td>
                                     </tr>
                                 </tbody>
                             </table>
-
+                            <hr>
                         </div>
+                     
+
                         <div class="col-md-12 column">
                             <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>ACTIVE</button>
                         </div>
