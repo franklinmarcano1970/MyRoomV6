@@ -234,10 +234,8 @@
                           $scope.catalogComplex = JSON.parse(response.data);
                           $scope.Modules = {};
                           /////////////////////////
-                          $scope.Modules = $scope.catalogComplex[0].Modules;
-                          
+                          $scope.Modules = $scope.catalogComplex[0].Modules;                          
                           angular.forEach($scope.Modules, function (valueModule, keyModule) {
-                              debugger
                               $scope.sourceItems[keyModule] = {
                                   text: valueModule.Name,
                                   Prefix: valueModule.Prefix,
@@ -290,6 +288,8 @@
                       });
 
                       function createSubCategories(branch, keyCategory, sourceitems) {
+                          if (branch == null)
+                              return sourceitems;
 
                           sourceitems.children = {};
                           //angular.forEach(branch, function (valueCategory, keyCategory) {
@@ -378,8 +378,8 @@
 
 
                   };
-                  $scope.modifyItems = function (item)
-                  {
+                  $scope.modifyItems = function (item, obj)
+                  {                     
                       $scope.IsNew = false;
                       if (item.type == "module") {
                          
@@ -418,6 +418,8 @@
                               Image: item.Image,
                               Orden: item.Orden,
                               IsFirst: item.IsFirst,
+                              IdParentCategory: item.IdParentCategory,
+                              CategoryItem: item.CategoryItem,
                               Comment: item.Comment,
                               Pending: item.Pending,
                               IsFinal: item.IsFinal,
@@ -436,7 +438,11 @@
 
                               }
                           };
+                   
+                          //$scope.category.categoryItem = obj.$parent.item.CategoryItem;
+                          //$scope.category.IdParentCategory = obj.$parent.item.Id;
 
+                          //$scope.category = { IsFirst: $scope.category.IsFirst, Active: true, Pending: true, IsFinal: true };
                           $scope.showTabsetCategory = true;
                           $scope.showTabsetModule = false;
                       }
@@ -477,8 +483,7 @@
                       while (obj.item.type != 'module')
                       {
                           $scope.categoryItem = obj.item.Id;
-                          obj = obj.$parent;
-                        
+                          obj = obj.$parent;                        
                       }
                       $scope.category = {IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory,  CategoryItem : $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
                   }
@@ -561,6 +566,7 @@
                                 $scope.Category = $scope.Modules[keyModule].Categories;
                                 $scope.sourceItems[keyModule].children = {};
                                 angular.forEach($scope.Category, function (valueCategory, keyCategory) {
+                                    
                                     $scope.sourceItems[keyModule].children[keyCategory] = {
                                         text: valueCategory.Name,
                                         type: "category",
@@ -568,6 +574,8 @@
                                         IdTranslationName: valueCategory.IdTranslationName,
                                         Name: valueCategory.Name,
                                         Image: valueCategory.Image,
+                                        IdParentCategory: valueCategory.IdParentCategory,
+                                        CategoryItem: valueCategory.CategoryItem,
                                         Orden: valueCategory.Orden,
                                         Comment: valueCategory.Comment,
                                         Pending: valueCategory.Pending,
@@ -577,7 +585,7 @@
                                         Translation: valueCategory.Translation
 
                                     };
-                                    debugger
+
                                     $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
                                 });
                                 
@@ -593,7 +601,9 @@
                       });
 
                       function createSubCategories(branch, keyCategory, sourceitems) {
-                        
+                          if (branch == null)
+                              return sourceitems;
+
                           sourceitems.children = {};
                           //angular.forEach(branch, function (valueCategory, keyCategory) {
                           sourceitems.children[keyCategory] = {
@@ -605,6 +615,8 @@
                               Image: branch.Image,
                               Orden: branch.Orden,
                               Comment: branch.Comment,
+                              IdParentCategory: branch.IdParentCategory,
+                              CategoryItem: branch.CategoryItem,
                               Pending: branch.Pending,
                               IsFirst: branch.IsFirst,
                               IsFinal: branch.IsFinal,
@@ -614,14 +626,8 @@
                               Translation: branch.Translation
                           };
 
-                          //if (branch[keyCategory+1].CategoryChildren !== undefined) {
-                          //    keyCategory++;
-                          //}
-
-                          debugger
                           if (branch.CategoryChildren == null)
                               return sourceitems;
-
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
                    
 

@@ -17,7 +17,7 @@ app.controller('AssignProductCataloguesController', ['$scope', '$http', '$state'
     }
     $scope.getAllProduct = function () {
         productService.getAll().then(function (response) {
-            $scope.products = response.data.value;
+            $scope.products = response.data;
             $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
             $scope.dtColumnDefs = [
                 DTColumnDefBuilder.newColumnDef('Id'),

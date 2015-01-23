@@ -99,7 +99,7 @@ namespace MyRoom.API.Controllers
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw ex;
             }
         }
 
@@ -134,7 +134,7 @@ namespace MyRoom.API.Controllers
                 }
                 
             }
-            catch (Exception ex)
+            catch (DirectoryNotFoundException ex)
             {
                 throw ex;
             }

@@ -13,7 +13,7 @@
                 <button class="btn btn-success m-b-xs" dropdown-toggle="" aria-haspopup="true" aria-expanded="true">Action <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                     <li ng-show="disableListItem(item)"><a href="" ng-click="addItems(item, this)"><i class="fa fa-plus"></i>New {{item.nextsibling | capitalize }}</a></li>
-                    <li><a href="" ng-click="modifyItems(item)"><i class="fa fa-trash-o"></i> Modify {{item.type | capitalize }}</a></li>
+                    <li><a href="" ng-click="modifyItems(item, this)"><i class="fa fa-trash-o"></i> Modify {{item.type | capitalize }}</a></li>
                     <li><a href="" ng-click="deleteItems(item)"><i class="fa fa-trash-o"></i> Delete {{item.type | capitalize }}</a></li>
                     <!--<li><a href="" ng-click="getItems(item)"><i class="fa fa-trash-o"></i> Select {{item.nextsibling | capitalize }}</a></li>-->
                 </ul>
