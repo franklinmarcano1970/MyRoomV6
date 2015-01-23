@@ -37,13 +37,14 @@ namespace MyRoom.Data.Repositories
 
         internal Category GetCategoriesChildren(int categoryId)
         {
-            List<Category> categories = this.Context.Categories.Where(c => c.CategoryItem == categoryId).ToList();
+            List<Category> categories = this.Context.Categories.Where(c => c.CategoryItem == categoryId && c.Active==true).ToList();
  
             Category category = null;
             Category nextChild = null;
             int index= 0;
             foreach(Category c in categories)
             {
+
                 if (c.IdParentCategory == categoryId)
                 {
                     if (category == null)
@@ -55,7 +56,7 @@ namespace MyRoom.Data.Repositories
                         nextChild = category.CategoryChildren;
                     }
                     else
-                    {                        
+                    {
                         nextChild.Active = c.Active;
                         nextChild.Name = c.Name;
                         nextChild.CategoryId = c.CategoryId;
@@ -77,14 +78,37 @@ namespace MyRoom.Data.Repositories
                             nextChild.CategoryChildren = new Category();
                         nextChild = nextChild.CategoryChildren;
                     }
-                    categoryId = c.CategoryId;
-                    index++;
-                    //nextChild.CategoryChildren.CategoryChildren = new Category();
-                  
-                
-                                                
+                 
+                    //nextChild.CategoryChildren.CategoryChildren = new Category();                                                
                 }
+                else
+                {
+                    nextChild.Active = c.Active;
+                    nextChild.Name = c.Name;
+                    nextChild.CategoryId = c.CategoryId;
+                    nextChild.CategoryItem = c.CategoryItem;
+                    nextChild.Comment = c.Comment;
+                    nextChild.IdParentCategory = c.IdParentCategory;
+                    nextChild.IdTranslationName = c.IdTranslationName;
+                    nextChild.Image = c.Image;
+                    nextChild.IsFinal = c.IsFinal;
+                    nextChild.IsFirst = c.IsFirst;
+                    nextChild.Orden = c.Orden;
+                    nextChild.Pending = c.Pending;
+                    nextChild.Prefix = c.Prefix;
+                    nextChild.Translation = c.Translation;
+                    nextChild.Modules = c.Modules;
+                    nextChild.ActiveHotelCategory = c.ActiveHotelCategory;
+
+                    if (index != categories.Count() - 1)
+                        nextChild.CategoryChildren = new Category();
+                    nextChild = nextChild.CategoryChildren;
+                
+                }
+                categoryId = c.CategoryId;
+                index++;
             }
+
 
             return category;
         }

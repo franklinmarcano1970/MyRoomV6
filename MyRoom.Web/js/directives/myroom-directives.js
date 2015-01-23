@@ -12,7 +12,6 @@
                   
                   $scope.selectActionUser = function (id) {
                       $scope.IdUser = id;
-                      debugger
                       if ($state.current.name == 'app.page.userhotel') {
                           for (i = 0; i < $scope.hotels.length; i++)
                               $scope.hotels[i].checked = false;
@@ -377,7 +376,6 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       } else {
-                          debugger
                           $scope.category = {
                               CategoryId: item.Id,
                               IdTranslationName: item.IdTranslationName,
@@ -441,7 +439,7 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       }
-                      debugger
+                      
                       while (obj.item.type != 'module')
                       {
                           $scope.categoryItem = obj.item.Id;
@@ -501,7 +499,6 @@
                           $scope.catalogComplex = JSON.parse(response.data);
                           $scope.Modules = {};
                           /////////////////////////
-
                           $scope.Modules = $scope.catalogComplex[0].Modules;
                          
                           angular.forEach($scope.Modules, function (valueModule, keyModule) {
@@ -541,7 +538,7 @@
                                         Translation: valueCategory.Translation
 
                                     };
-                                    $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[0].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
+                                   $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[0].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
                                 });
                                 
 
@@ -556,7 +553,7 @@
                       });
 
                       function createSubCategories(branch, keyCategory, sourceitems) {
-                          
+                        
                           sourceitems.children = {};
                           //angular.forEach(branch, function (valueCategory, keyCategory) {
                           sourceitems.children[keyCategory] = {
@@ -580,9 +577,9 @@
                           //if (branch[keyCategory+1].CategoryChildren !== undefined) {
                           //    keyCategory++;
                           //}
+                          
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
-
-                          //});
+                   
 
                       }
                       // $scope.catalog = cata;

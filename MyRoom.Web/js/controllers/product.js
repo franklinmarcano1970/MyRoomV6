@@ -40,18 +40,10 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         productService.getProduct($state.params['id']).then(function (response) {
             $scope.product = JSON.parse(response.data);
             productService.getAll().then(function (response) {
-                //for (var i = 0; i < response.data.length; i++) {
-                //    if ($scope.product.Id == response.data[i].Id) {
-                //        //remove equal product
-                        
-                //        //response.data = response.data.splice(response.data[i].Id, 1);
-                //    }
-                //}
+                $scope.products = response.data.filter(function (e) {
+                   return e.Id !== $scope.product.Id;
+                });
 
-          
-
-
-                $scope.products = response.data;
                 for (var j = 0 ; j < $scope.product.RelatedProducts.length; j++) {
                     for (var i = 0 ; i < $scope.products.length; i++) {
                         if ($scope.products[i].Id == $scope.product.RelatedProducts[j].IdRelatedProduct) {

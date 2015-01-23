@@ -29,7 +29,7 @@ namespace MyRoom.Data.Repositories
                                  .Include("Modules.Categories")
                                  .Include("Modules.Categories.Translation")
                                  .Include("Modules.Categories.Products")
-                             where c.CatalogId == id
+                             where c.CatalogId == id && c.Active == true
                              select c;
             var cata = catalogues.ToList();
 
