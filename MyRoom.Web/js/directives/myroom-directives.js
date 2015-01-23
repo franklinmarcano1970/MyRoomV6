@@ -538,7 +538,8 @@
                                         Translation: valueCategory.Translation
 
                                     };
-                                   $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[0].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
+                                    debugger
+                                    $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
                                 });
                                 
 
@@ -579,8 +580,8 @@
                           //}
 
                           debugger
-                          if (branch == null)
-                              return;
+                          if (branch.CategoryChildren == null)
+                              return sourceitems;
 
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
                    
