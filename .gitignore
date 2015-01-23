@@ -15,3 +15,4 @@ MyRoom.v11.suo
 MyRoom.API/MyRoom.API.csproj.user
 *.user
 MyRoom.API/MyRoom.API.csproj.user
+MyRoom.API/obj/*
