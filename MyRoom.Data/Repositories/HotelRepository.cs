@@ -38,5 +38,10 @@ namespace MyRoom.Data.Repositories
 
         }
         public MyRoomDbContext Context { get; private set; }
+
+        public List<ActiveHotelCatalogue> GetHotelCatalogActives(int hotelId)
+        {
+            return this.Context.HotelCatalogues.Where(c=>c.IdHotel == hotelId && c.Active).ToList();
+        }
     }
 }
