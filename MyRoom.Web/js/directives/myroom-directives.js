@@ -577,7 +577,10 @@
                           //if (branch[keyCategory+1].CategoryChildren !== undefined) {
                           //    keyCategory++;
                           //}
-                          
+
+                          debugger
+                          if (branch == null)
+                              return;
 
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
                    
