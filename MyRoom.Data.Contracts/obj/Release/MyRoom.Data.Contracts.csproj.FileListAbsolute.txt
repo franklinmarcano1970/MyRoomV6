@@ -1,9 +1,0 @@
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\bin\MyRoom.Data.Contracts.dll
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\bin\MyRoom.Data.Contracts.pdb
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\bin\MyRoom.dll
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\bin\Newtonsoft.Json.dll
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\bin\MyRoom.pdb
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\bin\Newtonsoft.Json.xml
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\obj\Release\MyRoom.Data.Contracts.csprojResolveAssemblyReference.cache
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\obj\Release\MyRoom.Data.Contracts.dll
-C:\Sites\MyRoomV4\MyRoom.Data.Contracts\obj\Release\MyRoom.Data.Contracts.pdb
