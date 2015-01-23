@@ -75,7 +75,9 @@
   <ItemGroup>
     <Compile Include="AccountBindingModels.cs" />
     <Compile Include="AccountViewModels.cs" />
-    <Compile Include="ActiveHotelCatalogue.cs" />
+    <Compile Include="ActiveHotelCatalogue.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ActiveHotelCategory.cs" />
     <Compile Include="ActiveHotelModule.cs" />
     <Compile Include="ActiveHotelProduct.cs" />

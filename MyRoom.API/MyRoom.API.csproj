@@ -169,7 +169,6 @@
     <Compile Include="App_Start\GlobalConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ActiveHotelCatalogueController.cs" />
     <Compile Include="Controllers\ActiveHotelCategoriesController.cs" />
     <Compile Include="Controllers\ActiveHotelModuleController.cs" />
     <Compile Include="Controllers\ActiveHotelProductController.cs" />
