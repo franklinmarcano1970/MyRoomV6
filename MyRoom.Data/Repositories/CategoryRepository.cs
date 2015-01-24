@@ -76,7 +76,7 @@ namespace MyRoom.Data.Repositories
                         nextChild.Translation = c.Translation;
                         nextChild.Modules = c.Modules;
                         nextChild.ActiveHotelCategory = c.ActiveHotelCategory;
-                        nextChild.Products = c.Products;
+                   
 
                         if (index != categories.Count() - 1)
                             nextChild.CategoryChildren = new Category();
@@ -105,7 +105,7 @@ namespace MyRoom.Data.Repositories
                         nextChild.Translation = c.Translation;
                         nextChild.Modules = c.Modules;
                         nextChild.ActiveHotelCategory = c.ActiveHotelCategory;
-                        nextChild.Products = c.Products;
+                  
 
                         if (index != categories.Count() - 1)
                             nextChild.CategoryChildren = new Category();
