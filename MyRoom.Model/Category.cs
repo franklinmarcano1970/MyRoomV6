@@ -60,7 +60,7 @@ namespace MyRoom.Model
 
         public virtual Translation Translation { get; set; }
 
-        //   public virtual ICollection<RelCategoryProduct> RelCategoryProduct { get; set; }
+        public virtual ICollection<CategoryProduct> CategoryProducts { get; set; }
 
         //public virtual ICollection<RelModuleCategory> RelModuleCategory { get; set; }
 

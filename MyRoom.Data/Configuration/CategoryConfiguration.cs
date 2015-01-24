@@ -23,16 +23,21 @@ namespace MyRoom.Data.Configuration
                 mc.ToTable("REL_MODULE_CATEGORY");
             });
 
-     
-            HasKey(x => x.CategoryId);
-            HasMany(x => x.Products)
-            .WithMany(x => x.Categories)
-            .Map(mc =>
-            {
-                mc.MapLeftKey("IdCategory");
-                mc.MapRightKey("IdProduct");
-                mc.ToTable("REL_CATEGORY_PRODUCT");
-            });
+
+            HasMany(e => e.CategoryProducts)
+               .WithRequired(e => e.Category)
+               .HasForeignKey(e => e.IdCategory)
+               .WillCascadeOnDelete(true);
+
+            //HasKey(x => x.CategoryId);
+            //HasMany(x => x.Products)
+            //.WithMany(x => x.Categories)
+            //.Map(mc =>
+            //{
+            //    mc.MapLeftKey("IdCategory");
+            //    mc.MapRightKey("IdProduct");
+            //    mc.ToTable("REL_CATEGORY_PRODUCT");
+            //});
 
         }
     }

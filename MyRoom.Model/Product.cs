@@ -14,7 +14,7 @@ namespace MyRoom.Model
         public Product()
         {
             ActiveHotelProduct = new HashSet<ActiveHotelProduct>();
-            //RelCategoryProduct = new HashSet<RelCategoryProduct>();
+            CategoryProducts = new HashSet<CategoryProduct>();
             RelUserProduct = new HashSet<RelUserProduct>();
             RelatedProducts = new HashSet<RelatedProduct>();
         }
@@ -73,7 +73,7 @@ namespace MyRoom.Model
 
      //   public virtual Translation Translation1 { get; set; }
 
-      //  public virtual ICollection<RelCategoryProduct> RelCategoryProduct { get; set; }
+        public virtual ICollection<CategoryProduct> CategoryProducts { get; set; }
 
         public virtual ICollection<RelUserProduct> RelUserProduct { get; set; }
        

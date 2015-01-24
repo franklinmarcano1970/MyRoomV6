@@ -82,6 +82,31 @@ namespace MyRoom.API.Controllers
             }         
         }
 
+        // POST: api/Categories/products
+
+        [Route("products")]
+        [HttpPost]
+        public async Task<IHttpActionResult> PostCategoriesWithProducts(ICollection<Category> categories)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                CategoryProductRepository categpryProductRepo = new CategoryProductRepository(new MyRoomDbContext());
+
+                categpryProductRepo.InsertCategoryProduct(categories.ToList());
+
+                return Ok("Category Product Inserted");
+            }
+            catch (Exception ex)
+            {
+
+                    throw ex;
+            }
+        }
         // POST: api/Categories
         public async Task<IHttpActionResult> PostCategories(Category category)
         {

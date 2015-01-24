@@ -16,6 +16,11 @@ namespace MyRoom.Data.Configuration
               .HasForeignKey(e => e.IdProduct)
               .WillCascadeOnDelete(true);
 
+
+            HasMany(e => e.CategoryProducts)
+            .WithRequired(e => e.Product)
+            .HasForeignKey(e => e.IdProduct)
+            .WillCascadeOnDelete(true);
         }
     }
 }

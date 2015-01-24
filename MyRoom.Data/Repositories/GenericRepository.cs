@@ -65,7 +65,7 @@ namespace MyRoom.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public void Insert(TEntity entity)
+        public  void Insert(TEntity entity)
         {
             DbSet.Add(entity);
              _dbContext.SaveChanges();

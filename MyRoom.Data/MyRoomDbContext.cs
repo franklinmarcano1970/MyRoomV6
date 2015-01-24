@@ -40,7 +40,7 @@ namespace MyRoom.Data
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         //   public virtual DbSet<RelCatalogueModule> RelCatalogueModule { get; set; }
-        //   public virtual DbSet<RelCategoryProduct> RelCategoryProduct { get; set; }
+        public virtual DbSet<CategoryProduct> CategoryProducts { get; set; }
         //public virtual DbSet<RelModuleCategory> RelModuleCategory { get; set; }
         //public virtual DbSet<RelUserAccess> RelUserAccess { get; set; }
         public virtual DbSet<RelUserCatalogue> RelUserCatalogue { get; set; }

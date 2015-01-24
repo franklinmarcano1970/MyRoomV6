@@ -117,6 +117,7 @@
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\CatalogRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\CategoryProductRepository.cs" />
     <Compile Include="Repositories\RelatedProductRepository.cs">
       <SubType>Code</SubType>
     </Compile>

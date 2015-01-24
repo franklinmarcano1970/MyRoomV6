@@ -7,7 +7,7 @@ namespace MyRoom.Model
     using System.Data.Entity.Spatial;
 
     [Table("REL_CATEGORY_PRODUCT")]
-    public partial class RelCategoryProduct
+    public partial class CategoryProduct
     {
         [Key]
         [Column(Order = 0)]
