@@ -542,7 +542,7 @@
                           $scope.catalogComplex.Modules = {};
                           $scope.catalogComplex = JSON.parse(response.data);
                           $scope.Modules = {};
-                          
+                          debugger
                           /////////////////////////
                           $scope.Modules = $scope.catalogComplex[0].Modules;
                           angular.forEach($scope.Modules, function (valueModule, keyModule) {
@@ -635,7 +635,7 @@
                                   sourceitems.children[keyCategory].ActiveCheckbox = true;
                               }
                           }
-                          debugger
+                          
                           $scope.Product = {};
                           $scope.Product = sourceitems.children[keyCategory].Products;
                           if (branch.CategoryChildren == null)
