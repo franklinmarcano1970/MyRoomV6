@@ -28,20 +28,25 @@ namespace MyRoom.Data.Repositories
                                  .Include("Modules.Translation")
                                  .Include("Modules.Categories")
                                  .Include("Modules.Categories.Translation")
+                                 .Include("Modules.Categories.CategoryProducts")
                                  .Include("Modules.Categories.Products")
+
                              where c.CatalogId == id && c.Active == true
                              select c;
             var cata = catalogues.ToList();
 
             CategoryRepository categoryRepo = new CategoryRepository(this.Context);
-
+            ProductRepository prodRepo = new ProductRepository(this.Context);
             foreach (Catalog c in cata)
             {
                 foreach (Module m in c.Modules)
                 {
                     foreach (Category p in m.Categories)
                     {
-          
+                        //foreach(CategoryProduct cp in p.CategoryProducts)
+
+                        p.Products = prodRepo.GetProductByIds(p.CategoryProducts);
+
                         p.CategoryChildren = categoryRepo.GetCategoriesChildren(p.CategoryId);
                     }
                 }

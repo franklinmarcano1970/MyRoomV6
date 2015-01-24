@@ -30,6 +30,16 @@ namespace MyRoom.Data.Repositories
             return json;
         }
 
+        public ICollection<Product> GetProductByIds(ICollection<CategoryProduct> categoryProducts)
+        { 
+            List<Product> products = new List<Product>();
+            foreach (CategoryProduct cp in categoryProducts)
+            {                
+                products.Add (this.GetById(cp.IdProduct));
+            }
+            return products;
+        }
+
         public override async System.Threading.Tasks.Task EditAsync(Product entity)
         {
 
@@ -46,21 +56,21 @@ namespace MyRoom.Data.Repositories
 
         }
 
-        public void DeleteProductRealted(int productId)
-        {
-            RelatedProductRepository relatedProductRepo = new RelatedProductRepository(this.Context);
+        //public void DeleteProductRealted(int productId)
+        //{
+        //    RelatedProductRepository relatedProductRepo = new RelatedProductRepository(this.Context);
 
-            List<RelatedProduct> relatedProduct = this.Context.RelatedProducts.Where(c => c.IdProduct == productId).ToList();
-            try
-            {
-                relatedProductRepo.DeleteCollection(relatedProduct);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //    List<RelatedProduct> relatedProduct = this.Context.RelatedProducts.Where(c => c.IdProduct == productId).ToList();
+        //    try
+        //    {
+        //        relatedProductRepo.DeleteCollection(relatedProduct);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
         public MyRoomDbContext Context { get; private set; }
     }

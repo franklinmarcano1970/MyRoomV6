@@ -94,7 +94,6 @@
     <Compile Include="Catalog.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Module.cs" />
-    <Compile Include="RelatedProduct.cs" />
     <Compile Include="RelModuleCategory.cs" />
     <Compile Include="RelUserCatalogue.cs" />
     <Compile Include="RelUserCategory.cs" />

@@ -16,7 +16,7 @@ namespace MyRoom.Model
             ActiveHotelProduct = new HashSet<ActiveHotelProduct>();
             CategoryProducts = new HashSet<CategoryProduct>();
             RelUserProduct = new HashSet<RelUserProduct>();
-            RelatedProducts = new HashSet<RelatedProduct>();
+           // RelatedProducts = new HashSet<RelatedProduct>();
         }
 
         public int Id { get; set; }
@@ -77,10 +77,14 @@ namespace MyRoom.Model
 
         public virtual ICollection<RelUserProduct> RelUserProduct { get; set; }
        
-        public virtual ICollection<RelatedProduct> RelatedProducts { get; set; }
+        public virtual ICollection<Product> RelatedProducts { get; set; }
+
+     
 
 
 
-        public RelatedProduct RelatedProduct { get; set; }
+      // public RelatedProduct RelatedProduct { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

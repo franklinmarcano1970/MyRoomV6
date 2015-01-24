@@ -48,7 +48,7 @@ namespace MyRoom.Data
         //public virtual DbSet<RelUserHotel> RelUserHotel { get; set; }
         public virtual DbSet<RelUserModule> RelUserModule { get; set; }
         public virtual DbSet<RelUserProduct> RelUserProduct { get; set; }
-        public virtual DbSet<RelatedProduct> RelatedProducts { get; set; }
+      //  public virtual DbSet<RelatedProduct> RelatedProducts { get; set; }
         public virtual DbSet<Translation> Translations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace MyRoom.Data
             modelBuilder.Configurations.Add(new HotelConfiguration());
 
 
-            //   modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
+          //  modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
 
 
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id).Property(p => p.Name).IsRequired();
@@ -284,11 +284,11 @@ namespace MyRoom.Data
                 .HasForeignKey(e => e.IdProduct)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Product>()
-                .HasMany(e => e.RelatedProducts)
-                .WithRequired(e => e.Product)
-                .HasForeignKey(e => e.IdProduct)
-                .WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Product>()
+            //    .HasMany(e => e.RelatedProducts)
+            //    .WithRequired(e => e.Product)
+            //    .HasForeignKey(e => e.IdProduct)
+            //    .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Translation>()
                 .Property(e => e.Spanish)

@@ -181,7 +181,6 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
-    <Compile Include="Controllers\RelatedProductsController.cs" />
     <Compile Include="Controllers\RelUserCataloguesController.cs" />
     <Compile Include="Controllers\RelUserCategoryController.cs" />
     <Compile Include="Controllers\RelUserModulesController.cs" />

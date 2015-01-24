@@ -11,10 +11,33 @@ namespace MyRoom.Data.Configuration
     {
         public RelatedProductsConfiguration()
         {
-            this.HasMany(e => e.Products)
-              .WithRequired(e => e.RelatedProduct)
-              .HasForeignKey(e => e.Id)
-              .WillCascadeOnDelete(true);
+
+        this.HasMany(c => c.Products)
+    .WithRequired()
+    .HasForeignKey(c => c.Id);
+
+                               this.HasKey(c => new { c.IdProduct, c.IdRelatedProduct});
+
+//            modelBuilder.Entity<RELATED_PRODUCTS>()
+//.HasMany(e => e.PRODUCTS)
+//.WithOptional(e => e.RELATED_PRODUCTS)
+//.HasForeignKey(e => new { e.RelatedProduct_IdProduct, e.RelatedProduct_IdRelatedProduct });
+
+
+            //this.HasKey(c => new { c.IdProduct, c.IdRelatedProduct });
+            
+            //this.HasMany(e => e.RelatedProducts)
+            // .WithRequired(e => e.Product)
+            // .HasForeignKey(e => e.IdRelatedProduct)
+            // .WillCascadeOnDelete(true);
+
+
+            //this.HasKey(c => new { c.IdProduct, c.IdRelatedProduct });
+
+            //this.HasMany(e => e.Products)
+            //  .WithRequired(e => e.)
+            //  .HasForeignKey(e => e.Id)
+            //  .WillCascadeOnDelete(true);
 
 
         }
