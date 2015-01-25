@@ -151,6 +151,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     };
     $scope.saveCatalog = function (catalog)
     {
+        debugger
         catalogService.saveCatalog(catalog).then(function (response) {
             $scope.toaster = {
                 type: 'success',
@@ -164,6 +165,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.steps.step1 = true;
 
             $scope.catalog = {
+                Pending: true,
                 Active: true,
                 Image: 'img/prod.jpg',
                 Translation: {
@@ -204,12 +206,13 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         }
        
         $scope.module.Catalogues = [{ CatalogId: $scope.IdCatalog, Name: $scope.NameCatalog, Active: true }];
-        if($scope.IsNew) {
-            catalogService.saveModule(mmodule).then(function (response) {
+        var moduleViewModel = createModuleVM($scope.module);
+        if ($scope.IsNew) {
+            catalogService.saveModule(moduleViewModel).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Success', text: 'The Module has been saved'};
                 $scope.pop();
-                $scope.steps.step1 = true;
-                $scope.loadTreeCatalog($scope.IdCatalog);
+                debugger
+                initModule();
             },
             function (err) {
                 $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
@@ -220,8 +223,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             catalogService.updateModule(mmodule).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Module has been update' };
                 $scope.pop();
-                $scope.steps.step1 = true;
-                $scope.loadTreeCatalog($scope.cata.selected.id);
+                initModule();
             },
             function (err) {
                 $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
@@ -229,9 +231,39 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             });
         }
         $scope.IsNew = true;
+       
+    };
+    function createModuleVM(entity)
+    {
+        var vm = {};
+        vm.Name = entity.Name;
+        vm.Image = entity.Image;
+        vm.ModuleActive = entity.Active;
+        vm.Comment = entity.Comment;
+        vm.Pending = entity.Pending;
+        vm.Orden = entity.Orden;
+        vm.Prefix = entity.Prefix;
+        vm.Spanish = entity.Translation.Spanish;
+        vm.English = entity.Translation.English;
+        vm.French = entity.Translation.French;
+        vm.German = entity.Translation.German;
+        vm.TranslationActive = entity.Translation.Active;
+        vm.Language5 = entity.Translation.Language5;
+
+        vm.Language6 = entity.Translation.Language6;
+        vm.Language7 = entity.Translation.Language7;
+        vm.Language8 = entity.Translation.Language8;
+
+        return vm;
+    }
+
+    function initModule() {
+        $scope.steps.step1 = true;
+        $scope.loadTreeCatalog($scope.IdCatalog);
         $scope.initTabsets();
         $scope.module = { Active: true, Pending: true, IsFinal: true };
-    };
+
+    }
     $scope.pop = function () {
         toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
     };

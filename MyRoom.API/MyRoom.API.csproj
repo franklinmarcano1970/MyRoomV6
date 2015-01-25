@@ -192,6 +192,7 @@
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ModuleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,11 +1,13 @@
 namespace MyRoom.Model
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [JsonObject(IsReference = false)]
     [Table("CATALOGUES")]
     public partial class Catalog
     {

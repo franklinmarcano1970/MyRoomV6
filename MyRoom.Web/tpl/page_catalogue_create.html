@@ -82,8 +82,8 @@
                                     <div class="m-t m-b">
                                         <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
                                         <!--<button type="button" class="btn btn-default btn-rounded" ng-click="createCatalog(this)" data-dismiss="modal">Save To Finish</button>-->
-                                        <button type="button" class="btn btn-default btn-rounded" ng-if="modify==false" ng-click="saveCatalog(catalog)" data-dismiss="modal">Save To Finish</button>
-                                        <button type="button" class="btn btn-default btn-rounded" ng-if="modify==true" ng-click="updateCatalog(catalog)" data-dismiss="modal">Update To Finish</button>
+                                        <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-if="modify==false" ng-click="saveCatalog(catalog)" data-dismiss="modal">Save To Finish</button>
+                                        <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-if="modify==true" ng-click="updateCatalog(catalog)" data-dismiss="modal">Update To Finish</button>
                                     </div>
                                 </form>
                             </tab>
@@ -171,8 +171,8 @@
                                         <input type="text" name="translateLang8" placeholder="Enter Another Translation" class="form-control" ng-model="module.Translation.Language8" />
 
                                         <div class="m-t m-b">
-                                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
-                                            <button type="button" class="btn btn-default btn-rounded" ng-click="saveModule(module)">Save To Finish</button>
+                                            <button type="button"  ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
+                                            <button type="button"  ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="saveModule(module)">Save To Finish</button>
                                         </div>
                                     </form>
                                 </tab>

@@ -15,6 +15,7 @@ using MyRoom.Model;
 using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
+using MyRoom.API.ViewModels;
 
 namespace MyRoom.API.Controllers
 {
@@ -80,7 +81,7 @@ namespace MyRoom.API.Controllers
         }
 
         // POST: api/modules
-        public async Task<IHttpActionResult> Post(Module module)
+        public async Task<IHttpActionResult> Post(ModuleViewModel moduleViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -88,7 +89,29 @@ namespace MyRoom.API.Controllers
             }
             try
             {
-                moduleRepo.Update(module);
+                Module module = new Module() {
+                    Active = moduleViewModel.ModuleActive,
+                    Name = moduleViewModel.Name,
+                     Orden = moduleViewModel.Orden,
+                     Image = moduleViewModel.Image,
+                     Pending = moduleViewModel.Pending,
+                     Prefix = moduleViewModel.Prefix,
+                    Comment = moduleViewModel.Comment
+                };
+
+                module.Translation = new Translation() {
+                    Spanish = moduleViewModel.Spanish,
+                    English = moduleViewModel.English,
+                    French = moduleViewModel.French,
+                    German = moduleViewModel.German,
+                    Language5 = moduleViewModel.Language5,
+                    Language6 = moduleViewModel.Language6,
+                    Language7 = moduleViewModel.Language7,
+                    Language8 = moduleViewModel.Language8,
+                    Active = moduleViewModel.TranslationActive,
+                };
+                
+                //moduleRepo.Update(module);
                 await moduleRepo.InsertAsync(module);
             }
             catch (Exception ex)

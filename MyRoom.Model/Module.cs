@@ -7,7 +7,7 @@ namespace MyRoom.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
      
-    [JsonObject(IsReference = true)] 
+    [JsonObject(IsReference = false)] 
     [Table("MODULES")]
     public partial class Module
     {
@@ -43,7 +43,7 @@ namespace MyRoom.Model
         public string Prefix { get; set; }
         
         [JsonIgnore]
-        public ICollection<Catalog> Catalogues { get; set; }
+        public virtual ICollection<Catalog> Catalogues { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
 
         [JsonIgnore]

@@ -81,7 +81,7 @@ namespace MyRoom.API.Controllers
         //}
 
         // POST: api/Catalogues
-        public async Task<IHttpActionResult> PostCatalogues(Catalog catalog)
+        public  IHttpActionResult PostCatalogues(Catalog catalog)
         {
             if (!ModelState.IsValid)
             {
