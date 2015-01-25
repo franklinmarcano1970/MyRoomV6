@@ -11,7 +11,32 @@ namespace MyRoom.Data.Configuration
     {
         public TranslationConfiguration()
         {
-            this.HasMany(e => e.Hotels)
+            HasMany(e => e.Hotels)
+            .WithRequired(e => e.Translation)
+            .HasForeignKey(e => e.IdTranslationName)
+            .WillCascadeOnDelete(false);
+
+            HasMany(e => e.Catalogues)
+            .WithRequired(e => e.Translation)
+            .HasForeignKey(e => e.IdTranslationName)
+            .WillCascadeOnDelete(false);
+
+            HasMany(e => e.Categories)
+            .WithRequired(e => e.Translation)
+            .HasForeignKey(e => e.IdTranslationName)
+            .WillCascadeOnDelete(false);
+
+            HasMany(e => e.Hotels)
+            .WithRequired(e => e.Translation)
+            .HasForeignKey(e => e.IdTranslationName)
+            .WillCascadeOnDelete(false);
+
+            HasMany(e => e.Modules)
+            .WithRequired(e => e.Translation)
+            .HasForeignKey(e => e.IdTranslationName)
+            .WillCascadeOnDelete(false);
+
+            HasMany(e => e.Products)
             .WithRequired(e => e.Translation)
             .HasForeignKey(e => e.IdTranslationName)
             .WillCascadeOnDelete(true);

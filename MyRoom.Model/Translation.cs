@@ -8,7 +8,6 @@ namespace MyRoom.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [JsonObject(IsReference = true)]
     [Table("TRANSLATIONS")]
     public partial class Translation
     {
@@ -54,19 +53,18 @@ namespace MyRoom.Model
         public string Language8 { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Catalog> Catalogues { get; set; }
+        public ICollection<Catalog> Catalogues { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Category> Categories { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Hotel> Hotels { get; set; }           
+        public ICollection<Hotel> Hotels { get; set; }           
        
-        [JsonIgnore]
-        public virtual ICollection<Module> Modules { get; set; }
+        public ICollection<Module> Modules { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
         
         //[JsonIgnore]
         //public virtual ICollection<Product> Products1 { get; set; }

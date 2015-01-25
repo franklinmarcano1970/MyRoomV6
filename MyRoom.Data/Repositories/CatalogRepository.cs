@@ -20,24 +20,23 @@ namespace MyRoom.Data.Repositories
 
         // public MyRoomDbContext Context  { get; private set; }
 
-        public string GetStructureComplete(int id)
+        public Catalog GetStructureComplete(int id)
         {
             var catalogues = from c in this.Context.Catalogues
                                  .Include("Translation")
                                  .Include("Modules")
-                                 .Include("Modules.Translation")
                                  .Include("Modules.Categories")
-                                 .Include("Modules.Categories.Translation")
+                                 .Include("Modules.Categories.Products")
+
+                                 //.Include("Modules.Categories.Translation")
                                  .Include("Modules.Categories.CategoryProducts")
                              where c.CatalogId == id && c.Active == true
                              select c;
-            var cata = catalogues.ToList();
+            var cata = catalogues.FirstOrDefault();
 
             CategoryRepository categoryRepo = new CategoryRepository(this.Context);
             ProductRepository prodRepo = new ProductRepository(this.Context);
-            foreach (Catalog c in cata)
-            {
-                foreach (Module m in c.Modules)
+                foreach (Module m in cata.Modules)
                 {
                     foreach (Category p in m.Categories)
                     {
@@ -45,30 +44,31 @@ namespace MyRoom.Data.Repositories
 
                         p.Products = prodRepo.GetProductByIds(p.CategoryProducts);
 
-                        p.CategoryChildren = categoryRepo.GetCategoriesChildren(p.CategoryId);
+                        //p.CategoryChildren = categoryRepo.GetCategoriesChildren(p.CategoryId);
                     }
                 }
-            }
-            string json = "";
-            try
-            {
-                json = JsonConvert.SerializeObject(cata, Formatting.Indented,
-                        new JsonSerializerSettings
-                        {
-                            PreserveReferencesHandling = PreserveReferencesHandling.Objects
-                        });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            //return catalogues;
-            return JsonConvert.SerializeObject(cata, Formatting.Indented,
-                    new JsonSerializerSettings
-                    {
-                        PreserveReferencesHandling = PreserveReferencesHandling.Objects
-                    });
+            
+            //string json = "";
+            //try
+            //{
+            //    json = JsonConvert.SerializeObject(cata, Formatting.Indented,
+            //            new JsonSerializerSettings
+            //            {
+            //                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            //            });
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+            ////return catalogues;
+            //return JsonConvert.SerializeObject(cata, Formatting.Indented,
+            //        new JsonSerializerSettings
+            //        {
+            //            PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            //        });
 
+            return cata;
         }
 
 

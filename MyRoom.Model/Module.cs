@@ -44,7 +44,7 @@ namespace MyRoom.Model
         
         [JsonIgnore]
         public ICollection<Catalog> Catalogues { get; set; }
-        public ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<ActiveHotelModule> ActiveHotelModule { get; set; }

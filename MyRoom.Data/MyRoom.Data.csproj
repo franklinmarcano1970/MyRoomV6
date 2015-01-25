@@ -110,6 +110,7 @@
     <Compile Include="Configuration\HotelConfiguration.cs" />
     <Compile Include="Configuration\ModuleConfiguration.cs" />
     <Compile Include="Configuration\MenuAccessConfiguration.cs" />
+    <Compile Include="Configuration\TranslationConfiguration.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="MyRoomDbContext.cs" />

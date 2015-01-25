@@ -35,12 +35,12 @@ namespace MyRoom.Model
         public bool? Pending { get; set; }
 
 
-        public ICollection<Module> Modules { get; set; }
+        public virtual ICollection<Module> Modules { get; set; }
 
 
        // public  ICollection<ActiveHotelCatalogue> ActiveHotelCatalogue { get; set; }
 
-        public Translation Translation { get; set; }
+        public virtual Translation Translation { get; set; }
 
         //public  ICollection<RelCatalogueModule> RelCatalogueModule { get; set; }
         public virtual ICollection<ActiveHotelCatalogue> HotelCatalogues { get; set; }

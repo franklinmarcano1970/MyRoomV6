@@ -59,7 +59,6 @@ namespace MyRoom.Data.SampleData
             }
 
             this.AddMenuAccessOptions(context);
-            this.AddModules(context);
             this.AddProduct(context);
             //Build Token Tables
             this.BuildClientsList(context);
@@ -175,45 +174,6 @@ namespace MyRoom.Data.SampleData
         //    context.SaveChanges();
         //    return categories;
         //}
-
-        private List<Module> AddModules(MyRoomDbContext context)
-        {
-            var modules = new List<Module>();
-
-            //  var textGenerator = new SampleTextGenerator();
-            //const SampleTextGenerator.SourceNames textSource = SampleTextGenerator.SourceNames.Faust;
-
-            modules.Add(new Module()
-            {
-                Name = "In Service",
-                Active = true,
-                Translation = new Translation
-                {
-                    Spanish = "En Servicio",
-                    English = "In service",
-                    French = "In service",
-                    Active = true
-                }
-            });
-
-            modules.Add(new Module()
-            {
-                Name = "Out Services",
-                Active = true,
-                Translation = new Translation
-                {
-                    Spanish = "Out Services",
-                    English = "Out Services",
-                    French = "Out Services",
-                    Active = true
-                }
-            });
-
-            // Done populating Hotels
-            modules.ForEach(ht => context.Modules.Add(ht));
-            context.SaveChanges();
-            return modules;
-        }
 
 
         private void AddHotel(MyRoomDbContext context)

@@ -56,14 +56,14 @@ namespace MyRoom.Model
         public ICollection<Module> Modules { get; set; }
 
      
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
         
         [JsonIgnore]
         public virtual ICollection<ActiveHotelCategory> ActiveHotelCategory { get; set; }
 
         public virtual Translation Translation { get; set; }
 
-        [JsonIgnore]
+       
         public virtual ICollection<CategoryProduct> CategoryProducts { get; set; }
 
         //public virtual ICollection<RelModuleCategory> RelModuleCategory { get; set; }

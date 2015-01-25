@@ -540,11 +540,12 @@
                       catalogService.getCatalogComplex(id).then(function (response) {
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
-                          $scope.catalogComplex = JSON.parse(response.data);
+                         
+                          $scope.catalogComplex = response.data;
                           $scope.Modules = {};
-                          debugger
+
                           /////////////////////////
-                          $scope.Modules = $scope.catalogComplex[0].Modules;
+                          $scope.Modules = $scope.catalogComplex.Modules;
                           angular.forEach($scope.Modules, function (valueModule, keyModule) {
                                 $scope.sourceItems[keyModule] = {
                                     text: valueModule.Name,

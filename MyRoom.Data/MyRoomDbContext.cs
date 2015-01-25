@@ -61,6 +61,7 @@ namespace MyRoom.Data
             modelBuilder.Configurations.Add(new ApplicationUserConfiguration());
             modelBuilder.Configurations.Add(new ProductsConfiguration());
             modelBuilder.Configurations.Add(new HotelConfiguration());
+            modelBuilder.Configurations.Add(new TranslationConfiguration());
 
 
           //  modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
@@ -290,68 +291,39 @@ namespace MyRoom.Data
             //    .HasForeignKey(e => e.IdProduct)
             //    .WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Translation>()
-                .Property(e => e.Spanish)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Translation>()
+            //    .Property(e => e.Spanish)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Translation>()
-                .Property(e => e.English)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Translation>()
+            //    .Property(e => e.English)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Translation>()
-                .Property(e => e.French)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Translation>()
+            //    .Property(e => e.French)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Translation>()
-                .Property(e => e.German)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Translation>()
+            //    .Property(e => e.German)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Translation>()
-                .Property(e => e.Language5)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Translation>()
+            //    .Property(e => e.Language5)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Translation>()
-                .Property(e => e.Language6)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Translation>()
+            //    .Property(e => e.Language6)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Translation>()
-                .Property(e => e.Language7)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Translation>()
+            //    .Property(e => e.Language7)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Translation>()
-                .Property(e => e.Language8)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Translation>()
+            //    .Property(e => e.Language8)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Translation>()
-                .HasMany(e => e.Catalogues)
-                .WithRequired(e => e.Translation)
-                .HasForeignKey(e => e.IdTranslationName)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Translation>()
-                .HasMany(e => e.Categories)
-                .WithRequired(e => e.Translation)
-                .HasForeignKey(e => e.IdTranslationName)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Translation>()
-                .HasMany(e => e.Hotels)
-                .WithRequired(e => e.Translation)
-                .HasForeignKey(e => e.IdTranslationName)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Translation>()
-                .HasMany(e => e.Modules)
-                .WithRequired(e => e.Translation)
-                .HasForeignKey(e => e.IdTranslationName)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Translation>()
-                .HasMany(e => e.Products)
-                .WithRequired(e => e.Translation)
-                .HasForeignKey(e => e.IdTranslationName)
-                .WillCascadeOnDelete(true);
-
+      
             //modelBuilder.Entity<Translation>()
             //    .HasMany(e => e.Products1)
             //    .WithOptional(e => e.Translation1)

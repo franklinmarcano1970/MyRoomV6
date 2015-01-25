@@ -7,7 +7,7 @@ using System.Data.Entity.Spatial;
 
 namespace MyRoom.Model
 {
-    [JsonObject(IsReference = true)] 
+    [JsonObject(IsReference = false)] 
     [Table("PRODUCTS")]
     public class Product
     {
@@ -74,18 +74,14 @@ namespace MyRoom.Model
 
      //   public virtual Translation Translation1 { get; set; }
         [JsonIgnore]
-        public virtual ICollection<CategoryProduct> CategoryProducts { get; set; }
+        public ICollection<CategoryProduct> CategoryProducts { get; set; }
         [JsonIgnore]
         public virtual ICollection<RelUserProduct> RelUserProduct { get; set; }
         [JsonIgnore]       
         public virtual ICollection<Product> RelatedProducts { get; set; }
 
      
-
-
-
       // public RelatedProduct RelatedProduct { get; set; }
-        [JsonIgnore]
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -26,9 +26,9 @@ namespace MyRoom.API.Controllers
 
         [Route("{key}")]
         [HttpGet]
-        public string GetCatalogues(int key)
+        public IHttpActionResult GetCatalogues(int key)
         {
-            return catalogRepository.GetStructureComplete(key);
+            return Json(catalogRepository.GetStructureComplete(key));
         }
 
         [Route("catalogbyid/{key}")]
