@@ -234,8 +234,6 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     };
     function createModuleVM(entity)
     {
-        debugger
-
         var vm = {};
         vm.Name = entity.Name;
         vm.Image = entity.Image;
@@ -250,14 +248,11 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.German = entity.Translation.German;
         vm.TranslationActive = entity.Translation.Active;
         vm.Language5 = entity.Translation.Language5;
-
         vm.Language6 = entity.Translation.Language6;
         vm.Language7 = entity.Translation.Language7;
         vm.Language8 = entity.Translation.Language8;
         vm.CatalogId = entity.Catalogues[0].CatalogId;
         vm.CatalogName = entity.Catalogues[0].Name;
-
-
         return vm;
     }
 
@@ -279,8 +274,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         return true;
     }
 
-    $scope.saveCategory = function (category) {
-        debugger
+    $scope.saveCategory = function (category, obj) {
+        
          if(!$scope.cata.selected)
         {
             $scope.toaster = { type: 'Info', title: 'Info', text: 'Select a Catalogue'};
@@ -294,7 +289,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             if (!$scope.category.IdParentCategory)
                 $scope.category.Modules = [$scope.module];
 
-            catalogService.saveCategory(category).then(function (response) {
+            var categoryViewModel = createCategoryVM($scope.category);
+
+            catalogService.saveCategory(categoryViewModel).then(function (response) {
                 $scope.toaster = {
                     type: 'success',
                     title: 'Info',
@@ -334,4 +331,34 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         $scope.category = { Active: true, Pending: true, IsFinal: true };
     };
 
+    function createCategoryVM(entity) {
+        var vm = {};
+        vm.Name = entity.Name;
+        vm.Image = entity.Image;
+        vm.CategoryActive = entity.Active;
+        vm.Comment = entity.Comment;
+        vm.Pending = entity.Pending;
+        vm.Orden = entity.Orden;
+        vm.Prefix = entity.Prefix;
+        vm.IdParentCategory = entity.IdParentCategory;
+        vm.CategoryItem = entity.CategoryItem;
+        vm.IsFirst = entity.IsFirst;
+        vm.IsFinal = entity.IsFinal;
+
+        vm.Spanish = entity.Translation.Spanish;
+        vm.English = entity.Translation.English;
+        vm.French = entity.Translation.French;
+        vm.German = entity.Translation.German;
+        vm.TranslationActive = entity.Translation.Active;
+
+        vm.Language5 = entity.Translation.Language5;
+        vm.Language6 = entity.Translation.Language6;
+        vm.Language7 = entity.Translation.Language7;
+        vm.Language8 = entity.Translation.Language8;
+
+
+        vm.ModuleId = $scope.currentModule.Id;
+        vm.ModuleName = $scope.currentModule.Name;
+        return vm;
+    }
 }]);

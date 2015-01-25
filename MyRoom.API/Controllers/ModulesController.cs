@@ -117,8 +117,8 @@ namespace MyRoom.API.Controllers
                     CatalogId = moduleViewModel.CatalogId,
                     Name = moduleViewModel.CatalogName
                 });
-            
-                //moduleRepo.Update(module);
+
+                moduleRepo.CatalogStateUnchange(module);
                 await moduleRepo.InsertAsync(module);
             }
             catch (Exception ex)

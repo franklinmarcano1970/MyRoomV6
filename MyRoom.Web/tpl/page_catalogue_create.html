@@ -237,8 +237,8 @@
                                         <input type="text" name="translateLang8" placeholder="Enter Another Translation" class="form-control" ng-model="category.Translation.Language8" />
 
                                         <div class="m-t m-b">
-                                            <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
-                                            <button type="button" class="btn btn-default btn-rounded" ng-click="saveCategory(category)">Save To Finish</button>
+                                            <button type="button" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
+                                            <button type="button" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="saveCategory(category)">Save To Finish</button>
                                         </div>
                                     </form>
                                 </tab>

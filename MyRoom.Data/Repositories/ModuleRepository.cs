@@ -16,13 +16,13 @@ namespace MyRoom.Data.Repositories
         }
 
 
-        //public override void Update(Module entity)
-        //{
-        //    foreach(Catalog item in entity.Catalogues)
-        //    {
-        //        this.Context.Entry(item).State = EntityState.Modified;
-        //    }
-        //}
+        public void CatalogStateUnchange(Module entity)
+        {
+            foreach (Catalog item in entity.Catalogues)
+            {
+                this.Context.Entry(item).State = EntityState.Unchanged;
+            }
+        }
 
         public override async System.Threading.Tasks.Task EditAsync(Module entity)
         {

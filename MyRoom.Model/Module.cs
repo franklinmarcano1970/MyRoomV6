@@ -17,6 +17,7 @@ namespace MyRoom.Model
             ActiveHotelModule = new HashSet<ActiveHotelModule>();
          //   RelCatalogueModule = new HashSet<RelCatalogueModule>();
             //RelModuleCategory = new HashSet<RelModuleCategory>();
+            Categories = new HashSet<Category>();
             RelUserModule = new HashSet<RelUserModule>();
         }
 

@@ -15,6 +15,8 @@ using MyRoom.Model;
 using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
+using MyRoom.API.ViewModels;
+using MyRoom.API.Mappers;
 
 namespace MyRoom.API.Controllers
 {
@@ -79,14 +81,14 @@ namespace MyRoom.API.Controllers
                 {
                     throw ex;
                 }
-            }         
+            }
         }
 
         // POST: api/Categories/products
 
         [Route("products")]
         [HttpPost]
-        public async Task<IHttpActionResult> PostCategoriesWithProducts(ICollection<Category> categories)
+        public IHttpActionResult PostCategoriesWithProducts(ICollection<Category> categories)
         {
             if (!ModelState.IsValid)
             {
@@ -96,19 +98,18 @@ namespace MyRoom.API.Controllers
             try
             {
                 CategoryProductRepository categpryProductRepo = new CategoryProductRepository(new MyRoomDbContext());
-
+              
                 categpryProductRepo.InsertCategoryProduct(categories.ToList());
 
                 return Ok("Category Product Inserted");
             }
             catch (Exception ex)
             {
-
-                    throw ex;
+                throw ex;
             }
         }
         // POST: api/Categories
-        public async Task<IHttpActionResult> PostCategories(Category category)
+        public async Task<IHttpActionResult> PostCategories(CategoryViewModel categoryViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -117,26 +118,29 @@ namespace MyRoom.API.Controllers
 
             try
             {
-                if (category.Modules != null)
-                { 
-                    categoryRepo.Update(category);
-                } 
+                //if (category.Modules != null)
+                //{ 
+                //    categoryRepo.Update(category);
+                //} 
+                Category category = CategoryMapper.CreateModel(categoryViewModel);
+                categoryRepo.ModuleStateUnchange(category);
+                
+                if (!category.IsFirst)
+                {
+                    category.Modules = null;
+                }
+
                 await categoryRepo.InsertAsync(category);
 
                 return Ok(category);
             }
             catch (Exception ex)
             {
-                if (!CategoryExists(category.CategoryId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw ex;
-                }
+                throw ex;
             }
         }
+
+     
 
         // DELETE: api/Categories/5
         [Route("{key}")]

@@ -26,10 +26,10 @@ namespace MyRoom.Data.Repositories
                                  .Include("Translation")
                                  .Include("Modules")
                                  .Include("Modules.Categories")
-                                 .Include("Modules.Categories.Products")
+                            //     .Include("Modules.Categories.Products")
 
                                  //.Include("Modules.Categories.Translation")
-                                 .Include("Modules.Categories.CategoryProducts")
+                              //   .Include("Modules.Categories.CategoryProducts")
                              where c.CatalogId == id && c.Active == true
                              select c;
             var cata = catalogues.FirstOrDefault();
@@ -40,11 +40,10 @@ namespace MyRoom.Data.Repositories
                 {
                     foreach (Category p in m.Categories)
                     {
-                        //foreach(CategoryProduct cp in p.CategoryProducts)
 
-                        p.Products = prodRepo.GetProductByIds(p.CategoryProducts);
+                 //       p.Products = prodRepo.GetProductByIds(p.CategoryProducts);
 
-                        //p.CategoryChildren = categoryRepo.GetCategoriesChildren(p.CategoryId);
+                        p.CategoryChildren = categoryRepo.GetCategoriesChildren(p.CategoryId);
                     }
                 }
             

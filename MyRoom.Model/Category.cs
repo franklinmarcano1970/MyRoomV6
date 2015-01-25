@@ -8,7 +8,7 @@ namespace MyRoom.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [JsonObject(IsReference = true)]
+    [JsonObject(IsReference = false)]
     [Table("CATEGORIES")]
     public partial class Category
     {

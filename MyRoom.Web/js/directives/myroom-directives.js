@@ -466,7 +466,12 @@
                       else {
                           $scope.category.IsFirst = false;
                       }
-
+                      debugger
+                      while (obj.item.type != 'module') {
+                          obj = obj.$parent;
+                              $scope.currentModule = obj.item;
+                       
+                      } 
                       if (item.nextsibling == "category") {
                           if(item.type == 'category')
                             $scope.category.IdParentCategory = item.Id;

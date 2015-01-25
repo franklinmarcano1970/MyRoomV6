@@ -116,8 +116,15 @@ namespace MyRoom.Data.Repositories
                 index++;
             }
 
-
             return category;
+        }
+
+        public void ModuleStateUnchange(Category entity)
+        {
+            foreach (Module item in entity.Modules)
+            {
+                this.Context.Entry(item).State = EntityState.Unchanged;
+            }
         }
     }
 }

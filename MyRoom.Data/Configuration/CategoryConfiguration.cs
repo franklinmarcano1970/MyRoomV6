@@ -14,6 +14,8 @@ namespace MyRoom.Data.Configuration
             HasKey(x => x.CategoryId);
             //Property(x => x.TerritoryDescription).HasColumnType("nchar").HasMaxLength(50).IsRequired();
 
+
+
             HasMany(x => x.Modules)
             .WithMany(x => x.Categories)
             .Map(mc =>
@@ -22,7 +24,6 @@ namespace MyRoom.Data.Configuration
                 mc.MapRightKey("IdModule");
                 mc.ToTable("REL_MODULE_CATEGORY");
             });
-
 
             HasMany(e => e.CategoryProducts)
                .WithRequired(e => e.Category)
