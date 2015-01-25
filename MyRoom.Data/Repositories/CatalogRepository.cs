@@ -29,8 +29,6 @@ namespace MyRoom.Data.Repositories
                                  .Include("Modules.Categories")
                                  .Include("Modules.Categories.Translation")
                                  .Include("Modules.Categories.CategoryProducts")
-                                 .Include("Modules.Categories.Products")
-
                              where c.CatalogId == id && c.Active == true
                              select c;
             var cata = catalogues.ToList();
@@ -51,7 +49,19 @@ namespace MyRoom.Data.Repositories
                     }
                 }
             }
-
+            string json = "";
+            try
+            {
+                json = JsonConvert.SerializeObject(cata, Formatting.Indented,
+                        new JsonSerializerSettings
+                        {
+                            PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                        });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             //return catalogues;
             return JsonConvert.SerializeObject(cata, Formatting.Indented,
                     new JsonSerializerSettings

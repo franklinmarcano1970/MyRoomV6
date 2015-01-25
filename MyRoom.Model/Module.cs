@@ -41,11 +41,12 @@ namespace MyRoom.Model
         public int? Orden { get; set; }
 
         public string Prefix { get; set; }
-
+        
+        [JsonIgnore]
         public ICollection<Catalog> Catalogues { get; set; }
         public ICollection<Category> Categories { get; set; }
 
-
+        [JsonIgnore]
         public virtual ICollection<ActiveHotelModule> ActiveHotelModule { get; set; }
 
         public virtual Translation Translation { get; set; }
@@ -53,7 +54,7 @@ namespace MyRoom.Model
        // public virtual ICollection<RelCatalogueModule> RelCatalogueModule { get; set; }
 
         //public virtual ICollection<RelModuleCategory> RelModuleCategory { get; set; }
-
+       [JsonIgnore]
         public virtual ICollection<RelUserModule> RelUserModule { get; set; }
     }
 }
