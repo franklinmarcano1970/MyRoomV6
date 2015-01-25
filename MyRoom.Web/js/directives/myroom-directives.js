@@ -591,6 +591,31 @@
                                             $scope.sourceItems[keyModule].children[keyCategory].ActiveCheckbox = true;
                                         }
                                     }
+                                    $scope.Product = {};
+                                    $scope.sourceItems[keyModule].children[keyCategory].children = {};
+                                    $scope.Product = $scope.Modules[keyModule].Categories[keyCategory].Products;
+                                    angular.forEach($scope.Product, function (valueProduct, keyProduct) {
+                                        console.info(valueProduct.Name);
+                                        $scope.sourceItems[keyModule].children[keyCategory].children[keyProduct] = {
+                                            text: valueProduct.Name,
+                                            type: "product",
+                                            Id: valueProduct.Id,
+                                            IdTranslationName: valueProduct.IdTranslationName,
+                                            Name: valueProduct.Name,
+                                            Image: valueProduct.Image,
+                                            //IdParentCategory: valueProduct.IdParentCategory,
+                                            //CategoryItem: valueProduct.CategoryItem,
+                                            //Orden: valueProduct.Orden,
+                                            //Comment: valueProduct.Comment,
+                                            Pending: valueProduct.Pending,
+                                            IsFinal: valueProduct.IsFinal,
+                                            Prefix: valueProduct.Prefix,
+                                            nextsibling: "product",
+                                            Translation: valueProduct.Translation
+
+                                        };
+                                    });
+
                                     $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
 
                                 });
@@ -647,6 +672,7 @@
 
                       }
                       // $scope.catalog = cata;
+                      debugger
                       $scope.items = $scope.sourceItems;
 
                    
