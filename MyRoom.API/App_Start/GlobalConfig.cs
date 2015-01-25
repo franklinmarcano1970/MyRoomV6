@@ -22,6 +22,9 @@ namespace MyRoom.API
             json.SerializerSettings.ContractResolver =
                 new CamelCasePropertyNamesContractResolver();
             json.UseDataContractJsonSerializer = true;
+            json.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            json.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+
             config.Formatters.Add(json);
 
 
