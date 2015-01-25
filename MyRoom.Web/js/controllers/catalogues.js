@@ -211,7 +211,6 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             catalogService.saveModule(moduleViewModel).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Success', text: 'The Module has been saved'};
                 $scope.pop();
-                debugger
                 initModule();
             },
             function (err) {
@@ -235,6 +234,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     };
     function createModuleVM(entity)
     {
+        debugger
+
         var vm = {};
         vm.Name = entity.Name;
         vm.Image = entity.Image;
@@ -253,6 +254,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.Language6 = entity.Translation.Language6;
         vm.Language7 = entity.Translation.Language7;
         vm.Language8 = entity.Translation.Language8;
+        vm.CatalogId = entity.Catalogues[0].CatalogId;
+        vm.CatalogName = entity.Catalogues[0].Name;
+
 
         return vm;
     }

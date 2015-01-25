@@ -110,7 +110,14 @@ namespace MyRoom.API.Controllers
                     Language8 = moduleViewModel.Language8,
                     Active = moduleViewModel.TranslationActive,
                 };
-                
+                module.Catalogues = new List<Catalog>();
+
+                module.Catalogues.Add(new Catalog()
+                {
+                    CatalogId = moduleViewModel.CatalogId,
+                    Name = moduleViewModel.CatalogName
+                });
+            
                 //moduleRepo.Update(module);
                 await moduleRepo.InsertAsync(module);
             }

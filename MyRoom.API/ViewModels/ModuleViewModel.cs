@@ -38,5 +38,10 @@ namespace MyRoom.API.ViewModels
         public string Language7 { get; set; }
 
         public string Language8 { get; set; }
+
+        public int CatalogId { get; set; }
+
+        public string CatalogName { get; set; }
+
     }
 }
