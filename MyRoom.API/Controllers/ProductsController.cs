@@ -15,10 +15,12 @@ using MyRoom.Model;
 using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
+using MyRoom.Model.ViewModels;
+using MyRoom.Data.Mappers;
 
 namespace MyRoom.API.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {
@@ -55,7 +57,17 @@ namespace MyRoom.API.Controllers
 
             try
             {
+                ProductViewModel prodVm = new ProductViewModel();
+                prodVm.RelatedProducts = product.RelatedProducts;
+
+                product.RelatedProducts = null;
                 await productRepository.EditAsync(product);
+
+                RelatedProductRepository relprod = new RelatedProductRepository(new MyRoomDbContext());
+
+                relprod.DeleteProductRealted(product.Id);
+                if (prodVm.RelatedProducts.Count() > 0)
+                    relprod.InsertRelatedProducts(prodVm.RelatedProducts.ToList());
             }
             catch (Exception ex)
             {
@@ -78,7 +90,7 @@ namespace MyRoom.API.Controllers
         }
 
         // POST: api/Products
-        public async Task<IHttpActionResult> PostProducts(Product product)
+        public async Task<IHttpActionResult> PostProducts(ProductViewModel productViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -86,7 +98,20 @@ namespace MyRoom.API.Controllers
             }
             try
             {
-                await productRepository.InsertAsync(product);
+                Product product = ProductMapper.CreateModel(productViewModel);
+                productRepository.Insert(product);
+
+                product.RelatedProducts = new List<RelatedProduct>();
+
+                RelatedProductRepository relProdRepo = new RelatedProductRepository(new MyRoomDbContext());
+
+                foreach (RelatedProduct rp in productViewModel.RelatedProducts)
+                {
+                    rp.IdProduct = product.Id;
+                }
+
+                relProdRepo.InsertRelatedProducts(productViewModel.RelatedProducts.ToList());
+
                 return Ok();
             }
             catch (Exception ex)

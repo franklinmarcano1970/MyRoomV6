@@ -39,6 +39,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
     if ($state.current.name == "app.page.product_edit" && $state.params['id']) {
         productService.getProduct($state.params['id']).then(function (response) {
             $scope.product = JSON.parse(response.data);
+
             productService.getAll().then(function (response) {
                 $scope.products = response.data.filter(function (e) {
                    return e.Id !== $scope.product.Id;
@@ -81,27 +82,65 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
 
     }
 
-    $scope.saveProduct = function () {
+    function createProductVM(entity) {
         $scope.product.RelatedProducts = [];
-        //var i = 0;
+       
         angular.forEach($scope.products, function (value, key) {
-            debugger
             if (value.checked == true) {
-                $scope.product.RelatedProducts.push({ IdRelatedProduct: value.Id });
-
-                //$scope.product.RelatedProducts[i] = { IdRelatedProduct: value.Id };
+                $scope.product.RelatedProducts.push({ IdProduct: $scope.product.Id, IdRelatedProduct: value.Id });
 
             }
         });
+        var vm = {};
+        vm.Name = entity.Name;
+        vm.Image = entity.Image;
+        vm.Description = entity.Description;
+        vm.Price = entity.Price;
+        vm.ProductActive = entity.ProductActive;
+        vm.Prefix = entity.Prefix;        
+        vm.Order = entity.Order;
+        vm.Type = entity.Type;
+        vm.Name_ENG = entity.Name_ENG;
+        vm.Description_ENG = entity.Description_ENG;
+        vm.UrlScanDocument = entity.UrlScanDocument;
+        vm.Pending = entity.Pending;
 
+        vm.Spanish = entity.Translation.Spanish;
+        vm.English = entity.Translation.English;
+        vm.French = entity.Translation.French;
+        vm.German = entity.Translation.German;
+        vm.TranslationActive = entity.Translation.Active;
+
+        vm.Language5 = entity.Translation.Language5;
+        vm.Language6 = entity.Translation.Language6;
+        vm.Language7 = entity.Translation.Language7;
+        vm.Language8 = entity.Translation.Language8;
+
+
+        vm.RelatedProducts = $scope.product.RelatedProducts;
+        
+        return vm;
+    }
+
+    $scope.saveProduct = function () {
+        
+        var productVm = createProductVM($scope.product);
         if ($state.current.name == "app.page.product_create") {
-            productService.saveProduct($scope.product).then(function (response) {
+     
+            productService.saveProduct(productVm).then(function (response) {
                 //$scope.Id = response.data.Id;
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Product has been saved' };
                 $timeout(function () {
                     $scope.pop();
                 }, 1000);
-
+                $scope.product = {
+                    Active: true,
+                    Image: 'img/prod.jpg',
+                    Translation: {
+                        Active: true
+                    },
+                    RelatedProducts: []
+                };
                 $state.go('app.page.product_list');
                 // $scope.message = "The Product has been saved";
             },
@@ -119,7 +158,14 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
                 $timeout(function () {
                     $scope.pop();
                 }, 1000);
-
+                $scope.product = {
+                    Active: true,
+                    Image: 'img/prod.jpg',
+                    Translation: {
+                        Active: true
+                    },
+                    RelatedProducts: []
+                };
                 $state.go('app.page.product_list');
             },
             function (err) {
@@ -130,14 +176,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
                 };
             });
         }
-        $scope.product = {
-            Active: true,
-            Image: 'img/prod.jpg',
-            Translation: {
-                Active: true
-            },
-            RelatedProducts: []
-        };
+      
 
 
     };

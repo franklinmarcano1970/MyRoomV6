@@ -15,7 +15,7 @@ using MyRoom.Model;
 using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
-using MyRoom.API.ViewModels;
+using MyRoom.Model.ViewModels;
 
 namespace MyRoom.API.Controllers
 {

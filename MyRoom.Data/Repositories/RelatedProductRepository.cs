@@ -20,7 +20,9 @@ namespace MyRoom.Data.Repositories
         public void DeleteProductRealted(int productId)
         {
 
-            List<RelatedProduct> relatedProduct = this.Context.RelatedProducts.Where(c => c.IdProduct == productId).ToList();
+            List<RelatedProduct> relatedProduct = (from p in this.Context.RelatedProducts
+                                                    where p.IdProduct == productId
+                                                       select p).ToList();
             try
             {
                 this.DeleteCollection(relatedProduct);
@@ -31,6 +33,20 @@ namespace MyRoom.Data.Repositories
             }
         }
 
+        public void InsertRelatedProducts(List<RelatedProduct> productsrelated)
+        {
+            productsrelated.ForEach(delegate(RelatedProduct product)
+            {
+                this.Insert(product);
+            });
+
+        }    
+
         public MyRoomDbContext Context { get; private set; }
+
+        public IQueryable<RelatedProduct> GetProductRelated(int prodId)
+        {
+            return  this.Context.RelatedProducts.Where(e=>e.IdProduct==prodId);
+        }
     }
 }

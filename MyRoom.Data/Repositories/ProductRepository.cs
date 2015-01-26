@@ -1,4 +1,5 @@
 ﻿using MyRoom.Model;
+using MyRoom.Model.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,42 +19,30 @@ namespace MyRoom.Data.Repositories
 
         public string GetProductById(int id)
         {
-            var product = (from c in this.Context.Products.Include("Translation").Include("RelatedProducts")
-                         where c.Id == id
-                         select c).First();
+            var product = (from c in this.Context.Products.Include("Translation")
+                           where c.Id == id
+                           select c).First();
+
+            RelatedProductRepository relprod = new RelatedProductRepository(this.Context);
+            product.RelatedProducts = relprod.GetProductRelated(product.Id).ToList();
 
             string json = JsonConvert.SerializeObject(product, Formatting.Indented,
                     new JsonSerializerSettings
                     {
-                        PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                        PreserveReferencesHandling = PreserveReferencesHandling.Objects ,
+                        ReferenceLoopHandling = ReferenceLoopHandling.Serialize
                     });
             return json;
         }
 
         public ICollection<Product> GetProductByIds(ICollection<CategoryProduct> categoryProducts)
-        { 
+        {
             List<Product> products = new List<Product>();
             foreach (CategoryProduct cp in categoryProducts)
-            {                
-                products.Add (this.GetById(cp.IdProduct));
+            {
+                products.Add(this.GetById(cp.IdProduct));
             }
             return products;
-        }
-
-        public override async System.Threading.Tasks.Task EditAsync(Product entity)
-        {
-
-            try
-            {
-                Product product = await this.GetByIdAsync(entity.Id);
-                await this.DeleteAsync(product);
-                await this.InsertAsync(entity);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
         }
 
         //public void DeleteProductRealted(int productId)
@@ -73,5 +62,23 @@ namespace MyRoom.Data.Repositories
         //}
 
         public MyRoomDbContext Context { get; private set; }
+
+        public List<Product> GetAll(List<RelatedProduct> relatedprods)
+        {
+            List<Product> products = new List<Product>();
+            relatedprods.ForEach(delegate(RelatedProduct product)
+            {
+                Product prod = this.GetById(product.IdRelatedProduct);
+                if(prod != null)
+                    products.Add(prod);
+            });
+            return products;
+        }
+
+        public void StateUnchange(Product entity)
+        {
+            this.Context.Entry(entity).State = EntityState.Unchanged;
+        }
+      
     }
 }

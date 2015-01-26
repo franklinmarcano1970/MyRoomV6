@@ -11,23 +11,7 @@ namespace MyRoom.Data.Configuration
     {
         public ProductsConfiguration()
         {
-            //this.HasMany(e => e.RelatedProducts)
-            //  .WithRequired(e => e.Product)
-            //  .HasForeignKey(e => e.IdProduct)
-            //  .WillCascadeOnDelete(true);
-
-
-  
-                this.HasMany(x => x.RelatedProducts)
-                .WithMany(x => x.Products)
-            .Map(x =>
-            {
-                x.ToTable("RELATED_PRODUCTS"); // third table is named Cookbooks
-                x.MapLeftKey("IdProduct");
-                x.MapRightKey("IdRelatedProduct");
-            });
-    
-
+        
             HasMany(e => e.CategoryProducts)
             .WithRequired(e => e.Product)
             .HasForeignKey(e => e.IdProduct)

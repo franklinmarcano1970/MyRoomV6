@@ -20,6 +20,8 @@ namespace MyRoom.Model
            // RelatedProducts = new HashSet<RelatedProduct>();
         }
 
+        [Key]
+        [Column("Id")]
         public int Id { get; set; }
 
         [Required]
@@ -77,11 +79,9 @@ namespace MyRoom.Model
         public ICollection<CategoryProduct> CategoryProducts { get; set; }
         [JsonIgnore]
         public virtual ICollection<RelUserProduct> RelUserProduct { get; set; }
-        [JsonIgnore]       
-        public virtual ICollection<Product> RelatedProducts { get; set; }
+     
+        public virtual ICollection<RelatedProduct> RelatedProducts { get; set; }
 
      
-      // public RelatedProduct RelatedProduct { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
     }
 }

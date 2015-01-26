@@ -48,7 +48,7 @@ namespace MyRoom.Data
         //public virtual DbSet<RelUserHotel> RelUserHotel { get; set; }
         public virtual DbSet<RelUserModule> RelUserModule { get; set; }
         public virtual DbSet<RelUserProduct> RelUserProduct { get; set; }
-      //  public virtual DbSet<RelatedProduct> RelatedProducts { get; set; }
+        public virtual DbSet<RelatedProduct> RelatedProducts { get; set; }
         public virtual DbSet<Translation> Translations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace MyRoom.Data
             modelBuilder.Configurations.Add(new TranslationConfiguration());
 
 
-          //  modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
+            modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
 
 
             modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id).Property(p => p.Name).IsRequired();

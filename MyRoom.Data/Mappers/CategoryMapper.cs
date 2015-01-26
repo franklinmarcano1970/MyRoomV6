@@ -1,11 +1,11 @@
-﻿using MyRoom.API.ViewModels;
+﻿using MyRoom.Model.ViewModels;
 using MyRoom.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MyRoom.API.Mappers
+namespace MyRoom.Data.Mappers
 {
     public static class CategoryMapper
     {

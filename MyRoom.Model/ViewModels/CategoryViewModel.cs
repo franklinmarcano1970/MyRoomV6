@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MyRoom.API.ViewModels
+namespace MyRoom.Model.ViewModels
 {
-    public class CategoryViewModel
+    public class CategoryViewModel  : BaseViewModel
     {
         public string Name { get; set; }
 
@@ -28,24 +28,6 @@ namespace MyRoom.API.ViewModels
         public bool? Pending { get; set; }
 
         public string Prefix { get; set; }
-
-        public string Spanish { get; set; }
-
-        public string English { get; set; }
-
-        public string French { get; set; }
-
-        public string German { get; set; }
-
-        public bool TranslationActive { get; set; }
-
-        public string Language5 { get; set; }
-
-        public string Language6 { get; set; }
-
-        public string Language7 { get; set; }
-
-        public string Language8 { get; set; }
 
         public int ModuleId { get; set; }
 
