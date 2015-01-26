@@ -63,6 +63,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         IsFinal: true,
         Active: true,
         Prefix: '',
+        CategoryItem: 0,
         Translation: {
             Id: 0,
             Spanish: '',
@@ -289,8 +290,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             if (!$scope.category.IdParentCategory)
                 $scope.category.Modules = [$scope.module];
 
+            $scope.category.CategoryItem = $scope.CategoryItemId;
             var categoryViewModel = createCategoryVM($scope.category);
-
             catalogService.saveCategory(categoryViewModel).then(function (response) {
                 $scope.toaster = {
                     type: 'success',
@@ -332,6 +333,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     };
 
     function createCategoryVM(entity) {
+
         var vm = {};
         vm.Name = entity.Name;
         vm.Image = entity.Image;
@@ -357,8 +359,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.Language8 = entity.Translation.Language8;
 
 
-        vm.ModuleId = $scope.currentModule.Id;
-        vm.ModuleName = $scope.currentModule.Name;
+        vm.ModuleId = 7;//$scope.currentModule.Id;
+        vm.ModuleName = 'Module 1';//$scope.currentModule.Name;
         return vm;
     }
 }]);

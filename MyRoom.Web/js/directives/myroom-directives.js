@@ -462,17 +462,28 @@
                             };
                             $scope.category.IsFirst = true;
                             $scope.IdModule = item.Id;
-
+                            $scope.CategoryItemId = null;
                       }
                       else {
                           $scope.category.IsFirst = false;
+                          var _categoryItem = 0;
+                          if (item.CategoryItem == null)
+                          {
+                              _categoryItem = item.Id;
+                          } else {
+                              _categoryItem = item.CategoryItem;
+                          }
+                          $scope.category.CategoryItem = _categoryItem;
+                          $scope.CategoryItemId = _categoryItem;
                       }
-                      debugger
                       while (obj.item.type != 'module') {
                           obj = obj.$parent;
                               $scope.currentModule = obj.item;
                        
-                      } 
+                      }
+
+
+                      var a = $scope.currentCategory;
                       if (item.nextsibling == "category") {
                           if(item.type == 'category')
                             $scope.category.IdParentCategory = item.Id;
@@ -485,7 +496,6 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       }
-                      
                       while (obj.item.type != 'module')
                       {
                           $scope.categoryItem = obj.item.Id;
@@ -549,7 +559,6 @@
                          
                           $scope.catalogComplex = response.data;
                           $scope.Modules = {};
-
                           /////////////////////////
                           $scope.Modules = $scope.catalogComplex.Modules;
                           angular.forEach($scope.Modules, function (valueModule, keyModule) {
@@ -572,6 +581,7 @@
                                 $scope.Category = {};
                                 $scope.Category = $scope.Modules[keyModule].Categories;
                                 $scope.sourceItems[keyModule].children = {};
+                              //Categoria
                                 angular.forEach($scope.Category, function (valueCategory, keyCategory) {
                                     
                                     $scope.sourceItems[keyModule].children[keyCategory] = {
@@ -619,10 +629,11 @@
                                             //$scope.sourceItems[keyModule].children[keyCategory].children[keyProduct] = createSubCategoriesProduct($scope.Product[keyProduct].CategoryChildren, keyProduct, $scope.sourceItems[keyModule].children[keyCategory].children[keyProduct]);
                                         });
                                     }
+                                    debugger
                                     $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
 
                                 });
-                                
+                                //Fin de la categoria
 
                                 if ($state.current.name == "app.page.usercatalog") {
                                     $scope.sourceItems[keyModule].ActiveCheckbox = true;
@@ -640,6 +651,7 @@
 
                           sourceitems.children = {};
                           //angular.forEach(branch, function (valueCategory, keyCategory) {
+                          keyCategory = keyCategory + 1;
                           sourceitems.children[keyCategory] = {
                               text: branch.Name,
                               type: "category",
@@ -665,11 +677,11 @@
                               }
                           }
                           
-                          $scope.Product = {};
-                          $scope.Product = sourceitems.children[keyCategory].Products;
+                          //$scope.Product = {};
+                          //$scope.Product = sourceitems.children[keyCategory].Products;
                           if (branch.CategoryChildren == null)
                               return sourceitems;
-
+                          console.info(keyCategory + branch.Name);
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
                    
 
@@ -711,7 +723,6 @@
 
 
                       //}
-                      debugger
                       $scope.items = $scope.sourceItems;
 
                    
