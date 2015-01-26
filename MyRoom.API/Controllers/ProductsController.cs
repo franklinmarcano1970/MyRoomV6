@@ -90,7 +90,7 @@ namespace MyRoom.API.Controllers
         }
 
         // POST: api/Products
-        public async Task<IHttpActionResult> PostProducts(ProductViewModel productViewModel)
+        public IHttpActionResult PostProducts(ProductViewModel productViewModel)
         {
             if (!ModelState.IsValid)
             {

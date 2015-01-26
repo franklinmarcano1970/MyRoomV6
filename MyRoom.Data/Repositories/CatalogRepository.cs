@@ -15,7 +15,7 @@ namespace MyRoom.Data.Repositories
         public CatalogRepository(MyRoomDbContext context)
             : base(context)
         {
-             this.Context = context;
+            this.Context = context;
         }
 
         // public MyRoomDbContext Context  { get; private set; }
@@ -26,27 +26,28 @@ namespace MyRoom.Data.Repositories
                                  .Include("Translation")
                                  .Include("Modules")
                                  .Include("Modules.Categories")
-                            //     .Include("Modules.Categories.Products")
+                             //     .Include("Modules.Categories.Products")
 
-                                 //.Include("Modules.Categories.Translation")
-                              //   .Include("Modules.Categories.CategoryProducts")
+                             //.Include("Modules.Categories.Translation")
+                             //   .Include("Modules.Categories.CategoryProducts")
                              where c.CatalogId == id && c.Active == true
                              select c;
             var cata = catalogues.FirstOrDefault();
 
-            CategoryRepository categoryRepo = new CategoryRepository(this.Context);
             ProductRepository prodRepo = new ProductRepository(this.Context);
-                foreach (Module m in cata.Modules)
+
+            foreach (Module m in cata.Modules)
+            {
+                foreach (Category p in m.Categories)
                 {
-                    foreach (Category p in m.Categories)
-                    {
 
-                 //       p.Products = prodRepo.GetProductByIds(p.CategoryProducts);
+                    this.CreateCategoriesParent(p);
 
-                        p.CategoryChildren = categoryRepo.GetCategoriesChildren(p.CategoryId);
-                    }
+                    //       p.Products = prodRepo.GetProductByIds(p.CategoryProducts);
+
                 }
-            
+            }
+
             //string json = "";
             //try
             //{
@@ -68,6 +69,19 @@ namespace MyRoom.Data.Repositories
             //        });
 
             return cata;
+        }
+
+        private void CreateCategoriesParent(Category category)
+        {
+            CategoryRepository categoryRepo = new CategoryRepository(this.Context);
+            List<Category> categoriesparent = categoryRepo.GetCategoriesParents(category.CategoryId);
+            category.CategoryChildren = new List<Category>();
+            foreach (Category c in categoriesparent)
+            {
+                category.CategoryChildren.Add(c);
+                c.CategoryChildren = categoryRepo.GetCategoriesChildren(category.CategoryId);
+
+            }
         }
 
 

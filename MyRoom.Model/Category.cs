@@ -71,6 +71,6 @@ namespace MyRoom.Model
         public virtual ICollection<RelUserCategory> RelUserCategory { get; set; }
 
         [NotMapped]
-        public Category CategoryChildren { get; set; }
+        public List<Category> CategoryChildren { get; set; }
     }
 }

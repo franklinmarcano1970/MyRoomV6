@@ -136,6 +136,8 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="web.config" />
+    <None Include="Properties\PublishProfiles\servicioswebmoviles - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\servicioswebmoviles - Web Deploy.pubxml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

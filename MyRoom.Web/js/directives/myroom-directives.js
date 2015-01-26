@@ -318,7 +318,11 @@
 
                           debugger
                           if (branch.CategoryChildren == null)
-                              return sourceitems;
+                          {
+                                  keyCategory++;
+                                  return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
+                          }
+                              //return sourceitems;
 
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
 
@@ -476,6 +480,8 @@
                           $scope.category.CategoryItem = _categoryItem;
                           $scope.CategoryItemId = _categoryItem;
                       }
+
+                      $scope.currentModule = obj.item;
                       while (obj.item.type != 'module') {
                           obj = obj.$parent;
                               $scope.currentModule = obj.item;
@@ -630,7 +636,7 @@
                                         });
                                     }
                                     debugger
-                                    $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
+                                    $scope.sourceItems[keyModule].children[keyCategory] =  createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
 
                                 });
                                 //Fin de la categoria
@@ -646,44 +652,49 @@
                       });
 
                       function createSubCategories(branch, keyCategory, sourceitems) {
+                          sourceitems.children = {};
                           if (branch == null)
                               return sourceitems;
-
-                          sourceitems.children = {};
-                          //angular.forEach(branch, function (valueCategory, keyCategory) {
-                          keyCategory = keyCategory + 1;
-                          sourceitems.children[keyCategory] = {
-                              text: branch.Name,
-                              type: "category",
-                              Id: branch.CategoryId,
-                              IdTranslationName: branch.IdTranslationName,
-                              Name: branch.Name,
-                              Image: branch.Image,
-                              Orden: branch.Orden,
-                              Comment: branch.Comment,
-                              IdParentCategory: branch.IdParentCategory,
-                              CategoryItem: branch.CategoryItem,
-                              Pending: branch.Pending,
-                              IsFirst: branch.IsFirst,
-                              IsFinal: branch.IsFinal,
-                              Active: branch.Active,
-                              Prefix: branch.Prefix,
-                              nextsibling: "category",
-                              Translation: branch.Translation
-                          };
-                          if ($state.current.name == 'app.page.catalogue_assignProducts') {
-                              if (branch.IsFinal) {
-                                  sourceitems.children[keyCategory].ActiveCheckbox = true;
+                          angular.forEach(branch, function (valueCategory, keyCategory) {
+                              sourceitems.children[keyCategory] = {
+                                  text: branch[keyCategory].Name,
+                                  type: "category",
+                                  Id: branch[keyCategory].CategoryId,
+                                  IdTranslationName: branch[keyCategory].IdTranslationName,
+                                  Name: branch[keyCategory].Name,
+                                  Image: branch[keyCategory].Image,
+                                  Orden: branch[keyCategory].Orden,
+                                  Comment: branch[keyCategory].Comment,
+                                  IdParentCategory: branch[keyCategory].IdParentCategory,
+                                  CategoryItem: branch[keyCategory].CategoryItem,
+                                  Pending: branch[keyCategory].Pending,
+                                  IsFirst: branch[keyCategory].IsFirst,
+                                  IsFinal: branch[keyCategory].IsFinal,
+                                  Active: branch[keyCategory].Active,
+                                  Prefix: branch[keyCategory].Prefix,
+                                  nextsibling: "category",
+                                  Translation: branch[keyCategory].Translation
+                              };
+                              if ($state.current.name == 'app.page.catalogue_assignProducts') {
+                                  if (branch.IsFinal) {
+                                      sourceitems.children[keyCategory].ActiveCheckbox = true;
+                                  }
                               }
-                          }
+                              if(branch.CategoryChildren!= null)
+                                return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
+
+                          });
+
+                          //angular.forEach(branch, function (valueCategory, keyCategory) {
+                          //keyCategory = keyCategory + 1;
                           
                           //$scope.Product = {};
                           //$scope.Product = sourceitems.children[keyCategory].Products;
+
                           if (branch.CategoryChildren == null)
                               return sourceitems;
-                          console.info(keyCategory + branch.Name);
+
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
-                   
 
                       }
                       // $scope.catalog = cata;

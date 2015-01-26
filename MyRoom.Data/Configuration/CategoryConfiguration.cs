@@ -25,10 +25,10 @@ namespace MyRoom.Data.Configuration
                 mc.ToTable("REL_MODULE_CATEGORY");
             });
 
-            HasMany(e => e.CategoryProducts)
-               .WithRequired(e => e.Category)
-               .HasForeignKey(e => e.IdCategory)
-               .WillCascadeOnDelete(true);
+            //HasMany(e => e.CategoryProducts)
+            //   .WithRequired(e => e.Category)
+            //   .HasForeignKey(e => e.IdCategory)
+            //   .WillCascadeOnDelete(true);
 
             //HasKey(x => x.CategoryId);
             //HasMany(x => x.Products)

@@ -358,9 +358,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.Language7 = entity.Translation.Language7;
         vm.Language8 = entity.Translation.Language8;
 
-
-        vm.ModuleId = 7;//$scope.currentModule.Id;
-        vm.ModuleName = 'Module 1';//$scope.currentModule.Name;
+        vm.ModuleId = $scope.currentModule.Id;
+        vm.ModuleName = $scope.currentModule.Name;
         return vm;
     }
 }]);
