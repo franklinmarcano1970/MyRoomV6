@@ -20,6 +20,17 @@ angular.module('ui.load', [])
 
 			return deferred.promise;
 		};
+		function assignCatalog(hotelCataloguesVm) {
+		    debugger
+		    var deferred = $q.defer();
+		    return $http.post(serviceBase + 'api/hotels/catalogues', hotelCataloguesVm).success(function (response) {
+		        deferred.resolve(response);
+		    }, function (err) {
+		        deferred.reject(err);
+		    });
+
+		    return deferred.promise;
+		};		
 		function getUserHotelId(idUser, IdHotel) {
 			var deferred = $q.defer();
 			return $http.get(serviceBase + 'odata/RelUserHotels?$filter=IdUser eq ' + idUser + ' and IdHotel eq ' + IdHotel).success(function (response) {
@@ -41,8 +52,7 @@ angular.module('ui.load', [])
 			return deferred.promise;
 		}
 		function saveHotel(hotel, fileUpload) {
-            debugger
-			var deferred = $q.defer();
+        	var deferred = $q.defer();
 			return $http.post(serviceBase + 'api/Hotels', hotel).success(function (response) {
 				deferred.resolve(response);
 			}, function (err) {
@@ -125,7 +135,8 @@ angular.module('ui.load', [])
 			getHotelCatalogId: getHotelCatalogId,
 			removeUserHotel: removeUserHotel,
 			getHotel: getHotel,
-			updateHotel: updateHotel
+			updateHotel: updateHotel,
+			assignCatalog: assignCatalog
 		};
 
 

@@ -338,28 +338,5 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
     {
         return item.type == 'product' || item.type == 'category';
     }
-
-    $scope.activeCatalog = function ()
-    {
-        angular.forEach($scope.selectCatalog, function (value, key) {
-            var ActiveHotelCatalog = {
-                IdHotel: $scope.IdHotel,
-                IdCatalogue: value,
-                Active : true
-            };
-            var request = $http({
-                method: "post",
-                url: serviceBase + "odata/ActiveHotelCatalogue",
-                data: ActiveHotelCatalog
-            });
-
-            var post = request;
-            post.then(function (pl) {
-
-            }, function (err) {
-                console.log("Err" + err);
-            });
-        });
-    };
 }])
 ;

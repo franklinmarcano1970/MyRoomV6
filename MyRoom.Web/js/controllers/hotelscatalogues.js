@@ -37,6 +37,18 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
             });
         };
 
+        $scope.assignCatalog = function () {
+            hotelService.assignCatalog().then(function (response) {
+                $scope.toaster = { type: 'success', title: 'Success', text: 'Catalogues assigned to hotel' };
+                $scope.pop();
+            },
+            function (err) {
+                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
+                $scope.pop();
+            });
+
+        }
+
        
         $scope.getAll();
 
