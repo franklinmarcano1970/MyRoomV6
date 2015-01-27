@@ -1,7 +1,10 @@
 ﻿'use strict';
 /* Controllers */
 // product controller
-app.controller('ProductsController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', '$timeout', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster, $timeout) {
+app.controller('ProductsController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', '$timeout', 'FileUploader', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster, $timeout, FileUploader) {
+    var uploader = $scope.uploader = new FileUploader({
+        url: serviceBase + 'api/files/Upload'
+    });
     var ischecked = $filter('ischecked');
     $scope.toaster = {
         type: 'error',
@@ -30,8 +33,21 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         },
         RelatedProducts: [{ IdRelatedProduct: 0 }]
     };
-
     $scope.menssage = '';
+    uploader.onAfterAddingFile = function (fileItem) {
+        if (fileItem.file.type == 'image/jpeg') {
+            $scope.file = fileItem._file;
+            $scope.product.Image = $scope.file.name;
+        }
+        else {
+            $scope.toaster = {
+                type: 'error',
+                title: 'Info',
+                text: 'File permited JPEG or GIF'
+            };
+            $scope.pop();
+        }
+    };
     $scope.pop = function () {
         toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
     };
@@ -133,6 +149,8 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
                 $timeout(function () {
                     $scope.pop();
                 }, 1000);
+                //Para subir la imagen
+                uploader.uploadAll();
                 $scope.product = {
                     Active: true,
                     Image: 'img/prod.jpg',

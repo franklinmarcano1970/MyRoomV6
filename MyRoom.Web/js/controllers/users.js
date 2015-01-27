@@ -225,10 +225,6 @@ app.controller('UsersHotelController', ['$scope', '$http', '$state', 'hotelServi
         toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
     };
     $scope.saveUserHotel = function () {
-        //var passed = ischeckedArray($scope.hotels);
-        //var g = $scope.selectHotelUser;
-        //var i = 0;
-
         var permissions = [];
         if (!$scope.person.selected) {
             $scope.toaster = { type: 'info', title: 'Info', text: 'Please select a user' };
@@ -246,7 +242,6 @@ app.controller('UsersHotelController', ['$scope', '$http', '$state', 'hotelServi
             }
             debugger
             hotelService.saveUserPermission(permissions).then(function (response) {
-                //$scope.message = "The Product has been saved";
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Permission has been assigned' };
                 $scope.pop();
             },
@@ -255,45 +250,6 @@ app.controller('UsersHotelController', ['$scope', '$http', '$state', 'hotelServi
                 $scope.pop();
             });
         }
-
-        //$("input[name='post[]']").each(function ()
-        //{
-        //    if ($("input[name='post[]']").eq(i).is(':checked') == false) {
-        //        //Buscamos el registro para eliminarlo
-        //        angular.forEach($scope.selectHotelUser, function (value, key) {
-        //            if (value.IdHotel == $("input[name='post[]']").eq(i).val())
-        //            {
-        //                hotelService.removeUserHotel(value.Id).then(function (response) {
-        //                    $scope.message = "The Product has been saved";
-        //                },
-        //                function (err) {
-        //                    $scope.error_description = err.error_description;
-        //                });
-        //            }
-        //        });
-        //    } 
-        //    i++;
-
-        //});
-        //$("input[name='post[]']:checked").each(function () {
-        //    //cada elemento seleccionado
-        //    var id = parseInt($(this).val());
-        //    hotelService.getUserHotelId($scope.IdUser, id).then(function (response) {
-        //        var f = response.data.value.length;
-        //        if (f == 0) {
-        //            $scope.RelUserHotel = { IdUser: $scope.IdUser, IdHotel: id, ReadOnly: true, ReadWrite: true };
-        //            hotelService.saveUserHotel($scope.RelUserHotel).then(function (response) {
-
-        //                $scope.message = "The Product has been saved";
-        //            },
-        //            function (err) {
-        //                $scope.error_description = err.error_description;
-        //            });
-        //            i++;
-        //        }
-        //    });
-
-        //});
     }
     $scope.getAll();
 }])

@@ -71,7 +71,7 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
 app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService', 'toaster', '$timeout', 'FileUploader', function ($scope, $http, $state, hotelService, toaster, $timeout, FileUploader) {
     //$scope.file = {file: 1, Name: "ff.jpg"};
     var uploader = $scope.uploader = new FileUploader({
-        url: serviceBase + 'api/files/Upload'
+        url: serviceBase + 'api/files/Upload' 
     });
     $scope.hotel = {
         Name: '',

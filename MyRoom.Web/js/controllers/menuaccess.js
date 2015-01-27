@@ -58,33 +58,6 @@
             });
         }
 
-        //angular.forEach($scope.selectMenuUser, function (value, key) {
-        //    $("input[name='post[]']").each(function () {
-        //        var f = parseInt($(this).val());
-        //        if ($("input[name='post[]']").eq(i).is(':checked') == false) {
-        //            //Buscamos el registro para eliminarlo
-        //            if (value.IdPermission == f) {
-        //                accountService.removeUserMenu(value.Id).then(function (response) {
-        //                    $scope.message = "The Product has been saved";
-        //                },
-        //                function (err) {
-        //                    $scope.error_description = err.error_description;
-        //                });
-        //            } 
-        //        }
-        //        i++;
-        //    });
-        //});
-
-        //$("input[name='post[]']:checked").each(function () {
-        //    //cada elemento seleccionado
-        //    //angular.forEach($scope.selectMenuUser, function (value, key) {
-        //    //    if (value.IdPermission != $(this).val())
-        //    //});
-        //    var id = parseInt($(this).val());
-
-            //});
-
     }
     $scope.getMenuAll();
     
