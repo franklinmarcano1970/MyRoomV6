@@ -229,7 +229,6 @@
                       $scope.items = {};
                       $scope.sourceItems = {};
                       catalogService.getCatalogComplex(id).then(function (response) {
-                          debugger
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
                           $scope.catalogComplex = response.data;
@@ -322,13 +321,8 @@
                                   keyCategory++;
                                   return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
                           }
-                              //return sourceitems;
-
                           return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
-
-
                       }
-                      // $scope.catalog = cata;
                       $scope.items = $scope.sourceItems;
 
 
@@ -444,10 +438,6 @@
                               }
                           };
                    
-                          //$scope.category.categoryItem = obj.$parent.item.CategoryItem;
-                          //$scope.category.IdParentCategory = obj.$parent.item.Id;
-
-                          //$scope.category = { IsFirst: $scope.category.IsFirst, Active: true, Pending: true, IsFinal: true };
                           $scope.showTabsetCategory = true;
                           $scope.showTabsetModule = false;
                       }
@@ -466,33 +456,21 @@
                             };
                             $scope.category.IsFirst = true;
                             $scope.IdModule = item.Id;
-                            $scope.CategoryItemId = null;
                       }
                       else {
                           $scope.category.IsFirst = false;
-                          var _categoryItem = 0;
-                          if (item.CategoryItem == null)
-                          {
-                              _categoryItem = item.Id;
-                          } else {
-                              _categoryItem = item.CategoryItem;
-                          }
-                          $scope.category.CategoryItem = _categoryItem;
-                          $scope.CategoryItemId = _categoryItem;
                       }
 
                       $scope.currentModule = obj.item;
+                      
                       while (obj.item.type != 'module') {
                           obj = obj.$parent;
-                              $scope.currentModule = obj.item;
-                       
+                          $scope.currentModule = obj.item;                       
                       }
 
-
-                      var a = $scope.currentCategory;
                       if (item.nextsibling == "category") {
                           if(item.type == 'category')
-                            $scope.category.IdParentCategory = item.Id;
+                              $scope.category.IdParentCategory = item.CategoryId;
 
                           $scope.showTabsetCategory = true;
                           $scope.showTabsetModule = false;
@@ -502,12 +480,8 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       }
-                      while (obj.item.type != 'module')
-                      {
-                          $scope.categoryItem = obj.item.Id;
-                          obj = obj.$parent;                        
-                      }
-                      $scope.category = {IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory,  CategoryItem : $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
+
+                      $scope.category = { IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory, CategoryItem: $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
                   }
                   $scope.deleteItems = function (item) {
                       if (item.type == "category") {
@@ -562,181 +536,14 @@
                       catalogService.getCatalogComplex(id).then(function (response) {
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
-                         
-                          $scope.catalogComplex = response.data;
-                          $scope.Modules = {};
-                          /////////////////////////
-                          $scope.Modules = $scope.catalogComplex.Modules;
-                          angular.forEach($scope.Modules, function (valueModule, keyModule) {
-                                $scope.sourceItems[keyModule] = {
-                                    text: valueModule.Name,
-                                    Prefix: valueModule.Prefix,
-                                    type: "module",
-                                    Id: valueModule.ModuleId,
-                                    IdTranslationName: valueModule.IdTranslationName,
-                                    Name: valueModule.Name,
-                                    Image: valueModule.Image,
-                                    Orden: valueModule.Orden,
-                                    Comment: valueModule.Comment,
-                                    Pending: valueModule.Pending,
-                                    Active: valueModule.Active,
-                                    nextsibling: "category",
-                                    Translation: valueModule.Translation,
-                                };
-                              
-                                $scope.Category = {};
-                                $scope.Category = $scope.Modules[keyModule].Categories;
-                                $scope.sourceItems[keyModule].children = {};
-                              //Categoria
-                                angular.forEach($scope.Category, function (valueCategory, keyCategory) {
-                                    
-                                    $scope.sourceItems[keyModule].children[keyCategory] = {
-                                        text: valueCategory.Name,
-                                        type: "category",
-                                        Id: valueCategory.CategoryId,
-                                        IdTranslationName: valueCategory.IdTranslationName,
-                                        Name: valueCategory.Name,
-                                        Image: valueCategory.Image,
-                                        IdParentCategory: valueCategory.IdParentCategory,
-                                        CategoryItem: valueCategory.CategoryItem,
-                                        Orden: valueCategory.Orden,
-                                        Comment: valueCategory.Comment,
-                                        Pending: valueCategory.Pending,
-                                        IsFinal: valueCategory.IsFinal,
-                                        Prefix: valueCategory.Prefix,
-                                        nextsibling: "category",
-                                        Translation: valueCategory.Translation
-
-                                    };
-                                    if ($state.current.name == 'app.page.catalogue_assignProducts') {
-                                        if (valueCategory.IsFinal) {
-                                            $scope.sourceItems[keyModule].children[keyCategory].ActiveCheckbox = true;
-                                        }
-                                    }
-                                    if ($state.current.name == 'app.page.catalogue_assignProducts') {
-                                        $scope.Product = {};
-                                        $scope.sourceItems[keyModule].children[keyCategory].children = {};
-                                        $scope.Product = $scope.Modules[keyModule].Categories[keyCategory].Products;
-                                        angular.forEach($scope.Product, function (valueProduct, keyProduct) {
-                                            console.info(valueProduct.Name);
-                                            $scope.sourceItems[keyModule].children[keyCategory].children[keyProduct] = {
-                                                text: valueProduct.Name,
-                                                type: "product",
-                                                Id: valueProduct.Id,
-                                                IdTranslationName: valueProduct.IdTranslationName,
-                                                Name: valueProduct.Name,
-                                                Image: valueProduct.Image,
-                                                Pending: valueProduct.Pending,
-                                                IsFinal: valueProduct.IsFinal,
-                                                Prefix: valueProduct.Prefix,
-                                                nextsibling: "product",
-                                                Translation: valueProduct.Translation
-                                            };
-                                            //$scope.sourceItems[keyModule].children[keyCategory].children[keyProduct] = createSubCategoriesProduct($scope.Product[keyProduct].CategoryChildren, keyProduct, $scope.sourceItems[keyModule].children[keyCategory].children[keyProduct]);
-                                        });
-                                    }
-                                    debugger
-                                    $scope.sourceItems[keyModule].children[keyCategory] =  createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
-
-                                });
-                                //Fin de la categoria
-
-                                if ($state.current.name == "app.page.usercatalog") {
-                                    $scope.sourceItems[keyModule].ActiveCheckbox = true;
-                                }
-                        });
-                          /////////////////////////////////////
+                          $scope.sourceItems = JSON.parse(response.data);
+                          $scope.items = $scope.sourceItems;                
                       },
                       function (err) {
                             $scope.error_description = err.error_description;
                       });
 
-                      function createSubCategories(branch, keyCategory, sourceitems) {
-                          sourceitems.children = {};
-                          if (branch == null)
-                              return sourceitems;
-                          angular.forEach(branch, function (valueCategory, keyCategory) {
-                              sourceitems.children[keyCategory] = {
-                                  text: branch[keyCategory].Name,
-                                  type: "category",
-                                  Id: branch[keyCategory].CategoryId,
-                                  IdTranslationName: branch[keyCategory].IdTranslationName,
-                                  Name: branch[keyCategory].Name,
-                                  Image: branch[keyCategory].Image,
-                                  Orden: branch[keyCategory].Orden,
-                                  Comment: branch[keyCategory].Comment,
-                                  IdParentCategory: branch[keyCategory].IdParentCategory,
-                                  CategoryItem: branch[keyCategory].CategoryItem,
-                                  Pending: branch[keyCategory].Pending,
-                                  IsFirst: branch[keyCategory].IsFirst,
-                                  IsFinal: branch[keyCategory].IsFinal,
-                                  Active: branch[keyCategory].Active,
-                                  Prefix: branch[keyCategory].Prefix,
-                                  nextsibling: "category",
-                                  Translation: branch[keyCategory].Translation
-                              };
-                              if ($state.current.name == 'app.page.catalogue_assignProducts') {
-                                  if (branch.IsFinal) {
-                                      sourceitems.children[keyCategory].ActiveCheckbox = true;
-                                  }
-                              }
-                              if(branch.CategoryChildren!= null)
-                                return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
-
-                          });
-
-                          //angular.forEach(branch, function (valueCategory, keyCategory) {
-                          //keyCategory = keyCategory + 1;
-                          
-                          //$scope.Product = {};
-                          //$scope.Product = sourceitems.children[keyCategory].Products;
-
-                          if (branch.CategoryChildren == null)
-                              return sourceitems;
-
-                          return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
-
-                      }
-                      // $scope.catalog = cata;
-                      //function createSubCategoriesProduct(branch, keyProducts, sourceitems) {
-                      //    if (branch == null)
-                      //        return sourceitems;
-
-                      //    sourceitems.children = {};
-                      //    //angular.forEach(branch, function (valueCategory, keyCategory) {
-                      //    sourceitems.children[keyProducts] = {
-                      //        text: branch.Name,
-                      //        type: "product",
-                      //        Id: branch.Id,
-                      //        IdTranslationName: branch.IdTranslationName,
-                      //        Name: branch.Name,
-                      //        Image: branch.Image,
-                      //        Orden: branch.Orden,
-                      //        Comment: branch.Comment,
-                      //        Pending: branch.Pending,
-                      //        Active: branch.Active,
-                      //        Prefix: branch.Prefix,
-                      //        nextsibling: "product",
-                      //        Translation: branch.Translation
-                      //    };
-                      //    if ($state.current.name == 'app.page.catalogue_assignProducts') {
-                      //        if (branch.IsFinal) {
-                      //            sourceitems.children[keyProduct].ActiveCheckbox = true;
-                      //        }
-                      //    }
-
-                      //    $scope.Product = {};
-                      //    $scope.Product = sourceitems.children[keyCategory].Products;
-                      //    if (branch.CategoryChildren == null)
-                      //        return sourceitems;
-
-                      //    return createSubCategoriesProduct(branch.CategoryChildren, keyProduct, $scope.sourceItems[keyModule].children[keyCategory].children[keyProduct]);
-
-
-                      //}
-                      $scope.items = $scope.sourceItems;
-
-                   
+                      $scope.items = $scope.sourceItems;    
                   }
 
                   $scope.loadTreeCatalog($scope.IdCatalog);

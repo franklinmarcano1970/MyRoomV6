@@ -6,7 +6,7 @@ namespace MyRoom.Model
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    [JsonObject(IsReference = true)]
+    [JsonObject(IsReference = false)]
     [Table("REL_CATEGORY_PRODUCT")]
     public partial class CategoryProduct
     {

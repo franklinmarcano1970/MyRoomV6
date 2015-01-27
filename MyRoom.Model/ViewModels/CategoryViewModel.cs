@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +8,10 @@ namespace MyRoom.Model.ViewModels
 {
     public class CategoryViewModel  : BaseViewModel
     {
+        public int CategoryId { get; set; }
+
+        public int ModuleId { get; set; }
+
         public string Name { get; set; }
 
         public string Image { get; set; }
@@ -28,8 +33,6 @@ namespace MyRoom.Model.ViewModels
         public bool? Pending { get; set; }
 
         public string Prefix { get; set; }
-
-        public int ModuleId { get; set; }
 
         public string ModuleName { get; set; }
     }

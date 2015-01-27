@@ -45,7 +45,7 @@
                                 <h4>CATALOGUES LIST</h4>
                             </div>
                             <div class="col-md-6 column">
-                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>SAVE</button>
+                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="assignCatalog()"><i class="fa fa-plus"></i>SAVE</button>
                             </div>
                         </div>
                         <hr />
@@ -74,7 +74,7 @@
                         <hr>
 
                         <div class="col-md-12 column">
-                            <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>SAVE</button>
+                            <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="assignCatalog()"><i class="fa fa-plus"></i>SAVE</button>
                         </div>
                     </div>
                 </div>
@@ -83,10 +83,7 @@
     </div>
 </div>
 <script>
-
     $(document).ready(function () {
-        debugger
-
         $('#hoteldt').on('click', 'tbody tr', function (event) {
             $(this).addClass('highlight').siblings().removeClass('highlight');
         });

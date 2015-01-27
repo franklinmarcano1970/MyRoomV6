@@ -11,7 +11,7 @@ namespace MyRoom.Data.Configuration
     {
         public ProductsConfiguration()
         {
-        
+
             HasMany(e => e.CategoryProducts)
             .WithRequired(e => e.Product)
             .HasForeignKey(e => e.IdProduct)

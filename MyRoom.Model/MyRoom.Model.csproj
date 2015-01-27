@@ -104,7 +104,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserHotelPermission.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CatalogCompositeViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\CategoryCompositeViewModel.cs" />
+    <Compile Include="ViewModels\HotelCataloguesViewModel.cs" />
+    <Compile Include="ViewModels\ModuleCompositeViewModel.cs" />
     <Compile Include="ViewModels\ModuleViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>

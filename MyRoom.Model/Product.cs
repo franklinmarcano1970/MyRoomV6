@@ -70,14 +70,14 @@ namespace MyRoom.Model
         public virtual ICollection<ActiveHotelProduct> ActiveHotelProduct { get; set; }
 
         [JsonIgnore]
-        public ICollection<Category> Categories { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
 
         public virtual Translation Translation { get; set; }
 
      //   public virtual Translation Translation1 { get; set; }
         [JsonIgnore]
         public ICollection<CategoryProduct> CategoryProducts { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual ICollection<RelUserProduct> RelUserProduct { get; set; }
      
         public virtual ICollection<RelatedProduct> RelatedProducts { get; set; }

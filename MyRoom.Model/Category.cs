@@ -1,6 +1,7 @@
 using MyRoom;
 namespace MyRoom.Model
 {
+    using MyRoom.Model.ViewModels;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
@@ -71,6 +72,6 @@ namespace MyRoom.Model
         public virtual ICollection<RelUserCategory> RelUserCategory { get; set; }
 
         [NotMapped]
-        public List<Category> CategoryChildren { get; set; }
+        public List<CategoryCompositeViewModel> Children { get; set; }
     }
 }

@@ -16,6 +16,7 @@ using MyRoom.API.Filters;
 using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
+using MyRoom.Model.ViewModels;
 
 namespace MyRoom.API.Controllers
 {
@@ -35,8 +36,7 @@ namespace MyRoom.API.Controllers
             return Ok( hotelRepository.GetAll());
         }
 
-        // GET: odata/Hotels(5)
-
+        // GET: api/hotels/5
         [Route("{key}")]
         [HttpGet]
         public IHttpActionResult GetHotels(int key)
@@ -83,7 +83,7 @@ namespace MyRoom.API.Controllers
             return Ok(hotel);
         }
 
-        // POST: odata/Hotels
+        // POST: api/hotels/
         public async Task<IHttpActionResult> PostHotels(Hotel hotels)
         {
             if (!ModelState.IsValid)
@@ -94,6 +94,22 @@ namespace MyRoom.API.Controllers
             await hotelRepository.InsertAsync(hotels);
 
             return Ok(hotels);
+        }
+        
+        // POST: api/hotels/catalogues
+        [Route("catalogues")]
+        [HttpPost]
+        public async Task<IHttpActionResult> PostHotelsWithCatalogues(HotelCataloguesViewModel hotelsCataloguesViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            
+         //   await hotelRepository.InsertAsync(hotels);
+
+            return Ok("Catalogues Assigned to hotels");
         }
 
         // PATCH: odata/Hotels(5)

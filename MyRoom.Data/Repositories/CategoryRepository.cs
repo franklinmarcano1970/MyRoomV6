@@ -33,101 +33,116 @@ namespace MyRoom.Data.Repositories
             await this.Context.SaveChangesAsync();
         }
 
-
-        public List<Category> GetCategoriesParents(int categoryId)
+        public List<Category> GetByParentId(int categoryId)
         {
+            return (from p in this.Context.Categories
+                    where p.IdParentCategory == categoryId
+                    orderby p.IdParentCategory, p.Orden
+                    select p).ToList<Category>();
+            }
 
-            List<Category> categories = (from c in this.Context.Categories.Include("Translation")
-                                                               .Include("Products")
-                                        where c.IdParentCategory == categoryId
-                                        select c).ToList();
-            return categories;
 
-        }
+        //public List<Category> GetCategoriesParents(int categoryId)
+        //{
+
+        //    List<Category> categories = (from c in this.Context.Categories.Include("Translation")
+        //                                                       .Include("Products")
+        //                                where c.IdParentCategory == categoryId
+        //                                select c).ToList();
+        //    return categories;
+
+        //}
         
-        public List<Category> GetCategoriesChildren(int categoryId)
-        {
-            //List<Category> categories = this.Context.Categories.Include("Translation")
-            //                                                   .Include("Products")
-            //                                                   .Where(c => c.CategoryItem == categoryId && c.Active == true)
-            //                                                   .ToList();
+        //public List<Category> GetCategoriesChildren(Category categoryParent)
+        //{
+        //    Category category = null;
+        //    Category nextChild = null;
+        //    int index = 0;
+        //    int categoryId = categoryParent.CategoryId;
+            
+        //    List<Category> categories = this.Context.Categories.Include("Translation")
+        //                                                       .Include("Products")
+        //                                                       .Where(c => c.CategoryItem == categoryParent.CategoryItem && c.Active == true && c.CategoryId != categoryParent.CategoryId)
+        //                                                       .ToList();
 
-            //Category category = null;
-            //Category nextChild = null;
-            //int index = 0;
-            //foreach (Category c in categories)
-            //{
+        //    foreach (Category cat in categories)
+        //    {
 
-            //    if (c.IdParentCategory == categoryId)
-            //    {
-            //        if (category == null)
-            //        {
-            //            category = c;
-            //            if (index != categories.Count() - 1)
-            //                category.CategoryChildren = new Category();
+        //        List<Category> parentCategory = (from p  in this.Context.Categories
+        //                                         where p.IdParentCategory == cat.IdParentCategory
+        //                                        select p).ToList();
 
-            //            nextChild = category.CategoryChildren;
-            //        }
-            //        else
-            //        {
-            //            nextChild.Active = c.Active;
-            //            nextChild.Name = c.Name;
-            //            nextChild.CategoryId = c.CategoryId;
-            //            nextChild.CategoryItem = c.CategoryItem;
-            //            nextChild.Comment = c.Comment;
-            //            nextChild.IdParentCategory = c.IdParentCategory;
-            //            nextChild.IdTranslationName = c.IdTranslationName;
-            //            nextChild.Image = c.Image;
-            //            nextChild.IsFinal = c.IsFinal;
-            //            nextChild.IsFirst = c.IsFirst;
-            //            nextChild.Orden = c.Orden;
-            //            nextChild.Pending = c.Pending;
-            //            nextChild.Prefix = c.Prefix;
-            //            nextChild.Translation = c.Translation;
-            //            nextChild.Modules = c.Modules;
-            //            nextChild.ActiveHotelCategory = c.ActiveHotelCategory;
-                   
+        //        categoryParent.Children = parentCategory;
+        //        //if (c.IdParentCategory == categoryId)
+        //        //{
+        //        //    if (category == null)
+        //        //    {
+        //        //        category = c;
+        //        //        if (index != categories.Count() - 1)
+        //        //            category.CategoryChildren = new Category();
 
-            //            if (index != categories.Count() - 1)
-            //                nextChild.CategoryChildren = new Category();
-            //            nextChild = nextChild.CategoryChildren;
-            //        }
+        //        //        nextChild = category.CategoryChildren;
+        //        //    }
+        //        //    else
+        //        //    {
+        //        //        nextChild.Active = c.Active;
+        //        //        nextChild.Name = c.Name;
+        //        //        nextChild.CategoryId = c.CategoryId;
+        //        //        nextChild.CategoryItem = c.CategoryItem;
+        //        //        nextChild.Comment = c.Comment;
+        //        //        nextChild.IdParentCategory = c.IdParentCategory;
+        //        //        nextChild.IdTranslationName = c.IdTranslationName;
+        //        //        nextChild.Image = c.Image;
+        //        //        nextChild.IsFinal = c.IsFinal;
+        //        //        nextChild.IsFirst = c.IsFirst;
+        //        //        nextChild.Orden = c.Orden;
+        //        //        nextChild.Pending = c.Pending;
+        //        //        nextChild.Prefix = c.Prefix;
+        //        //        nextChild.Translation = c.Translation;
+        //        //        nextChild.Modules = c.Modules;
+        //        //        nextChild.ActiveHotelCategory = c.ActiveHotelCategory;
 
-            //        //nextChild.CategoryChildren.CategoryChildren = new Category();                                                
-            //    }
-            //    else
-            //    {
-            //        if (nextChild != null)
-            //        {
-            //            nextChild.Active = c.Active;
-            //            nextChild.Name = c.Name;
-            //            nextChild.CategoryId = c.CategoryId;
-            //            nextChild.CategoryItem = c.CategoryItem;
-            //            nextChild.Comment = c.Comment;
-            //            nextChild.IdParentCategory = c.IdParentCategory;
-            //            nextChild.IdTranslationName = c.IdTranslationName;
-            //            nextChild.Image = c.Image;
-            //            nextChild.IsFinal = c.IsFinal;
-            //            nextChild.IsFirst = c.IsFirst;
-            //            nextChild.Orden = c.Orden;
-            //            nextChild.Pending = c.Pending;
-            //            nextChild.Prefix = c.Prefix;
-            //            nextChild.Translation = c.Translation;
-            //            nextChild.Modules = c.Modules;
-            //            nextChild.ActiveHotelCategory = c.ActiveHotelCategory;
-                  
 
-            //            if (index != categories.Count() - 1)
-            //                nextChild.CategoryChildren = new Category();
-            //            nextChild = nextChild.CategoryChildren;
-            //        }
-            //    }
-            //    categoryId = c.CategoryId;
-            //    index++;
-            //}
-            return new List<Category>();
-          //  return category;
-        }
+        //        //        if (index != categories.Count() - 1)
+        //        //            nextChild.CategoryChildren = new Category();
+        //        //        nextChild = nextChild.CategoryChildren;
+        //        //    }
+
+        //        //    //nextChild.CategoryChildren.CategoryChildren = new Category();                                                
+        //        //}
+        //        //else
+        //        //{
+        //        //    if (nextChild != null)
+        //        //    {
+        //        //        nextChild.Active = c.Active;
+        //        //        nextChild.Name = c.Name;
+        //        //        nextChild.CategoryId = c.CategoryId;
+        //        //        nextChild.CategoryItem = c.CategoryItem;
+        //        //        nextChild.Comment = c.Comment;
+        //        //        nextChild.IdParentCategory = c.IdParentCategory;
+        //        //        nextChild.IdTranslationName = c.IdTranslationName;
+        //        //        nextChild.Image = c.Image;
+        //        //        nextChild.IsFinal = c.IsFinal;
+        //        //        nextChild.IsFirst = c.IsFirst;
+        //        //        nextChild.Orden = c.Orden;
+        //        //        nextChild.Pending = c.Pending;
+        //        //        nextChild.Prefix = c.Prefix;
+        //        //        nextChild.Translation = c.Translation;
+        //        //        nextChild.Modules = c.Modules;
+        //        //        nextChild.ActiveHotelCategory = c.ActiveHotelCategory;
+
+
+        //        //        if (index != categories.Count() - 1)
+        //        //            nextChild.CategoryChildren = new Category();
+        //        //        nextChild = nextChild.CategoryChildren;
+        //        //    }
+        //        }
+        //        //categoryId = c.CategoryId;
+        //        //index++;
+        //    //}
+        //    return new List<Category>();
+        //  //  return category;
+        //}
 
         public void ModuleStateUnchange(Category entity)
         {

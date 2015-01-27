@@ -12,9 +12,6 @@ namespace MyRoom.Data.Configuration
         public CategoryConfiguration()
         {
             HasKey(x => x.CategoryId);
-            //Property(x => x.TerritoryDescription).HasColumnType("nchar").HasMaxLength(50).IsRequired();
-
-
 
             HasMany(x => x.Modules)
             .WithMany(x => x.Categories)
@@ -25,20 +22,11 @@ namespace MyRoom.Data.Configuration
                 mc.ToTable("REL_MODULE_CATEGORY");
             });
 
-            //HasMany(e => e.CategoryProducts)
-            //   .WithRequired(e => e.Category)
-            //   .HasForeignKey(e => e.IdCategory)
-            //   .WillCascadeOnDelete(true);
+            HasMany(e => e.CategoryProducts)
+               .WithRequired(e => e.Category)
+               .HasForeignKey(e => e.IdCategory)
+               .WillCascadeOnDelete(true);
 
-            //HasKey(x => x.CategoryId);
-            //HasMany(x => x.Products)
-            //.WithMany(x => x.Categories)
-            //.Map(mc =>
-            //{
-            //    mc.MapLeftKey("IdCategory");
-            //    mc.MapRightKey("IdProduct");
-            //    mc.ToTable("REL_CATEGORY_PRODUCT");
-            //});
 
         }
     }

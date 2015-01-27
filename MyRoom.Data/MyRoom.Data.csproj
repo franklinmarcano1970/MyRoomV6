@@ -120,7 +120,6 @@
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\CatalogRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
-    <Compile Include="Repositories\CategoryProductRepository.cs" />
     <Compile Include="Repositories\RelatedProductRepository.cs" />
     <Compile Include="Repositories\UserHotelPermissionRepository.cs" />
     <Compile Include="Repositories\PermissionRepository.cs" />

@@ -287,10 +287,10 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             //$scope.category.Modules = [{ ModuleId: $scope.IdModule, Name: 'Module', Active: true }];
 
             //si no tiene parentcategory es modulo
-            if (!$scope.category.IdParentCategory)
-                $scope.category.Modules = [$scope.module];
+            //if (!$scope.category.IdParentCategory)
+            //    $scope.category.Modules = [$scope.module];
 
-            $scope.category.CategoryItem = $scope.CategoryItemId;
+            //$scope.category.CategoryItem = $scope.CategoryItemId;
             var categoryViewModel = createCategoryVM($scope.category);
             catalogService.saveCategory(categoryViewModel).then(function (response) {
                 $scope.toaster = {
@@ -357,8 +357,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.Language6 = entity.Translation.Language6;
         vm.Language7 = entity.Translation.Language7;
         vm.Language8 = entity.Translation.Language8;
-
-        vm.ModuleId = $scope.currentModule.Id;
+        vm.ModuleId = $scope.currentModule.ModuleId;
         vm.ModuleName = $scope.currentModule.Name;
         return vm;
     }

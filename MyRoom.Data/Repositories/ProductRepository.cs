@@ -79,6 +79,5 @@ namespace MyRoom.Data.Repositories
         {
             this.Context.Entry(entity).State = EntityState.Unchanged;
         }
-      
     }
 }

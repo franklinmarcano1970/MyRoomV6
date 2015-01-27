@@ -179,7 +179,9 @@
     <Content Include="vendor\angular\angular-highlightjs\bower.json" />
     <Content Include="vendor\angular\angular-highlightjs\LICENSE" />
     <Content Include="vendor\angular\angular-highlightjs\README.md" />
+    <None Include="Properties\PublishProfiles\servicioswebmoviles - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\servicioswebmoviles - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\servicioswebmoviles - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\servicioswebmoviles - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
