@@ -7,59 +7,72 @@
         <!-- toaster directive -->
         <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
         <!-- / toaster directive -->
-        <div class="col-md-12 column">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <button class="btn m-b-xs btn-md btn-info btn-addon ng-pristine ng-valid ng-touched" ng-click="createProduct()"><i class="fa fa-plus"></i>Create</button>
-                </div>
 
-                <div class="table-responsive">
-                    <div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h4 class="modal-title"><span class="glyphicon glyphicon-check"> Please Confirm</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <h3>Are you sure you want to delete the selected product?</h3>
-                                    <h4>This step has no return back</h4>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" ng-click="removeProduct(currentProdId)" class="btn btn-default" data-dismiss="modal">Delete</button>
+        <div class="row clearfix ">
+
+            <div class="col-md-4 ">
+                <catalog-select></catalog-select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn m-b-xs btn-md btn-info btn-addon ng-pristine ng-valid ng-touched" ng-click="createProduct()"><i class="fa fa-plus"></i>Create</button>
+            </div>
+        </div>
+        <div class="row clearfix ">
+
+            <div class="col-md-12 column">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Product List
+                    </div>
+
+                    <div class="table-responsive">
+                        <div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title"><span class="glyphicon glyphicon-check">Please Confirm</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h3>Are you sure you want to delete the selected product?</h3>
+                                        <h4>This step has no return back</h4>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" ng-click="removeProduct(currentProdId)" class="btn btn-default" data-dismiss="modal">Delete</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <table id="products" datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped m-b-none" ng-init="selectId" >
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Prefix</th>
-                                <td>Type</td>
-                                <th>Active</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="product in products">
-                                <td><span class="badge bg-info">{{ product.Id }}</span></td>
-                                <td>{{ product.Name }}</td>
-                                <td>{{ product.Price }}</td>
-                                <td>{{ product.Prefix }}</td>
-                                <td>{{ product.Type }}</td>
-                                <td>{{ product.Active }}</td>
-                                <td>
-                                    <button type="button" ng-click="modifyProduct(product.Id)" class="btn btn-primary"><i class="fa fa-edit"></i></button>
-                                    <button type="button" ng-click="selectProduct(product.Id)"  class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
-                                </td>
+                        <table id="products" datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped m-b-none" ng-init="selectId">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Prefix</th>
+                                    <td>Type</td>
+                                    <th>Active</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="product in products">
+                                    <td><span class="badge bg-info">{{ product.Id }}</span></td>
+                                    <td>{{ product.Name }}</td>
+                                    <td>{{ product.Price }}</td>
+                                    <td>{{ product.Prefix }}</td>
+                                    <td>{{ product.Type }}</td>
+                                    <td>{{ product.Active }}</td>
+                                    <td>
+                                        <button type="button" ng-click="modifyProduct(product.Id)" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                                        <button type="button" ng-click="selectProduct(product.Id)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                    </td>
 
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -4,43 +4,39 @@
 <div class="wrapper-md" ng-controller="HotelsCataloguesController">
     <div class="row clearfix">
         <div class="col-md-12 column">
-
             <div class="col-md-6 column">
                 <div class="panel panel-default shadow">
                     <div class="panel-body">
-
-
                         <div class="row clearfix">
                             <div class="col-md-6 column">
                                 <h4>HOTEL LIST</h4>
                             </div>
-                            <div class="col-md-6 column">
-                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="deactiveCatalog()"><i class="fa fa-plus"></i>DEACTIVE</button>
-                            </div>
                         </div>
                         <hr />
-                        <div class="b-a bg-light dk r r-2x">
-                            <span ng-if="doing_async">...loading...</span>
-                            <abn-tree tree-data="my_data"
-                                tree-control="my_tree"
-                                on-select="my_tree_handler(branch)"
-                                expand-level="2"
-                                initial-selection=""
-                                icon-leaf="fa fa-file-o"
-                                icon-expand="fa fa-plus"
-                                icon-collapse="fa fa-minus">
-                                </abn-tree>
+
+                        <div class="table-responsive b-a bg-light dk r r-2x">
+                            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs"  class="table table-striped m-b-none row-border hover">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="hotel in hotels">
+                                        <td><span class="badge bg-info">{{ hotel.HotelId  }}</span></td>
+                                        <td>{{ hotel.Name }}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
                         </div>
-                        <hr />
-                        <div class="row clearfix">
-                            <div class="col-md-12 column">
-                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="deactiveCatalog()"><i class="fa fa-plus"></i>DEACTIVE</button>
-                            </div>
-                        </div>
+                        <hr>
                     </div>
                 </div>
             </div>
-
             <div class="col-md-6 column">
                 <div class="panel panel-default shadow">
                     <div class="panel-body">
@@ -49,12 +45,12 @@
                                 <h4>CATALOGUES LIST</h4>
                             </div>
                             <div class="col-md-6 column">
-                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>ACTIVE</button>
+                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>SAVE</button>
                             </div>
                         </div>
                         <hr />
 
-                         <div class="table-responsive">
+                        <div class="table-responsive b-a bg-light dk r r-2x">
                             <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped m-b-none">
                                 <thead>
                                     <tr>
@@ -67,16 +63,18 @@
                                     <tr ng-repeat="catalog in catalogues">
                                         <td><span class="badge bg-info">{{ catalog.CatalogId }}</span></td>
                                         <td>{{ catalog.Name }}</td>
-                                        <td><label class="i-checks m-b-none"><input type="checkbox" ng-model="catalog.checked" ng-checked="catalog.checked"  name="post[]" value="{{ catalog.Id }}"><i></i></label></td>
+                                        <td>
+                                            <label class="i-checks m-b-none">
+                                                <input type="checkbox" ng-model="catalog.checked" ng-checked="catalog.checked" name="post[]" value="{{ catalog.Id }}"><i></i></label></td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <hr>
+
                         </div>
-                     
+                        <hr>
 
                         <div class="col-md-12 column">
-                            <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>ACTIVE</button>
+                            <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="activeCatalog()"><i class="fa fa-plus"></i>SAVE</button>
                         </div>
                     </div>
                 </div>

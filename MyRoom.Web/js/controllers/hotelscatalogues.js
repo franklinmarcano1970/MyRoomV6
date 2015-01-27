@@ -2,11 +2,11 @@
 
 /* Controllers */
 // Hotels controller
-app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'catalogService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'toaster', function ($scope, $http, $state, catalogService, DTOptionsBuilder, DTColumnDefBuilder, toaster) {
+app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'catalogService', 'hotelService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'toaster', function ($scope, $http, $state, catalogService, hotelService, DTOptionsBuilder, DTColumnDefBuilder, toaster) {
     $scope.catalogues = {};
-    
+    $scope.hotels = {};
     angular.element(document).ready(function () {
-        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+    
         $scope.dtColumnDefs = [
             DTColumnDefBuilder.newColumnDef(0),
             DTColumnDefBuilder.newColumnDef(1),
@@ -18,9 +18,17 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
         };
 
         $scope.getAll = function () {
-            debugger
             catalogService.getAll().then(function (response) {
                 $scope.catalogues = response.data;
+
+            },
+            function (err) {
+                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
+                $scope.pop();
+            });
+
+            hotelService.getAll().then(function (response) {
+                $scope.hotels = response.data;
 
             },
             function (err) {
@@ -31,5 +39,7 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
 
        
         $scope.getAll();
+
+
     });
 }]);

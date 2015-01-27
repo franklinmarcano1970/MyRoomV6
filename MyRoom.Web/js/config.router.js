@@ -422,17 +422,22 @@ angular.module('app')
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
                             return $ocLazyLoad.load('toaster').then(
-                                function () {
-                                    return $ocLazyLoad.load('datatables').then(
+                                  function () {
+                                      return $ocLazyLoad.load('ui.select').then(
                                         function () {
-                                            return $ocLazyLoad.load(
-                                                {
-                                                    files: ['js/controllers/product.js']
-                                                });
-                                        }
-                                    );
-                                });
-                        }
+                                            return $ocLazyLoad.load('datatables').then(
+                                                function () {
+                                                    return $ocLazyLoad.load(
+                                                        {
+                                                            files: [
+                                                                'js/directives/myroom-directives.js',
+                                                                'js/controllers/product.js']
+                                                        });
+                                                }
+                                            );
+                                        });
+                                  })
+                            }
                       ]
                   }
               })
