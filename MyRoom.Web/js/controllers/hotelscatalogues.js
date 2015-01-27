@@ -49,9 +49,40 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
 
         }
 
-       
         $scope.getAll();
 
+        $scope.selectHotel = function (hotel)
+        {
+            $scope.currentHotel = hotel;
+        };
 
+        $scope.activeCatalog = function ()
+        {
+            if ($scope.currentHotel != undefined) {
+                //Aca procedes a grabar, en currentHotel tienes todo el hotel seleccionado por si requieres otra informacion
+                var activeHotelCatalog = [];
+                $scope.catalogues.filter(function (value) {
+                    if (value.checked == true) {
+                        activeHotelCatalog.push({ IdHotel: $scope.currentHotel.HotelId, IdCatalogue: value.CatalogId });
+                    }
+                });
+                if (activeHotelCatalog.length == 0) {
+                    activeHotelCatalog.push({ IdHotel: $scope.currentHotel.HotelId });
+                }
+                hotelService.saveActiveHotelCatalog(activeHotelCatalog).then(function (response) {
+                    $scope.toaster = { type: 'success', title: 'Info', text: 'The Hotel Catalogue has been activated' };
+                    $scope.pop();
+                },
+                function (err) {
+                    $scope.toaster = { type: 'success', title: 'Info', text: err.error_description };
+                    $scope.pop();
+                });
+            }
+            else {
+                $scope.toaster = { type: 'error', title: 'Error', text: 'Select hotel' };
+                $scope.pop();
+            }
+        }
+        $scope.getAll();
     });
 }]);
