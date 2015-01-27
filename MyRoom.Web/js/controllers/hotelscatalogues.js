@@ -37,7 +37,21 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
             });
         };
 
-       
+        $scope.selectHotel = function (hotel)
+        {
+            $scope.currentHotel = hotel;
+        };
+
+        $scope.activeCatalog = function ()
+        {
+            if ($scope.currentHotel != undefined) {
+                //Aca procedes a grabar, en currentHotel tienes todo el hotel seleccionado por si requieres otra informacion
+            }
+            else {
+                $scope.toaster = { type: 'error', title: 'Error', text: 'Select hotel' };
+                $scope.pop();
+            }
+        }
         $scope.getAll();
 
 

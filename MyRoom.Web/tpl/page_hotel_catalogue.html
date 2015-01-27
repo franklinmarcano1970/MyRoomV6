@@ -24,7 +24,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="hotel in hotels">
+                                    <tr ng-repeat="hotel in hotels" ng-click="selectHotel(hotel)">
                                         <td><span class="badge bg-info">{{ hotel.HotelId  }}</span></td>
                                         <td>{{ hotel.Name }}</td>
                                         <td></td>
@@ -85,8 +85,6 @@
 <script>
 
     $(document).ready(function () {
-        debugger
-
         $('#hoteldt').on('click', 'tbody tr', function (event) {
             $(this).addClass('highlight').siblings().removeClass('highlight');
         });
