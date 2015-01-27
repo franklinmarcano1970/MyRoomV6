@@ -47,3 +47,7 @@ li {
     padding: 4px;
     margin: 10px 0;
 }
+
+tr.odd.ng-scope.selected {
+    background: #00CFFF;
+}

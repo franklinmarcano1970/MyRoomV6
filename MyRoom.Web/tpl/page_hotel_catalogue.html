@@ -15,7 +15,7 @@
                         <hr />
 
                         <div class="table-responsive b-a bg-light dk r r-2x">
-                            <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs"  class="table table-striped m-b-none row-border hover">
+                            <table datatable="ng" id="hoteldt" dt-options="dtOptions" dt-column-defs="dtColumnDefs"  class="table table-striped m-b-none row-border hover">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -82,4 +82,21 @@
         </div>
     </div>
 </div>
+<script>
 
+$(document).ready(function () {
+    debugger
+    var table = $('#hoteldt').DataTable();
+
+    $('#hoteldt tbody').on('click', 'tr', function () {
+        debugger
+        if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+    });
+</script>
