@@ -13,11 +13,12 @@
   <script src="js/app.min.js"></script>
   <script src="vendor/jquery/bootstrap.js"></script>
   <script>
-     function maxLengthCheck(object) {
+      function maxLengthCheck(object) {
+          debugger
         if (object.value.length > object.maxLength) {
             var aux = object.value;
             object.value = '';
-            object.value = aux.slice(0, object.maxLength)
+            object.value = aux.slice(0, object.maxLength);
         }
      }
   </script>
