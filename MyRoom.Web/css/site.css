@@ -41,13 +41,11 @@ li {
 }
 
 .shadow {
-    background-color: #FFFFFF;
+    background-color: n #FFFFFF;
     border: 1px solid #c8c8c8;
     box-shadow: 0 0 8px #c8c8c8;
     padding: 4px;
     margin: 10px 0;
 }
 
-tr.odd.ng-scope.selected {
-    background: #00CFFF;
-}
+.table-striped tbody tr.highlight td { background-color: #00CFFF; }
