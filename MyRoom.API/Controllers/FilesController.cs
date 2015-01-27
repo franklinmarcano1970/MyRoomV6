@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,6 +13,7 @@ using System.Web.Http;
 
 namespace MyRoom.API.Controllers
 {
+    [RoutePrefix("api/files")]
     public class FilesController : ApiController
     {
         [HttpPost] // This is from System.Web.Http, and not from System.Web.Mvc
@@ -31,7 +33,7 @@ namespace MyRoom.API.Controllers
 
             // uploadedFileInfo object will give you some additional stuff like file length,
             // creation time, directory name, a few filesystem methods etc..
-            var uploadedFileInfo = new FileInfo(result.FileData.First().LocalFileName);
+            var uploadedFileInfo = new FileInfo(originalFileName);
 
             // Remove this line as well as GetFormData method if you're not
             // sending any form data with your upload request
@@ -40,7 +42,7 @@ namespace MyRoom.API.Controllers
             // Through the request response you can return an object to the Angular controller
             // You will be able to access this in the .success callback through its data attribute
             // If you want to send something to the .error callback, use the HttpStatusCode.BadRequest instead
-            var returnData = "ReturnTest";
+            var returnData = "File load success";
             return this.Request.CreateResponse(HttpStatusCode.OK, new { returnData });
         }
 
@@ -48,11 +50,9 @@ namespace MyRoom.API.Controllers
         // they do not really belong to a controller class but that is up to you
         private MultipartFormDataStreamProvider GetMultipartProvider()
         {
-            // IMPORTANT: replace "(tilde)" with the real tilde character
-            // (our editor doesn't allow it, so I just wrote "(tilde)" instead)
-            var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
-            var root = HttpContext.Current.Server.MapPath(uploadFolder);
-            Directory.CreateDirectory(root);
+            var uploadFolder = ConfigurationManager.AppSettings["UploadImages"];
+            var root = uploadFolder; 
+            //Directory.CreateDirectory(root);
             return new MultipartFormDataStreamProvider(root);
         }
 

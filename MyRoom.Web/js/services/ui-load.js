@@ -40,7 +40,8 @@ angular.module('ui.load', [])
 
 			return deferred.promise;
 		}
-		function saveHotel(hotel) {
+		function saveHotel(hotel, fileUpload) {
+            debugger
 			var deferred = $q.defer();
 			return $http.post(serviceBase + 'api/Hotels', hotel).success(function (response) {
 				deferred.resolve(response);

@@ -68,8 +68,11 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
         $scope.getAll();
     });
 }]);
-app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService', 'toaster', '$timeout', function ($scope, $http, $state, hotelService, toaster, $timeout) {
-    $scope.file = {file: 1, Name: "ff.jpg"};
+app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService', 'toaster', '$timeout', 'FileUploader', function ($scope, $http, $state, hotelService, toaster, $timeout, FileUploader) {
+    //$scope.file = {file: 1, Name: "ff.jpg"};
+    var uploader = $scope.uploader = new FileUploader({
+        url: serviceBase + 'api/files/Upload'
+    });
     $scope.hotel = {
         Name: '',
         Active: true,
@@ -86,7 +89,20 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             Active: true
         },
     };
-
+    uploader.onAfterAddingFile = function (fileItem) {
+        if (fileItem.file.type == 'image/jpeg') {
+            $scope.file = fileItem._file;
+            $scope.hotel.Image = $scope.file.name;
+        }
+        else {
+            $scope.toaster = {
+                type: 'error',
+                title: 'Info',
+                text: 'File permited JPEG or GIF'
+            };
+            $scope.pop();
+        }
+    };
     if ($state.current.name == "app.page.hotel_edit" && $state.params['id']) {
         hotelService.getHotel($state.params['id']).then(function (response) {
             $scope.hotel = JSON.parse(response.data);;
@@ -109,6 +125,8 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
     $scope.my_data = [{ }]
     treedata_avm = [];
     $scope.saveHotel = function () {
+        var file = $scope.uploader;
+        
         if ($state.current.name == "app.page.hotel_create") {
             hotelService.saveHotel($scope.hotel).then(function (response) {
                 $scope.hotel = {
@@ -118,6 +136,8 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                         Active: true
                     }
                 };
+                //Para subir la imagen
+                uploader.uploadAll();
                 $timeout(function () {
                     $scope.toaster = {
                         type: 'success',

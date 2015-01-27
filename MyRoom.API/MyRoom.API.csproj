@@ -208,7 +208,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\images\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyRoom.Data.Contracts\MyRoom.Data.Contracts.csproj">
