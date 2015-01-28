@@ -5,11 +5,7 @@
 app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'toaster', function ($scope, $http, $state, hotelService, DTOptionsBuilder, DTColumnDefBuilder, toaster) {
     $scope.hotels = {};
     $scope.currentHotelId = 0;;
-    $scope.toaster = {
-        type: 'success',
-        title: 'Info',
-        text: 'The hotel has been removed'
-    };
+
     angular.element(document).ready(function () {
         $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
         $scope.dtColumnDefs = [
@@ -32,7 +28,9 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
 
             },
             function (err) {
-                $scope.error_description = err.error_description;
+                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
+                $scope.pop();
+
             });
         };
 
@@ -50,6 +48,11 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
 
         $scope.removeHotel = function (id) {
             hotelService.removeHotel(id).then(function (response) {
+                $scope.toaster = {
+                    type: 'success',
+                    title: 'Info',
+                    text: 'The hotel has been removed'
+                };
                 $scope.hotel = {
                     Active: true,
                     Image: 'img/hotel.jpg',
@@ -61,7 +64,9 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
                 $scope.getAll();
             },
             function (err) {
-                $scope.error_description = err.error_description;
+                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
+                $scope.pop();
+
             });
         };
 
@@ -151,13 +156,8 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
               //  $scope.message = "The Hotel has been saved";
             },
             function (err) {
-                $scope.toaster = {
-                    type: 'error',
-                    title: 'Error',
-                    text: err.error_description
-                };
-
-                $scope.pop();
+                $scope.toaster = {type: 'error',title: 'Error',text: err.error_description};
+                 $scope.pop();
             });
         }
         else {

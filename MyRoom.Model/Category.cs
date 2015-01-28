@@ -20,7 +20,7 @@ namespace MyRoom.Model
             //RelModuleCategory = new HashSet<RelModuleCategory>();
             RelUserCategory = new HashSet<RelUserCategory>();
             //CategoryChild = new Category();
-            Products = new HashSet<Product>();
+           // Products = new HashSet<Product>();
         }
 
         [Key]
@@ -36,8 +36,6 @@ namespace MyRoom.Model
         public string Image { get; set; }
 
         public int? IdParentCategory { get; set; }
-
-        public int? CategoryItem { get; set; }
 
         public bool IsFirst { get; set; }
 
@@ -57,7 +55,7 @@ namespace MyRoom.Model
         public ICollection<Module> Modules { get; set; }
 
      
-        public virtual ICollection<Product> Products { get; set; }
+        //public virtual ICollection<Product> Products { get; set; }
         
         [JsonIgnore]
         public virtual ICollection<ActiveHotelCategory> ActiveHotelCategory { get; set; }

@@ -9,6 +9,7 @@ using MyRoom.Data;
 using MyRoom.Data.Repositories;
 using MyRoom.Model.ViewModels;
 using MyRoom.Data.Mappers;
+using MyRoom.ViewModels;
 
 namespace MyRoom.API.Controllers
 {
@@ -132,7 +133,33 @@ namespace MyRoom.API.Controllers
             }
         }
 
-     
+        // POST: api/categories/assignproducts
+        [Route("assignproducts")]
+        [HttpPost]
+        public IHttpActionResult  PostCategoryAssignProducts(CategoryProductViewModel catalogAssignProductViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                //    catalogRepository.Insert(catalog);
+                //    int catalogid = catalog.CatalogId;
+                CategoryProductRepository categoryProdRepo = new CategoryProductRepository(new MyRoomDbContext());
+                List<CategoryProduct> categoryProds = CategoryProductMapper.CreateModel(catalogAssignProductViewModel);
+
+                categoryProdRepo.InsertCategoryProduct(categoryProds);
+                //    this.CreateStructureDirectories(catalogid);
+                return Ok("The products has been assigned to category");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         // DELETE: api/Categories/5
         [Route("{key}")]

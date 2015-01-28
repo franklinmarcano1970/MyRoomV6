@@ -78,11 +78,6 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         }//,
         //Catalogues: [{ CatalogId: 0, Name: 'Catalog', Active: true }]
     };    
-    
-    //$scope.selectCatalog = function (id)
-    //{
-    //    $scope.IdCatalog = id;
-    //}
 
     $scope.initTabsets = function ()
     {

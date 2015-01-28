@@ -16,7 +16,6 @@ namespace MyRoom.Data.Mappers
                 Active = categoryViewModel.CategoryActive,
                 Name = categoryViewModel.Name,
                 IdParentCategory = categoryViewModel.IdParentCategory,
-                CategoryItem = categoryViewModel.CategoryItem,
                 Orden = categoryViewModel.Orden,
                 Image = categoryViewModel.Image,
                 Pending = categoryViewModel.Pending,

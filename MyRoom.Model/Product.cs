@@ -69,8 +69,8 @@ namespace MyRoom.Model
         [JsonIgnore]
         public virtual ICollection<ActiveHotelProduct> ActiveHotelProduct { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<Category> Categories { get; set; }
+        //[JsonIgnore]
+        //public virtual ICollection<Category> Categories { get; set; }
 
         public virtual Translation Translation { get; set; }
 

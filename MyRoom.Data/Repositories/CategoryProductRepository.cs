@@ -17,21 +17,19 @@ namespace MyRoom.Data.Repositories
             this.Context = context;
         }
 
-        public void InsertCategoryProduct(List<Category> categories)
+        public void InsertCategoryProduct(List<CategoryProduct> categoryProds)
         {
-            CategoryRepository categoryRepo = new CategoryRepository(this.Context);
-
-            this.DeleteCategorProduct(categories[0].CategoryId);
-            if (categories[0].CategoryId != 0)
+            this.DeleteCategoryProduct(categoryProds[0].IdCategory);
+            if (categoryProds[0].IdCategory != 0)
             {
-                categories.ForEach(delegate(Category category)
+                categoryProds.ForEach(delegate(CategoryProduct categoryProd)
                 {
-                    categoryRepo.Insert(category);
+                    this.Insert(categoryProd);
                 });
             }
         }
 
-        public void DeleteCategorProduct(int categoryId)
+        public void DeleteCategoryProduct(int categoryId)
         {
             List<CategoryProduct> categories = this.Context.CategoryProducts.Where(c => c.IdCategory == categoryId).ToList();
             try

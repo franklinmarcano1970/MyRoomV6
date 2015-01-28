@@ -174,10 +174,9 @@ angular.module('ui.load', [])
 
 				 return deferred.promise;
 			 };
-			 function getCategoryId(id) {
+			 function saveAssingProduct(catalogAssignProductsVm) {
 				 var deferred = $q.defer();
-				 //odata/RelCategoryProducts?$filter=IdCategory eq 1
-				 return $http.get(serviceBase + 'odata/RelCategoryProducts?$filter=IdCategory eq ' + id ).success(function (response) {
+				 return $http.post(serviceBase + 'api/categories/assignproducts', catalogAssignProductsVm).success(function (response) {
 					 deferred.resolve(response);
 				 }, function (err) {
 					 deferred.reject(err);
@@ -323,7 +322,7 @@ angular.module('ui.load', [])
 			 };
 			 return {
 				 getAll: getAll,
-				 getCategoryId: getCategoryId,
+				 saveAssingProduct: saveAssingProduct,
 				 saveCatalog: saveCatalog,
 				 saveCatalogUser: saveCatalogUser,
 				 saveModuleUser: saveModuleUser,

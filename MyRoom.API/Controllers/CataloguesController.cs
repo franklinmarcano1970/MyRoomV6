@@ -10,6 +10,7 @@ using MyRoom.Data.Repositories;
 using System.IO;
 using System.Configuration;
 using System.Diagnostics;
+using MyRoom.ViewModels;
 
 namespace MyRoom.API.Controllers
 {
@@ -102,7 +103,6 @@ namespace MyRoom.API.Controllers
                 throw ex;
             }
         }
-
 
         private void CreateStructureDirectories(int catalogid)
         {
