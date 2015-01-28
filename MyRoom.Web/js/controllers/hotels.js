@@ -76,7 +76,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
     $scope.hotel = {
         Name: '',
         Active: true,
-        Image: 'img/prod.jpg',
+        Image: 'img/no-image.jpg',
         Translation: {
             Spanish: '',
             English: '',
@@ -89,10 +89,21 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             Active: true
         },
     };
+    uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        $scope.hotel.Image = response[0].path;
+    };
     uploader.onAfterAddingFile = function (fileItem) {
         if (fileItem.file.type == 'image/jpeg') {
             $scope.file = fileItem._file;
             $scope.hotel.Image = $scope.file.name;
+            var fr = new FileReader();
+            fr.onload = function (e) {
+                $('#image')
+                    .attr('src', e.target.result)
+                //.width(150)
+                //.height(200);
+            }
+            fr.readAsDataURL(fileItem._file);
         }
         else {
             $scope.toaster = {
@@ -136,7 +147,6 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                         Active: true
                     }
                 };
-                //Para subir la imagen
                 uploader.uploadAll();
                 $timeout(function () {
                     $scope.toaster = {

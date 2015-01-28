@@ -46,7 +46,7 @@
                                 <td><span class="badge bg-info">{{ hotel.HotelId }}</span></td>
                                 <td>{{ hotel.Name }}</td>
                                 <td>
-                                    <img src="img/uploads/{{ hotel.Image }}.jpg" alt="{{hotel.Name}}" width="70" height="70" /></td>
+                                    <img src="{{ hotel.Image }}" alt="{{hotel.Name}}" width="70" height="70" /></td>
                                 <td>{{ hotel.Active }}</td>
                                 <td>
                                     <button type="button" ng-click="modifyHotel(hotel.HotelId)" class="btn btn-primary"><i class="fa fa-edit"></i></button>

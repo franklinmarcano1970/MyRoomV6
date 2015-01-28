@@ -19,7 +19,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.IsNew = true;
     $scope.catalog = {
         Name: '',
-        Image: 'noimage.jpg',
+        Image: 'img/no-image.jpg',
         Pending: true,
         Active: true,
         Translation: {
@@ -38,7 +38,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.module = {
         ModuleId: 0,
         Name: '',
-        Image: 'noimage.jpg',
+        Image: 'img/no-image.jpg',
         Orden: '',
         Comment: '',
         Pending: true,
@@ -60,7 +60,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.category = {
         CategoryId: 0,
         Name: '',
-        Image: 'noimage.jpg',
+        Image: 'img/no-image.jpg',
         Orden: '',
         Comment: '',
         Pending: true,
@@ -92,12 +92,30 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.file = fileItem._file;
             if ($scope.typeAction == 'catalog') {
                 $scope.catalog.Image = $scope.file.name;
+                var fr = new FileReader();
+                fr.onload = function (e) {
+                    $('#imageCatalog')
+                        .attr('src', e.target.result)
+                }
+                fr.readAsDataURL(fileItem._file);
             }
             if ($scope.typeAction == 'module') {
                 $scope.module.Image = $scope.file.name;
+                var fr = new FileReader();
+                fr.onload = function (e) {
+                    $('#imageModule')
+                        .attr('src', e.target.result)
+                }
+                fr.readAsDataURL(fileItem._file);
             }
             if ($scope.typeAction == 'category') {
                 $scope.category.Image = $scope.file.name;
+                var fr = new FileReader();
+                fr.onload = function (e) {
+                    $('#imageCategory')
+                        .attr('src', e.target.result)
+                }
+                fr.readAsDataURL(fileItem._file);
             }
         }
         else {

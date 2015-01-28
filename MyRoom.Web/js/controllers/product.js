@@ -18,7 +18,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         Description: '',
         Price: '',
         Active: true,
-        Image: 'img/prod.jpg',
+        Image: 'img/no-image.jpg',
         Order: '',
         Translation: {
             Spanish: '',
@@ -38,6 +38,14 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         if (fileItem.file.type == 'image/jpeg') {
             $scope.file = fileItem._file;
             $scope.product.Image = $scope.file.name;
+            var fr = new FileReader();
+            fr.onload = function (e) {
+                $('#image')
+                    .attr('src', e.target.result)
+                //.width(150)
+                //.height(200);
+            }
+            fr.readAsDataURL(fileItem._file);
         }
         else {
             $scope.toaster = {
