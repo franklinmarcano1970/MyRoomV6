@@ -448,7 +448,7 @@
 
                               }
                           };
-                   
+                          $scope.typeAction = 'category';
                           $scope.showTabsetCategory = true;
                           $scope.showTabsetModule = false;
                       }
@@ -456,6 +456,7 @@
                   $scope.addItems = function (item, obj) {
                       
                       if (item.type == "module") {
+                          $scope.typeAction = 'module';
                           $scope.module = {
                               ModuleId : item.Id,
                               Name: item.Name,
@@ -469,6 +470,7 @@
                             $scope.IdModule = item.Id;
                       }
                       else {
+                          $scope.typeAction = 'category';
                           $scope.category.IsFirst = false;
                       }
 
@@ -483,6 +485,7 @@
                           if(item.type == 'category')
                               $scope.category.IdParentCategory = item.CategoryId;
 
+                          $scope.typeAction = 'category';
                           $scope.showTabsetCategory = true;
                           $scope.showTabsetModule = false;
 
