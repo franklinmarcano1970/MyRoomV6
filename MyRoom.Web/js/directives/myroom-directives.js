@@ -339,6 +339,7 @@
                   $scope.catalogtree = {};
                   $scope.sourceItems = [{}];                  
                   $scope.currentItem = {};
+
                   $scope.toggle = function (item) {
                       $("input[name='post[]']").prop('checked', '')
                       if ($scope.currentItem) {
@@ -346,6 +347,7 @@
                       }
                       item.selected = !item.selected;
                       $scope.currentItem = item;
+                      
                       
                       if ($state.current.name == 'app.page.catalogue_assignProducts') {
                           if ($scope.currentItem.type == 'module') {
@@ -358,6 +360,15 @@
                               $scope.currentItem.selected = false;
                           }
                           else {
+                              if (!item.IsFinal)
+                              {
+                                  $scope.toaster = { type: 'info', title: 'Info', text: 'The Category cannot be selected' };
+                                  $scope.pop();
+                                  $scope.currentItem.selected = false;
+                                  return;
+                              }
+
+                              $(this).addClass('selected').siblings().removeClass('selected');
                               catalogService.getCategoryId(item.Id).then(function (response) {
                                   $scope.categoryProduct = response.data.value;
                                   angular.forEach($scope.categoryProduct, function (value, key) {

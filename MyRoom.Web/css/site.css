@@ -49,3 +49,8 @@ li {
 }
 
 .table-striped tbody tr.highlight td { background-color: #00CFFF; }
+
+a.ng-binding.active {
+    background-color: rgb(184, 216, 247);
+    padding: 5px 5px;
+}
