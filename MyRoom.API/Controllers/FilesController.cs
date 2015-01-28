@@ -22,6 +22,7 @@ namespace MyRoom.API.Controllers
         {
             string folderName = ConfigurationManager.AppSettings["UploadImages"];//"App_Data/images";
             string PATH = HttpContext.Current.Server.MapPath("~/" + folderName);
+            //string PATH = "http://localhost:32151" + folderName;
             string rootUrl = Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.AbsolutePath, String.Empty);
 
             if (Request.Content.IsMimeMultipartContent())
