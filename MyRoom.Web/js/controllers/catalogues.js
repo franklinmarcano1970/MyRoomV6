@@ -2,8 +2,12 @@
 
 /* Controllers */
 // Catalogues controller
-app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogService', 'toaster', function ($scope, $http, $state, catalogService, toaster) {
+app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogService', 'toaster', 'FileUploader', function ($scope, $http, $state, catalogService, toaster, FileUploader) {
+    var uploader = $scope.uploader = new FileUploader({
+        url: serviceBase + 'api/files/Upload'
+    });
     var IdCatalog = 0;
+    $scope.typeAction = '';
     //$scope.IdModule = 0
     $scope.IdCatalog = 0;
     $scope.NameCatalog = '';
@@ -78,6 +82,33 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         }//,
         //Catalogues: [{ CatalogId: 0, Name: 'Catalog', Active: true }]
     };    
+    
+    //$scope.selectCatalog = function (id)
+    //{
+    //    $scope.IdCatalog = id;
+    //}
+    uploader.onAfterAddingFile = function (fileItem) {
+        if (fileItem.file.type == 'image/jpeg') {
+            $scope.file = fileItem._file;
+            if ($scope.typeAction == 'catalog') {
+                $scope.catalog.Image = $scope.file.name;
+            }
+            if ($scope.typeAction == 'module') {
+                $scope.module.Image = $scope.file.name;
+            }
+            if ($scope.typeAction == 'category') {
+                $scope.category.Image = $scope.file.name;
+            }
+        }
+        else {
+            $scope.toaster = {
+                type: 'error',
+                title: 'Info',
+                text: 'File permited JPEG or GIF'
+            };
+            $scope.pop();
+        }
+    };
 
     $scope.initTabsets = function ()
     {
@@ -85,6 +116,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         $scope.category = {};
         $scope.showTabsetCategory=false;
         $scope.showTabsetModule = true;
+        $scope.typeAction = 'module';
     }
 
     $scope.removeCatalogPopup = function () {
@@ -101,6 +133,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     $scope.createCatalogPopup = function () {
         $scope.modify = false;
+        $scope.typeAction = 'catalog';
         $('#newCatalog').modal({
             show: 'true'
         });
@@ -108,6 +141,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     $scope.editCatalogPopup = function () {
         
+        $scope.typeAction = 'catalog';
         if (!$scope.cata.selected)
         {
             $scope.toaster = { type: 'info', title: 'Info', text: 'Select a catalog' };
@@ -147,13 +181,14 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     };
     $scope.saveCatalog = function (catalog)
     {
-        debugger
         catalogService.saveCatalog(catalog).then(function (response) {
             $scope.toaster = {
                 type: 'success',
                 title: 'Success',
                 text: 'The Catalog has been saved'
             };
+            //Para subir la imagen
+            uploader.uploadAll();
             $scope.pop();
             $scope.loadCatalog();
 
@@ -225,6 +260,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 $scope.pop();
             });
         }
+        //Para subir la imagen
+        uploader.uploadAll();
         $scope.IsNew = true;
        
     };
@@ -322,6 +359,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 $scope.pop();
             });            
         }
+        //Para subir la imagen
+        uploader.uploadAll();
         $scope.IsNew = true;
         $scope.initTabsets();
         $scope.category = { Active: true, Pending: true, IsFinal: true };

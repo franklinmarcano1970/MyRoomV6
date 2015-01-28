@@ -643,22 +643,26 @@ angular.module('app')
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('toaster').then(
-                              function () {
-                                  return $ocLazyLoad.load('ui.select').then(
-                                      function () {
-                                          return $ocLazyLoad.load(
-                                                  {
-                                                      files: [
-                                                          'js/directives/myroom-directives.js',
-                                                          'js/controllers/select.js',
-                                                           'vendor/libs/bootstrap-filestyle.js',
-                                                          'js/controllers/catalogues.js']
-                                                  }
-                                          )
-                                      }
-                                  );
-                              });
+                            return $ocLazyLoad.load('angularFileUpload').then(
+                                  function () {
+                                      return $ocLazyLoad.load('toaster').then(
+                                        function () {
+                                            return $ocLazyLoad.load('ui.select').then(
+                                                function () {
+                                                    return $ocLazyLoad.load(
+                                                            {
+                                                                files: [
+                                                                    'js/directives/myroom-directives.js',
+                                                                    'js/controllers/file-upload.js',
+                                                                    'js/controllers/select.js',
+                                                                     'vendor/libs/bootstrap-filestyle.js',
+                                                                    'js/controllers/catalogues.js']
+                                                            }
+                                                    )
+                                                }
+                                            );
+                                        });
+                                  });
                         }]
                   }
 

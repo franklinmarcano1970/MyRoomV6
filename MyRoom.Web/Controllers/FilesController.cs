@@ -1,5 +1,5 @@
-﻿using MyRoom.API.Infraestructure;
-using MyRoom.Model;
+﻿using MyRoom.Web.Infraestructure;
+using MyRoom.Web.Infraestructure.MyRoom.API.Infraestructure;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
-namespace MyRoom.API.Controllers
+namespace MyRoom.Web.Controllers
 {
     [RoutePrefix("api/files")]
     public class FilesController : ApiController
@@ -20,7 +20,7 @@ namespace MyRoom.API.Controllers
         [HttpPost] // This is from System.Web.Http, and not from System.Web.Mvc
         public Task<IEnumerable<FileDesc>> Upload()
         {
-            string folderName = ConfigurationManager.AppSettings["UploadImages"];//"App_Data/images";
+            string folderName = "/images";
             string PATH = HttpContext.Current.Server.MapPath("~/" + folderName);
             string rootUrl = Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.AbsolutePath, String.Empty);
 
