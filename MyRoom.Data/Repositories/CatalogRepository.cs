@@ -23,6 +23,7 @@ namespace MyRoom.Data.Repositories
                                  .Include("Modules")
                                  .Include("Modules.Translation")
                                  .Include("Modules.Categories")
+                                 .Include("Modules.Categories.Translation")
                              where c.CatalogId == id && c.Active == true
                              select c;
             var cata = catalogues.FirstOrDefault();

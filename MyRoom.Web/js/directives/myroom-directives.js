@@ -404,7 +404,7 @@
                           $scope.showTabsetModule = true;
                       } else {
                           $scope.category = {
-                              CategoryId: item.Id,
+                              CategoryId: item.CategoryId,
                               IdTranslationName: item.IdTranslationName,
                               Prefix: item.Prefix,
                               Name: item.Name,

@@ -36,6 +36,8 @@ namespace MyRoom.Model.ViewModels
         
         public string nextsibling { get; set; }
 
+        public Translation Translation { get; set; }
+
         public List<CategoryCompositeViewModel> Children { get; set; }
 
     }

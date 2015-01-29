@@ -71,7 +71,8 @@ namespace MyRoom.Helpers
                 Comment = category.Comment,
                 Pending = category.Pending,
                 Active = category.Active,
-                nextsibling = "category"
+                nextsibling = "category",
+                Translation = category.Translation
             };
 
             return categoryCompositeViewModel;
