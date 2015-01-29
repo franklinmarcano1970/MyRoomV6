@@ -2,9 +2,9 @@
 
 /* Controllers */
 // Catalogues controller
-app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogService', 'toaster', 'FileUploader', function ($scope, $http, $state, catalogService, toaster, FileUploader) {
+app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogService', 'toaster', 'FileUploader', 'ngWebBaseSettings', function ($scope, $http, $state, catalogService, toaster, FileUploader, ngWebBaseSettings) {
     var uploader = $scope.uploader = new FileUploader({
-        url: serviceBase + 'api/files/Upload'
+        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload'
     });
     var IdCatalog = 0;
     $scope.typeAction = '';
@@ -88,45 +88,45 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     //    $scope.IdCatalog = id;
     //}
     uploader.onAfterAddingFile = function (fileItem) {
-        if (fileItem.file.type == 'image/jpeg') {
-            $scope.file = fileItem._file;
-            if ($scope.typeAction == 'catalog') {
-                $scope.catalog.Image = $scope.file.name;
-                var fr = new FileReader();
-                fr.onload = function (e) {
-                    $('#imageCatalog')
-                        .attr('src', e.target.result)
-                }
-                fr.readAsDataURL(fileItem._file);
-            }
-            if ($scope.typeAction == 'module') {
-                $scope.module.Image = $scope.file.name;
-                var fr = new FileReader();
-                fr.onload = function (e) {
-                    $('#imageModule')
-                        .attr('src', e.target.result)
-                }
-                fr.readAsDataURL(fileItem._file);
-            }
-            if ($scope.typeAction == 'category') {
-                $scope.category.Image = $scope.file.name;
-                var fr = new FileReader();
-                fr.onload = function (e) {
-                    $('#imageCategory')
-                        .attr('src', e.target.result)
-                }
-                fr.readAsDataURL(fileItem._file);
-            }
-        }
-        else {
+        if (fileItem.file.type == 'image/png') {
             $scope.toaster = {
                 type: 'error',
                 title: 'Info',
                 text: 'File permited JPEG or GIF'
             };
             $scope.pop();
+            return;
         }
-    };
+        $scope.file = fileItem._file;
+        if ($scope.typeAction == 'catalog') {
+            $scope.catalog.Image = ngWebBaseSettings.rootFile + $scope.file.name;
+            var fr = new FileReader();
+            fr.onload = function (e) {
+                $('#imageCatalog')
+                    .attr('src', e.target.result)
+            }
+            fr.readAsDataURL(fileItem._file);
+        }
+        if ($scope.typeAction == 'module') {
+            $scope.module.Image = ngWebBaseSettings.rootFile + $scope.file.name;
+            var fr = new FileReader();
+            fr.onload = function (e) {
+                $('#imageModule')
+                    .attr('src', e.target.result)
+            }
+            fr.readAsDataURL(fileItem._file);
+        }
+        if ($scope.typeAction == 'category') {
+            $scope.category.Image = ngWebBaseSettings.rootFile + $scope.file.name;
+            var fr = new FileReader();
+            fr.onload = function (e) {
+                $('#imageCategory')
+                    .attr('src', e.target.result)
+            }
+            fr.readAsDataURL(fileItem._file);
+        }
+    }
+    
 
     $scope.initTabsets = function ()
     {

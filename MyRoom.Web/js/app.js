@@ -1,5 +1,6 @@
-'use strict';
-var serviceBase = 'http://localhost:49698/';
+﻿'use strict';
+var serviceBase      = 'http://localhost:49698/';
+//var serviceBaseWeb‏  ‏ = 'http://localhost:35269/';
 //var serviceBase = 'http://management-webapi-myroom.azurewebsites.net/';
 //var serviceBase = 'http://servicioswebmoviles.azurewebsites.net/';
 var app = angular.module('app', [
@@ -23,6 +24,10 @@ var app = angular.module('app', [
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'
+});
+app.constant('ngWebBaseSettings', {
+    webServiceBase: 'http://localhost:35269/',
+    rootFile : 'images/'
 });
 
 app.config(function ($httpProvider) {

@@ -117,9 +117,10 @@
                       if ($state.current.name == 'app.page.usercatalog') {
                           $scope.activeCheckbox = true;
                       }
-                      $scope.loadTreeCatalog(cata.id);
+                      if ($state.current.name != 'app.page.product_list') {
+                          $scope.loadTreeCatalog(cata.id);
+                      }
                   }
-
 
                   $scope.clear = function () {
                       $scope.catalog.selected = undefined;

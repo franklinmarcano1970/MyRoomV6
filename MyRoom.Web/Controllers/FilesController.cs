@@ -20,7 +20,7 @@ namespace MyRoom.Web.Controllers
         [HttpPost] // This is from System.Web.Http, and not from System.Web.Mvc
         public Task<IEnumerable<FileDesc>> Upload()
         {
-            string folderName = "/images";
+            string folderName = ConfigurationManager.AppSettings["UploadImages"];//"/images";
             string PATH = HttpContext.Current.Server.MapPath("~/" + folderName);
             string rootUrl = Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.AbsolutePath, String.Empty);
 
