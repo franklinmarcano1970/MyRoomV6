@@ -75,9 +75,7 @@
   <ItemGroup>
     <Compile Include="AccountBindingModels.cs" />
     <Compile Include="AccountViewModels.cs" />
-    <Compile Include="ActiveHotelCatalogue.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="ActiveHotelCatalogue.cs" />
     <Compile Include="ActiveHotelCategory.cs" />
     <Compile Include="ActiveHotelModule.cs" />
     <Compile Include="ActiveHotelProduct.cs" />
@@ -110,7 +108,7 @@
     </Compile>
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CategoryCompositeViewModel.cs" />
-    <Compile Include="ViewModels\HotelCataloguesViewModel.cs" />
+    <Compile Include="ViewModels\ActiveHotelCataloguesViewModel.cs" />
     <Compile Include="ViewModels\ModuleCompositeViewModel.cs" />
     <Compile Include="ViewModels\ModuleViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />

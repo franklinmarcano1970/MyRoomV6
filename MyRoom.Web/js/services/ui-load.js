@@ -20,10 +20,9 @@ angular.module('ui.load', [])
 
 			return deferred.promise;
 		};
-		function assignCatalog(hotelCataloguesVm) {
-		    debugger
+		function assignCatalog(hotelcatalogVm) {
 		    var deferred = $q.defer();
-		    return $http.post(serviceBase + 'api/hotels/catalogues', hotelCataloguesVm).success(function (response) {
+		    return $http.post(serviceBase + 'api/hotels/catalogues', hotelcatalogVm).success(function (response) {
 		        deferred.resolve(response);
 		    }, function (err) {
 		        deferred.reject(err);
@@ -126,7 +125,6 @@ angular.module('ui.load', [])
 
 		function saveUserPermission(permissions) {
 			var deferred = $q.defer();
-			debugger
 			return $http.post(serviceBase + 'api/permissions/userhotel', permissions).success(function (response) {
 				deferred.resolve(response);
 			}, function (err) {

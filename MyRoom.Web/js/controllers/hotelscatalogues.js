@@ -27,7 +27,7 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
                 $scope.pop();
             });
 
-            hotelService.getAll().then(function (response) {
+            hotelService.getAll().then(function (response) {                
                 $scope.hotels = response.data;
 
             },
@@ -38,8 +38,15 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
         };
 
         $scope.assignCatalog = function () {
-            hotelService.assignCatalog().then(function (response) {
-                $scope.toaster = { type: 'success', title: 'Success', text: 'Catalogues assigned to hotel' };
+            if (!$scope.currentHotel)
+            {
+                $scope.toaster = { type: 'success', title: 'Info', text: 'Please, select a hotel and catalogues' };
+                $scope.pop();
+                return;
+            }
+            var hotelcatalogVm = createActiveHotelCataloguesViewModel();
+            hotelService.assignCatalog(hotelcatalogVm).then(function (response) {
+                $scope.toaster = { type: 'success', title: 'Success', text: 'The catalogues has been assigned to hotel' };
                 $scope.pop();
             },
             function (err) {
@@ -49,40 +56,25 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
 
         }
 
-        $scope.getAll();
-
         $scope.selectHotel = function (hotel)
         {
             $scope.currentHotel = hotel;
         };
 
-        $scope.activeCatalog = function ()
-        {
-            if ($scope.currentHotel != undefined) {
-                //Aca procedes a grabar, en currentHotel tienes todo el hotel seleccionado por si requieres otra informacion
-                var activeHotelCatalog = [];
-                $scope.catalogues.filter(function (value) {
-                    if (value.checked == true) {
-                        activeHotelCatalog.push({ IdHotel: $scope.currentHotel.HotelId, IdCatalogue: value.CatalogId });
-                    }
-                });
-                if (activeHotelCatalog.length == 0) {
-                    activeHotelCatalog.push({ IdHotel: $scope.currentHotel.HotelId });
+
+        function createActiveHotelCataloguesViewModel() {
+            var vm = { 'CataloguesIds': [] };
+            vm.HotelId = $scope.currentHotel.HotelId;
+
+            $scope.catalogues.filter(function (value) {
+                if (value.checked == true) {
+                    vm.CataloguesIds.push(value.CatalogId);
                 }
-                hotelService.saveActiveHotelCatalog(activeHotelCatalog).then(function (response) {
-                    $scope.toaster = { type: 'success', title: 'Info', text: 'The Hotel Catalogue has been activated' };
-                    $scope.pop();
-                },
-                function (err) {
-                    $scope.toaster = { type: 'success', title: 'Info', text: err.error_description };
-                    $scope.pop();
-                });
-            }
-            else {
-                $scope.toaster = { type: 'error', title: 'Error', text: 'Select hotel' };
-                $scope.pop();
-            }
+            });
+            return vm;
         }
+
         $scope.getAll();
+  
     });
 }]);

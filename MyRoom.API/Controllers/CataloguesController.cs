@@ -94,7 +94,7 @@ namespace MyRoom.API.Controllers
                 catalogRepository.Insert(catalog);
                 int catalogid = catalog.CatalogId;
 
-                this.CreateStructureDirectories(catalogid);
+                //this.CreateStructureDirectories(catalogid);
                 return Ok("The catalog has been inserted");
 
             }

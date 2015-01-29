@@ -17,6 +17,8 @@ using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
 using MyRoom.Model.ViewModels;
+using MyRoom.ViewModels;
+using MyRoom.Data.Mappers;
 
 namespace MyRoom.API.Controllers
 {
@@ -99,15 +101,18 @@ namespace MyRoom.API.Controllers
         // POST: api/hotels/catalogues
         [Route("catalogues")]
         [HttpPost]
-        public async Task<IHttpActionResult> PostHotelsWithCatalogues(HotelCataloguesViewModel hotelsCataloguesViewModel)
+        public IHttpActionResult PostHotelsWithCatalogues(ActiveHotelCataloguesViewModel hotelsCataloguesViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            
-         //   await hotelRepository.InsertAsync(hotels);
+            ActiveHotelCatalogRepository hotelCatalogRepo = new ActiveHotelCatalogRepository(new MyRoomDbContext());
+
+            List<ActiveHotelCatalogue> hotelCatalogues = ActiveHotelCatalogMapper.CreateModel(hotelsCataloguesViewModel);
+
+            hotelCatalogRepo.InsertActiveHotelCatalogues(hotelCatalogues);
 
             return Ok("Catalogues Assigned to hotels");
         }

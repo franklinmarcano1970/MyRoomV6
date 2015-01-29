@@ -116,12 +116,14 @@
     <Compile Include="IdentityConfig.cs" />
     <Compile Include="Mappers\CategoryMapper.cs" />
     <Compile Include="Mappers\CategoryProductMapper.cs" />
+    <Compile Include="Mappers\ActiveHotelCatalogMapper.cs" />
     <Compile Include="Mappers\ProductMapper.cs" />
     <Compile Include="MyRoomDbContext.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\CatalogRepository.cs" />
     <Compile Include="Repositories\CategoryProductRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\ActiveHotelCataloguesRepository.cs" />
     <Compile Include="Repositories\RelatedProductRepository.cs" />
     <Compile Include="Repositories\UserHotelPermissionRepository.cs" />
     <Compile Include="Repositories\PermissionRepository.cs" />

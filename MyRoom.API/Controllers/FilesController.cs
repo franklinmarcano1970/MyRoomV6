@@ -21,7 +21,7 @@ namespace MyRoom.API.Controllers
         public Task<IEnumerable<FileDesc>> Upload()
         {
             string folderName = ConfigurationManager.AppSettings["UploadImages"];//"App_Data/images";
-            string PATH = HttpContext.Current.Server.MapPath("~/" + folderName);
+            string PATH = folderName; //HttpContext.Current.Server.MapPath("~/" + folderName);
             //string PATH = "http://localhost:32151" + folderName;
             string rootUrl = Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.AbsolutePath, String.Empty);
 
