@@ -60,9 +60,10 @@ angular.module('ui.load', [])
 
 			return deferred.promise;
 		};
-		function saveActiveHotelCatalog(activeHotelCatalog) {
+
+		function getCatalogAssignedByHotelId(hotelId) {
 		    var deferred = $q.defer();
-		    return $http.post(serviceBase + 'api/falta cambiar esto por el Api Real', activeHotelCatalog).success(function (response) {
+		    return $http.get(serviceBase + 'api/hotels/catalog/'+ hotelId).success(function (response) {
 		        deferred.resolve(response);
 		    }, function (err) {
 		        deferred.reject(err);
@@ -70,6 +71,18 @@ angular.module('ui.load', [])
 
 		    return deferred.promise;
 		};
+
+		
+		//function saveActiveHotelCatalog(activeHotelCatalog) {
+		//    var deferred = $q.defer();
+		//    return $http.post(serviceBase + 'api/falta cambiar esto por el Api Real', activeHotelCatalog).success(function (response) {
+		//        deferred.resolve(response);
+		//    }, function (err) {
+		//        deferred.reject(err);
+		//    });
+
+		//    return deferred.promise;
+		//};
 		//obtengo los permisos que le corresponde a un usuario en particular
 		function getUserPermissions(userid) {
 			var deferred = $q.defer();
@@ -142,7 +155,7 @@ angular.module('ui.load', [])
 			removeHotel: removeHotel,
 			getHotelCatalogId: getHotelCatalogId,
 			removeUserHotel: removeUserHotel,
-			saveActiveHotelCatalog: saveActiveHotelCatalog,
+			getCatalogAssignedByHotelId: getCatalogAssignedByHotelId,
 			getHotel: getHotel,
 			updateHotel: updateHotel,
 			assignCatalog: assignCatalog

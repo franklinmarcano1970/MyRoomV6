@@ -1,9 +1,9 @@
 ﻿app.controller('MenuAccessController', ['$scope', '$http', '$state', 'accountService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', function ($scope, $http, $state, accountService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster) {
-    var ischeckedArray = $filter('ischeckedArray');
-    $scope.IsNewRecord = 1;
-    $scope.sw = 1;
-    $scope.IdUser = 0;
-    $scope.RelUserHotel = [{ IdUser: 0, IdHotel: 0, ReadOnly: true, ReadWrite: 0 }];
+    //var ischeckedArray = $filter('ischeckedArray');
+    //$scope.IsNewRecord = 1;
+    //$scope.sw = 1;
+    //$scope.IdUser = 0;
+    //$scope.RelUserHotel = [{ IdUser: 0, IdHotel: 0, ReadOnly: true, ReadWrite: 0 }];
 
     $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
 
@@ -13,18 +13,14 @@
 
     ];
 
-    $scope.hotels = [];
-    $scope.toaster = {
-        type: 'success',
-        title: 'Info',
-        text: 'The User Menu Access has been saved'
-    };
+    //$scope.hotels = [];
     $scope.getMenuAll = function () {
         accountService.getAllMenuAccess().then(function (response) {
             $scope.menus = response.data;
         },
         function (err) {
-            $scope.error_description = err.error_description;
+            $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
+            $scope.pop();
         });
     };
     $scope.pop = function () {
@@ -48,12 +44,11 @@
             }
 
             accountService.savePermissions(permissions).then(function (response) {
-                //$scope.message = "The Product has been saved";
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Permission has been assigned' };
                 $scope.pop();
             },
             function (err) {
-                $scope.toaster = { type: 'success', title: 'Info', text: err.error_description };
+                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
                 $scope.pop();
             });
         }

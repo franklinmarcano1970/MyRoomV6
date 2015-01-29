@@ -59,6 +59,13 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
         $scope.selectHotel = function (hotel)
         {
             $scope.currentHotel = hotel;
+            hotelService.getCatalogAssignedByHotelId($scope.currentHotel.HotelId).then(function (response) {
+            debugger
+            },
+            function (err) {
+                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
+                $scope.pop();
+            });
         };
 
 

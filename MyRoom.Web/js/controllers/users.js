@@ -240,7 +240,6 @@ app.controller('UsersHotelController', ['$scope', '$http', '$state', 'hotelServi
             if (permissions.length == 0) {
                 permissions.push({ IdUser: $scope.person.selected.id });
             }
-            debugger
             hotelService.saveUserPermission(permissions).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Permission has been assigned' };
                 $scope.pop();
@@ -262,11 +261,6 @@ app.controller('UsersMenuAccessController', ['$scope', '$http', '$state', 'accou
     $scope.RelUserHotel = [{ IdUser: 0, IdHotel: 0, ReadOnly: true, ReadWrite: 0 }];
 
     $scope.hotels = [];
-    $scope.toaster = {
-        type: 'success',
-        title: 'Info',
-        text: 'The User Menu Access has been saved'
-    };
     $scope.getAll = function () {
         accountService.getAllMenuAccess().then(function (response) {
             $scope.menus = response.data.value;
@@ -279,7 +273,8 @@ app.controller('UsersMenuAccessController', ['$scope', '$http', '$state', 'accou
             ];
         },
         function (err) {
-            $scope.error_description = err.error_description;
+            $scope.toaster = { type: 'success', title: 'Info', text: err.error_description };
+            $scope.pop();
         });
     };
     $scope.pop = function () {
@@ -292,15 +287,20 @@ app.controller('UsersMenuAccessController', ['$scope', '$http', '$state', 'accou
             //cada elemento seleccionado
             $scope.RelUserAccess = { IdUser: $scope.IdUser, IdPermission: $(this).val()};
             accountService.saveUserMenuAccess($scope.RelUserAccess).then(function (response) {
-
-                $scope.message = "The User Menu Access has been saved";
+                $scope.toaster = {
+                    type: 'success',
+                    title: 'Info',
+                    text: 'The User Menu Access has been saved'
+                };
+                $scope.pop();
             },
             function (err) {
-                $scope.error_description = err.error_description;
+                $scope.toaster = { type: 'success', title: 'Info', text: err.error_description };
+                $scope.pop();
             });
             i++;
         });
-        $scope.pop();
+       
     }
     $scope.getAll();
 }])
