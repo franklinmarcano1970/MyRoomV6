@@ -17,13 +17,27 @@ app.controller('AssignProductCataloguesController', ['$scope', '$http', '$state'
     }
     $scope.getProductsByCategory = function () {
         catalogService.getProductsByCategory($scope.currentItem.CategoryId).then(function (response) {
-                debugger
+            debugger
+            $scope.product = response.data;
 
+            for (var j = 0 ; j < $scope.product.length; j++) {
+                for (var i = 0 ; i < $scope.products.length; i++) {
+                    if ($scope.products[i].Id == $scope.product[j].IdProduct) {
+                        $scope.products[i].checked = true;
+                    }
+                }
+            }
+
+            //for (var i = 0; i < $scope.products.length - 1; i++) {
+            //    if ($scope.products[i].Id == $scope.product[i].IdProduct)
+            //        response.data[i].checked = true;
+            //}
         },
         function (err) {
             $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
             $scope.pop();
         });
+
     };
 
     $scope.getAllProduct = function () {

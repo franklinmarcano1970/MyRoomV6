@@ -41,10 +41,19 @@ namespace MyRoom.Data.Repositories
                 throw ex;
             }
         }
+        public List<CategoryProduct> GetCategoryById(int id)
+        {
+            var categoryProducts = (from c in this.Context.CategoryProducts
+                            where c.IdCategory == id
+                            select c).ToList();
 
-        //public IQueryable<Permission> GetById(string id)
-        //{
-        //    return this.Context.Permissions.Where(c => c.IdUser == id);
-        //}
+
+            return categoryProducts;
+        }
+
+        public IQueryable<CategoryProduct> GetCategoryProduct(int id)
+        {
+            return this.Context.CategoryProducts.Where(c => c.IdCategory == id);
+        }
     }
 }
