@@ -366,23 +366,18 @@
                                   $scope.currentItem.selected = false;
                                   return;
                               }
-
                               $(this).addClass('selected').siblings().removeClass('selected');
                               $scope.getProductsByCategory();
 
-                          }
-                          
+                          }                          
                       }
-
-
                   };
                   $scope.modifyItems = function (item, obj)
                   {                     
                       $scope.IsNew = false;
                       if (item.type == "module") {
-                         
                           $scope.module = {
-                              ModuleId: item.Id,
+                              ModuleId: item.ModuleId,
                               IdTranslationName: item.IdTranslationName,
                               Prefix: item.Prefix,
                               Name: item.Name,

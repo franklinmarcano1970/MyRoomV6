@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MyRoom.Model.ViewModels
 {
-    public class ModuleCompositeViewModel 
+    public class ModuleCompositeViewModel
     {
         public string text { get; set; }
 
@@ -31,6 +31,8 @@ namespace MyRoom.Model.ViewModels
         public bool Active { get; set; }
         
         public string nextsibling { get; set; }
+
+        public Translation Translation { get; set; }
 
         public List<CategoryCompositeViewModel> Children { get; set; }
 

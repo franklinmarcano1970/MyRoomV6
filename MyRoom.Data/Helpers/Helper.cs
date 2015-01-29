@@ -33,7 +33,8 @@ namespace MyRoom.Helpers
                 Comment = module.Comment,
                 Pending = module.Pending,
                 Active = module.Active,
-                nextsibling = "category"
+                nextsibling = "category",
+                Translation = module.Translation
             };
 
              return moduleCompositeViewModel;            

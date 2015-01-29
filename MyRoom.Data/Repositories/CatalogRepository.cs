@@ -21,6 +21,7 @@ namespace MyRoom.Data.Repositories
             var catalogues = from c in this.Context.Catalogues
                                  .Include("Translation")
                                  .Include("Modules")
+                                 .Include("Modules.Translation")
                                  .Include("Modules.Categories")
                              where c.CatalogId == id && c.Active == true
                              select c;
