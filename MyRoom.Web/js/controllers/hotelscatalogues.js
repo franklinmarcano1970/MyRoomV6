@@ -60,7 +60,16 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
         {
             $scope.currentHotel = hotel;
             hotelService.getCatalogAssignedByHotelId($scope.currentHotel.HotelId).then(function (response) {
-            debugger
+                $scope.catalog = response.data;
+
+                for (var j = 0 ; j < $scope.catalog.length; j++) {
+                    for (var i = 0 ; i < $scope.catalogues.length; i++) {
+                        if ($scope.catalogues[i].CatalogId == $scope.catalog[j].IdCatalogue) {
+                            $scope.catalogues[i].checked = true;
+                        }
+                    }
+                }
+
             },
             function (err) {
                 $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
