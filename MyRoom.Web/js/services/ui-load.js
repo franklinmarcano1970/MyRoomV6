@@ -162,6 +162,17 @@ angular.module('ui.load', [])
 
 				 return deferred.promise;
 			 };
+			 function getProductsByCategory(categoryId) {
+			     var deferred = $q.defer();
+			     return $http.get(serviceBase + 'api/categoryproduct/' + categoryId).success(function (response) {
+			         deferred.resolve(response);
+			     }, function (err) {
+			         deferred.reject(err);
+			     });
+
+			     return deferred.promise;
+
+			 };
 			 function getCatalogComplex(catalogId) {
 				 var deferred = $q.defer();
 				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId).success(function (response) {
@@ -334,6 +345,7 @@ angular.module('ui.load', [])
 				 removeCategory: removeCategory,
 				 removeModule: removeModule,
 				 getCatalogComplex: getCatalogComplex,
+				 getProductsByCategory: getProductsByCategory,
 				 getCatalog: getCatalog
 			 };
 	   }])

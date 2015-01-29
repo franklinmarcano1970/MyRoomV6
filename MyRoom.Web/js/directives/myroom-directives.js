@@ -368,19 +368,8 @@
                               }
 
                               $(this).addClass('selected').siblings().removeClass('selected');
-                              //catalogService.getCategoryId(item.Id).then(function (response) {
-                              //    $scope.categoryProduct = response.data.value;
-                              //    angular.forEach($scope.categoryProduct, function (value, key) {
-                              //        angular.forEach($scope.products, function (valueProducts, keyProducts) {
-                              //            if (value.IdProduct == valueProducts.Id) {
-                              //                //Aca activamos el check
-                              //                $("input[name='post[]']").eq(keyProducts).prop('checked', 'checked')
-                              //            }
-                              //        });
-                              //    });
-                                  
+                              $scope.getProductsByCategory();
 
-                              //});
                           }
                           
                       }

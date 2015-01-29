@@ -21,7 +21,7 @@ namespace MyRoom.Model
         public int IdProduct { get; set; }
 
         public bool Active { get; set; }
-        
+        [JsonIgnore]
         public virtual Category Category { get; set; }
 
         public virtual Product Product { get; set; }

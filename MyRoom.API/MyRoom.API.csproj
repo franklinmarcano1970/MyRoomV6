@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ActiveHotelProductController.cs" />
     <Compile Include="Controllers\CataloguesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CategoryProductController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
