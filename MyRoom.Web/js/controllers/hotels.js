@@ -73,10 +73,10 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
         $scope.getAll();
     });
 }]);
-app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService', 'toaster', '$timeout', 'FileUploader', function ($scope, $http, $state, hotelService, toaster, $timeout, FileUploader) {
-    //$scope.file = {file: 1, Name: "ff.jpg"};
+app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService', 'ngWebBaseSettings', 'toaster', '$timeout', 'FileUploader', function ($scope, $http, $state, hotelService, ngWebBaseSettings, toaster, $timeout, FileUploader) {
+
     var uploader = $scope.uploader = new FileUploader({
-        url: serviceBase + 'api/files/Upload' 
+        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload'
     });
     $scope.hotel = {
         Name: '',
@@ -98,26 +98,23 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         $scope.hotel.Image = response[0].path;
     };
     uploader.onAfterAddingFile = function (fileItem) {
-        if (fileItem.file.type == 'image/jpeg') {
-            $scope.file = fileItem._file;
-            $scope.hotel.Image = $scope.file.name;
-            var fr = new FileReader();
-            fr.onload = function (e) {
-                $('#image')
-                    .attr('src', e.target.result)
-                //.width(150)
-                //.height(200);
-            }
-            fr.readAsDataURL(fileItem._file);
-        }
-        else {
+        if (fileItem.file.type == 'image/png') {
             $scope.toaster = {
                 type: 'error',
                 title: 'Info',
                 text: 'File permited JPEG or GIF'
             };
             $scope.pop();
+            return;
         }
+        $scope.file = fileItem._file;
+        $scope.hotel.Image = ngWebBaseSettings.rootFile + $scope.file.name;
+        var fr = new FileReader();
+        fr.onload = function (e) {
+            $('#image')
+                .attr('src', e.target.result)
+        }
+        fr.readAsDataURL(fileItem._file);
     };
     if ($state.current.name == "app.page.hotel_edit" && $state.params['id']) {
         hotelService.getHotel($state.params['id']).then(function (response) {
@@ -179,7 +176,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                     title: 'Success',
                     text: 'The Hotel has been updated'
                 };
-
+                uploader.uploadAll();
                 $timeout(function () {
                     $scope.pop();
                     

@@ -1,9 +1,9 @@
 ﻿'use strict';
 /* Controllers */
 // product controller
-app.controller('ProductsController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', '$timeout', 'FileUploader', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster, $timeout, FileUploader) {
+app.controller('ProductsController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', '$timeout', 'FileUploader', 'ngWebBaseSettings', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster, $timeout, FileUploader, ngWebBaseSettings) {
     var uploader = $scope.uploader = new FileUploader({
-        url: serviceBase + 'api/files/Upload'
+        url: ngWebBaseSettings.webServiceBase +  'api/files/Upload'
     });
     var ischecked = $filter('ischecked');
     $scope.toaster = {
@@ -35,25 +35,21 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
     };
     $scope.menssage = '';
     uploader.onAfterAddingFile = function (fileItem) {
-        if (fileItem.file.type == 'image/jpeg') {
-            $scope.file = fileItem._file;
-            $scope.product.Image = $scope.file.name;
-            var fr = new FileReader();
-            fr.onload = function (e) {
-                $('#image')
-                    .attr('src', e.target.result)
-                //.width(150)
-                //.height(200);
-            }
-            fr.readAsDataURL(fileItem._file);
-        }
-        else {
+        if (fileItem.file.type == 'image/png') {
             $scope.toaster = {
                 type: 'error',
                 title: 'Info',
                 text: 'File permited JPEG or GIF'
             };
             $scope.pop();
+            return;
+        }
+        $scope.file = fileItem._file;
+        $scope.product.Image = ngWebBaseSettings.rootFile + $scope.file.name;
+        var fr = new FileReader();
+        fr.onload = function (e) {
+            $('#image')
+                .attr('src', e.target.result)
         }
     };
     $scope.pop = function () {
@@ -181,6 +177,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         else {
             productService.updateProduct($scope.product).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Product has been updated' };
+                uploader.uploadAll();
                 $timeout(function () {
                     $scope.pop();
                 }, 1000);
@@ -223,13 +220,13 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
     angular.element(document).ready(function () {
         $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
         $scope.dtColumnDefs = [
-            DTColumnDefBuilder.newColumnDef(0),
-            DTColumnDefBuilder.newColumnDef(1).order,
-            DTColumnDefBuilder.newColumnDef(2),
-            DTColumnDefBuilder.newColumnDef(3),
-            DTColumnDefBuilder.newColumnDef(4),
-            DTColumnDefBuilder.newColumnDef(5).notSortable(),
-            DTColumnDefBuilder.newColumnDef(6).notSortable(),
+            DTColumnDefBuilder.newColumnDef('Id'),
+            DTColumnDefBuilder.newColumnDef('Name'),
+            DTColumnDefBuilder.newColumnDef('Price'),
+            DTColumnDefBuilder.newColumnDef('Prefix'),
+            DTColumnDefBuilder.newColumnDef('Type'),
+            DTColumnDefBuilder.newColumnDef('Active').notSortable(),
+            DTColumnDefBuilder.newColumnDef(null).notSortable(),
 
         ];
         $scope.pop = function () {
