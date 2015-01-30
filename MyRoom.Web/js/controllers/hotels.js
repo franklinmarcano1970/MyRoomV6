@@ -76,7 +76,7 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
 app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService', 'ngWebBaseSettings', 'toaster', '$timeout', 'FileUploader', function ($scope, $http, $state, hotelService, ngWebBaseSettings, toaster, $timeout, FileUploader) {
 
     var uploader = $scope.uploader = new FileUploader({
-        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload'
+        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1'
     });
     $scope.hotel = {
         Name: '',
@@ -94,21 +94,18 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             Active: true
         },
     };
-    uploader.onSuccessItem = function (fileItem, response, status, headers) {
-        $scope.hotel.Image = response[0].path;
-    };
     uploader.onAfterAddingFile = function (fileItem) {
-        if (fileItem.file.type == 'image/png') {
-            $scope.toaster = {
-                type: 'error',
-                title: 'Info',
-                text: 'File permited JPEG or GIF'
-            };
-            $scope.pop();
-            return;
-        }
+        //if (fileItem.file.type == 'image/png') {
+        //    $scope.toaster = {
+        //        type: 'error',
+        //        title: 'Info',
+        //        text: 'File permited JPEG or GIF'
+        //    };
+        //    $scope.pop();
+        //    return;
+        //}
         $scope.file = fileItem._file;
-        $scope.hotel.Image = ngWebBaseSettings.rootFile + $scope.file.name;
+        $scope.hotel.Image = ngWebBaseSettings.rootFileHotel + $scope.file.name;
         var fr = new FileReader();
         fr.onload = function (e) {
             $('#image')
