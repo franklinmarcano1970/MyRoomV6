@@ -524,17 +524,21 @@ angular.module('app')
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('toaster').then(
-                                function () {
-                                    return $ocLazyLoad.load('datatables').then(
-                                        function () {
-                                            return $ocLazyLoad.load(
-                                                {
-                                                    files: ['js/controllers/hotels.js']
-                                                });
-                                        }
-                                    );
-                                });
+                            return $ocLazyLoad.load('angularFileUpload').then(
+      function () {
+          return $ocLazyLoad.load('toaster').then(
+              function () {
+                  return $ocLazyLoad.load('datatables').then(
+                      function () {
+                          return $ocLazyLoad.load(
+                              {
+                                  files: ['js/controllers/hotels.js',
+                                          'js/controllers/file-upload.js']
+                              });
+                      }
+                  );
+              });
+      });
                         }
                       ]
                   }

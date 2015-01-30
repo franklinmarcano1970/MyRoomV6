@@ -176,7 +176,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                     title: 'Success',
                     text: 'The Hotel has been updated'
                 };
-
+                uploader.uploadAll();
                 $timeout(function () {
                     $scope.pop();
                     

@@ -177,6 +177,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         else {
             productService.updateProduct($scope.product).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Product has been updated' };
+                uploader.uploadAll();
                 $timeout(function () {
                     $scope.pop();
                 }, 1000);

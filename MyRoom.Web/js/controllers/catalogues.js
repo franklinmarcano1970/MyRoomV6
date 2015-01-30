@@ -187,7 +187,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     Active: true
                 }
             };
-
+            uploader.uploadAll();
             $scope.toaster = { type: 'success', title: 'Success', text: 'the catalog has been updated' };
             $scope.pop();
 
