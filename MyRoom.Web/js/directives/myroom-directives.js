@@ -398,7 +398,7 @@
                                   Language8: item.Translation.Language8,
                                   Active: item.Translation.Active
                               }
-                          },
+                          };
                            
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
@@ -481,13 +481,13 @@
                   }
                   $scope.deleteItems = function (item) {
                       if (item.type == "category") {
-                          $scope.CategoryId = item.Id;
+                          $scope.CategoryId = item.CategoryId;
                           $('#deleteCategory').modal({
                               show: 'true'
                           });
                       }
                       else {
-                          $scope.ModulelId = item.Id;
+                          $scope.ModulelId = item.ModuleId;
                           $('#deleteModule').modal({
                               show: 'true'
                           });
