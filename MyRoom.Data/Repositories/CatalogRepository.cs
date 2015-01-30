@@ -4,7 +4,9 @@ using MyRoom.Model.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyRoom.Data.Repositories
 {
@@ -67,6 +69,14 @@ namespace MyRoom.Data.Repositories
             }
 
             return json;
+        }
+
+        public override async Task EditAsync(Catalog entity)
+        {
+            this.Context.Entry(entity).State = EntityState.Modified;
+            this.Context.Entry(entity.Translation).State = EntityState.Modified;
+
+            await this.Context.SaveChangesAsync();
         }
 
         //private CategoryCompositeViewModel CreateCategory(Category p)

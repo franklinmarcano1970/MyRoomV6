@@ -61,6 +61,7 @@ namespace MyRoom.API.Controllers
             try
             {
                 await catalogRepository.EditAsync(catalog);
+                return Ok("Catalog Updated");
             }
             catch (Exception ex)
             {
@@ -73,8 +74,6 @@ namespace MyRoom.API.Controllers
                     throw;
                 }
             }
-
-            return Ok("Catalog Updated");
         }
 
         //public async Task<IHttpActionResult> GetStructureCatalogues(Catalog catalog)

@@ -58,6 +58,12 @@ namespace MyRoom.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public virtual void Edit(TEntity entity)
+        {
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.SaveChangesAsync();
+        }
+
         public async Task InsertAsync(TEntity entity)
         {
 
