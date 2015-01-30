@@ -136,7 +136,7 @@ namespace MyRoom.API.Controllers
         // POST: api/categories/assignproducts
         [Route("assignproducts")]
         [HttpPost]
-        public IHttpActionResult  PostCategoryAssignProducts(CategoryProductViewModel catalogAssignProductViewModel)
+        public IHttpActionResult  PostCategoryAssignProducts(CategoryProductViewModel categoryAssignProductViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -148,9 +148,12 @@ namespace MyRoom.API.Controllers
                 //    catalogRepository.Insert(catalog);
                 //    int catalogid = catalog.CatalogId;
                 CategoryProductRepository categoryProdRepo = new CategoryProductRepository(new MyRoomDbContext());
-                List<CategoryProduct> categoryProds = CategoryProductMapper.CreateModel(catalogAssignProductViewModel);
-
-                categoryProdRepo.InsertCategoryProduct(categoryProds);
+                List<CategoryProduct> categoryProds = CategoryProductMapper.CreateModel(categoryAssignProductViewModel);
+                if (categoryProds.Count>0)
+                     categoryProdRepo.InsertCategoryProduct(categoryProds);
+                else
+                    categoryProdRepo.DeleteCategoryProduct(categoryAssignProductViewModel.CategoryId);
+                 
                 //    this.CreateStructureDirectories(catalogid);
                 return Ok("The products has been assigned to category");
 
