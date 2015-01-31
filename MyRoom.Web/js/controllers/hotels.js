@@ -156,11 +156,9 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                         title: 'Success',
                         text: 'The Hotel has been saved'
                     };
-
+                    //$state.go('app.page.hotel_list');
                     $scope.pop();
-                }, 1000);
-                //$state.go('app.page.hotel_list');
-              //  $scope.message = "The Hotel has been saved";
+                }, 2000);
             },
             function (err) {
                 $scope.toaster = {type: 'error',title: 'Error',text: err.error_description};
