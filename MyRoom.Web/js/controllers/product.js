@@ -38,6 +38,15 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         $state.go('app.page.product_list');
     };
     uploader.onAfterAddingFile = function (fileItem) {
+        if (fileItem.file.size > ngWebBaseSettings.fileSize) {
+            $scope.toaster = {
+                type: 'error',
+                title: 'Info',
+                text: 'File too big'
+            };
+            $scope.pop();
+            return;
+        }
         $scope.file = fileItem._file;
         $scope.product.Image = ngWebBaseSettings.rootFileProduct + $scope.file.name;
         var fr = new FileReader();

@@ -90,9 +90,17 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     //    $scope.IdCatalog = id;
     //}
     uploader.onAfterAddingFile = function (fileItem) {
+        if (fileItem.file.size > ngWebBaseSettings.fileSize) {
+            $scope.toaster = {
+                type: 'error',
+                title: 'Info',
+                text: 'File too big'
+            };
+            $scope.pop();
+            return;
+        }
         $scope.file = fileItem._file;
         $scope.fileItem = fileItem;
-        debugger
         
         if ($scope.typeAction == 'catalog') {
             $scope.catalog.Image = $scope.file.name;

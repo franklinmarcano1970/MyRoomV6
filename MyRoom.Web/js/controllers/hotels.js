@@ -98,15 +98,15 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         $state.go('app.page.hotel_list');
     };
     uploader.onAfterAddingFile = function (fileItem) {
-        //if (fileItem.file.type == 'image/png') {
-        //    $scope.toaster = {
-        //        type: 'error',
-        //        title: 'Info',
-        //        text: 'File permited JPEG or GIF'
-        //    };
-        //    $scope.pop();
-        //    return;
-        //}
+        if (fileItem.file.size > ngWebBaseSettings.fileSize) {
+            $scope.toaster = {
+                type: 'error',
+                title: 'Info',
+                text: 'File too big'
+            };
+            $scope.pop();
+            return;
+        }
         $scope.file = fileItem._file;
         $scope.hotel.Image = ngWebBaseSettings.rootFileHotel + $scope.file.name;
         var fr = new FileReader();
