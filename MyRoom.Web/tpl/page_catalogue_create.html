@@ -43,7 +43,7 @@
                                     <p class="m-t">Name</p>
                                     <input type="text" placeholder="Enter a Name" class="form-control" ng-model="catalog.Name" required  />
                                     <p class="m-t">Ìmage</p>
-                                    <img id="imageCatalog" ng-src="{{catalog.Image}}" ng-model="catalog.Image" width="100" height="100" />   
+                                    <img id="imageCatalog" ng-src="/{{rootFile + IdCatalog + '/' + catalog.Image}}" ng-model="catalog.Image" width="100" height="100" />   
                                     <input type="file" class="filestyle" multiple ng-file-select="" nv-file-select="" uploader="uploader" data-input="false" data-buttonname="btn-success">                                                                        
                                     <div class="checkbox">
                                         <label class="m-t i-checks">
@@ -142,7 +142,7 @@
                                         <p class="m-t">Name</p>
                                         <input type="text" name="moduleName" maxlength="150" placeholder="Enter a Name" class="form-control" ng-model="module.Name" required ng-change="step1.name.$valid ? (steps.percent=40) : (steps.percent=30)" />
                                         <p class="m-t">Ìmage</p>
-                                        <img id="imageModule" ng-src="{{module.Image}}" ng-model="module.image" width="100" height="100" />   
+                                        <img id="imageModule" ng-src="{{rootFile + IdCatalog + '/modules/'  + module.Image}}" ng-model="module.image" width="100" height="100" />   
                                         <input type="file" class="filestyle" multiple ng-file-select="" nv-file-select="" uploader="uploader" data-input="false" data-buttonname="btn-success">                                    
                                         <p class="m-t">Order</p>
                                         <input ui-jq="TouchSpin" type="text"  name="moduleOrder" placeholder="Enter a Order" ng-model="module.Orden" class="form-control" data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
@@ -186,7 +186,7 @@
                                         <p class="m-t">Name</p>
                                         <input type="text" name="categoryName" placeholder="Enter a Name" class="form-control" ng-model="category.Name" required ng-change="step1.name.$valid ? (steps.percent=40) : (steps.percent=30)" />
                                         <p class="m-t">Ìmage</p>
-                                        <img id="imageCategory" ng-src="{{module.Image}}" ng-model="categpry.image" width="100" height="100" />                                       
+                                        <img id="imageCategory" ng-src="{{rootFile + IdCatalog + '/categories/' + category.Image}}" ng-model="categpry.image" width="100" height="100" />                                       
                                         <input type="file" class="filestyle" multiple ng-file-select="" nv-file-select="" uploader="uploader" data-input="false" data-buttonname="btn-success">                                                                       
 
                                         <p class="m-t">Order</p>

@@ -374,7 +374,7 @@
                       }
                   };
                   $scope.modifyItems = function (item, obj)
-                  {                     
+                  {
                       $scope.IsNew = false;
                       if (item.type == "module") {
                           $scope.module = {
@@ -400,7 +400,7 @@
                                   Active: item.Translation.Active
                               }
                           };
-                           
+                          $scope.typeAction = 'module';
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       } else {
@@ -448,7 +448,8 @@
                               Comment: item.Comment,
                               Pending: item.Pending,
                               Active: item.Active
-                            };
+                          };
+                          $scope.typeAction = 'module';
                             $scope.category.IsFirst = true;
                             $scope.IdModule = item.Id;
                       }

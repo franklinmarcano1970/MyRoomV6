@@ -120,12 +120,13 @@ namespace MyRoom.API.Controllers
 
                 moduleRepo.CatalogStateUnchange(module);
                 await moduleRepo.InsertAsync(module);
+                return Ok(module.ModuleId);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return Ok("Module Created");
+            
         }
 
         

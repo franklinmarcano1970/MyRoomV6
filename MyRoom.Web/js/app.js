@@ -28,9 +28,8 @@ app.constant('ngAuthSettings', {
 app.constant('ngWebBaseSettings', {
     webServiceBase: 'http://localhost:35269/',
     rootFileHotel : 'images/hotels/',
-    rootFileModule : 'images/hotels/',
-    rootFileCategory : 'images/hotels/',
-    rootFileCatalog : 'images/hotels/'
+    rootFile : 'images/catalogs/',
+    rootFileProduct : 'images/products/'
 });
 
 app.config(function ($httpProvider) {

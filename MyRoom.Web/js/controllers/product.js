@@ -3,7 +3,7 @@
 // product controller
 app.controller('ProductsController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', '$timeout', 'FileUploader', 'ngWebBaseSettings', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster, $timeout, FileUploader, ngWebBaseSettings) {
     var uploader = $scope.uploader = new FileUploader({
-        url: ngWebBaseSettings.webServiceBase +  'api/files/Upload'
+        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-0-0'
     });
     var ischecked = $filter('ischecked');
     $scope.toaster = {
@@ -34,18 +34,12 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         RelatedProducts: [{ IdRelatedProduct: 0 }]
     };
     $scope.menssage = '';
+    uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        $state.go('app.page.product_list');
+    };
     uploader.onAfterAddingFile = function (fileItem) {
-        if (fileItem.file.type == 'image/png') {
-            $scope.toaster = {
-                type: 'error',
-                title: 'Info',
-                text: 'File permited JPEG or GIF'
-            };
-            $scope.pop();
-            return;
-        }
         $scope.file = fileItem._file;
-        $scope.product.Image = ngWebBaseSettings.rootFile + $scope.file.name;
+        $scope.product.Image = ngWebBaseSettings.rootFileProduct + $scope.file.name;
         var fr = new FileReader();
         fr.onload = function (e) {
             $('#image')
@@ -163,7 +157,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
                     },
                     RelatedProducts: []
                 };
-                $state.go('app.page.product_list');
+                //$state.go('app.page.product_list');
                 // $scope.message = "The Product has been saved";
             },
             function (err) {

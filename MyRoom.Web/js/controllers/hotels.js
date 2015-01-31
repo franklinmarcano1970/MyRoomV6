@@ -76,7 +76,7 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
 app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService', 'ngWebBaseSettings', 'toaster', '$timeout', 'FileUploader', function ($scope, $http, $state, hotelService, ngWebBaseSettings, toaster, $timeout, FileUploader) {
 
     var uploader = $scope.uploader = new FileUploader({
-        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1'
+        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1-0-0'
     });
     $scope.hotel = {
         Name: '',
@@ -93,6 +93,9 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             Language8: '',
             Active: true
         },
+    };
+    uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        $state.go('app.page.hotel_list');
     };
     uploader.onAfterAddingFile = function (fileItem) {
         //if (fileItem.file.type == 'image/png') {
@@ -156,7 +159,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
 
                     $scope.pop();
                 }, 1000);
-                $state.go('app.page.hotel_list');
+                //$state.go('app.page.hotel_list');
               //  $scope.message = "The Hotel has been saved";
             },
             function (err) {

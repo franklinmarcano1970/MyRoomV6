@@ -21,10 +21,30 @@ namespace MyRoom.Web.Controllers
         public Task<IEnumerable<FileDesc>> Upload()
         {
             string folderName = "";
-            String valorPar = Request.RequestUri.Query.Substring(5,1);
-            if (valorPar == "1")
+            string param = Request.RequestUri.Query.Substring(5);
+            string[] split = param.Split(new Char[] { '-' });
+            String action =split[0];
+            String CatalogId = split[1];
+            String Id = split[2];
+            if (action == "1") //Hotel
             {
                 folderName  = ConfigurationManager.AppSettings["UploadImages"];//"/images";
+            }
+            if (action == "2") //Catalog
+            {
+                folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] +"//" + CatalogId;//"/images";
+            }
+            if (action == "3") //Modules
+            {
+                folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//modules";
+            }
+            if (action == "4") //Category
+            {
+                folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//categories";
+            }
+            if (action == "5") //Product
+            {
+                folderName = ConfigurationManager.AppSettings["UploadImagesProduct"];//"/images";
             }
             string PATH = HttpContext.Current.Server.MapPath("~/" + folderName);
             if (!Directory.Exists(PATH))
