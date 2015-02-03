@@ -136,8 +136,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     {
         $scope.module = {};
         $scope.category = {};
-        $scope.module = { Image: 'no-image.jpg' };
-        $scope.category = { Image: 'no-image.jpg' };
+        $scope.module = { Image: 'no-image.jpg', Active: true };
+        $scope.category = { Image: 'no-image.jpg', Active: true };
         $scope.showTabsetCategory=false;
         $scope.showTabsetModule = true;
         $scope.typeAction = 'module';
@@ -156,7 +156,11 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     }
 
     $scope.createCatalogPopup = function () {
-        $scope.catalog = { Image: 'no-image.jpg' };
+        $scope.catalog = {
+            Image: 'no-image.jpg',
+            Pending: true,
+            Active: true,
+        };
         $scope.rootFile = '/img/';
         $scope.modify = false;
         $scope.typeAction = 'catalog';
