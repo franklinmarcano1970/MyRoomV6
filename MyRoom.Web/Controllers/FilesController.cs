@@ -23,36 +23,40 @@ namespace MyRoom.Web.Controllers
             string folderName = "";
             string folderNameMod = "";
             string folderNameCat = "";
+            string folderNamePro = "";
+            string folderNameMor = "";
             string param = Request.RequestUri.Query.Substring(5);
             string[] split = param.Split(new Char[] { '-' });
             String action =split[0];
             String CatalogId = split[1];
             String Id = split[2];
-            if (action == "1") //Hotel
+            switch (action) 
             {
-                folderName  = ConfigurationManager.AppSettings["UploadImages"];//"/images";
-            }
-            if (action == "2") //Catalog
-            {
-                folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] +"//" + CatalogId;//"/images";
-                folderNameMod = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//modules";
-                folderNameCat = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//categories";
-            }
-            if (action == "3") //Modules
-            {
-                folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//modules";
-            }
-            if (action == "4") //Category
-            {
-                folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//categories";
-            }
-            if (action == "5") //Product
-            {
-                folderName = ConfigurationManager.AppSettings["UploadImagesProduct"];//"/images";
+                case "1": //Hotel
+                    folderName  = ConfigurationManager.AppSettings["UploadImages"];//"/images";
+                    break;
+                case "2": //Catalog
+                    folderName    = ConfigurationManager.AppSettings["UploadImagesCatalog"] +"//" + CatalogId;//"/images";
+                    folderNameMod = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//modules";
+                    folderNameCat = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//categories";
+                    folderNamePro = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//products";
+                    folderNameMor = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//moreinfo";
+                    break;
+                case "3": //modules
+                    folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//modules";
+                    break;
+                case "4": //categories
+                    folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//categories";
+                    break;
+                case "5": //product
+                    folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//products";
+                    break;
             }
             string PATH = HttpContext.Current.Server.MapPath("~/" + folderName);
             string PATHModule = HttpContext.Current.Server.MapPath("~/" + folderNameMod);
             string PATCategory = HttpContext.Current.Server.MapPath("~/" + folderNameCat);
+            string PATProduct = HttpContext.Current.Server.MapPath("~/" + folderNamePro);
+            string PATMoreInfo = HttpContext.Current.Server.MapPath("~/" + folderNameMor);
             if (!Directory.Exists(PATH))
             {
                 Directory.CreateDirectory(PATH);
@@ -60,6 +64,8 @@ namespace MyRoom.Web.Controllers
                 {
                     Directory.CreateDirectory(PATHModule);
                     Directory.CreateDirectory(PATCategory);
+                    Directory.CreateDirectory(PATProduct);
+                    Directory.CreateDirectory(PATMoreInfo);
                 }
             }
             string rootUrl = Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.AbsolutePath, String.Empty);
