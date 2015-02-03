@@ -125,7 +125,7 @@ namespace MyRoom.API.Controllers
 
                 await categoryRepo.InsertAsync(category);
 
-                return Ok(category.CategoryId);
+                return Ok(category);
             }
             catch (Exception ex)
             {

@@ -21,6 +21,8 @@ namespace MyRoom.Web.Controllers
         public Task<IEnumerable<FileDesc>> Upload()
         {
             string folderName = "";
+            string folderNameMod = "";
+            string folderNameCat = "";
             string param = Request.RequestUri.Query.Substring(5);
             string[] split = param.Split(new Char[] { '-' });
             String action =split[0];
@@ -33,6 +35,8 @@ namespace MyRoom.Web.Controllers
             if (action == "2") //Catalog
             {
                 folderName = ConfigurationManager.AppSettings["UploadImagesCatalog"] +"//" + CatalogId;//"/images";
+                folderNameMod = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//modules";
+                folderNameCat = ConfigurationManager.AppSettings["UploadImagesCatalog"] + "//" + CatalogId + "//categories";
             }
             if (action == "3") //Modules
             {
@@ -47,9 +51,16 @@ namespace MyRoom.Web.Controllers
                 folderName = ConfigurationManager.AppSettings["UploadImagesProduct"];//"/images";
             }
             string PATH = HttpContext.Current.Server.MapPath("~/" + folderName);
+            string PATHModule = HttpContext.Current.Server.MapPath("~/" + folderNameMod);
+            string PATCategory = HttpContext.Current.Server.MapPath("~/" + folderNameCat);
             if (!Directory.Exists(PATH))
             {
                 Directory.CreateDirectory(PATH);
+                if (action == "2")
+                {
+                    Directory.CreateDirectory(PATHModule);
+                    Directory.CreateDirectory(PATCategory);
+                }
             }
             string rootUrl = Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.AbsolutePath, String.Empty);
 

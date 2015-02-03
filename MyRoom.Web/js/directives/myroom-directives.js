@@ -377,6 +377,7 @@
                   {
                       $scope.IsNew = false;
                       if (item.type == "module") {
+                          $scope.rootFileModule = '/images/catalogs/' + $scope.IdCatalog + '/modules/';
                           $scope.module = {
                               ModuleId: item.ModuleId,
                               IdTranslationName: item.IdTranslationName,
@@ -404,6 +405,8 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       } else {
+                          debugger
+                          $scope.rootFileCategory = '/images/catalogs/' + $scope.IdCatalog + '/categories/';
                           $scope.category = {
                               CategoryId: item.CategoryId,
                               IdTranslationName: item.IdTranslationName,

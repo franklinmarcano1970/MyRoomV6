@@ -6,7 +6,10 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     var uploader = $scope.uploader = new FileUploader({
         url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1-0-0'
     });
-    $scope.rootFile = ngWebBaseSettings.rootFile;
+    $scope.rootFile = '/img/';
+    $scope.rootFileModule = '/img/';
+    $scope.rootFileCategory = '/img/';
+    $scope.typeAction = 'module';
     var imageCatalog = '';
     var IdCatalog = 0;
     $scope.typeAction = '';
@@ -21,7 +24,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.IsNew = true;
     $scope.catalog = {
         Name: '',
-        Image: 'img/no-image.jpg',
+        Image: 'no-image.jpg',
         Pending: true,
         Active: true,
         Translation: {
@@ -40,7 +43,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.module = {
         ModuleId: 0,
         Name: '',
-        Image: 'img/no-image.jpg',
+        Image: 'no-image.jpg',
         Orden: '',
         Comment: '',
         Pending: true,
@@ -62,7 +65,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.category = {
         CategoryId: 0,
         Name: '',
-        Image: 'img/no-image.jpg',
+        Image: 'no-image.jpg',
         Orden: '',
         Comment: '',
         Pending: true,
@@ -81,14 +84,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             Language7: '',
             Language8: '',
             Active: true
-        }//,
-        //Catalogues: [{ CatalogId: 0, Name: 'Catalog', Active: true }]
+        }
     };    
     
-    //$scope.selectCatalog = function (id)
-    //{
-    //    $scope.IdCatalog = id;
-    //}
     uploader.onAfterAddingFile = function (fileItem) {
         if (fileItem.file.size > ngWebBaseSettings.fileSize) {
             $scope.toaster = {
@@ -138,6 +136,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     {
         $scope.module = {};
         $scope.category = {};
+        $scope.module = { Image: 'no-image.jpg' };
+        $scope.category = { Image: 'no-image.jpg' };
         $scope.showTabsetCategory=false;
         $scope.showTabsetModule = true;
         $scope.typeAction = 'module';
@@ -156,6 +156,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     }
 
     $scope.createCatalogPopup = function () {
+        $scope.catalog = { Image: 'no-image.jpg' };
+        $scope.rootFile = '/img/';
         $scope.modify = false;
         $scope.typeAction = 'catalog';
         $('#newCatalog').modal({
@@ -164,7 +166,6 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     }
 
     $scope.editCatalogPopup = function () {
-        debugger
         $scope.typeAction = 'catalog';
         if (!$scope.cata.selected)
         {
@@ -179,6 +180,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         
         catalogService.getCatalog($scope.cata.selected.id).then(function (response) {
             $scope.catalog = JSON.parse(response.data);
+            $scope.rootFile = '/images/catalogs/' + $scope.catalog.CatalogId + '/';
         });
     }
 
@@ -217,8 +219,12 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 text: 'The Catalog has been saved'
             };
             //Para subir la imagen
-            $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=2-' + res.data + '-0';
-            uploader.uploadAll();
+            debugger
+            if ($scope.fileItem != null) {
+                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=2-' + res.data + '-0';
+                uploader.uploadAll();
+            }
+            
                 
             $scope.loadCatalog();
 
