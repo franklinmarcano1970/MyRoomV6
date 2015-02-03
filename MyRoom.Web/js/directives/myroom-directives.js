@@ -121,6 +121,14 @@
                       if ($state.current.name != 'app.page.product_list') {
                           $scope.loadTreeCatalog(cata.id);
                       }
+
+                      if ($state.current.name == 'app.page.catalogue_assignProducts') {
+                          for (var i = 0; i < $scope.products.length; i++) {
+                              $scope.products[i].checked = false;
+                          }
+                      }
+
+                      
                   }
 
                   $scope.clear = function () {
