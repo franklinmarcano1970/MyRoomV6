@@ -183,149 +183,34 @@
               controller: function ($scope, catalogService, $state) {
                   $scope.catalogtree = {};
                   
-                  $scope.sourceItems = [
-                        {
-                            text: "Module A",
-                            type: "module",
-                            nextsibling: "category",
-                            ActiveCheckbox: false,
-                            children: [
-                                {
-                                    text: "Category A-1",
-                                    type: "category",
-                                    nextsibling: "category",
-                                    ActiveCheckbox: true,
-                                    children: [
-                                        {
-                                            text: "Category A-1-1",
-                                            type: "category",
-                                            nextsibling: "category",
-                                            ActiveCheckbox: true,
-                                            children: [
-                                                { text: "Product B-3-1", type: "product", ActiveCheckbox: true },
-                                                { text: "Product B-3-2", type: "product", ActiveCheckbox: true },
-                                            ]
-                                        }
-                                    ]
-                                }, {
-                                    text: "Category A-2",
-                                    type: "category",
-                                    ActiveCheckbox: true
-                                }, {
-                                    text: "Category A-3",
-                                    type: "category",
-                                    ActiveCheckbox: true
-                                },
-                            ]
-                        }   
-      
-                  ];
+                
 
-                  $scope.loadHotelTreeCatalog = function (id) {
-                      //if (!$scope.cata) {
-                      //    $scope.items = {};
-                      //    $scope.sourceItems = {};
-                      //    return;
-                      //}
+                  $scope.loadHotelTreeCatalog = function (catalogId) {
                       $scope.items = {};
                       $scope.sourceItems = {};
-                      catalogService.getCatalogComplex(id).then(function (response) {
+                      catalogService.getCatalogComplex(catalogId).then(function (response) {
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
-                          $scope.catalogComplex = response.data;
-                          $scope.Modules = {};
-                          /////////////////////////
-                          $scope.Modules = $scope.catalogComplex.Modules;                          
-                          angular.forEach($scope.Modules, function (valueModule, keyModule) {
-                              $scope.sourceItems[keyModule] = {
-                                  text: valueModule.Name,
-                                  Prefix: valueModule.Prefix,
-                                  type: "module",
-                                  Id: valueModule.ModuleId,
-                                  IdTranslationName: valueModule.IdTranslationName,
-                                  Name: valueModule.Name,
-                                  Image: valueModule.Image,
-                                  Orden: valueModule.Orden,
-                                  Comment: valueModule.Comment,
-                                  Pending: valueModule.Pending,
-                                  Active: valueModule.Active,
-                                  nextsibling: "category",
-                                  Translation: valueModule.Translation,
-                              };
-
-                              $scope.Category = {};
-                              $scope.Category = $scope.Modules[keyModule].Categories;
-                              $scope.sourceItems[keyModule].children = {};
-                              angular.forEach($scope.Category, function (valueCategory, keyCategory) {
-                                  $scope.sourceItems[keyModule].children[keyCategory] = {
-                                      text: valueCategory.Name,
-                                      type: "category",
-                                      Id: valueCategory.CategoryId,
-                                      IdTranslationName: valueCategory.IdTranslationName,
-                                      Name: valueCategory.Name,
-                                      Image: valueCategory.Image,
-                                      Orden: valueCategory.Orden,
-                                      Comment: valueCategory.Comment,
-                                      Pending: valueCategory.Pending,
-                                      IsFinal: valueCategory.IsFinal,
-                                      Prefix: valueCategory.Prefix,
-                                      nextsibling: "category",
-                                      Translation: valueCategory.Translation
-
-                                  };
-                                  debugger
-                                  $scope.sourceItems[keyModule].children[keyCategory] = createSubCategories($scope.Category[keyCategory].CategoryChildren, keyCategory, $scope.sourceItems[keyModule].children[keyCategory]);
-                              });
-
-
-                              if ($state.current.name == "app.page.usercatalog") {
-                                  $scope.sourceItems[keyModule].ActiveCheckbox = true;
-                              }
-                          });
-                          /////////////////////////////////////
+                          $scope.sourceItems = JSON.parse(response.data);
+                          $scope.items = $scope.sourceItems;                
+                          //$scope.Modules = $scope.catalogComplex.Modules;
+                          //angular.forEach($scope.Modules, function (valueModule, keyModule) {
+                          //    if ($state.current.name == "app.page.usercatalog") {
+                          //        $scope.sourceItems[keyModule].ActiveCheckbox = true;
+                          //    }
+                          //});
                       },
                       function (err) {
-                          $scope.error_description = err.error_description;
+                          $scope.toaster = {
+                              type: 'error',
+                              title: 'Error',
+                              text: err.error_description
+                          };
+                          $scope.pop();
                       });
 
-                      function createSubCategories(branch, keyCategory, sourceitems) {
-                          if (branch == null)
-                              return sourceitems;
-
-                          sourceitems.children = {};
-                          //angular.forEach(branch, function (valueCategory, keyCategory) {
-                          sourceitems.children[keyCategory] = {
-                              text: branch.Name,
-                              type: "category",
-                              Id: branch.CategoryId,
-                              IdTranslationName: branch.IdTranslationName,
-                              Name: branch.Name,
-                              Image: branch.Image,
-                              Orden: branch.Orden,
-                              Comment: branch.Comment,
-                              Pending: branch.Pending,
-                              IsFirst: branch.IsFirst,
-                              IsFinal: branch.IsFinal,
-                              Active: branch.Active,
-                              Prefix: branch.Prefix,
-                              nextsibling: "category",
-                              Translation: branch.Translation
-                          };
-
-                          //if (branch[keyCategory+1].CategoryChildren !== undefined) {
-                          //    keyCategory++;
-                          //}
-
-                          debugger
-                          if (branch.CategoryChildren == null)
-                          {
-                                  keyCategory++;
-                                  return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
-                          }
-                          return createSubCategories(branch.CategoryChildren, keyCategory, sourceitems.children[keyCategory]);
-                      }
-                      $scope.items = $scope.sourceItems;
-
+                       
+                   
 
                   }
                   $scope.loadHotelTreeCatalog($scope.IdCatalog);
@@ -342,7 +227,11 @@
                   $scope.currentItem = {};
 
                   $scope.toggle = function (item) {
-                      $("input[name='post[]']").prop('checked', '')
+                      //$("input[name='post[]']").prop('checked', '')
+                      for (var i = 0; i < $scope.products.length; i++)
+                      {
+                          $scope.products[i].checked = false;
+                      }
                       if ($scope.currentItem) {
                           $scope.currentItem.selected = false;
                       }
