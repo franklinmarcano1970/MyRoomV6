@@ -4,12 +4,13 @@
 // Catalogues controller
 app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogService', 'toaster', 'ngWebBaseSettings', 'FileUploader', function ($scope, $http, $state, catalogService, toaster, ngWebBaseSettings, FileUploader) {
     var uploader = $scope.uploader = new FileUploader({
-        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1-0-0'
+        //url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1-0-0'
     });
     $scope.rootFile = '/img/';
     $scope.rootFileModule = '/img/';
     $scope.rootFileCategory = '/img/';
     $scope.typeAction = 'module';
+
     var imageCatalog = '';
     var IdCatalog = 0;
     $scope.typeAction = '';
@@ -134,6 +135,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     $scope.initTabsets = function ()
     {
+        $scope.rootFile = '/img/';
+        $scope.rootFileModule = '/img/';
+        $scope.rootFileCategory = '/img/';
         $scope.module = {};
         $scope.category = {};
         $scope.module = { Image: 'no-image.jpg', Active: true };
@@ -194,7 +198,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.steps.step1 = true;
             $scope.catalog = {
                 Active: true,
-                Image: 'img/prod.jpg',
+                Image: 'no-image.jpg',
                 Translation: {
                     Active: true
                 }
@@ -223,7 +227,6 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 text: 'The Catalog has been saved'
             };
             //Para subir la imagen
-            debugger
             if ($scope.fileItem != null) {
                 $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=2-' + res.data + '-0';
                 uploader.uploadAll();
@@ -238,7 +241,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.catalog = {
                 Pending: true,
                 Active: true,
-                Image: 'img/prod.jpg',
+                Image: 'no-image.jpg',
                 Translation: {
                     Active: true
                 }
@@ -336,7 +339,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         $scope.steps.step1 = true;
         $scope.loadTreeCatalog($scope.IdCatalog);
         $scope.initTabsets();
-        $scope.module = { Active: true, Pending: true, IsFinal: true };
+        $scope.module = { Image: 'no-image.jpg', Active: true, Pending: true, IsFinal: true };
 
     }
     $scope.pop = function () {
@@ -376,8 +379,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 $scope.pop();
                 $scope.steps.step1 = true;
                 $scope.categoryItem = null;
-                debugger
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + response.data;
+                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + response.data.CategoryId;
                 uploader.uploadAll();
                 $scope.loadTreeCatalog($scope.IdCatalog);
 
@@ -396,7 +398,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     title: 'Info',
                     text: 'The Category has been saved'
                 };
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=3-' + $scope.IdCatalog + '-' + $scope.category.CategoryId;
+                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + $scope.category.CategoryId;
                 uploader.uploadAll();
                 $scope.pop();
                 $scope.steps.step1 = true;
@@ -411,7 +413,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         //uploader.uploadAll();
         $scope.IsNew = true;
         $scope.initTabsets();
-        $scope.category = { Active: true, Pending: true, IsFinal: true };
+        $scope.category = { Image: 'no-image.jpg', Active: true, Pending: true, IsFinal: true };
     };
 
     function createCategoryVM(entity) {

@@ -112,6 +112,7 @@
                           $scope.cata.selected = undefined;
                           return;
                       }
+                      $scope.typeAction = 'module';
                       $scope.IdCatalog = cata.id;
                       $scope.NameCatalog = cata.Name;
                       if ($state.current.name == 'app.page.usercatalog') {
@@ -294,7 +295,6 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       } else {
-                          debugger
                           $scope.rootFileCategory = '/images/catalogs/' + $scope.IdCatalog + '/categories/';
                           $scope.category = {
                               CategoryId: item.CategoryId,
@@ -330,6 +330,12 @@
                       }
                   }
                   $scope.addItems = function (item, obj) {
+                      $scope.module = {};
+                      $scope.category = {};
+                      $scope.rootFileModule = '/img/';
+                      $scope.rootFileCategory = '/img/';
+                      $scope.module = { Image: 'no-image.jpg', Active: true };
+                      $scope.category = { Image: 'no-image.jpg', Pending: true, IsFinal: true, Active: true };
                       if (item.type == "module") {
                           $scope.typeAction = 'module';
                           $scope.module = {
@@ -371,7 +377,7 @@
                           $scope.showTabsetModule = true;
                       }
 
-                      $scope.category = { IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory, CategoryItem: $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
+                      $scope.category = { Image: 'no-image.jpg', IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory, CategoryItem: $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
                   }
                   $scope.deleteItems = function (item) {
                       if (item.type == "category") {
