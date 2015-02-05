@@ -135,7 +135,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         vm.Description_ENG = entity.Description_ENG;
         vm.UrlScanDocument = entity.UrlScanDocument;
         vm.Pending = entity.Pending;
-
+        vm.Active = entity.Active
         vm.Spanish = entity.Translation.Spanish;
         vm.English = entity.Translation.English;
         vm.French = entity.Translation.French;

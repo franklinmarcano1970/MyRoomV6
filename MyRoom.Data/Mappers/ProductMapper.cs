@@ -19,7 +19,7 @@ namespace MyRoom.Data.Mappers
                 Price           = productViewModel.Price,
                 Image           = productViewModel.Image,
                 Type            = productViewModel.Type,
-                Active          = productViewModel.ProductActive,
+                Active          = productViewModel.Active,
                 Prefix          = productViewModel.Prefix,
                 Name_ENG        = productViewModel.Name_ENG,                
                 Description_ENG = productViewModel.Description_ENG,

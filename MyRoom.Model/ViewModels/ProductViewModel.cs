@@ -17,7 +17,7 @@ namespace MyRoom.Model.ViewModels
 
         public string Type { get; set; }
 
-        public bool ProductActive { get; set; }
+        public bool Active { get; set; }
 
         public string Prefix { get; set; }
 
