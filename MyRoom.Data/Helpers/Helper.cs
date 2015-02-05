@@ -2,6 +2,9 @@
 using System.Security.Cryptography;
 using MyRoom.Model;
 using MyRoom.Model.ViewModels;
+using Newtonsoft.Json;
+using MyRoom.Data.Repositories;
+using System.Collections.Generic;
 
 namespace MyRoom.Helpers
 {
@@ -74,7 +77,7 @@ namespace MyRoom.Helpers
                 nextsibling = "category",
                 Translation = category.Translation
             };
-
+        
             return categoryCompositeViewModel;
         }
     }

@@ -20,7 +20,7 @@ namespace MyRoom.Model
             //RelModuleCategory = new HashSet<RelModuleCategory>();
             RelUserCategory = new HashSet<RelUserCategory>();
             //CategoryChild = new Category();
-           // Products = new HashSet<Product>();
+            CategoryProducts = new HashSet<CategoryProduct>();
         }
 
         [Key]

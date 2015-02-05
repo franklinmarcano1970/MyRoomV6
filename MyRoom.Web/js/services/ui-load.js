@@ -186,9 +186,9 @@ angular.module('ui.load', [])
 			     return deferred.promise;
 
 			 };
-			 function getCatalogComplex(catalogId) {
+			 function getCatalogComplex(catalogId, withproducts) {
 				 var deferred = $q.defer();
-				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId).success(function (response) {
+				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId + "/?withproducts=" + withproducts).success(function (response) {
 					 deferred.resolve(response);
 				 }, function (err) {
 					 deferred.reject(err);
@@ -196,6 +196,7 @@ angular.module('ui.load', [])
 
 				 return deferred.promise;
 			 };
+
 			 function saveAssingProduct(catalogAssignProductsVm) {
 				 var deferred = $q.defer();
 				 return $http.post(serviceBase + 'api/categories/assignproducts', catalogAssignProductsVm).success(function (response) {

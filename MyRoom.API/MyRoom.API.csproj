@@ -189,6 +189,7 @@
     <Compile Include="Controllers\RelUserProductsController.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Filters\ValidationActionFilter.cs" />
+    <Compile Include="Infraestructure\CatalogCreator.cs" />
     <Compile Include="Infraestructure\CustomMultipartFormDataStreamProvider.cs" />
     <Compile Include="Infraestructure\FileDesc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

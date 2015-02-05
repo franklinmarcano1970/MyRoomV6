@@ -197,7 +197,7 @@
                   $scope.loadHotelTreeCatalog = function (catalogId) {
                       $scope.items = {};
                       $scope.sourceItems = {};
-                      catalogService.getCatalogComplex(catalogId).then(function (response) {
+                      catalogService.getCatalogComplex(catalogId,true).then(function (response) {
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
                           $scope.sourceItems = JSON.parse(response.data);
@@ -437,7 +437,7 @@
                       }
                       $scope.items = {};
                       $scope.sourceItems = {};
-                      catalogService.getCatalogComplex(id).then(function (response) {
+                      catalogService.getCatalogComplex(id, false).then(function (response) {
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
                           $scope.sourceItems = JSON.parse(response.data);

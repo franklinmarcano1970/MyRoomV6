@@ -11,6 +11,7 @@ using System.IO;
 using System.Configuration;
 using System.Diagnostics;
 using MyRoom.ViewModels;
+using MyRoom.API.Infraestructure;
 
 namespace MyRoom.API.Controllers
 {
@@ -27,9 +28,14 @@ namespace MyRoom.API.Controllers
 
         [Route("{key}")]
         [HttpGet]
-        public string GetCatalogues(int key)
+        public string GetCatalogues(int key, [FromUri]bool withproducts)
         {
-            return catalogRepository.GetStructureComplete(key);
+            CatalogCreator creator = new CatalogCreator(catalogRepository.Context);
+            if (withproducts)
+                return creator.CreateWithProducts(catalogRepository.GetStructureComplete(key));
+            else
+                return creator.CreateWithOutProducts(catalogRepository.GetStructureComplete(key));
+
         }
 
         [Route("catalogbyid/{key}")]
