@@ -3,24 +3,22 @@
 // product controller
 app.controller('ProductsController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', '$timeout', 'FileUploader', 'ngWebBaseSettings', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster, $timeout, FileUploader, ngWebBaseSettings) {
     var uploader = $scope.uploader = new FileUploader({
-        //url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-0-0'
+        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-0-0'
     });
     var ischecked = $filter('ischecked');
-    $scope.IdCatalog = 0;
     $scope.toaster = {
         type: 'error',
         title: 'Info',
         text: 'Only 6 Related product are permited'
     };
     $scope.products = {};
-    $scope.rootFile = '/img/';
     $scope.product = {
         Prefix: '',
         Name: '',
         Description: '',
         Price: '',
         Active: true,
-        Image: 'no-image.jpg',
+        Image: 'img/no-image.jpg',
         Order: '',
         Translation: {
             Spanish: '',
@@ -50,29 +48,21 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
             return;
         }
         $scope.file = fileItem._file;
-        $scope.fileItem = fileItem;
-        $scope.product.Image =  $scope.file.name;
+        $scope.product.Image = ngWebBaseSettings.rootFileProduct + $scope.file.name;
         var fr = new FileReader();
         fr.onload = function (e) {
-            $('#imageProd')
+            $('#image')
                 .attr('src', e.target.result)
         }
-        fr.readAsDataURL(fileItem._file);
     };
     $scope.pop = function () {
         toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
     };
 
     if ($state.current.name == "app.page.product_edit" && $state.params['id']) {
-        debugger
-        var param = $state.params['id'].split("-");
-        var id = param[0];
-        var idCatalog = param[1];
-        $scope.IdCatalog = idCatalog;
-        //productService.getProduct($state.params['id']).then(function (response) {
-        productService.getProduct(id).then(function (response) {
+        productService.getProduct($state.params['id']).then(function (response) {
             $scope.product = JSON.parse(response.data);
-            $scope.rootFile = '/images/catalogs/' + $scope.IdCatalog + '/products/';
+
             productService.getAll().then(function (response) {
                 $scope.products = response.data.filter(function (e) {
                    return e.Id !== $scope.product.Id;
@@ -156,10 +146,10 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
     }
 
     $scope.saveProduct = function () {
+        
         var productVm = createProductVM($scope.product);
-        if ($state.current.name == "app.page.product_create" && $state.params['id']) {
-            $scope.IdCatalog = $state.params['id'];
-            $scope.rootFile = '/images/catalogs/' + $scope.IdCatalog + '/';
+        if ($state.current.name == "app.page.product_create") {
+     
             productService.saveProduct(productVm).then(function (response) {
                 //$scope.Id = response.data.Id;
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Product has been saved' };
@@ -167,11 +157,10 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
                     $scope.pop();
                 }, 1000);
                 //Para subir la imagen
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-' + $scope.IdCatalog + '-0';
                 uploader.uploadAll();
                 $scope.product = {
                     Active: true,
-                    Image: 'no-image.jpg',
+                    Image: 'img/prod.jpg',
                     Translation: {
                         Active: true
                     },
@@ -191,14 +180,13 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         else {
             productService.updateProduct($scope.product).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Product has been updated' };
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-' + $scope.IdCatalog + '-0';
                 uploader.uploadAll();
                 $timeout(function () {
                     $scope.pop();
                 }, 1000);
                 $scope.product = {
                     Active: true,
-                    Image: 'no-image.jpg',
+                    Image: 'img/prod.jpg',
                     Translation: {
                         Active: true
                     },
@@ -226,7 +214,6 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
 app.controller('ProductsListController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'toaster', '$timeout', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, toaster, $timeout) {
     $scope.products = {};
     $scope.currentProdId = 0;
-    $scope.IdCatalog = 0;
     $scope.toaster = {
         type: 'success',
         title: 'Info',
@@ -249,13 +236,12 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
             toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
         };
         $scope.createProduct = function () {
-            $state.go('app.page.product_create', { "id": $scope.IdCatalog });
+            $state.go('app.page.product_create');
         };
 
         $scope.modifyProduct = function (id) {
             $scope.currentProdId = id;
-            debugger
-            $state.go('app.page.product_edit', { "id": id + "-" + $scope.IdCatalog});
+            $state.go('app.page.product_edit', { "id": id });
         }
 
         $scope.getAll = function () {
@@ -285,7 +271,7 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
                 //$scope.Id = response.data.Id;
                 $scope.product = {
                     Active: true,
-                    Image: 'no-image.jpg',
+                    Image: 'img/prod.jpg',
                     Translation: {
                         Active: true
                     }
