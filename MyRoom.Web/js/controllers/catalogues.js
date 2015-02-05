@@ -13,7 +13,6 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     var imageCatalog = '';
     var IdCatalog = 0;
-    $scope.typeAction = '';
     //$scope.IdModule = 0
     $scope.IdCatalog = 0;
     $scope.NameCatalog = '';
