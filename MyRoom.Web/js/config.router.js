@@ -442,7 +442,7 @@ angular.module('app')
                   }
               })
               .state('app.page.product_create', {
-                  url: '/products/create',
+                  url: '/products/create/:id',
                   templateUrl: 'tpl/page_product_create.html',
                   resolve: {
                       deps: ['$ocLazyLoad',
@@ -477,21 +477,25 @@ angular.module('app')
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('toaster').then(
-                               function () {
-                                   return $ocLazyLoad.load('datatables').then(
-                                      function () {
+                            return $ocLazyLoad.load('angularFileUpload').then(
+                              function () {
+                                  return $ocLazyLoad.load('toaster').then(
+                                     function () {
+                                         return $ocLazyLoad.load('datatables').then(
+                                            function () {
 
-                                          return $ocLazyLoad.load(
-                                              {
-                                                  files: ['js/controllers/product.js',
-                                                      'js/directives/myroom-directives.js',
-                                                      'vendor/libs/bootstrap-filestyle.js'
-                                                  ]
-                                              }
-                                          );
-                                      })
-                               });
+                                                return $ocLazyLoad.load(
+                                                    {
+                                                        files: ['js/controllers/product.js',
+                                                            'js/controllers/file-upload.js',
+                                                            'js/directives/myroom-directives.js',
+                                                            'vendor/libs/bootstrap-filestyle.js'
+                                                        ]
+                                                    }
+                                                );
+                                            })
+                                     });
+                              });
                         }]
                   }
               })

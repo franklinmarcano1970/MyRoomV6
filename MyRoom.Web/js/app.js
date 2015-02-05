@@ -29,7 +29,7 @@ app.constant('ngWebBaseSettings', {
     webServiceBase: 'http://localhost:35269/',
     rootFileHotel : 'images/hotels/',
     rootFile : 'images/catalogs/',
-    rootFileProduct: 'images/products/',
+    rootFileProduct: 'images/catalogs/',
     fileSize: 512000
 });
 
