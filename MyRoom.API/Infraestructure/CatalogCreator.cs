@@ -131,6 +131,7 @@ namespace MyRoom.API.Infraestructure
                 CategoryCompositeViewModel categoryCompositeViewModel = Helper.ConvertCategoryToViewModel(c);
                 if (p.Children == null)
                     p.Children = new List<ICatalogChildren>();
+                
                 p.Children.Add(categoryCompositeViewModel);
                 if (categories != null)
                     CreateSubCategories(categoryCompositeViewModel);

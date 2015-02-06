@@ -70,7 +70,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         $scope.IdCatalog = idCatalog;
         productService.getProduct(id).then(function (response) {
             $scope.product = JSON.parse(response.data);
-            $scope.rootFile = '/images/catalogs/' + $scope.IdCatalog + '/products/';
+            $scope.rootFile = '/images/' + $scope.IdCatalog + '/products/';
             productService.getAll().then(function (response) {
                 $scope.products = response.data.filter(function (e) {
                    return e.Id !== $scope.product.Id;
@@ -158,7 +158,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         var productVm = createProductVM($scope.product);
         if ($state.current.name == "app.page.product_create" && $state.params['id']) {
             $scope.IdCatalog = $state.params['id'];
-            $scope.rootFile = '/images/catalogs/' + $scope.IdCatalog + '/';
+            $scope.rootFile = '/images/' + $scope.IdCatalog + '/';
      
             productService.saveProduct(productVm).then(function (response) {
                 //$scope.Id = response.data.Id;

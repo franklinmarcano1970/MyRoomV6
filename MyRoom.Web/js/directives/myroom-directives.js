@@ -275,7 +275,7 @@
                   {
                       $scope.IsNew = false;
                       if (item.type == "module") {
-                          $scope.rootFileModule = '/images/catalogs/' + $scope.IdCatalog + '/modules/';
+                          $scope.rootFileModule = '/images/' + $scope.IdCatalog + '/modules/';
                           $scope.module = {
                               ModuleId: item.ModuleId,
                               IdTranslationName: item.IdTranslationName,
@@ -303,7 +303,7 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       } else {
-                          $scope.rootFileCategory = '/images/catalogs/' + $scope.IdCatalog + '/categories/';
+                          $scope.rootFileCategory = '/images/' + $scope.IdCatalog + '/categories/';
                           $scope.category = {
                               CategoryId: item.CategoryId,
                               IdTranslationName: item.IdTranslationName,
@@ -338,6 +338,7 @@
                       }
                   }
                   $scope.addItems = function (item, obj) {
+                      $scope.IsNew = true;
                       $scope.module = {};
                       $scope.category = {};
                       $scope.rootFileModule = '/img/';

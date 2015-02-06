@@ -1,8 +1,7 @@
 ﻿'use strict';
 var serviceBase      = 'http://localhost:49698/';
-//var serviceBaseWeb‏  ‏ = 'http://localhost:35269/';
 //var serviceBase = 'http://management-webapi-myroom.azurewebsites.net/';
-//var serviceBase = 'http://servicioswebmoviles.azurewebsites.net/';
+//var serviceBase = 'http://management-webapi-myroom.azurewebsites.net/';
 var app = angular.module('app', [
     'ngAnimate',
     'ngCookies',
@@ -28,8 +27,8 @@ app.constant('ngAuthSettings', {
 app.constant('ngWebBaseSettings', {
     webServiceBase: 'http://localhost:35269/',
     rootFileHotel : 'images/hotels/',
-    rootFile : 'images/catalogs/',
-    rootFileProduct: 'images/catalogs/',
+    rootFile : 'images/',
+    rootFileProduct: 'images/',
     fileSize: 512000
 });
 

@@ -36,7 +36,7 @@ namespace MyRoom.Data.Repositories
 
         public List<Category> GetByParentId(int categoryId)
         {
-            return (from p in this.Context.Categories
+            return (from p in this.Context.Categories.Include("Translation")
                     where p.IdParentCategory == categoryId
                     orderby p.IdParentCategory, p.Orden
                     select p).ToList<Category>();

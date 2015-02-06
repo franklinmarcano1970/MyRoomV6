@@ -481,6 +481,8 @@
     <Content Include="vendor\modules\angular-ui-grid\ui-grid.eot" />
     <Content Include="vendor\modules\angular-ui-grid\ui-grid.ttf" />
     <Content Include="vendor\modules\angular-ui-grid\ui-grid.woff" />
+    <None Include="Properties\PublishProfiles\management-myroom - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\management-myroom - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\servicioswebmoviles-web - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\servicioswebmoviles-web - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">

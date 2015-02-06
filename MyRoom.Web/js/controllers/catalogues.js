@@ -86,7 +86,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             Active: true
         }
     };    
-    
+    uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        $scope.loadTreeCatalog($scope.IdCatalog);
+    };
     uploader.onAfterAddingFile = function (fileItem) {
         if (fileItem.file.size > ngWebBaseSettings.fileSize) {
             $scope.toaster = {
@@ -187,7 +189,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         
         catalogService.getCatalog($scope.cata.selected.id).then(function (response) {
             $scope.catalog = JSON.parse(response.data);
-            $scope.rootFile = '/images/catalogs/' + $scope.catalog.CatalogId + '/';
+            $scope.rootFile = '/images/' + $scope.catalog.CatalogId + '/';
         });
     }
 
@@ -245,12 +247,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     Active: true
                 }
             };
-            
-            //$('select[name="cboCatalogue"]').append(new Option(response.data.Name, response.data.Id));
-            //$('select[name="cboCatalogue"]').find('option[value="' + response.data.Id + '"]').attr("selected", true);
-            //$scope.selectActionCatalog(response.data.Id);
-            //$scope.Name = "";
-
+            initModule();
+            $scope.sourceItems = {};
         },
         function (err) {
             $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
@@ -281,8 +279,13 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         var moduleViewModel = createModuleVM($scope.module);
         if ($scope.IsNew) {
             catalogService.saveModule(moduleViewModel).then(function (response) {
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=3-' + $scope.IdCatalog + '-' + response.data;
-                uploader.uploadAll();
+                if ($scope.fileItem === undefined)
+                    $scope.loadTreeCatalog($scope.IdCatalog);
+                else {
+                    $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=3-' + $scope.IdCatalog + '-' + response.data;
+                    uploader.uploadAll();
+                }
+
                 $scope.toaster = { type: 'success', title: 'Success', text: 'The Module has been saved'};
                 $scope.pop();
                 initModule();
@@ -294,8 +297,13 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         } else { //Modificar
             //$scope.module.Catalogues = [{ CatalogId: $scope.IdCatalog, Name: $scope.NameCatalog, Active: true }];
             catalogService.updateModule(mmodule).then(function (response) {
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=3-' + $scope.IdCatalog + '-' + $scope.module.ModuleId;
-                uploader.uploadAll();
+                if ($scope.fileItem === undefined)
+                    $scope.loadTreeCatalog($scope.IdCatalog);
+                else {
+                    $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=3-' + $scope.IdCatalog + '-' + $scope.module.ModuleId;
+                    uploader.uploadAll();
+                }
+
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Module has been update' };
                 $scope.pop();
                 initModule();
@@ -375,13 +383,16 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     title: 'Info',
                     text: 'The Category has been saved'
                 };
+                if ($scope.fileItem === undefined)
+                    $scope.loadTreeCatalog($scope.IdCatalog);
+                else {
+                    $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + response.data.CategoryId;
+                    uploader.uploadAll();
+                }
                 $scope.pop();
                 $scope.steps.step1 = true;
                 $scope.categoryItem = null;
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + response.data.CategoryId;
-                uploader.uploadAll();
-                $scope.loadTreeCatalog($scope.IdCatalog);
-
+                
             },
             function (err) {
                 $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
@@ -396,12 +407,16 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     type: 'success',
                     title: 'Info',
                     text: 'The Category has been saved'
-                };
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + $scope.category.CategoryId;
-                uploader.uploadAll();
+                };   
+
+                if ($scope.fileItem === undefined)
+                    $scope.loadTreeCatalog($scope.IdCatalog);
+                else {
+                    $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + $scope.category.CategoryId;
+                    uploader.uploadAll();
+                }
                 $scope.pop();
                 $scope.steps.step1 = true;
-                $scope.loadTreeCatalog($scope.IdCatalog);
             },
             function (err) {
                 $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
