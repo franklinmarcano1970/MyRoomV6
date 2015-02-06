@@ -8,7 +8,8 @@
                 <input type="checkbox" ng-model="item.active" class="ng-valid ng-dirty ng-valid-parse ng-touched ng-pristine ng-untouched" name="post[]" checked="checked"><i></i>
             </label>
                                                                                                        
-        <i class="fa fa-folder-open fa-2x"></i> <a href="" ng-class="{active:item.selected}" ng-click="toggle(item)">{{item.text}}</a>
+        <i class="fa fa-folder-open fa-2x" ng-if="item.type=='module'"></i><i class="fa fa-folder-open-o fa-2x" ng-if="item.type=='category' && item.IsFinal == false"></i><i class="fa fa-folder fa-2x" ng-if="item.type=='category' && item.IsFinal"></i>
+        <i class="fa fa-file-text-o fa-2x" ng-if="item.type=='product'"></i> <a href="" ng-class="{active:item.selected}" ng-click="toggle(item)">{{item.text}}</a>
         <div class="m-l btn-group dropdown open" dropdown="" ng-model="operations" ng-show="$state.current.name == 'app.page.catalogue_create' ">
                 <button class="btn btn-success m-b-xs" dropdown-toggle="" aria-haspopup="true" aria-expanded="true">Action <span class="caret"></span></button>
                 <ul class="dropdown-menu">

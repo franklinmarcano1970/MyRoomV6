@@ -8,8 +8,14 @@ namespace MyRoom.Model.ViewModels
 {
     public class ProductCompositeViewModel  : ICatalogChildren
     {
+        public ProductCompositeViewModel()
+        {
+            this.type = "product";
+        }
+
         public int ProductId { get; set; }
         public bool ActiveCheckbox { get; set; }
+        public string type { get; set; }
         public string text{ get; set; }
     }
 }
