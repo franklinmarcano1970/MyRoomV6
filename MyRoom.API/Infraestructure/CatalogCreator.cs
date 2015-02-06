@@ -11,9 +11,12 @@ namespace MyRoom.API.Infraestructure
 {
     public class CatalogCreator
     {
+        private ProductRepository productRepo;
+
         public CatalogCreator(MyRoomDbContext context)
-        {
+        {      
             this.Context = context;
+            productRepo = new ProductRepository(context);
         }
 
         public string CreateWithOutProducts(Catalog cata)
@@ -32,7 +35,7 @@ namespace MyRoom.API.Infraestructure
 
                     CategoryCompositeViewModel category = Helper.ConvertCategoryToViewModel(p);
                     moduleVm.Children.Add(category);
-                    CreateSubCategories(category);
+                    CreateSubCategories(category, false);
 
                 }
 
@@ -74,8 +77,7 @@ namespace MyRoom.API.Infraestructure
                         moduleVm.Children = new List<CategoryCompositeViewModel>();
 
                     CategoryCompositeViewModel category = Helper.ConvertCategoryToViewModel(p);
-                    ProductRepository productRepo = new ProductRepository(this.Context);
-                   // category.Products = new List<ProductCompositeViewModel>();
+                    // category.Products = new List<ProductCompositeViewModel>();
                     category.Children = new List<ICatalogChildren>();
                     if (category.IsFinal)
                     {
@@ -92,7 +94,7 @@ namespace MyRoom.API.Infraestructure
                     }
 
                     moduleVm.Children.Add(category);
-                    CreateSubCategories(category);
+                    CreateSubCategories(category, true);
                 }
 
             }
@@ -119,7 +121,7 @@ namespace MyRoom.API.Infraestructure
 
         }
 
-        private List<CategoryCompositeViewModel> CreateSubCategories(CategoryCompositeViewModel p)
+        private List<CategoryCompositeViewModel> CreateSubCategories(CategoryCompositeViewModel p, bool withproducts)
         {
             CategoryRepository categoryRepo = new CategoryRepository(this.Context);
 
@@ -131,10 +133,30 @@ namespace MyRoom.API.Infraestructure
                 CategoryCompositeViewModel categoryCompositeViewModel = Helper.ConvertCategoryToViewModel(c);
                 if (p.Children == null)
                     p.Children = new List<ICatalogChildren>();
-                
+
+                if (withproducts)
+                { 
+                    if (c.IsFinal)
+                    {
+                        categoryCompositeViewModel.ActiveCheckbox = true;
+                    }
+                    categoryCompositeViewModel.Children = new List<ICatalogChildren>();
+                    foreach (CategoryProduct cp in c.CategoryProducts)
+                    {
+                        Product product = productRepo.GetById(cp.IdProduct);
+                        categoryCompositeViewModel.Children.Add(new ProductCompositeViewModel()
+                        {
+                            ProductId = product.Id,
+                            text = product.Name,
+                            ActiveCheckbox = true
+                        });
+                    }
+                }
+
+
                 p.Children.Add(categoryCompositeViewModel);
                 if (categories != null)
-                    CreateSubCategories(categoryCompositeViewModel);
+                    CreateSubCategories(categoryCompositeViewModel, withproducts);
 
             }
 

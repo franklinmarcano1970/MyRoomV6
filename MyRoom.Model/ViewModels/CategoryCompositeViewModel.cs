@@ -16,6 +16,8 @@ namespace MyRoom.Model.ViewModels
         public string Prefix { get; set; }
 
         public string type { get; set; }
+        
+        public int? IdParentCategory { get; set; }
 
         public int IdTranslationName { get; set; }
 

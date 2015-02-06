@@ -65,6 +65,7 @@ namespace MyRoom.Helpers
                 text = category.Name,
                 Prefix = category.Prefix,
                 type = "category",
+                IdParentCategory = category.IdParentCategory,
                 IdTranslationName = category.IdTranslationName,
                 Image = category.Image,
                 IsFinal = category.IsFinal,

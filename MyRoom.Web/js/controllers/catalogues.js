@@ -388,6 +388,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 else {
                     $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + response.data.CategoryId;
                     uploader.uploadAll();
+                    $scope.fileItem = undefined;
                 }
                 $scope.pop();
                 $scope.steps.step1 = true;
