@@ -186,9 +186,9 @@ angular.module('ui.load', [])
 			     return deferred.promise;
 
 			 };
-			 function getCatalogComplex(catalogId, withproducts) {
+			 function getCatalogComplex(catalogId, withproducts, activemod, activecategory) {
 				 var deferred = $q.defer();
-				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId + "/?withproducts=" + withproducts).success(function (response) {
+				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId + "/?withproducts=" + withproducts + "&activemod="+ activemod + "&activecategory=" + activecategory).success(function (response) {
 					 deferred.resolve(response);
 				 }, function (err) {
 					 deferred.reject(err);

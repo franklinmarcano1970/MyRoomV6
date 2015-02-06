@@ -28,13 +28,13 @@ namespace MyRoom.API.Controllers
 
         [Route("{key}")]
         [HttpGet]
-        public string GetCatalogues(int key, [FromUri]bool withproducts)
+        public string GetCatalogues(int key, [FromUri]bool withproducts, [FromUri]bool activemod, [FromUri]bool activecategory)
         {
             CatalogCreator creator = new CatalogCreator(catalogRepository.Context);
             if (withproducts)
-                return creator.CreateWithProducts(catalogRepository.GetStructureComplete(key));
+                return creator.CreateWithProducts(catalogRepository.GetStructureComplete(key), activemod, activecategory);
             else
-                return creator.CreateWithOutProducts(catalogRepository.GetStructureComplete(key));
+                return creator.CreateWithOutProducts(catalogRepository.GetStructureComplete(key), activemod, activecategory);
 
         }
 

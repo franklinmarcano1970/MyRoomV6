@@ -19,13 +19,13 @@ namespace MyRoom.API.Infraestructure
             productRepo = new ProductRepository(context);
         }
 
-        public string CreateWithOutProducts(Catalog cata)
+        public string CreateWithOutProducts(Catalog cata, bool activemod, bool activecategory)
         {
             IList<ModuleCompositeViewModel> modules = new List<ModuleCompositeViewModel>();
 
             foreach (Module m in cata.Modules)
             {
-                ModuleCompositeViewModel moduleVm = Helper.ConvertModuleToViewModel(m);
+                ModuleCompositeViewModel moduleVm = Helper.ConvertModuleToViewModel(m, activemod);
                 modules.Add(moduleVm);
 
                 foreach (Category p in m.Categories)
@@ -34,8 +34,12 @@ namespace MyRoom.API.Infraestructure
                         moduleVm.Children = new List<CategoryCompositeViewModel>();
 
                     CategoryCompositeViewModel category = Helper.ConvertCategoryToViewModel(p);
+                    if (p.IsFinal && activecategory)
+                    {
+                        category.ActiveCheckbox = true;
+                    }
                     moduleVm.Children.Add(category);
-                    CreateSubCategories(category, false);
+                    CreateSubCategories(category, false, activecategory);
 
                 }
 
@@ -62,14 +66,15 @@ namespace MyRoom.API.Infraestructure
 
         }
 
-        public string CreateWithProducts(Catalog cata)
+        public string CreateWithProducts(Catalog cata, bool activemod, bool activecategory)
         {
             IList<ModuleCompositeViewModel> modules = new List<ModuleCompositeViewModel>();
 
             foreach (Module m in cata.Modules)
             {
-                ModuleCompositeViewModel moduleVm = Helper.ConvertModuleToViewModel(m);
+                ModuleCompositeViewModel moduleVm = Helper.ConvertModuleToViewModel(m, activemod);
                 modules.Add(moduleVm);
+                moduleVm.ActiveCheckbox = activemod;
 
                 foreach (Category p in m.Categories)
                 {
@@ -79,7 +84,7 @@ namespace MyRoom.API.Infraestructure
                     CategoryCompositeViewModel category = Helper.ConvertCategoryToViewModel(p);
                     // category.Products = new List<ProductCompositeViewModel>();
                     category.Children = new List<ICatalogChildren>();
-                    if (category.IsFinal)
+                    if (category.IsFinal && activecategory)
                     {
                         category.ActiveCheckbox = true;
                     }
@@ -94,7 +99,7 @@ namespace MyRoom.API.Infraestructure
                     }
 
                     moduleVm.Children.Add(category);
-                    CreateSubCategories(category, true);
+                    CreateSubCategories(category, true, activecategory);
                 }
 
             }
@@ -121,7 +126,7 @@ namespace MyRoom.API.Infraestructure
 
         }
 
-        private List<CategoryCompositeViewModel> CreateSubCategories(CategoryCompositeViewModel p, bool withproducts)
+        private List<CategoryCompositeViewModel> CreateSubCategories(CategoryCompositeViewModel p, bool withproducts, bool activecategory)
         {
             CategoryRepository categoryRepo = new CategoryRepository(this.Context);
 
@@ -134,12 +139,13 @@ namespace MyRoom.API.Infraestructure
                 if (p.Children == null)
                     p.Children = new List<ICatalogChildren>();
 
+                if (c.IsFinal && activecategory)
+                {
+                    categoryCompositeViewModel.ActiveCheckbox = true;
+                }
+
                 if (withproducts)
                 { 
-                    if (c.IsFinal)
-                    {
-                        categoryCompositeViewModel.ActiveCheckbox = true;
-                    }
                     categoryCompositeViewModel.Children = new List<ICatalogChildren>();
                     foreach (CategoryProduct cp in c.CategoryProducts)
                     {
@@ -152,11 +158,10 @@ namespace MyRoom.API.Infraestructure
                         });
                     }
                 }
-
-
+                
                 p.Children.Add(categoryCompositeViewModel);
                 if (categories != null)
-                    CreateSubCategories(categoryCompositeViewModel, withproducts);
+                    CreateSubCategories(categoryCompositeViewModel, withproducts, activecategory);
 
             }
 

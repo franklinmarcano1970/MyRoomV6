@@ -21,7 +21,7 @@ namespace MyRoom.Helpers
             return Convert.ToBase64String(byteHash);
         }
 
-        public static ModuleCompositeViewModel ConvertModuleToViewModel(Module module)
+        public static ModuleCompositeViewModel ConvertModuleToViewModel(Module module, bool activemod)
         {
             ModuleCompositeViewModel  moduleCompositeViewModel = new ModuleCompositeViewModel()
             {
@@ -36,6 +36,7 @@ namespace MyRoom.Helpers
                 Comment = module.Comment,
                 Pending = module.Pending,
                 Active = module.Active,
+                ActiveCheckbox = activemod,
                 nextsibling = "category",
                 Translation = module.Translation
             };

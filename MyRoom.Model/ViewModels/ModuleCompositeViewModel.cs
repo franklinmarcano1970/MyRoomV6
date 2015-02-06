@@ -29,7 +29,9 @@ namespace MyRoom.Model.ViewModels
         public bool? Pending { get; set; }
 
         public bool Active { get; set; }
-        
+
+        public bool ActiveCheckbox { get; set; }
+
         public string nextsibling { get; set; }
 
         public Translation Translation { get; set; }
