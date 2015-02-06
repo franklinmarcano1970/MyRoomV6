@@ -112,6 +112,7 @@
                           $scope.cata.selected = undefined;
                           return;
                       }
+                      $scope.activeCatalog = false;
                       $scope.typeAction = 'module';
                       $scope.IdCatalog = cata.id;
                       $scope.NameCatalog = cata.Name;
@@ -273,9 +274,14 @@
                   };
                   $scope.modifyItems = function (item, obj)
                   {
+                      debugger
                       $scope.IsNew = false;
                       if (item.type == "module") {
-                          $scope.rootFileModule = '/images/' + $scope.IdCatalog + '/modules/';
+                          if (item.Image != 'no-image.jpg')
+                              $scope.rootFileModule = '/images/' + $scope.IdCatalog + '/modules/';
+                          else {
+                              $scope.rootFileModule = '/img/';
+                          }
                           $scope.module = {
                               ModuleId: item.ModuleId,
                               IdTranslationName: item.IdTranslationName,
@@ -303,7 +309,12 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       } else {
-                          $scope.rootFileCategory = '/images/' + $scope.IdCatalog + '/categories/';
+                          if (item.Image != 'no-image.jpg')
+                              $scope.rootFileCategory = '/images/' + $scope.IdCatalog + '/categories/';
+                          else
+                          {
+                              $scope.rootFileCategory = '/img/'
+                          }
                           $scope.category = {
                               CategoryId: item.CategoryId,
                               IdTranslationName: item.IdTranslationName,

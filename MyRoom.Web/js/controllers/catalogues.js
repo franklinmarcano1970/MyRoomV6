@@ -10,7 +10,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.rootFileModule = '/img/';
     $scope.rootFileCategory = '/img/';
     $scope.typeAction = 'module';
-
+    $scope.activeCatalog = true;
     var imageCatalog = '';
     var IdCatalog = 0;
     //$scope.IdModule = 0

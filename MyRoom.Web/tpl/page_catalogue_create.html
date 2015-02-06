@@ -132,20 +132,20 @@
                     </div>
                 </div>
                 <div class="col-md-6 column">
-                    <div class="panel panel-default shadow">
+                    <div class="panel panel-default shadow" ng-disabled="true">
                         <div class="panel-body">
                             <tabset class="tab-container" ng-init="showTabsetModule = true" ng-show="showTabsetModule">
-                                <tab heading="Module" active="steps.step1" select="steps.percent=0">                                  
-                                    <form name="step1" class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted">
+                                <tab heading="Module" active="steps.step1" select="steps.percent=0" >
+                                    <form name="step1" class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted" >
                                         <p>Prefix:</p>
-                                        <input type="text" name="modulePrefix" maxlength="150" placeholder="Enter a Prefix" class="form-control" ng-model="module.Prefix" required ng-change="step1.name.$valid ? (steps.percent=20) : (steps.percent=10)" />
+                                        <input type="text" name="modulePrefix" maxlength="150" placeholder="Enter a Prefix" class="form-control" ng-model="module.Prefix" required ng-change="step1.name.$valid ? (steps.percent=20) : (steps.percent=10)" ng-disabled="activeCatalog" />
                                         <p class="m-t">Name</p>
-                                        <input type="text" name="moduleName" maxlength="150" placeholder="Enter a Name" class="form-control" ng-model="module.Name" required ng-change="step1.name.$valid ? (steps.percent=40) : (steps.percent=30)" />
+                                        <input type="text" name="moduleName" maxlength="150" placeholder="Enter a Name" class="form-control" ng-model="module.Name" required ng-change="step1.name.$valid ? (steps.percent=40) : (steps.percent=30)" ng-disabled="activeCatalog" />     
                                         <p class="m-t">Ìmage</p>
-                                        <img id="imageModule" ng-src="{{rootFileModule + module.Image}}" ng-model="module.image" width="100" height="100" />   
-                                        <input type="file" class="filestyle" multiple ng-file-select="" nv-file-select="" uploader="uploader" data-input="false" data-buttonname="btn-success">                                    
+                                        <img id="imageModule" ng-src="{{rootFileModule + module.Image}}" ng-model="module.image" width="100" height="100" />
+                                        <input type="file" class="filestyle" ng-disabled="activeCatalog"  multiple ng-file-select="" nv-file-select="" uploader="uploader" data-input="false" data-buttonname="btn-success">
                                         <p class="m-t">Order</p>
-                                        <input ui-jq="TouchSpin" type="text"  name="moduleOrder" placeholder="Enter a Order" ng-model="module.Orden" class="form-control" data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
+                                        <input ui-jq="TouchSpin" type="text" name="moduleOrder" placeholder="Enter a Order" ng-model="module.Orden" class="form-control" data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;" ng-disabled="activeCatalog">
                                         <div class="m-t m-b">
                                             <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
                                         </div>
@@ -161,7 +161,7 @@
                                         <input type="text" name="translateFrench" placeholder="Enter a French Translation" class="form-control" ng-model="module.Translation.French" />
                                         <p class="m-t">German:</p>
                                         <input type="text" name="translateGerman" placeholder="Enter a German Translation" class="form-control" ng-model="module.Translation.German" />
-                    
+
                                         <p class="m-t">Language 5:</p>
                                         <input type="text" name="translateLang5" placeholder="Enter Another Translation" class="form-control" ng-model="module.Translation.Language5" />
                                         <p class="m-t">Language 6:</p>
@@ -172,8 +172,8 @@
                                         <input type="text" name="translateLang8" placeholder="Enter Another Translation" class="form-control" ng-model="module.Translation.Language8" />
 
                                         <div class="m-t m-b">
-                                            <button type="button"  ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
-                                            <button type="button"  ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="saveModule(module)">Save To Finish</button>
+                                            <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>
+                                            <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="saveModule(module)">Save To Finish</button>
                                         </div>
                                     </form>
                                 </tab>
