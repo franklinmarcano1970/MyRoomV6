@@ -35,3 +35,18 @@ app.filter("ischeckedArray", function () {
         return items;
     }
 })
+
+app.filter("ItemsCheckedTreeNode", ['$filter',function ($filter) {
+    return function (tree) {
+        var res = [];
+        angular.forEach(tree, function(item) { 
+            var copy = angular.fromJson(angular.toJson(item))
+            res.push({
+                id:item.id,
+                type:item.type,
+                children:$filter('ItemsCheckedTreeNode')(item.children)
+            });
+        });
+        return res;
+    }
+}])
