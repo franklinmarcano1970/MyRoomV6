@@ -36,22 +36,27 @@ app.filter("ischeckedArray", function () {
     }
 })
 
-app.filter("ItemsCheckedTreeNode", ['$filter',function ($filter) {
+app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter, res) {
+    var res;
+    if (res === undefined)
+        res = [];
+
     return function (tree) {
-        var res = [];
         angular.forEach(tree, function(item) { 
             var copy = angular.fromJson(angular.toJson(item))
             var id = 0;
             if (item.type == 'module')   id = item.ModuleId;
-            if (item.type == 'category') id = item.CategoryId;
-            if (item.type == 'product') id = item.ProductId;
-            if (item.active) {
-                res.push({
-                    id: id,
-                    type: item.type,
-                    children: $filter('ItemsCheckedTreeNode')(item.children)
-                });
+            if (item.type == 'category') {
+                id = item.CategoryId;
             }
+
+            if (item.type == 'product') id = item.ProductId;
+            item.ischecked = true;
+            res.push({
+                id: id,
+                type: item.type,
+            });
+            $filter('ItemsCheckedTreeNode')(item.children, res)
         });
         return res;
     }

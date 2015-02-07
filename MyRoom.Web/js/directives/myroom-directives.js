@@ -190,10 +190,13 @@
           return {
               restrict: 'E',
               templateUrl: 'tpl/partials/catalog-tree.html',
-              controller: function ($scope, catalogService, $state) {
+              controller: function ($scope, catalogService, $state, $filter) {
                   $scope.catalogtree = {};
                   
-                
+                  $scope.checkChildren = function (item) {
+                      $scope.cut_tree = $filter('ItemsCheckedTreeNode')(item);
+                  }
+
 
                   $scope.loadHotelTreeCatalog = function (catalogId) {
                       $scope.items = {};
@@ -231,10 +234,14 @@
           return {
               restrict: 'E',
               templateUrl: 'tpl/partials/catalog-tree.html',
-              controller: function ($scope, catalogService, $state) {
+              controller: function ($scope, catalogService, $state, $filter) {
                   $scope.catalogtree = {};
                   $scope.sourceItems = [{}];                  
                   $scope.currentItem = {};
+                  $scope.checkChildren  = function(item)
+                  {
+                      $scope.cut_tree = $filter('ItemsCheckedTreeNode')(item);
+                  }
 
                   $scope.toggle = function (item) {
                       //$("input[name='post[]']").prop('checked', '')
