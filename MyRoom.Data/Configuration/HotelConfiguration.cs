@@ -11,17 +11,30 @@ namespace MyRoom.Data.Configuration
     {
         public HotelConfiguration()
         {
-            this.HasMany(e => e.UserHotelPermissions)
-               .WithRequired(e => e.Hotel)
-               .HasForeignKey(e => e.IdHotel)
-               .WillCascadeOnDelete(true);
+            HasMany(e => e.UserHotelPermissions)
+            .WithRequired(e => e.Hotel)
+            .HasForeignKey(e => e.IdHotel)
+            .WillCascadeOnDelete(true);
 
+            HasMany(e => e.HotelCatalogues)
+            .WithRequired(e => e.Hotel)
+            .HasForeignKey(e => e.IdHotel)
+            .WillCascadeOnDelete(true);
 
-                this.HasMany(e => e.HotelCatalogues)
-                .WithRequired(e => e.Hotel)
-                .HasForeignKey(e => e.IdHotel)
-                .WillCascadeOnDelete(true);
+            HasMany(e => e.ActiveHotelProducts)
+            .WithRequired(e => e.Hotel)
+            .HasForeignKey(e => e.IdHotel)
+            .WillCascadeOnDelete(true);
 
+            HasMany(e => e.ActiveHotelCategories)
+           .WithRequired(e => e.Hotel)
+           .HasForeignKey(e => e.IdHotel)
+           .WillCascadeOnDelete(true);
+
+            HasMany(e => e.ActiveHotelModules)
+           .WithRequired(e => e.Hotel)
+           .HasForeignKey(e => e.IdHotel)
+           .WillCascadeOnDelete(true);
         }
     }
 }

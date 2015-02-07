@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyRoom.ViewModels
 {
-    class AssignHotelCatalogViewModel
+    public class AssignHotelCatalogViewModel
     {
+        public Dictionary<int, string> Nodes { get; set; }
     }
 }

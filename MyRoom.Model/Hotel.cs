@@ -36,11 +36,12 @@ namespace MyRoom.Model
 
         public  virtual ICollection<ActiveHotelCatalogue> HotelCatalogues { get; set; }
 
-        //public virtual ICollection<ActiveHotelCategory> ActiveHotelCategory { get; set; }
+        public virtual ICollection<ActiveHotelCategory> ActiveHotelCategories { get; set; }
 
-        //public virtual ICollection<ActiveHotelModule> ActiveHotelModule { get; set; }
+        public virtual ICollection<ActiveHotelModule> ActiveHotelModules { get; set; }
 
-        //public virtual ICollection<ActiveHotelProduct> ActiveHotelProduct { get; set; }
+        public virtual ICollection<ActiveHotelProduct> ActiveHotelProducts { get; set; }
+
         public virtual ICollection<UserHotelPermission> UserHotelPermissions { get; set; }
       
         public virtual Translation Translation { get; set; }
