@@ -38,20 +38,38 @@ app.filter("ischeckedArray", function () {
 
 app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter, res) {
     var res;
-    if (res === undefined)
+    var itemParent;
+    if (res === undefined) {
         res = [];
-
+    }
     return function (tree) {
-        angular.forEach(tree, function(item) { 
+        var id = 0;
+        if (res.length == 0)
+        {
+            if (tree.type == 'module') id = tree.ModuleId;
+            if (tree.type == 'category') id = tree.CategoryId;
+            if (tree.type == 'product') id = tree.ProductId;
+
+            res.push({
+                id: id,
+                type: tree.type,
+            });
+            itemParent = tree
+            tree = tree.children;
+        }
+        angular.forEach(tree, function (item) {
             var copy = angular.fromJson(angular.toJson(item))
-            var id = 0;
+          
             if (item.type == 'module')   id = item.ModuleId;
             if (item.type == 'category') {
                 id = item.CategoryId;
             }
 
             if (item.type == 'product') id = item.ProductId;
-            item.ischecked = true;
+            if (itemParent.ischecked==false)
+                item.ischecked = false;
+            else
+                item.ischecked = true;
             res.push({
                 id: id,
                 type: item.type,

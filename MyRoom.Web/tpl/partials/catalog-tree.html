@@ -5,7 +5,7 @@
     <ul>
       <li ng-repeat="item in items" ng-class="{'selected':item.selected}">          
             <label class="m-t i-checks" ng-show="item.ActiveCheckbox">
-                <input type="checkbox" ng-model="item.ischecked" ng-click="checkChildren(item.children)" class="ng-valid ng-dirty ng-valid-parse ng-touched ng-pristine ng-untouched" name="post[]" checked="checked"><i></i>
+                <input type="checkbox" ng-model="item.ischecked" ng-click="checkChildren(item)" class="ng-valid ng-dirty ng-valid-parse ng-touched ng-pristine ng-untouched" name="post[]" checked="checked"><i></i>
             </label>
                                                                                                        
         <i class="fa fa-folder-open fa-2x" ng-if="item.type=='module'"></i><i class="fa fa-folder-open-o fa-2x" ng-if="item.type=='category' && item.IsFinal == false"></i><i class="fa fa-folder fa-2x" ng-if="item.type=='category' && item.IsFinal"></i>
