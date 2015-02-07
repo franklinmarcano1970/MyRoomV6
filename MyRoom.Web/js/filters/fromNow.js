@@ -41,11 +41,17 @@ app.filter("ItemsCheckedTreeNode", ['$filter',function ($filter) {
         var res = [];
         angular.forEach(tree, function(item) { 
             var copy = angular.fromJson(angular.toJson(item))
-            res.push({
-                id:item.id,
-                type:item.type,
-                children:$filter('ItemsCheckedTreeNode')(item.children)
-            });
+            var id = 0;
+            if (item.type == 'module')   id = item.ModuleId;
+            if (item.type == 'category') id = item.CategoryId;
+            if (item.type == 'product') id = item.ProductId;
+            if (item.active) {
+                res.push({
+                    id: id,
+                    type: item.type,
+                    children: $filter('ItemsCheckedTreeNode')(item.children)
+                });
+            }
         });
         return res;
     }

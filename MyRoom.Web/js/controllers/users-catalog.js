@@ -1,8 +1,8 @@
-﻿app.controller('UserCatalogController', ['$scope', '$http', '$state', 'catalogService', 'toaster', '$timeout', function ($scope, $http, $state, catalogService, toaster, $timeout) {
+﻿app.controller('UserCatalogController', ['$scope', '$http', '$state', 'catalogService', 'toaster', '$timeout', '$filter', function ($scope, $http, $state, catalogService, toaster, $timeout, $filter) {
     $scope.saveUserCatalog = function () {
         var i = 0;
-        //guardar el catalgo del user seleccionado
-
+        //guardar el catalgo del user seleccionados
+        var ItemsCheckedTreeNode = $filter('ItemsCheckedTreeNode');
         $scope.pop = function () {
             toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
         };
@@ -12,37 +12,38 @@
             title: 'Success',
             text: 'The User Catalog has been saved'
         };
-
+        var itemsChecked = ItemsCheckedTreeNode($scope.items);
+        debugger
         $scope.pop();
 
-        $scope.RelUserCatalog = { IdUser: $scope.IdUser, IdCatalogue: $scope.IdCatalog, ReadOnly: true, ReadWrite: true };
-        catalogService.saveCatalogUser($scope.RelUserCatalog).then(function (response) {
-            angular.forEach($scope.items, function (value, key) {
-                if (value.type == 'module') {
-                    if (value.active == true) {
-                        //graba los modulos
-                        $scope.RelUserModule = { IdUser: $scope.IdUser, IdModule: value.Id, ReadOnly: true, ReadWrite: true };
-                        catalogService.saveModuleUser($scope.RelUserModule).then(function (response) {
-                        }, function (err) {
-                            $scope.error_description = err.error_description;
-                        });
-                    }
-                    angular.forEach(value.children, function (valueCategory, keyCategory) {
-                        if (valueCategory.active == true) {
-                            //guardar las categorias
-                            $scope.RelUserCategory = { IdUser: $scope.IdUser, IdCategory: valueCategory.Id, ReadOnly: true, ReadWrite: true };
-                            catalogService.saveCategoryUser($scope.RelUserCategory).then(function (response) {
-                            }, function (err) {
-                                $scope.error_description = err.error_description;
-                            });
-                        }
-                    });
-                }
-            });
-        },
-        function (err) {
-            $scope.error_description = err.error_description;
-        });
+        //$scope.RelUserCatalog = { IdUser: $scope.IdUser, IdCatalogue: $scope.IdCatalog, ReadOnly: true, ReadWrite: true };
+        //catalogService.saveCatalogUser($scope.RelUserCatalog).then(function (response) {
+        //    angular.forEach($scope.items, function (value, key) {
+        //        if (value.type == 'module') {
+        //            if (value.active == true) {
+        //                //graba los modulos
+        //                $scope.RelUserModule = { IdUser: $scope.IdUser, IdModule: value.Id, ReadOnly: true, ReadWrite: true };
+        //                catalogService.saveModuleUser($scope.RelUserModule).then(function (response) {
+        //                }, function (err) {
+        //                    $scope.error_description = err.error_description;
+        //                });
+        //            }
+        //            angular.forEach(value.children, function (valueCategory, keyCategory) {
+        //                if (valueCategory.active == true) {
+        //                    //guardar las categorias
+        //                    $scope.RelUserCategory = { IdUser: $scope.IdUser, IdCategory: valueCategory.Id, ReadOnly: true, ReadWrite: true };
+        //                    catalogService.saveCategoryUser($scope.RelUserCategory).then(function (response) {
+        //                    }, function (err) {
+        //                        $scope.error_description = err.error_description;
+        //                    });
+        //                }
+        //            });
+        //        }
+        //    });
+        //},
+        //function (err) {
+        //    $scope.error_description = err.error_description;
+        //});
         
 
         //$scope.pop();
