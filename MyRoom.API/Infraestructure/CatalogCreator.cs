@@ -34,7 +34,7 @@ namespace MyRoom.API.Infraestructure
                         moduleVm.Children = new List<CategoryCompositeViewModel>();
 
                     CategoryCompositeViewModel category = Helper.ConvertCategoryToViewModel(p);
-                    if (p.IsFinal && activecategory)
+                    if (activecategory)
                     {
                         category.ActiveCheckbox = true;
                     }
@@ -84,7 +84,7 @@ namespace MyRoom.API.Infraestructure
                     CategoryCompositeViewModel category = Helper.ConvertCategoryToViewModel(p);
                     // category.Products = new List<ProductCompositeViewModel>();
                     category.Children = new List<ICatalogChildren>();
-                    if (category.IsFinal && activecategory)
+                    if (activecategory)
                     {
                         category.ActiveCheckbox = true;
                     }
@@ -139,7 +139,7 @@ namespace MyRoom.API.Infraestructure
                 if (p.Children == null)
                     p.Children = new List<ICatalogChildren>();
 
-                if (c.IsFinal && activecategory)
+                if (activecategory)
                 {
                     categoryCompositeViewModel.ActiveCheckbox = true;
                 }
