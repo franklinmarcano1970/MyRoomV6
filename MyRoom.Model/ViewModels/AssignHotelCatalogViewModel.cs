@@ -8,6 +8,22 @@ namespace MyRoom.ViewModels
 {
     public class AssignHotelCatalogViewModel
     {
-        public Dictionary<int, string> Nodes { get; set; }
+        private List<AssignHotelCatalog> hotelCatalog;
+        public AssignHotelCatalogViewModel()
+        {
+            hotelCatalog = new List<AssignHotelCatalog>();
+        }
+
+        public List<AssignHotelCatalog> HotelCatalog { get; set; }
     }
+
+    public class AssignHotelCatalog
+    {
+        public int HotelId { get; set; }
+
+        //Product, Category or Module
+        public int ElementId { get; set; }
+        public string Type { get; set; }
+    }
+
 }

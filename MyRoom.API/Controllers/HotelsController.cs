@@ -117,6 +117,28 @@ namespace MyRoom.API.Controllers
             return Ok("Catalogues Assigned to hotels");
         }
 
+
+        // POST: api/hotels/assignhotelelements
+        [Route("assignhotelelements")]
+        [HttpPost]
+        public IHttpActionResult PostAssignHotelElements(AssignHotelCatalogViewModel assignHotelCatalogViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            ActiveHotelProductRepository activeHotelProductRepo = new ActiveHotelProductRepository(new MyRoomDbContext());
+            List<ActiveHotelProduct> products = ActiveHotelProductsMapper.CreateModel(assignHotelCatalogViewModel);
+            List<ActiveHotelProduct> categories = null; //new ActiveHotelProductRepository(new MyRoomDbContext()).GetById();
+            List<ActiveHotelProduct> modules = null; //new ActiveHotelProductRepository(new MyRoomDbContext()).GetById();
+
+            
+            activeHotelProductRepo.InsertActiveHotelProduct(products);
+
+            return Ok("Elements Assigned to hotels");
+        }
+
+
         // PATCH: odata/Hotels(5)
         //[AcceptVerbs("PATCH", "MERGE")]
         //public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Hotel> patch)

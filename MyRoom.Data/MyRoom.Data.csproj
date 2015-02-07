@@ -114,6 +114,9 @@
     <Compile Include="Configuration\TranslationConfiguration.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="IdentityConfig.cs" />
+    <Compile Include="Mappers\ActiveHotelProductsMapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Mappers\CategoryMapper.cs" />
     <Compile Include="Mappers\CategoryProductMapper.cs" />
     <Compile Include="Mappers\ActiveHotelCatalogMapper.cs" />
@@ -124,6 +127,9 @@
     <Compile Include="Repositories\CategoryProductRepository.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ActiveHotelCataloguesRepository.cs" />
+    <Compile Include="Repositories\ActiveHotelProductRepository.cs" />
+    <Compile Include="Repositories\ActiveHotelCategoryRepository.cs" />
+    <Compile Include="Repositories\ActiveHotelModuleRepository.cs" />
     <Compile Include="Repositories\RelatedProductRepository.cs" />
     <Compile Include="Repositories\UserHotelPermissionRepository.cs" />
     <Compile Include="Repositories\PermissionRepository.cs" />
