@@ -13,7 +13,7 @@
             text: 'The User Catalog has been saved'
         };
         var itemsChecked = ItemsCheckedTreeNode($scope.items);
-        debugger
+
         $scope.pop();
 
         //$scope.RelUserCatalog = { IdUser: $scope.IdUser, IdCatalogue: $scope.IdCatalog, ReadOnly: true, ReadWrite: true };

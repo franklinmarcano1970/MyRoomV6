@@ -114,6 +114,8 @@
     <Compile Include="Configuration\TranslationConfiguration.cs" />
     <Compile Include="Helpers\Helper.cs" />
     <Compile Include="IdentityConfig.cs" />
+    <Compile Include="Mappers\ActiveHotelModulesMapper.cs" />
+    <Compile Include="Mappers\ActiveHotelCategoriesMapper.cs" />
     <Compile Include="Mappers\ActiveHotelProductsMapper.cs">
       <SubType>Code</SubType>
     </Compile>

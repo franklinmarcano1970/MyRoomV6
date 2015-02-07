@@ -147,6 +147,18 @@ angular.module('ui.load', [])
 			return deferred.promise;
 		}
 
+		function saveActiveProduct(assignhotelelements) {
+            debugger
+		    var deferred = $q.defer();
+		    return $http.post(serviceBase + 'api/hotels/assignhotelelements', assignhotelelements).success(function (response) {
+		        deferred.resolve(response);
+		    }, function (err) {
+		        deferred.reject(err);
+		    });
+
+		    return deferred.promise;
+		}
+
 		return {
 			getAll: getAll,
 			saveHotel: saveHotel,
@@ -158,7 +170,8 @@ angular.module('ui.load', [])
 			getCatalogAssignedByHotelId: getCatalogAssignedByHotelId,
 			getHotel: getHotel,
 			updateHotel: updateHotel,
-			assignCatalog: assignCatalog
+			assignCatalog: assignCatalog,
+			saveActiveProduct: saveActiveProduct
 		};
 
 

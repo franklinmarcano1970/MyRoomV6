@@ -1,17 +1,18 @@
 ﻿<div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3">ACTIVATE PRODUCTS TO HOTELS</h1>
 </div>
-<div class="wrapper-md" >
+<div class="wrapper-md" ng-controller="HotelsAssingProductController">
     <div class="row clearfix m-b">
         <div class="col-md-3">
-            <hotel-select></hotel-select>              
+            <hotel-select></hotel-select>
         </div>
 
         <div class="col-md-3">
             <div class="btn-group dropdown open" dropdown="">
                 <button class="btn btn-default" dropdown-toggle="" aria-haspopup="true" aria-expanded="true">Action <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a href="" ng-model="modify" ng-click="modify=true"><i class="fa fa-edit"></i> Assign Products or Categories</a></li>
+                    <!--<li><a href="" ng-model="modify" ng-click="modify=true"><i class="fa fa-edit"></i> Assign Products or Categories</a></li>-->
+                    <li><a href="" ng-model="modify" ng-click="activeProduct()"><i class="fa fa-edit"></i> Assign Products or Categories</a></li>
                     <li><a href="" ng-click="$state.go('app.page.hotel_create')"><i class="fa fa-plus"></i> New Hotel</a></li>
                 </ul>
             </div>
@@ -25,7 +26,7 @@
                         <div class="panel-body">
                             <h4>CATALOGUE STRUCTURE WITH PRODUCTS</h4>
                             <hr>
-                            <hotel-catalog-tree></hotel-catalog-tree>  
+                            <hotel-catalog-tree></hotel-catalog-tree>
                         </div>
                     </div>
                 </div>
