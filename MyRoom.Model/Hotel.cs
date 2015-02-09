@@ -57,6 +57,8 @@ namespace MyRoom.Model
 
       
         public virtual Translation Translation { get; set; }
+        
+        //public virtual Department Department { get; set; }
 
         public virtual ICollection<ApplicationUser> Users { get; set; }
     }

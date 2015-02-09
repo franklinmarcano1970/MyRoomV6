@@ -43,7 +43,18 @@ namespace MyRoom.Data
         public virtual DbSet<CategoryProduct> CategoryProducts { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<RoomType> RoomTypes { get; set; }
-        
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderNotification> OrderNotifications { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<MetricLogin> MetricLogins { get; set; }
+
+        public virtual DbSet<Guest> Guests { get; set; }
+        public virtual DbSet<GuestHistory> GuestHistories { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+
+
+        public virtual DbSet<CheckoutNotification> CheckoutNotifications { get; set; }        
+         
         //public virtual DbSet<RelModuleCategory> RelModuleCategory { get; set; }
         //public virtual DbSet<RelUserAccess> RelUserAccess { get; set; }
         public virtual DbSet<RelUserCatalogue> RelUserCatalogue { get; set; }
@@ -65,6 +76,8 @@ namespace MyRoom.Data
             modelBuilder.Configurations.Add(new ProductsConfiguration());
             modelBuilder.Configurations.Add(new HotelConfiguration());
             modelBuilder.Configurations.Add(new TranslationConfiguration());
+            modelBuilder.Configurations.Add(new DepartmentConfiguration());
+
 
 
             modelBuilder.Configurations.Add(new RelatedProductsConfiguration());

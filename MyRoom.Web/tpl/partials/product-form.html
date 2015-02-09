@@ -57,7 +57,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="m-t m-b">
+                   <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <div style="margin-top: 2em!important;">
+                                <label class="m-t i-checks">
+                                    <input type="checkbox" ng-checked="product.Standard" ng-model="product.Standard" ng-init="product.Standard = true" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Standard?
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 column">
+                            <div style="margin-top: 2em!important;">
+                                <label class="m-t i-checks">
+                                    <input type="checkbox" ng-checked="product.Premium" ng-model="product.Premium" ng-init="product.Premium = true" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Premium?
+                                </label>
+                            </div>
+                        </div>
+                     </div>
+                     <div class="row clearfix">
+                        <div class="col-md-6 column">
+                            <p class="m-t">Email More Info</p>
+                            <input type="email" name="Email" placeholder="Please enter a email" class="form-control" ng-model="product.EmailMoreInfo" />
+                        </div> 
+                     </div>
+                      <div class="m-t m-b">
                         <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
                     </div>
                 </form>

@@ -41,6 +41,11 @@ namespace MyRoom.Data.Configuration
             .HasForeignKey(e => e.IdTranslationName)
             .WillCascadeOnDelete(true);
 
+            HasMany(e => e.Departments)
+            .WithRequired(e => e.Translation)
+            .HasForeignKey(e => e.IdTranslationName)
+            .WillCascadeOnDelete(false);
+
         }
     }
 }

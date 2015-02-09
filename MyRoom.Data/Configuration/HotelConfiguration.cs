@@ -35,6 +35,7 @@ namespace MyRoom.Data.Configuration
            .WithRequired(e => e.Hotel)
            .HasForeignKey(e => e.IdHotel)
            .WillCascadeOnDelete(true);
+
         }
     }
 }

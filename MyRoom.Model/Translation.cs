@@ -67,6 +67,10 @@ namespace MyRoom.Model
         [JsonIgnore]
         public ICollection<Product> Products { get; set; }
         
+        [JsonIgnore]
+        public ICollection<Department> Departments { get; set; }
+                
+
         //[JsonIgnore]
         //public virtual ICollection<Product> Products1 { get; set; }
     }

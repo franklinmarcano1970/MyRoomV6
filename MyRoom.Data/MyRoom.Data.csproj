@@ -106,6 +106,7 @@
     <Compile Include="Configuration\ApplicationUserConfiguration.cs" />
     <Compile Include="Configuration\CatalogConfiguration.cs" />
     <Compile Include="Configuration\CategoryConfiguration.cs" />
+    <Compile Include="Configuration\DepartmentConfiguration.cs" />
     <Compile Include="Configuration\ProductsConfiguration.cs" />
     <Compile Include="Configuration\HotelConfiguration.cs" />
     <Compile Include="Configuration\ModuleConfiguration.cs" />
