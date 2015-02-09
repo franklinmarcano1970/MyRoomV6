@@ -37,11 +37,7 @@ app.filter("ischeckedArray", function () {
 })
 
 app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter, res) {
-    var res;
     var itemParent;
-    if (res === undefined) {
-        res = [];
-    }
     return function (tree) {
         var id = 0;
         if (tree.children !== undefined) {
@@ -70,4 +66,7 @@ app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter, res) {
         });
         return res;
     }
+}])
+app.filter("GetCheckedTreeNode", ['$filter', function ($filter, res) {
+    var res = [];
 }])
