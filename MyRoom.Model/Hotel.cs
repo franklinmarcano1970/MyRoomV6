@@ -34,7 +34,7 @@ namespace MyRoom.Model
 
         public bool Active { get; set; }
 
-        public string UrlScanDocument { get; set; }
+        public string UrlScanMap { get; set; }
 
         [StringLength(3)]
         public string UTC { get; set; }

@@ -59,7 +59,7 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
                     ChangeSummerTime: false,
                     ContentIframeSurvey: '',
                     Image: 'img/hotel.jpg',
-                    UrlScanMapImage: 'img/hotel.jpg',
+                    UrlScanMap: 'img/hotel.jpg',
                     Translation: {
                         Active: true
                     }
@@ -92,7 +92,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         ContentIframeSurvey: '',
         Active: true,
         Image: 'img/no-image.jpg',
-        UrlScanMapImage: 'img/no-image.jpg',
+        UrlScanMap: 'img/no-image.jpg',
 
         Translation: {
             Spanish: '',
@@ -142,7 +142,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             return;
         }
         $scope.file = fileItem._file;
-        $scope.hotel.UrlScanMapImage = ngWebBaseSettings.rootFileHotel + $scope.file.UrlScanMapImage;
+        $scope.hotel.UrlScanMap = ngWebBaseSettings.rootFileHotel + $scope.file.UrlScanMap;
         var fr = new FileReader();
         fr.onload = function (e) {
             $('#UrlScanMapImage')
@@ -182,7 +182,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                     ChangeSummerTime: false,
                     ContentIframeSurvey: '',
                     Image: 'img/hotel.jpg',
-                    UrlScanMapImage: 'img/hotel.jpg',
+                    UrlScanMap: 'img/hotel.jpg',
                     Translation: {
                         Active: true
                     }
