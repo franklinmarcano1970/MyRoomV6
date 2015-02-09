@@ -142,7 +142,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             return;
         }
         $scope.file = fileItem._file;
-        $scope.hotel.UrlScanMap = ngWebBaseSettings.rootFileHotel + $scope.file.UrlScanMap;
+        $scope.hotel.UrlScanMap = ngWebBaseSettings.rootFileHotel + $scope.file.name;
         var fr = new FileReader();
         fr.onload = function (e) {
             $('#UrlScanMapImage')
