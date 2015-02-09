@@ -385,13 +385,12 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
     }
 }])
 app.controller('HotelsAssingProductController', ['$scope', '$http', '$state', 'hotelService', 'ngWebBaseSettings', 'toaster', '$timeout', '$filter', function ($scope, $http, $state, hotelService, ngWebBaseSettings, toaster, $timeout, $filter) {
-    var ItemsCheckedTreeNode = $filter('ItemsCheckedTreeNode');
-
+    var GetCheckedTreeNode = $filter('GetCheckedTreeNode');
     //Guardar los registros marcados en el check box y guardar registros en las siguientes tablas: ACTIVE_HOTEL_MODULE, ACTIVE_HOTEL_CATEGORY, ACTIVE_HOTEL_PRODUCT
     $scope.activeProduct = function () {
-        var itemsChecked = $scope.cut_tree;
+        var getChecked = GetCheckedTreeNode($scope.items);
         var vm = { 'HotelCatalog': [] };
-        angular.forEach(itemsChecked, function (item) {
+        angular.forEach(getChecked, function (item) {
             vm.HotelCatalog.push({ HotelId: $scope.hotel.selected.Id, ElementId: item.id, Type: item.type });
         });
         hotelService.saveActiveProduct(vm).then(function (response) {
@@ -403,10 +402,10 @@ app.controller('HotelsAssingProductController', ['$scope', '$http', '$state', 'h
             $scope.pop();
         });
     }
-
+    $scope.pop = function () {
+        toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
+    };
     $scope.activeCheckbox = function () {
         return item.type == 'product' || item.type == 'category';
     }
-}])
-
-;
+}]);

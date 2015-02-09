@@ -134,11 +134,13 @@ namespace MyRoom.API.Controllers
             ActiveHotelModuleRepository activeHotelModuleRepo = new ActiveHotelModuleRepository(new MyRoomDbContext());
             List<ActiveHotelModule> modules = ActiveHotelModulesMapper.CreateModel(assignHotelCatalogViewModel);
 
-            
-            activeHotelProductRepo.InsertActiveHotelProduct(products);
-            activeHotelCategoryRepo.InsertActiveHotelProduct(categories);
-            activeHotelModuleRepo.InsertActiveHotelModule(modules);
-
+            try
+            {
+                activeHotelProductRepo.InsertActiveHotelProduct(products);
+                activeHotelCategoryRepo.InsertActiveHotelProduct(categories);
+                activeHotelModuleRepo.InsertActiveHotelModule(modules);
+            }
+            catch { }
             return Ok("Elements Assigned to hotels");
         }
 

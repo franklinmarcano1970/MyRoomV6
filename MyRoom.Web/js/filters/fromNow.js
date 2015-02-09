@@ -69,4 +69,27 @@ app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter, res) {
 }])
 app.filter("GetCheckedTreeNode", ['$filter', function ($filter, res) {
     var res = [];
+    if (res === undefined) {
+        res = [];
+    }
+    return function (tree) {
+        var id = 0;
+        angular.forEach(tree, function (item) {
+            // var copy = angular.fromJson(angular.toJson(item))   
+            if (item.ischecked) {
+                if (item.type == 'module') id = item.ModuleId;
+                if (item.type == 'category') {
+                    id = item.CategoryId;
+                }
+
+                if (item.type == 'product') id = item.ProductId;
+                res.push({
+                    id: id,
+                    type: item.type
+                });
+            }
+            $filter('GetCheckedTreeNode')(item.children, res)
+        });
+        return res;
+    }
 }])
