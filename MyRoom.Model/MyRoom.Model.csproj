@@ -81,6 +81,8 @@
     <Compile Include="ActiveHotelProduct.cs" />
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="CategoryProduct.cs" />
+    <Compile Include="Room.cs" />
+    <Compile Include="RoomType.cs" />
     <Compile Include="Hotel.cs" />
     <Compile Include="MenuAccess.cs" />
     <Compile Include="Permission.cs" />

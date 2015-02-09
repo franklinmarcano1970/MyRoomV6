@@ -41,6 +41,9 @@ namespace MyRoom.Data
         public virtual DbSet<Product> Products { get; set; }
         //   public virtual DbSet<RelCatalogueModule> RelCatalogueModule { get; set; }
         public virtual DbSet<CategoryProduct> CategoryProducts { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<RoomType> RoomTypes { get; set; }
+        
         //public virtual DbSet<RelModuleCategory> RelModuleCategory { get; set; }
         //public virtual DbSet<RelUserAccess> RelUserAccess { get; set; }
         public virtual DbSet<RelUserCatalogue> RelUserCatalogue { get; set; }

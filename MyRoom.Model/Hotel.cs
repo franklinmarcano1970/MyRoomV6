@@ -34,6 +34,17 @@ namespace MyRoom.Model
 
         public bool Active { get; set; }
 
+        public string UrlScanDocument { get; set; }
+
+        [StringLength(3)]
+        public string UTC { get; set; }
+
+        [Required]
+        public bool ChangeSummerTime { get; set; }
+
+        [Column("ContenidoIframeSurvey")]
+        public string ContentIframeSurvey { get; set; }
+
         public  virtual ICollection<ActiveHotelCatalogue> HotelCatalogues { get; set; }
 
         public virtual ICollection<ActiveHotelCategory> ActiveHotelCategories { get; set; }
@@ -43,6 +54,7 @@ namespace MyRoom.Model
         public virtual ICollection<ActiveHotelProduct> ActiveHotelProducts { get; set; }
 
         public virtual ICollection<UserHotelPermission> UserHotelPermissions { get; set; }
+
       
         public virtual Translation Translation { get; set; }
 

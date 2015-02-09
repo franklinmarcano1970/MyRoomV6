@@ -64,6 +64,16 @@ namespace MyRoom.Model
 
         public bool? Pending { get; set; }
 
+        [Required]
+        public bool Standard { get; set; }
+        
+        [Required]
+        public bool Premium { get; set; }
+
+        [StringLength(150)]
+        public string EmailMoreInfo { get; set; }
+
+        
         [Column("Orden")]
         public int? Order { get; set; }
         [JsonIgnore]

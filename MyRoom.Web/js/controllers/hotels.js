@@ -55,7 +55,11 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
                 };
                 $scope.hotel = {
                     Active: true,
+                    UTC: '',
+                    ChangeSummerTime: false,
+                    ContentIframeSurvey: '',
                     Image: 'img/hotel.jpg',
+                    UrlScanMapImage: 'img/hotel.jpg',
                     Translation: {
                         Active: true
                     }
@@ -80,8 +84,13 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
     });
     $scope.hotel = {
         Name: '',
+        UTC: '',
+        ChangeSummerTime: false,
+        ContentIframeSurvey: '',
         Active: true,
         Image: 'img/no-image.jpg',
+        UrlScanMapImage: 'img/no-image.jpg',
+
         Translation: {
             Spanish: '',
             English: '',
@@ -144,7 +153,11 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             hotelService.saveHotel($scope.hotel).then(function (response) {
                 $scope.hotel = {
                     Active: true,
+                    UTC: '',
+                    ChangeSummerTime: false,
+                    ContentIframeSurvey: '',
                     Image: 'img/hotel.jpg',
+                    UrlScanMapImage: 'img/hotel.jpg',
                     Translation: {
                         Active: true
                     }
