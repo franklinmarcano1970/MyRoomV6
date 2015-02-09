@@ -183,13 +183,18 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             return
         }
         $scope.modify = true;
+
         $('#newCatalog').modal({
             show: 'true'
         });
         
         catalogService.getCatalog($scope.cata.selected.id).then(function (response) {
             $scope.catalog = JSON.parse(response.data);
-            $scope.rootFile = '/images/' + $scope.catalog.CatalogId + '/';
+            if ($scope.catalog.Image != 'no-image.jpg')
+                $scope.rootFile = '/images/' + $scope.catalog.CatalogId + '/';
+            else {
+                $scope.rootFile = '/img/';
+            }
         });
     }
 
@@ -204,7 +209,11 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     Active: true
                 }
             };
-            //uploader.uploadAll();
+            //Para subir la imagen
+            if ($scope.fileItem != null) {
+                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=2-' + $scope.IdCatalog + '-0';
+                uploader.uploadAll();
+            }
             $scope.toaster = { type: 'success', title: 'Success', text: 'the catalog has been updated' };
             $scope.pop();
 
