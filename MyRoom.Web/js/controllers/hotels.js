@@ -82,6 +82,9 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
     var uploader = $scope.uploader = new FileUploader({
         url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1-0-0'
     });
+    var uploaderUrl = $scope.uploaderUrl = new FileUploader({
+        url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1-0-0'
+    });
     $scope.hotel = {
         Name: '',
         UTC: '',
@@ -104,6 +107,9 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         },
     };
     uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        //$state.go('app.page.hotel_list');
+    };
+    uploaderUrl.onSuccessItem = function (fileItem, response, status, headers) {
         $state.go('app.page.hotel_list');
     };
     uploader.onAfterAddingFile = function (fileItem) {
@@ -121,6 +127,25 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         var fr = new FileReader();
         fr.onload = function (e) {
             $('#image')
+                .attr('src', e.target.result)
+        }
+        fr.readAsDataURL(fileItem._file);
+    };
+    uploaderUrl.onAfterAddingFile = function (fileItem) {
+        if (fileItem.file.size > ngWebBaseSettings.fileSize) {
+            $scope.toaster = {
+                type: 'error',
+                title: 'Info',
+                text: 'File too big'
+            };
+            $scope.pop();
+            return;
+        }
+        $scope.file = fileItem._file;
+        $scope.hotel.UrlScanMapImage = ngWebBaseSettings.rootFileHotel + $scope.file.UrlScanMapImage;
+        var fr = new FileReader();
+        fr.onload = function (e) {
+            $('#UrlScanMapImage')
                 .attr('src', e.target.result)
         }
         fr.readAsDataURL(fileItem._file);
@@ -163,6 +188,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                     }
                 };
                 uploader.uploadAll();
+                uploaderUrl.uploadAll();
                 $timeout(function () {
                     $scope.toaster = {
                         type: 'success',
@@ -188,6 +214,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                     text: 'The Hotel has been updated'
                 };
                 uploader.uploadAll();
+                uploaderUrl.uploadAll();
                 $timeout(function () {
                     $scope.pop();
                     

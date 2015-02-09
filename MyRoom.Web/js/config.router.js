@@ -606,16 +606,19 @@ angular.module('app')
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('toaster').then(
+                            return $ocLazyLoad.load('angularFileUpload').then(
                                   function () {
-                                      return $ocLazyLoad.load(
-                                          {
-                                              files: ['js/controllers/hotels.js',
-                                              'js/directives/myroom-directives.js',
-                                              'vendor/libs/bootstrap-filestyle.js'
-                                              ]
-                                          }
-                                      );
+                                      return $ocLazyLoad.load('toaster').then(
+                                            function () {
+                                                return $ocLazyLoad.load(
+                                                    {
+                                                        files: ['js/controllers/hotels.js',
+                                                        'js/directives/myroom-directives.js',
+                                                        'vendor/libs/bootstrap-filestyle.js'
+                                                        ]
+                                                    }
+                                                );
+                                            });
                                   });
                             }]
                       }
