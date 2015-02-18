@@ -18,24 +18,37 @@ namespace MyRoom.Data.Repositories
             this.Context = context;
         }
 
+        public ActiveHotelProduct GetProductsByHotelId(int hotelId, int prodId)
+        {
+            var products = this.Context.ActiveHotelProduct.Where(e => e.IdHotel == hotelId && e.IdProduct == prodId).Include("Product");
+            if (products.Count() > 0)
+                return products.First();
+            return null;
+
+        }
+
         public List<ActiveHotelProduct> GetProductsByHotelId(int hotelId)
         {
             return this.Context.ActiveHotelProduct.Where(e => e.IdHotel == hotelId).ToList();
         }
 
-        public void InsertActiveHotelProduct(List<ActiveHotelProduct> items)
+        public void InsertActiveHotelProduct(List<ActiveHotelProduct> items, int hotelId)
         {
-            this.DeleteActiveHotelProduct(items[0].IdHotel);
-            if (items[0].IdHotel != 0)
-            {
-                items.ForEach(delegate(ActiveHotelProduct product)
+            this.DeleteActiveHotelProduct(hotelId);
+
+            if (items.Count > 0)
+            {           
+                if (items[0].IdHotel != 0)
                 {
-                        this.Insert(new ActiveHotelProduct() { 
-                            IdHotel = product.IdHotel, 
-                            IdProduct =  product.IdProduct,
-                            Active = true,
-                        });
-                });
+                    items.ForEach(delegate(ActiveHotelProduct product)
+                    {
+                            this.Insert(new ActiveHotelProduct() { 
+                                IdHotel = product.IdHotel, 
+                                IdProduct =  product.IdProduct,
+                                Active = true,
+                            });
+                    });
+                }
             }
         }
 

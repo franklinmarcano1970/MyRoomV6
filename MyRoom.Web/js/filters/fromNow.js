@@ -18,23 +18,23 @@ app.filter("capitalize", function () {
     }
 });
 
-app.filter("ischecked", function () {
-    return function (array, cantElem) {
-        var items = $("input[name='post[]']:checked").length;
-        if (items > cantElem) {
-            return false;
-        }
-        return true;
-    }
-})
+//app.filter("ischecked", function () {
+//    return function (array, cantElem) {
+//        var items = $("input[name='post[]']:checked").length;
+//        if (items > cantElem) {
+//            return false;
+//        }
+//        return true;
+//    }
+//})
 
-app.filter("ischeckedArray", function () {
-    return function (array) {
-        var items = $("input[name='post[]']:checked").length;
+//app.filter("ischeckedArray", function () {
+//    return function (array) {
+//        var items = $("input[name='post[]']:checked").length;
 
-        return items;
-    }
-})
+//        return items;
+//    }
+//})
 
 app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter, res) {
     var itemParent;
@@ -55,11 +55,11 @@ app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter, res) {
             }
 
             if (item.type == 'product') id = item.ProductId;
-            if (itemParent.ischecked) {
-                item.ischecked = true;
+            if (itemParent.IsChecked) {
+                item.IsChecked = true;
             }
             else {
-                item.ischecked = false;
+                item.IsChecked = false;
             }
             itemParent = item;          
             $filter('ItemsCheckedTreeNode')(item.children, res)
@@ -76,7 +76,7 @@ app.filter("GetCheckedTreeNode", ['$filter', function ($filter, res) {
         var id = 0;
         angular.forEach(tree, function (item) {
             // var copy = angular.fromJson(angular.toJson(item))   
-            if (item.ischecked) {
+            if (item.IsChecked) {
                 if (item.type == 'module') id = item.ModuleId;
                 if (item.type == 'category') {
                     id = item.CategoryId;

@@ -16,6 +16,7 @@ using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
 using MyRoom.Model.ViewModels;
+using System.Configuration;
 
 namespace MyRoom.API.Controllers
 {
@@ -93,7 +94,7 @@ namespace MyRoom.API.Controllers
                     Active = moduleViewModel.ModuleActive,
                     Name = moduleViewModel.Name,
                      Orden = moduleViewModel.Orden,
-                     Image = moduleViewModel.Image,
+                     Image =  moduleViewModel.Image,
                      Pending = moduleViewModel.Pending,
                      Prefix = moduleViewModel.Prefix,
                     Comment = moduleViewModel.Comment

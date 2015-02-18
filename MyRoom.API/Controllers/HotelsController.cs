@@ -136,9 +136,9 @@ namespace MyRoom.API.Controllers
 
             try
             {
-                activeHotelProductRepo.InsertActiveHotelProduct(products);
-                activeHotelCategoryRepo.InsertActiveHotelProduct(categories);
-                activeHotelModuleRepo.InsertActiveHotelModule(modules);
+                activeHotelProductRepo.InsertActiveHotelProduct(products, assignHotelCatalogViewModel.HotelId);
+                activeHotelCategoryRepo.InsertActiveHotelCategory(categories, assignHotelCatalogViewModel.HotelId);
+                activeHotelModuleRepo.InsertActiveHotelModule(modules, assignHotelCatalogViewModel.HotelId);
             }
             catch { }
             return Ok("Elements Assigned to hotels");

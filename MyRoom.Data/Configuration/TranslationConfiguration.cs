@@ -39,7 +39,13 @@ namespace MyRoom.Data.Configuration
             HasMany(e => e.Products)
             .WithRequired(e => e.Translation)
             .HasForeignKey(e => e.IdTranslationName)
-            .WillCascadeOnDelete(true);
+            .WillCascadeOnDelete(false);
+
+
+            HasMany(e => e.Products1)
+            .WithRequired(e => e.TranslationDescription)
+            .HasForeignKey(e => e.IdTranslationDescription)
+            .WillCascadeOnDelete(false);
 
             HasMany(e => e.Departments)
             .WithRequired(e => e.Translation)

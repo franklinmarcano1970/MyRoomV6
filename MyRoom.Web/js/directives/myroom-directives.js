@@ -87,6 +87,7 @@
                   }
 
                   $scope.person = {};
+                  debugger
                   accountService.getAll().then(function (response) {
                       $scope.person = response.data;
 
@@ -167,9 +168,18 @@
                   $scope.hotel = {};
                   $scope.selectActionHotel = function ()
                   {
+                      if ($scope.$state.$current.name == "app.page.department_create")
+                      {
+                          $scope.department.HotelId = $scope.hotel.selected.Id;
+                      }
+                      if ($scope.$state.$current.name == "app.page.room_create") {
+                          $scope.room.HotelId = $scope.hotel.selected.Id;
+                      }
+
+
                       hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
-                          var IdCatalog = response.data[0].IdCatalogue;
-                          $scope.loadHotelTreeCatalog(IdCatalog);
+                          $scope.IdCatalog = response.data[0].IdCatalogue;
+                          $scope.loadHotelTreeCatalog($scope.IdCatalog);
                       });
                   }
                   hotelService.getAll().then(function (response) {
@@ -201,7 +211,8 @@
                   $scope.loadHotelTreeCatalog = function (catalogId) {
                       $scope.items = {};
                       $scope.sourceItems = {};
-                      catalogService.getCatalogComplex(catalogId,true, true, true).then(function (response) {
+                      debugger
+                      catalogService.getCatalogComplex(catalogId,true, true, true, $scope.hotel.selected.Id).then(function (response) {
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
                           $scope.sourceItems = JSON.parse(response.data);
@@ -221,12 +232,10 @@
                           };
                           $scope.pop();
                       });
-
-                       
-                   
-
                   }
-                  $scope.loadHotelTreeCatalog($scope.IdCatalog);
+
+                  if($scope.cata !== undefined)
+                    $scope.loadHotelTreeCatalog($scope.IdCatalog);
               }
           }
       })
@@ -284,11 +293,11 @@
                       debugger
                       $scope.IsNew = false;
                       if (item.type == "module") {
-                          if (item.Image != 'no-image.jpg')
-                              $scope.rootFileModule = '/images/' + $scope.IdCatalog + '/modules/';
-                          else {
-                              $scope.rootFileModule = '/img/';
-                          }
+                          //if (item.Image != 'no-image.jpg')
+                          //    $scope.rootFileModule = '/images/' + $scope.IdCatalog + '/modules/';
+                          //else {
+                          //    $scope.rootFileModule = '/img/';
+                          //}
                           $scope.module = {
                               ModuleId: item.ModuleId,
                               IdTranslationName: item.IdTranslationName,
@@ -316,12 +325,12 @@
                           $scope.showTabsetCategory = false;
                           $scope.showTabsetModule = true;
                       } else {
-                          if (item.Image != 'no-image.jpg')
-                              $scope.rootFileCategory = '/images/' + $scope.IdCatalog + '/categories/';
-                          else
-                          {
-                              $scope.rootFileCategory = '/img/'
-                          }
+                          //if (item.Image != 'img/no-image.jpg')
+                          //    $scope.rootFileCategory = '/images/' + $scope.IdCatalog + '/categories/';
+                          //else
+                          //{
+                          //    $scope.rootFileCategory = '/img/'
+                          //}
                           $scope.category = {
                               CategoryId: item.CategoryId,
                               IdTranslationName: item.IdTranslationName,
@@ -359,10 +368,10 @@
                       $scope.IsNew = true;
                       $scope.module = {};
                       $scope.category = {};
-                      $scope.rootFileModule = '/img/';
-                      $scope.rootFileCategory = '/img/';
-                      $scope.module = { Image: 'no-image.jpg', Active: true };
-                      $scope.category = { Image: 'no-image.jpg', Pending: true, IsFinal: true, Active: true };
+                      ////$scope.rootFileModule = '/img/';
+                      ////$scope.rootFileCategory = '/img/';
+                      $scope.module = { Image: 'img/no-image.jpg', Active: true };
+                      $scope.category = { Image: 'img/no-image.jpg', Pending: true, IsFinal: true, Active: true };
                       if (item.type == "module") {
                           $scope.typeAction = 'module';
                           $scope.module = {
@@ -404,7 +413,7 @@
                           $scope.showTabsetModule = true;
                       }
 
-                      $scope.category = { Image: 'no-image.jpg', IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory, CategoryItem: $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
+                      $scope.category = { Image: 'img/no-image.jpg', IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory, CategoryItem: $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
                   }
                   $scope.deleteItems = function (item) {
                       if (item.type == "category") {
@@ -492,6 +501,19 @@
               templateUrl: 'tpl/partials/hotel-form.html'         
           };
       })
+      app.directive('departmentForm', function () {
+          return {
+              restrict: 'E',
+              templateUrl: 'tpl/partials/department-form.html'
+          };
+      })
+      app.directive('roomForm', function () {
+          return {
+              restrict: 'E',
+              templateUrl: 'tpl/partials/room-form.html'
+          };
+      })
+
       app.directive('productForm', function () {
           return {
               restrict: 'E',

@@ -13,49 +13,9 @@ namespace MyRoom.API
         public static string ControllerAndId = "ApiControllerAndIntegerId";
         public static string ControllerAction = "ApiControllerAction";
 
-        private static void ODataConfigure(HttpConfiguration config)
-        {
-            // Web API configuration and services, route odata
-            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            //   builder.EntitySet<User>("User");
-
-            builder.ComplexType<Translation>();
-            builder.ComplexType<Catalog>();
-            builder.ComplexType<Module>();
-            builder.ComplexType<Category>();
-            builder.ComplexType<Product>();
-
-           // builder.EntitySet<RelUserAccess>("RelUserAccess");
-         //   builder.EntitySet<RelUserCatalogue>("RelUserCatalogues");
-         //   builder.EntitySet<RelUserCategory>("RelUserCategory");
-            //builder.EntitySet<RelUserHotel>("RelUserHotels");
-           // builder.EntitySet<RelUserModule>("RelUserModules");
-            //builder.EntitySet<RelUserProduct>("RelUserProducts");
-           // builder.EntitySet<ActiveHotelCatalogue>("ActiveHotelCatalogue");
-           // builder.EntitySet<Catalog>("Catalogues");
-           // builder.EntitySet<ActiveHotelCategory>("ActiveHotelCategories");
-            //builder.EntitySet<Category>("Categories");
-            //builder.EntitySet<ActiveHotelModule>("ActiveHotelModule");
-         //   builder.EntitySet<Module>("Modules");
-           // builder.EntitySet<Hotel>("Hotels");
-           // builder.EntitySet<ActiveHotelProduct>("ActiveHotelProduct");
-          //  builder.EntitySet<Product>("Products");
-            //  builder.EntitySet<RelCatalogueModule>("RelCatalogueModules");
-         //   builder.EntitySet<Translation>("Translations");
-          //  builder.EntitySet<RelCategoryProduct>("RelCategoryProducts");
-          //  builder.EntitySet<RelModuleCategory>("RelModuleCategory");
-           // builder.EntitySet<MenuAccess>("MenuAccess");
-           // builder.EntitySet<RelatedProducts>("RelatedProducts");
-        //    config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
-
-
-            config.MapHttpAttributeRoutes();
-
-        }
-
         public static void Register(HttpConfiguration config)
         {
-            ODataConfigure(config);
+            config.MapHttpAttributeRoutes();
 
             var routes = config.Routes;
 

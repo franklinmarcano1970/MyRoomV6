@@ -24,10 +24,12 @@ namespace MyRoom.Data.Repositories
                                  .Include("Translation")
                                  .Include("Modules")
                                  .Include("Modules.Translation")
+                                 .Include("Modules.ActiveHotelModule")
                                  .Include("Modules.Categories")
                                  .Include("Modules.Categories.Translation")
                                  .Include("Modules.Categories.CategoryProducts")
-
+                                 .Include("Modules.Categories.ActiveHotelCategory")
+                         
                              where c.CatalogId == id && c.Active == true
                              select c;
             return catalogues.FirstOrDefault();

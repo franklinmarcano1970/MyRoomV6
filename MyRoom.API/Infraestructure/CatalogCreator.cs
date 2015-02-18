@@ -14,12 +14,12 @@ namespace MyRoom.API.Infraestructure
         private ProductRepository productRepo;
 
         public CatalogCreator(MyRoomDbContext context)
-        {      
+        {
             this.Context = context;
             productRepo = new ProductRepository(context);
         }
 
-        public string CreateWithOutProducts(Catalog cata, bool activemod, bool activecategory)
+        public string CreateWithOutProducts(Catalog cata, bool activemod, bool activecategory, int hotelId = 0)
         {
             IList<ModuleCompositeViewModel> modules = new List<ModuleCompositeViewModel>();
 
@@ -36,10 +36,12 @@ namespace MyRoom.API.Infraestructure
                     CategoryCompositeViewModel category = Helper.ConvertCategoryToViewModel(p);
                     if (activecategory)
                     {
+
+                        category.IsChecked = p.ActiveHotelCategory.Contains(new ActiveHotelCategory() { IdCategory = p.CategoryId, IdHotel = hotelId, Active = true });
                         category.ActiveCheckbox = true;
                     }
                     moduleVm.Children.Add(category);
-                    CreateSubCategories(category, false, activecategory);
+                    CreateSubCategories(category, false, activecategory, hotelId);
 
                 }
 
@@ -66,7 +68,7 @@ namespace MyRoom.API.Infraestructure
 
         }
 
-        public string CreateWithProducts(Catalog cata, bool activemod, bool activecategory)
+        public string CreateWithProducts(Catalog cata, bool activemod, bool activecategory, int hotelId = 0)
         {
             IList<ModuleCompositeViewModel> modules = new List<ModuleCompositeViewModel>();
 
@@ -75,7 +77,13 @@ namespace MyRoom.API.Infraestructure
                 ModuleCompositeViewModel moduleVm = Helper.ConvertModuleToViewModel(m, activemod);
                 modules.Add(moduleVm);
                 moduleVm.ActiveCheckbox = activemod;
-
+                m.ActiveHotelModule.ForEach(delegate(ActiveHotelModule hotelModule)
+                {
+                    if (hotelModule.IdHotel == hotelId && hotelModule.IdModule == m.ModuleId)
+                    {
+                        moduleVm.IsChecked = true;
+                    }
+                });
                 foreach (Category p in m.Categories)
                 {
                     if (moduleVm.Children == null)
@@ -86,20 +94,29 @@ namespace MyRoom.API.Infraestructure
                     category.Children = new List<ICatalogChildren>();
                     if (activecategory)
                     {
+                        p.ActiveHotelCategory.ForEach(delegate(ActiveHotelCategory hotelCategory)
+                        {
+                            if (hotelCategory.IdHotel == hotelId && hotelCategory.IdCategory == p.CategoryId)
+                            {
+                                category.IsChecked = true;
+                            }
+                        });
+
                         category.ActiveCheckbox = true;
                     }
-                    foreach(CategoryProduct cp in p.CategoryProducts)
+                    foreach (CategoryProduct cp in p.CategoryProducts)
                     {
-                        Product product = productRepo.GetById(cp.IdProduct);                             
-                        category.Children.Add(new ProductCompositeViewModel(){
-                            ProductId = product.Id, 
+                        Product product = productRepo.GetById(cp.IdProduct);
+                        category.Children.Add(new ProductCompositeViewModel()
+                        {
+                            ProductId = product.Id,
                             text = product.Name,
-                            ActiveCheckbox = true
+                            ActiveCheckbox = true,
                         });
                     }
 
                     moduleVm.Children.Add(category);
-                    CreateSubCategories(category, true, activecategory);
+                    CreateSubCategories(category, true, activecategory, hotelId);
                 }
 
             }
@@ -114,7 +131,7 @@ namespace MyRoom.API.Infraestructure
                             ReferenceLoopHandling = ReferenceLoopHandling.Serialize
                         });
 
-                json = json.Replace("Children", "children").Replace("Products","children");
+                json = json.Replace("Children", "children").Replace("Products", "children");
 
             }
             catch (Exception ex)
@@ -126,7 +143,7 @@ namespace MyRoom.API.Infraestructure
 
         }
 
-        private List<CategoryCompositeViewModel> CreateSubCategories(CategoryCompositeViewModel p, bool withproducts, bool activecategory)
+        private List<CategoryCompositeViewModel> CreateSubCategories(CategoryCompositeViewModel p, bool withproducts, bool activecategory, int hotelId)
         {
             CategoryRepository categoryRepo = new CategoryRepository(this.Context);
 
@@ -141,27 +158,48 @@ namespace MyRoom.API.Infraestructure
 
                 if (activecategory)
                 {
+                    //   categoryCompositeViewModel.IsChecked = c.ActiveHotelCategory.Contains(new ActiveHotelCategory() { IdCategory = c.CategoryId, IdHotel = hotelId, Active = true, Category = c});
+                    c.ActiveHotelCategory.ForEach(delegate(ActiveHotelCategory hotelCategory)
+                    {
+                        if (hotelCategory.IdHotel == hotelId && hotelCategory.Category.IdParentCategory == p.CategoryId)
+                        {
+                            categoryCompositeViewModel.IsChecked = true;
+                        }
+                    });
+
                     categoryCompositeViewModel.ActiveCheckbox = true;
                 }
 
                 if (withproducts)
-                { 
+                {
                     categoryCompositeViewModel.Children = new List<ICatalogChildren>();
                     foreach (CategoryProduct cp in c.CategoryProducts)
                     {
                         Product product = productRepo.GetById(cp.IdProduct);
-                        categoryCompositeViewModel.Children.Add(new ProductCompositeViewModel()
-                        {
-                            ProductId = product.Id,
-                            text = product.Name,
-                            ActiveCheckbox = true
-                        });
+                            ProductCompositeViewModel productViewModel = new ProductCompositeViewModel()
+                            {
+                                ProductId = product.Id,
+                                text = product.Name,
+                                ActiveCheckbox = true
+                            };
+
+                            categoryCompositeViewModel.Children.Add(productViewModel);
+
+                            product.ActiveHotelProduct.ForEach(delegate(ActiveHotelProduct productHotelAct)
+                            {
+                                if (productHotelAct.IdHotel == hotelId && cp.IdProduct == productHotelAct.IdProduct )
+                                {
+                                    productViewModel.IsChecked = true;
+                                }
+                            });
+
+                  
                     }
                 }
-                
+
                 p.Children.Add(categoryCompositeViewModel);
                 if (categories != null)
-                    CreateSubCategories(categoryCompositeViewModel, withproducts, activecategory);
+                    CreateSubCategories(categoryCompositeViewModel, withproducts, activecategory, hotelId);
 
             }
 

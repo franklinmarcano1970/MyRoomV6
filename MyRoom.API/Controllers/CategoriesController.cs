@@ -194,34 +194,6 @@ namespace MyRoom.API.Controllers
             }
         }
 
-        // GET: odata/Categories(5)/ActiveHotelCategory
-        //[EnableQuery]
-        //public IQueryable<ActiveHotelCategory> GetActiveHotelCategory([FromODataUri] int key)
-        //{
-        //    return db.Categories.Where(m => m.Id == key).SelectMany(m => m.ActiveHotelCategory);
-        //}
-
-        //// GET: odata/Categories(5)/RelCategoryProduct
-        //[EnableQuery]
-        //public IQueryable<RelCategoryProduct> GetRelCategoryProduct([FromODataUri] int key)
-        //{
-        //    return db.Categories.Where(m => m.Id == key).SelectMany(m => m.RelCategoryProduct);
-        //}
-
-        // GET: odata/Categories(5)/RelModuleCategory
-        //[EnableQuery]
-        //public IQueryable<RelModuleCategory> GetRelModuleCategory([FromODataUri] int key)
-        //{
-        //    return db.Categories.Where(m => m.Id == key).SelectMany(m => m.RelModuleCategory);
-        //}
-
-        // GET: odata/Categories(5)/RelUserCategory
-        //[EnableQuery]
-        //public IQueryable<RelUserCategory> GetRelUserCategory([FromODataUri] int key)
-        //{
-        //    return db.Categories.Where(m => m.Id == key).SelectMany(m => m.RelUserCategory);
-        //}
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

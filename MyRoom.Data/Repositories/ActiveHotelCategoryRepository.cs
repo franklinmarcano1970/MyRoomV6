@@ -18,14 +18,15 @@ namespace MyRoom.Data.Repositories
             this.Context = context;
         }
 
-        public void InsertActiveHotelProduct(List<ActiveHotelCategory> items)
+        public void InsertActiveHotelCategory(List<ActiveHotelCategory> items, int hotelId)
         {
-            this.DeleteActiveHotelCategory(items[0].IdHotel);
-            if (items[0].IdHotel != 0)
+            this.DeleteActiveHotelCategory(hotelId);
+            if (items.Count > 0)
             {
                 items.ForEach(delegate(ActiveHotelCategory category)
                 {
-                        this.Insert(new ActiveHotelCategory() {
+                    this.Insert(new ActiveHotelCategory()
+                    {
                             IdHotel = category.IdHotel, 
                             IdCategory =  category.IdCategory,
                             Active = true,

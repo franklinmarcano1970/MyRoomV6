@@ -8,7 +8,10 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'authServic
         password: "",
         useRefreshTokens: true
     };
-
+    if (authService.authentication.isAuth && $state.$current.name == "access.signin") {
+        $state.go('app.dashboard-v1');
+    }
+   
     $scope.user.username = authService.authentication.username;
     $scope.login = function () {
         $scope.authError = '';
@@ -23,4 +26,11 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'authServic
         });
 
     }
+
+    $scope.logOut = function () {
+        authService.logOut();
+        $state.go('access.signin');
+    }
+
+    //$scope.authentication = authService.authentication;
 }]);

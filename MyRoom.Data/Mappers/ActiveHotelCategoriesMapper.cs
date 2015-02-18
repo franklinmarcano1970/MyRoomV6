@@ -18,8 +18,9 @@ namespace MyRoom.Data.Mappers
                 {
                     categories.Add(new ActiveHotelCategory()
                     {
+                        IdHotel = assignHotelCatalogViewModel.HotelId,
                         IdCategory = catalog.ElementId,
-                        IdHotel = catalog.HotelId,
+                 
                         Active = true
                     });
                 }

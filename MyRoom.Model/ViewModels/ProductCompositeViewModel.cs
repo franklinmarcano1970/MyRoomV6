@@ -15,6 +15,7 @@ namespace MyRoom.Model.ViewModels
 
         public int ProductId { get; set; }
         public bool ActiveCheckbox { get; set; }
+        public bool IsChecked { get; set; }
         public string type { get; set; }
         public string text{ get; set; }
     }

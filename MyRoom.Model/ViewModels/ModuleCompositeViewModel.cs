@@ -31,6 +31,7 @@ namespace MyRoom.Model.ViewModels
         public bool Active { get; set; }
 
         public bool ActiveCheckbox { get; set; }
+        public bool IsChecked { get; set; }
 
         public string nextsibling { get; set; }
 

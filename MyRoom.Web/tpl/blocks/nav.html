@@ -46,12 +46,10 @@
         </ul>
     </li>
     <li>
-                 
-                <a ui-sref="app.page.product_list">
-                     <i class="fa fa-cubes icon text-success-lter"></i>
-                    <span translate="aside.nav.components.pages.PROD">Create/Modify Products</span>
-                </a>
-      
+        <a ui-sref="app.page.product_list">
+            <i class="fa fa-cubes icon text-success-lter"></i>
+            <span translate="aside.nav.components.pages.PROD">Create/Modify Products</span>
+        </a>
     </li>
     <li>
         <a href class="auto">
@@ -65,7 +63,7 @@
         <ul class="nav nav-sub dk">
             <li class="nav-sub-header">
                 <a href>
-                    <span translate="aside.nav.components.pages.HOTELS">Hotels</span>
+                    <span translate="aside.nav.components.pages.HOTELS">Create/Modify Hotels</span>
                 </a>
             </li>
             <li ui-sref-active="active">
@@ -89,6 +87,19 @@
                 </a>
             </li>
         </ul>
+    </li>
+    <li>
+        <a ui-sref="app.page.departments_list">
+            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+            <span translate="aside.nav.components.pages.DEPARTMENTS">Create/Modify Departments</span>
+        </a>
+
+    </li>
+    <li>
+        <a ui-sref="app.page.rooms_list">
+            <i class="fa fa-bed text-success-lter"></i>
+            <span translate="aside.nav.components.pages.ROOMS">Create/Modify Rooms</span>
+        </a>
     </li>
     <li>
         <a href class="auto">
@@ -117,37 +128,7 @@
             </li>
         </ul>
     </li>
-    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-        <span translate="aside.nav.HEADER">Navigation</span>
-    </li>
-    <li>
-        <a href class="auto">
-            <span class="pull-right text-muted">
-                <i class="fa fa-fw fa-angle-right text"></i>
-                <i class="fa fa-fw fa-angle-down text-active"></i>
-            </span>
-            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
-            <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
-        </a>
-        <ul class="nav nav-sub dk">
-            <li class="nav-sub-header">
-                <a href>
-                    <span translate="aside.nav.DASHBOARD">Dashboard</span>
-                </a>
-            </li>
-            <li ui-sref-active="active">
-                <a ui-sref="app.dashboard-v1">
-                    <span>Dashboard v1</span>
-                </a>
-            </li>
-            <li ui-sref-active="active">
-                <a ui-sref="app.dashboard-v2">
-                    <b class="label bg-info pull-right">N</b>
-                    <span>Dashboard v2</span>
-                </a>
-            </li>
-        </ul>
-    </li>
+
     <li ui-sref-active="active">
         <a ui-sref="app.calendar">
             <i class="glyphicon glyphicon-calendar icon text-info-dker"></i>

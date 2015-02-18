@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
@@ -27,12 +28,14 @@ namespace MyRoom.Model
         [Column("IdProduct")]
         public int ProductId { get; set; }
 
+        [DefaultValue(0)]        
         public int? Quantity { get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "smalldatetime")]
         public DateTime? ServiceDateTime { get; set; }
 
         [Required]
+        [DefaultValue(0)]        
         public int Status { get; set; }
     }
 }

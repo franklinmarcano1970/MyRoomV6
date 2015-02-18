@@ -5,6 +5,7 @@ namespace MyRoom.Model
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -15,7 +16,7 @@ namespace MyRoom.Model
     {
         public Category()
         {
-            ActiveHotelCategory = new HashSet<ActiveHotelCategory>();
+            ActiveHotelCategory = new List<ActiveHotelCategory>();
             //RelCategoryProduct = new HashSet<RelCategoryProduct>();
             //RelModuleCategory = new HashSet<RelModuleCategory>();
             RelUserCategory = new HashSet<RelUserCategory>();
@@ -35,7 +36,9 @@ namespace MyRoom.Model
 
         public string Image { get; set; }
 
-        public int? IdParentCategory { get; set; }
+        [Required]
+        [DefaultValue(0)]
+        public int IdParentCategory { get; set; }
 
         public bool IsFirst { get; set; }
 
@@ -58,7 +61,7 @@ namespace MyRoom.Model
         //public virtual ICollection<Product> Products { get; set; }
         
         [JsonIgnore]
-        public virtual ICollection<ActiveHotelCategory> ActiveHotelCategory { get; set; }
+        public virtual List<ActiveHotelCategory> ActiveHotelCategory { get; set; }
 
         public virtual Translation Translation { get; set; }
 

@@ -6,9 +6,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     var uploader = $scope.uploader = new FileUploader({
         //url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1-0-0'
     });
-    $scope.rootFile = '/img/';
-    $scope.rootFileModule = '/img/';
-    $scope.rootFileCategory = '/img/';
+    //$scope.rootFile = '/img/';
+    //$scope.rootFileModule = '/img/';
+    //$scope.rootFileCategory = '/img/';
     $scope.typeAction = 'module';
     $scope.activeCatalog = true;
     var imageCatalog = '';
@@ -24,7 +24,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.IsNew = true;
     $scope.catalog = {
         Name: '',
-        Image: 'no-image.jpg',
+        Image: 'img/no-image.jpg',
         Pending: true,
         Active: true,
         Translation: {
@@ -43,7 +43,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.module = {
         ModuleId: 0,
         Name: '',
-        Image: 'no-image.jpg',
+        Image: 'img/no-image.jpg',
         Orden: '',
         Comment: '',
         Pending: true,
@@ -65,7 +65,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.category = {
         CategoryId: 0,
         Name: '',
-        Image: 'no-image.jpg',
+        Image: 'img/no-image.jpg',
         Orden: '',
         Comment: '',
         Pending: true,
@@ -136,13 +136,11 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     $scope.initTabsets = function ()
     {
-        $scope.rootFile = '/img/';
-        $scope.rootFileModule = '/img/';
-        $scope.rootFileCategory = '/img/';
+        $scope.IsNew = true;
         $scope.module = {};
         $scope.category = {};
-        $scope.module = { Image: 'no-image.jpg', Active: true };
-        $scope.category = { Image: 'no-image.jpg', Active: true };
+        $scope.module = { Image: 'img/no-image.jpg', Active: true };
+        $scope.category = { Image: 'img/no-image.jpg', Active: true };
         $scope.showTabsetCategory=false;
         $scope.showTabsetModule = true;
         $scope.typeAction = 'module';
@@ -162,11 +160,10 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     $scope.createCatalogPopup = function () {
         $scope.catalog = {
-            Image: 'no-image.jpg',
+            Image: 'img/no-image.jpg',
             Pending: true,
             Active: true,
         };
-        $scope.rootFile = '/img/';
         $scope.modify = false;
         $scope.typeAction = 'catalog';
         $('#newCatalog').modal({
@@ -190,11 +187,11 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         
         catalogService.getCatalog($scope.cata.selected.id).then(function (response) {
             $scope.catalog = JSON.parse(response.data);
-            if ($scope.catalog.Image != 'no-image.jpg')
-                $scope.rootFile = '/images/' + $scope.catalog.CatalogId + '/';
-            else {
-                $scope.rootFile = '/img/';
-            }
+            //if ($scope.catalog.Image != 'img/no-image.jpg')
+            //    $scope.rootFile = '/images/' + $scope.catalog.CatalogId + '/';
+            //else {
+            //    $scope.rootFile = '/img/';
+            //}
         });
     }
 
@@ -204,7 +201,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.steps.step1 = true;
             $scope.catalog = {
                 Active: true,
-                Image: 'no-image.jpg',
+                Image: 'img/no-image.jpg',
                 Translation: {
                     Active: true
                 }
@@ -244,6 +241,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             
                 
             $scope.loadCatalog();
+            $scope.pop();
 
             //$('#itemselect').find('span').eq(2).text(catalog.Name);
             $scope.steps.step1 = true;
@@ -251,7 +249,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.catalog = {
                 Pending: true,
                 Active: true,
-                Image: 'no-image.jpg',
+                Image: 'img/no-image.jpg',
                 Translation: {
                     Active: true
                 }
@@ -331,7 +329,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     {
         var vm = {};
         vm.Name = entity.Name;
-        vm.Image = entity.Image;
+        vm.Image = "/images/" + $scope.IdCatalog + "/modules/" + entity.Image;
         vm.ModuleActive = entity.Active;
         vm.Comment = entity.Comment;
         vm.Pending = entity.Pending;
@@ -355,7 +353,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         $scope.steps.step1 = true;
         $scope.loadTreeCatalog($scope.IdCatalog);
         $scope.initTabsets();
-        $scope.module = { Image: 'no-image.jpg', Active: true, Pending: true, IsFinal: true };
+        $scope.module = { Image: 'img/no-image.jpg', Active: true, Pending: true, IsFinal: true };
 
     }
     $scope.pop = function () {
@@ -437,14 +435,14 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         //uploader.uploadAll();
         $scope.IsNew = true;
         $scope.initTabsets();
-        $scope.category = { Image: 'no-image.jpg', Active: true, Pending: true, IsFinal: true };
+        $scope.category = { Image: 'img/no-image.jpg', Active: true, Pending: true, IsFinal: true };
     };
 
     function createCategoryVM(entity) {
 
         var vm = {};
         vm.Name = entity.Name;
-        vm.Image = entity.Image;
+        vm.Image = "/images/" + $scope.IdCatalog + "/categories/" + entity.Image;
         vm.CategoryActive = entity.Active;
         vm.Comment = entity.Comment;
         vm.Pending = entity.Pending;

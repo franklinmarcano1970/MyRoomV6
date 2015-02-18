@@ -27,10 +27,10 @@ namespace MyRoom.Model
 
 
         [StringLength(150)]
+        [Column(TypeName="varchar")]
         public string Action{ get; set; }
 
-        [Column(TypeName = "date")]
+        [Column(TypeName = "smalldatetime")]
         public DateTime? ActionDateTime { get; set; }
-
     }
 }

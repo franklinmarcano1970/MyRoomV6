@@ -9,6 +9,131 @@
  */
 
 angular.module('ui.load', [])
+    .factory('roomService', ['$http', '$q', function ($http, $q) {
+        function getAll() {
+            var deferred = $q.defer();
+            return $http.get(serviceBase + 'api/rooms').success(function (response) {
+                deferred.resolve(response);
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
+        function saveRoom(room) {
+            var deferred = $q.defer();
+            return $http.post(serviceBase + 'api/rooms', room).success(function (response) {
+                deferred.resolve(response);
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
+
+        function updateRoom(room) {
+            var deferred = $q.defer();
+            return $http.put(serviceBase + 'api/rooms/', room).success(function (response) {
+                deferred.resolve(response);
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
+
+        function getRoom(id) {
+            var deferred = $q.defer();
+            return $http.get(serviceBase + 'api/rooms/' + id).success(function (response) {
+                deferred.resolve(response);
+            }, function (err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
+
+        function removeRoom(id) {
+            var deferred = $q.defer();
+            return $http.delete(serviceBase + 'api/rooms/' + id).success(function (response) {
+                deferred.resolve(response);
+            }, function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        };
+
+        return {
+            getAll: getAll,
+            saveRoom: saveRoom,
+            removeRoom: removeRoom,
+            getRoom: getRoom,
+            updateRoom: updateRoom
+        };
+    }])
+
+    .factory('departmentService', ['$http', '$q', function ($http, $q) {
+    	function getAll() {
+    	    var deferred = $q.defer();
+    	    return $http.get(serviceBase + 'api/departments').success(function (response) {
+    	        deferred.resolve(response);
+    	    }, function (err) {
+    	        deferred.reject(err);
+    	    });
+
+    	    return deferred.promise;
+    	};
+    	function saveDepartment(department) {
+    	    var deferred = $q.defer();
+    	    return $http.post(serviceBase + 'api/departments', department).success(function (response) {
+    	        deferred.resolve(response);
+    	    }, function (err) {
+    	        deferred.reject(err);
+    	    });
+
+    	    return deferred.promise;
+    	};
+
+    	function updateDepartment(department) {
+    	    var deferred = $q.defer();
+    	    return $http.put(serviceBase + 'api/departments/', department).success(function (response) {
+    	        deferred.resolve(response);
+    	    }, function (err) {
+    	        deferred.reject(err);
+    	    });
+
+    	    return deferred.promise;
+    	};
+
+    	function getDepartment(id) {
+    	    var deferred = $q.defer();
+    	    return $http.get(serviceBase + 'api/departments/' + id).success(function (response) {
+    	        deferred.resolve(response);
+    	    }, function (err) {
+    	        deferred.reject(err);
+    	    });
+
+    	    return deferred.promise;
+    	};
+
+    	function removeDepartment(id) {
+    	    var deferred = $q.defer();
+    	    return $http.delete(serviceBase + 'api/departments/' + id).success(function (response) {
+    	        deferred.resolve(response);
+    	    }, function (err) {
+    	        deferred.reject(err);
+    	    });
+    	    return deferred.promise;
+    	};
+   
+    	return {
+    	    getAll: getAll,
+    	    saveDepartment: saveDepartment,
+    	    removeDepartment: removeDepartment,
+    	    getDepartment: getDepartment,
+    	    updateDepartment: updateDepartment
+    	};
+    }])
 	.factory('hotelService', ['$http', '$q', function ($http, $q) {
 		function getAll() {
 			var deferred = $q.defer();
@@ -148,7 +273,6 @@ angular.module('ui.load', [])
 		}
 
 		function saveActiveProduct(assignhotelelements) {
-            debugger
 		    var deferred = $q.defer();
 		    return $http.post(serviceBase + 'api/hotels/assignhotelelements', assignhotelelements).success(function (response) {
 		        deferred.resolve(response);
@@ -173,9 +297,6 @@ angular.module('ui.load', [])
 			assignCatalog: assignCatalog,
 			saveActiveProduct: saveActiveProduct
 		};
-
-
-	
 	}])
 	.factory('catalogService', ['$http', '$q', function ($http, $q) {
 			 function getAll() {
@@ -199,9 +320,9 @@ angular.module('ui.load', [])
 			     return deferred.promise;
 
 			 };
-			 function getCatalogComplex(catalogId, withproducts, activemod, activecategory) {
+			 function getCatalogComplex(catalogId, withproducts, activemod, activecategory, hotelid) {
 				 var deferred = $q.defer();
-				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId + "/?withproducts=" + withproducts + "&activemod="+ activemod + "&activecategory=" + activecategory).success(function (response) {
+				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId + "/?withproducts=" + withproducts + "&activemod=" + activemod + "&activecategory=" + activecategory + "&hotelid=" + hotelid).success(function (response) {
 					 deferred.resolve(response);
 				 }, function (err) {
 					 deferred.reject(err);
@@ -620,14 +741,13 @@ angular.module('ui.load', [])
 		var authInterceptorServiceFactory = {};
 
 		var _request = function (config) {
-
-			config.headers = config.headers || {};
-
-			var authData = localStorageService.get('authorizationData');
-			if (authData) {
-				config.headers.Authorization = 'Bearer ' + authData.token;
+            
+		    config.headers = config.headers || {};
+		    var authData = localStorageService.get('authorizationData');
+		    if (authData) {
+		        config.headers.Authorization = 'Bearer ' + authData.token; 		  
 			}
-
+		
 			return config;
 		}
 
@@ -644,7 +764,8 @@ angular.module('ui.load', [])
 					}
 				}
 				authService.logOut();
-				$location.path('/login');
+				$location.path('/access/signin');
+
 			}
 			return $q.reject(rejection);
 		}

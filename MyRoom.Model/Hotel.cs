@@ -17,7 +17,7 @@ namespace MyRoom.Model
             //ActiveHotelCategory = new HashSet<ActiveHotelCategory>();
             //ActiveHotelModule = new HashSet<ActiveHotelModule>();
             //ActiveHotelProduct = new HashSet<ActiveHotelProduct>();
-            Users = new HashSet<ApplicationUser>();
+         //   Users = new HashSet<ApplicationUser>();
         }       
 
         [Key]
@@ -60,6 +60,6 @@ namespace MyRoom.Model
         
         //public virtual Department Department { get; set; }
 
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        //public virtual ICollection<ApplicationUser> Users { get; set; }
     }
 }

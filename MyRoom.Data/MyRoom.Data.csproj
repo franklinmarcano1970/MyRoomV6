@@ -133,6 +133,8 @@
     <Compile Include="Repositories\ActiveHotelProductRepository.cs" />
     <Compile Include="Repositories\ActiveHotelCategoryRepository.cs" />
     <Compile Include="Repositories\ActiveHotelModuleRepository.cs" />
+    <Compile Include="Repositories\RoomRepository.cs" />
+    <Compile Include="Repositories\DepartmentRepository.cs" />
     <Compile Include="Repositories\RelatedProductRepository.cs" />
     <Compile Include="Repositories\UserHotelPermissionRepository.cs" />
     <Compile Include="Repositories\PermissionRepository.cs" />

@@ -1,0 +1,74 @@
+﻿<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3">ROOMS MANAGEMENT</h1>
+</div>
+<div class="container" ng-controller="RoomsListController">
+    <div class="wrapper-md">
+        <!-- toaster directive -->
+        <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+        <!-- / toaster directive -->
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button class="btn m-b-xs btn-md btn-info btn-addon ng-pristine ng-valid ng-touched" ng-click="createRoom()"><i class="fa fa-plus"></i>Create</button>
+                </div>
+                <div class="modal fade" id="deleteRoom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title"><span class="glyphicon glyphicon-check">Please Confirm</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h3>Are you sure you want to delete the selected Room?</h3>
+                                <h4>This step has no return back</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" ng-click="removeRoom(currentRoomId)" class="btn btn-default" data-dismiss="modal">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <input type="hidden" ng-model="Id" />
+                    <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table table-striped m-b-none">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Number</th>
+                                <th>Hotel</th>
+                                <th>IsEmpty</th>
+                                <th>Is Ready For Use?</th>
+                                <th>Standard</th>
+                                <th>Premium</th>
+                                <th>Active</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="room in rooms">
+                                <td><span class="badge bg-info">{{ room.RoomId }}</span></td>
+                                <td>{{ room.Name }}</td>
+                                <td>{{ room.Number }}</td>
+                                <td></td>
+                                <td>{{ room.IsEmpty }}</td>
+                                <td>{{ room.IsReadyForUse }}</td>
+                                <td>{{ room.Standard }}</td>
+                                <td>{{ room.Premium }}</td>
+                                <td>{{ room.Active }}</td>
+                                
+                                <td>
+                                    <button type="button" ng-click="modifyRoom(room.RoomId)" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                                    <button type="button" ng-click="selectRoom(room.RoomId)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

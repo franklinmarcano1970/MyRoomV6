@@ -1,6 +1,7 @@
 ﻿using System;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -16,7 +17,8 @@ namespace MyRoom.Model.ViewModels
 
         public string Image { get; set; }
 
-        public int? IdParentCategory { get; set; }
+        [DefaultValue(0)]
+        public int IdParentCategory { get; set; }
 
         public int? CategoryItem { get; set; }
 

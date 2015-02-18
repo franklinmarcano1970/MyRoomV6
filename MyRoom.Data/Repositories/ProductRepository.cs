@@ -17,6 +17,20 @@ namespace MyRoom.Data.Repositories
             this.Context = context;
         }
 
+        public override Product GetById(object id)
+        {
+            var product = (from c in this.Context.Products.Include("ActiveHotelProduct")
+                           where c.Id == (int)id
+                           select c);
+
+            if (product.Count() > 0)
+                return product.First();
+
+            return null;
+
+
+        }
+
         public string GetProductById(int id)
         {
             var product = (from c in this.Context.Products.Include("Translation")

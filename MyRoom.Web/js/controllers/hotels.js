@@ -107,7 +107,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         },
     };
     uploader.onSuccessItem = function (fileItem, response, status, headers) {
-        //$state.go('app.page.hotel_list');
+        $state.go('app.page.hotel_list');
     };
     uploaderUrl.onSuccessItem = function (fileItem, response, status, headers) {
         $state.go('app.page.hotel_list');
@@ -123,7 +123,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             return;
         }
         $scope.file = fileItem._file;
-        $scope.hotel.Image = ngWebBaseSettings.rootFileHotel + $scope.file.name;
+        $scope.hotel.Image = "/" + ngWebBaseSettings.rootFileHotel +  $scope.file.name;
         var fr = new FileReader();
         fr.onload = function (e) {
             $('#image')
@@ -142,7 +142,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
             return;
         }
         $scope.file = fileItem._file;
-        $scope.hotel.UrlScanMap = ngWebBaseSettings.rootFileHotel + $scope.file.name;
+        $scope.hotel.UrlScanMap = "/" + ngWebBaseSettings.rootFileHotel + $scope.file.name;
         var fr = new FileReader();
         fr.onload = function (e) {
             $('#UrlScanMapImage')
@@ -188,7 +188,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                     }
                 };
                 uploader.uploadAll();
-                uploaderUrl.uploadAll();
+               // uploaderUrl.uploadAll();
                 $timeout(function () {
                     $scope.toaster = {
                         type: 'success',
@@ -389,9 +389,13 @@ app.controller('HotelsAssingProductController', ['$scope', '$http', '$state', 'h
     //Guardar los registros marcados en el check box y guardar registros en las siguientes tablas: ACTIVE_HOTEL_MODULE, ACTIVE_HOTEL_CATEGORY, ACTIVE_HOTEL_PRODUCT
     $scope.activeProduct = function () {
         var getChecked = GetCheckedTreeNode($scope.items);
-        var vm = { 'HotelCatalog': [] };
+        var vm = {
+            HotelId: $scope.hotel.selected.Id,
+            'HotelCatalog': []
+        };
+        debugger
         angular.forEach(getChecked, function (item) {
-            vm.HotelCatalog.push({ HotelId: $scope.hotel.selected.Id, ElementId: item.id, Type: item.type });
+            vm.HotelCatalog.push({  ElementId: item.id, Type: item.type });
         });
         hotelService.saveActiveProduct(vm).then(function (response) {
             $scope.toaster = { type: 'success', title: 'Success', text: 'The assign elements has been to hotel' };

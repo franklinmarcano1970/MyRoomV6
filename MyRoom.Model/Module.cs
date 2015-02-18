@@ -14,7 +14,7 @@ namespace MyRoom.Model
 
         public Module()
         {
-            ActiveHotelModule = new HashSet<ActiveHotelModule>();
+            ActiveHotelModule = new List<ActiveHotelModule>();
          //   RelCatalogueModule = new HashSet<RelCatalogueModule>();
             //RelModuleCategory = new HashSet<RelModuleCategory>();
             Categories = new HashSet<Category>();
@@ -48,7 +48,7 @@ namespace MyRoom.Model
         public virtual ICollection<Category> Categories { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<ActiveHotelModule> ActiveHotelModule { get; set; }
+        public virtual List<ActiveHotelModule> ActiveHotelModule { get; set; }
 
         public virtual Translation Translation { get; set; }
 

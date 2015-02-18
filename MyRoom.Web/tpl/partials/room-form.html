@@ -1,0 +1,57 @@
+﻿<div class="wrapper-md" ng-controller="RoomsController">
+    <!-- toaster directive -->
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+    <!-- / toaster directive -->
+    <div class="col-md-6 column">
+        <tabset class="tab-container">
+            <tab heading="Room" active="steps.step1" select="steps.percent=20">
+
+                <form name="step1" class="form-validation">
+                    <p>Name:</p>
+                    <input type="text" maxlength="150" placeholder="Please enter a Name" class="form-control" ng-model="department.Name" required >
+                 
+                    <p class="m-t">Number:</p>
+                    <input ui-jq="TouchSpin" type="text" placeholder="Please enter a Number"  ng-model="room.number" class="form-control" value="0"  data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
+                    
+                    <p class="m-t">Hotel:</p>
+                    <hotel-select></hotel-select>
+                   
+                    <p class="m-t">IdRoomType</p>
+                    
+
+                    <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="room.IsEmpty" checked="room.IsEmpty" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i>Is Empty?
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="room.IsReadyForUse" checked="room.IsReadyForUse" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i>Is Ready For Use?
+                        </label>
+                    </div>
+                   <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="room.Standard" checked="room.Standard" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i>Standard
+                        </label>
+                    </div>
+                   <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="room.Premium" checked="room.Premium" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i>Premium
+                        </label>
+                    </div>
+
+                   <div class="checkbox">
+                        <label class="m-t i-checks">
+                            <input type="checkbox" ng-model="room.Active" checked="room.Active" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Active?
+                        </label>
+                    </div>
+
+
+                    <div class="m-t m-b">
+                        <button type="button" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="saveRoom()">Save To Finish</button>
+                    </div>
+                </form>
+            </tab>
+        </tabset>
+    </div>
+</div>

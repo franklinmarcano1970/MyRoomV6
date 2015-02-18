@@ -80,9 +80,16 @@ namespace MyRoom.Data.SampleData
                 Image = "img/product1.jpg",
                 Translation = new Translation
                 {
-                    Spanish = "ProductTest",
-                    English = "ProductTest",
-                    French = "ProductTest",
+                    Spanish = "Introducir Texto",
+                    English = "Introducir Texto",
+                    French = "Introducir Texto",
+                    Active = true
+                },
+                TranslationDescription = new Translation
+                {
+                    Spanish = "Introducir Texto",
+                    English = "Introducir Texto",
+                    French = "Introducir Texto",
                     Active = true
                 }
             };

@@ -2,6 +2,7 @@
 using System;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -16,8 +17,9 @@ namespace MyRoom.Model.ViewModels
         public string Prefix { get; set; }
 
         public string type { get; set; }
-        
-        public int? IdParentCategory { get; set; }
+
+        [DefaultValue(0)]
+        public int IdParentCategory { get; set; }
 
         public int IdTranslationName { get; set; }
 
@@ -38,6 +40,9 @@ namespace MyRoom.Model.ViewModels
         public bool Active { get; set; }
 
         public bool ActiveCheckbox { get; set; }
+        
+        public bool IsChecked { get; set; }
+
 
         public string nextsibling { get; set; }
 

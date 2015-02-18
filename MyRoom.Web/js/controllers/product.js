@@ -5,7 +5,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
     var uploader = $scope.uploader = new FileUploader({
         //url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-0-0'
     });
-    var ischecked = $filter('ischecked');
+   // var ischecked = $filter('ischecked');
     $scope.IdCatalog = 0;
     $scope.toaster = {
         type: 'error',
@@ -23,6 +23,17 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         Image: 'no-image.jpg',
         Order: '',
         Translation: {
+            Spanish: '',
+            English: '',
+            French: '',
+            German: '',
+            Language5: '',
+            Language6: '',
+            Language7: '',
+            Language8: '',
+            Active: true
+        },
+        TranslationDesc: {
             Spanish: '',
             English: '',
             French: '',
@@ -124,15 +135,14 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         });
         var vm = {};
         vm.Name = entity.Name;
-        vm.Image = entity.Image;
+        debugger
+        vm.Image = "/images/" + $state.params["id"] + "/products/" + entity.Image;
         vm.Description = entity.Description;
         vm.Price = entity.Price;
         vm.ProductActive = entity.ProductActive;
         vm.Prefix = entity.Prefix;        
         vm.Order = entity.Order;
         vm.Type = entity.Type;
-        vm.Name_ENG = entity.Name_ENG;
-        vm.Description_ENG = entity.Description_ENG;
         vm.UrlScanDocument = entity.UrlScanDocument;
         vm.Pending = entity.Pending;
         vm.Active = entity.Active
@@ -141,11 +151,21 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         vm.French = entity.Translation.French;
         vm.German = entity.Translation.German;
         vm.TranslationActive = entity.Translation.Active;
-
         vm.Language5 = entity.Translation.Language5;
         vm.Language6 = entity.Translation.Language6;
         vm.Language7 = entity.Translation.Language7;
         vm.Language8 = entity.Translation.Language8;
+        
+        vm.SpanishDesc = entity.TranslationDesc.Spanish;
+        vm.EnglishDesc = entity.TranslationDesc.English;
+        vm.FrenchDesc = entity.TranslationDesc.French;
+        vm.GermanDesc = entity.TranslationDesc.German;
+        vm.TranslationActiveDesc = entity.TranslationDesc.Active;
+        vm.LanguageDesc5 = entity.TranslationDesc.Language5;
+        vm.LanguageDesc6 = entity.TranslationDesc.Language6;
+        vm.LanguageDesc7 = entity.TranslationDesc.Language7;
+        vm.LanguageDesc8 = entity.TranslationDesc.Language8;
+
 
 
         vm.RelatedProducts = $scope.product.RelatedProducts;
@@ -272,7 +292,7 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
                 return;
             }
             $scope.currentProdId = id;
-            $state.go('app.page.product_edit', { "id": id + "-" + $scope.IdCatalog });
+            $state.go('app.page.product_edit', { "id": $scope.IdCatalog });
         }
 
         $scope.getAll = function () {

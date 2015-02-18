@@ -21,15 +21,29 @@ namespace MyRoom.Model.ViewModels
 
         public string Prefix { get; set; }
 
-        public string Name_ENG { get; set; }
-
-        public string Description_ENG { get; set; }
-
         public string UrlScanDocument { get; set; }
 
         public bool? Pending { get; set; }
 
         public int? Order { get; set; }
+
+        public string SpanishDesc { get; set; }
+
+        public string EnglishDesc { get; set; }
+
+        public string FrenchDesc { get; set; }
+
+        public string GermanDesc { get; set; }
+
+        public bool TranslationActiveDesc { get; set; }
+
+        public string LanguageDesc5 { get; set; }
+
+        public string LanguageDesc6 { get; set; }
+
+        public string LanguageDesc7 { get; set; }
+
+        public string LanguageDesc8 { get; set; }
 
         public ICollection<RelatedProduct> RelatedProducts { get; set; }
 

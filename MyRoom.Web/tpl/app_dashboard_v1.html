@@ -18,7 +18,42 @@
     <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
       <!-- stats -->
       <div class="row">
-        <div class="col-md-12">
+      
+   <!--     <div class="col-md-7">
+          <div class="panel wrapper">
+            <label class="i-switch bg-warning pull-right" ng-init="showSpline=true">
+              <input type="checkbox" ng-model="showSpline">
+              <i></i>
+            </label>
+            <h4 class="font-thin m-t-none m-b text-muted">Latest Campaign</h4>
+            <div ui-jq="plot" ui-refresh="showSpline" ui-options="
+              [
+                { data: {{d0_1}}, label:'TV', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
+                { data: {{d0_2}}, label:'Mag', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } }
+              ], 
+              {
+                colors: ['{{app.color.info}}', '{{app.color.primary}}'],
+                series: { shadowSize: 3 },
+                xaxis:{ font: { color: '#a1a7ac' } },
+                yaxis:{ font: { color: '#a1a7ac' }, max:20 },
+                grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+                tooltip: true,
+                tooltipOpts: { content: 'Visits of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+              }
+            " style="height:246px" >
+            </div>
+          </div>
+        </div>-->
+      </div>
+      <!-- / stats -->
+
+        <div class="row clearfix">
+              <div class="col-md-6">
+                  <div class="row">
+                         <div class="col-md-3">
+                         </div>
+
+                  </div>
           <div class="row row-sm text-center">
             <div class="col-xs-3">
               <div class="panel padder-v item">
@@ -59,34 +94,13 @@
 
           </div>
         </div>
-   <!--     <div class="col-md-7">
-          <div class="panel wrapper">
-            <label class="i-switch bg-warning pull-right" ng-init="showSpline=true">
-              <input type="checkbox" ng-model="showSpline">
-              <i></i>
-            </label>
-            <h4 class="font-thin m-t-none m-b text-muted">Latest Campaign</h4>
-            <div ui-jq="plot" ui-refresh="showSpline" ui-options="
-              [
-                { data: {{d0_1}}, label:'TV', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } },
-                { data: {{d0_2}}, label:'Mag', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.4, lineWidth: 1, fill: 0.8 } }
-              ], 
-              {
-                colors: ['{{app.color.info}}', '{{app.color.primary}}'],
-                series: { shadowSize: 3 },
-                xaxis:{ font: { color: '#a1a7ac' } },
-                yaxis:{ font: { color: '#a1a7ac' }, max:20 },
-                grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
-                tooltip: true,
-                tooltipOpts: { content: 'Visits of %x.1 is %y.4',  defaultTheme: false, shifts: { x: 10, y: -25 } }
-              }
-            " style="height:246px" >
+            <div class="col-md-6">
+                
+                 <!-- Insert to your webpage where you want to display the slider -->
+                    <iframe src="tutorials/" width="100%" height="400px"  frameborder="no" scrolling="no"></iframe>
             </div>
-          </div>
-        </div>-->
-      </div>
-      <!-- / stats -->
 
+        </div>
     </div>
   </div>
   <!-- / main -->

@@ -41,7 +41,7 @@ namespace MyRoom.Data.Repositories
             return await DbSet.FindAsync(id);
         }
 
-        public TEntity GetById(object id)
+        public virtual TEntity GetById(object id)
         {
             return DbSet.Find(id);
         }

@@ -97,18 +97,6 @@ app.controller('UsersController', ['$scope', '$http', '$state', 'accountService'
             $scope.error_description = err.error_description;
         });
     };
-
-    //$scope.deleteremoveUser = function (id) {
-    //    var newData = [];
-
-    //    angular.forEach($scope.users, function (res, key) {
-    //        if (res.Id != id) {
-    //            newData.push(res);
-    //        }
-    //    });
-    //    $scope.users = newData;
-    //    console.log(newData);
-    //};
 }])
 
 app.controller('UsersListController', ['$scope', '$http', '$state', 'accountService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'toaster', function ($scope, $http, $state, accountService, DTOptionsBuilder, DTColumnDefBuilder, toaster) {
@@ -197,7 +185,7 @@ app.controller('UsersListController', ['$scope', '$http', '$state', 'accountServ
 }]);
 
 app.controller('UsersHotelController', ['$scope', '$http', '$state', 'hotelService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', function ($scope, $http, $state, hotelService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster) {
-    var ischeckedArray = $filter('ischeckedArray');
+    //var ischeckedArray = $filter('ischeckedArray');
     $scope.IsNewRecord = 1;
     $scope.sw = 1;
     $scope.IdUser = 0;

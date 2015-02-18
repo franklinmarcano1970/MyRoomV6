@@ -28,13 +28,13 @@ namespace MyRoom.API.Controllers
 
         [Route("{key}")]
         [HttpGet]
-        public string GetCatalogues(int key, [FromUri]bool withproducts, [FromUri]bool activemod, [FromUri]bool activecategory)
+        public string GetCatalogues(int key, [FromUri]bool withproducts, [FromUri]bool activemod, [FromUri]bool activecategory, [FromUri]int hotelId = 0)
         {
             CatalogCreator creator = new CatalogCreator(catalogRepository.Context);
             if (withproducts)
-                return creator.CreateWithProducts(catalogRepository.GetStructureComplete(key), activemod, activecategory);
+                return creator.CreateWithProducts(catalogRepository.GetStructureComplete(key), activemod, activecategory, hotelId);
             else
-                return creator.CreateWithOutProducts(catalogRepository.GetStructureComplete(key), activemod, activecategory);
+                return creator.CreateWithOutProducts(catalogRepository.GetStructureComplete(key), activemod, activecategory, hotelId);
 
         }
 
@@ -98,7 +98,8 @@ namespace MyRoom.API.Controllers
             {
                 catalogRepository.Insert(catalog);
                 int catalogid = catalog.CatalogId;
-
+                catalog.Image = string.Format("{0}/{1}/{2}", ConfigurationManager.AppSettings["UploadImages"], catalogid , catalog.Image);
+                catalogRepository.Edit(catalog);
                 //this.CreateStructureDirectories(catalogid);
                 return Ok(catalogid);
 

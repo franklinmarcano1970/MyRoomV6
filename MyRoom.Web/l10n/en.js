@@ -69,6 +69,8 @@
         "USERACCESS" : "Main Menu Access",
         "USERCATALOG" : "Catalog Access",
         "HOTELS": "Create/Modify Hotels",
+        "DEPARTMENTS": "Create/Modify Departments", 
+        "ROOMS": "Create/Modify Rooms", 
         "HOTEL_LIST": "List",
         "HOTEL_CATALOGUES": "Assign Catalogues",
         "HOTEL_CREATE": "Create",     

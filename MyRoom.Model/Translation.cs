@@ -18,7 +18,7 @@ namespace MyRoom.Model
             Hotels = new HashSet<Hotel>();
             Modules = new HashSet<Module>();
             Products = new HashSet<Product>();
-        //    Products1 = new HashSet<Product>();
+            Products1 = new HashSet<Product>();
         }
 
         [Key]
@@ -66,12 +66,13 @@ namespace MyRoom.Model
 
         [JsonIgnore]
         public ICollection<Product> Products { get; set; }
-        
+
+        [JsonIgnore]
+        public ICollection<Product> Products1 { get; set; }
+
         [JsonIgnore]
         public ICollection<Department> Departments { get; set; }
                 
 
-        //[JsonIgnore]
-        //public virtual ICollection<Product> Products1 { get; set; }
     }
 }

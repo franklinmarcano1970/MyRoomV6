@@ -19,7 +19,7 @@ angular.module('app')
       function ($stateProvider, $urlRouterProvider) {
 
           $urlRouterProvider
-              .otherwise('/access/signin');
+              .otherwise('/app/dashboard-v1');
           $stateProvider
               .state('app', {
                   abstract: true,
@@ -510,6 +510,133 @@ angular.module('app')
                       }]
                   }
               })
+              .state('app.page.department_edit', {
+                  url: '/departments/edit/:id',
+                  templateUrl: 'tpl/page_department_edit.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('toaster').then(
+                                function () {
+                                    return $ocLazyLoad.load(
+                                        {
+                                            files: ['js/controllers/departments.js',
+                                            'js/directives/myroom-directives.js'                                                        ]
+                                        }
+                                    );
+                                });
+                        }]
+                  }
+              })
+
+              .state('app.page.department_create', {
+                  url: '/departments/create',
+                  templateUrl: 'tpl/page_department_create.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('toaster').then(
+                                function () {
+                                    return $ocLazyLoad.load('ui.select').then(
+                                    function () {
+
+                                        return $ocLazyLoad.load(
+                                            {
+                                                files: ['js/controllers/departments.js',
+                                                    'js/directives/myroom-directives.js',
+                                                ]
+                                            }
+                                        );
+                                    })
+                                });
+                        }]
+                  }
+              })
+              .state('app.page.departments_list', {
+                  url: '/departments/list',
+                  templateUrl: 'tpl/page_department_list.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                                return $ocLazyLoad.load('toaster').then(
+                                    function () {
+                                        return $ocLazyLoad.load('datatables').then(
+                                            function () {
+                                                return $ocLazyLoad.load(
+                                                    {
+                                                        files: ['js/controllers/departments.js']
+                                                    });
+                                            }
+                                        );
+                                    });
+                                
+                        }
+                      ]
+                  }
+              })
+              .state('app.page.rooms_list', {
+                url: '/rooms/list',
+                templateUrl: 'tpl/page_rooms_list.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('toaster').then(
+                                function () {
+                                    return $ocLazyLoad.load('datatables').then(
+                                        function () {
+                                            return $ocLazyLoad.load(
+                                                {
+                                                    files: ['js/controllers/rooms.js']
+                                                });
+                                        }
+                                    );
+                                });
+
+                        }
+                    ]
+                }
+              })
+               .state('app.page.room_edit', {
+                   url: '/rooms/edit/:id',
+                   templateUrl: 'tpl/page_room_edit.html',
+                   resolve: {
+                       deps: ['$ocLazyLoad',
+                         function ($ocLazyLoad) {
+                             return $ocLazyLoad.load('toaster').then(
+                                 function () {
+                                     return $ocLazyLoad.load(
+                                         {
+                                             files: ['js/controllers/rooms.js',
+                                             'js/directives/myroom-directives.js']
+                                         }
+                                     );
+                                 });
+                         }]
+                   }
+               })
+              .state('app.page.room_create', {
+                  url: '/rooms/create',
+                  templateUrl: 'tpl/page_room_create.html',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('toaster').then(
+                                function () {
+                                    return $ocLazyLoad.load('ui.select').then(
+                                    function () {
+
+                                        return $ocLazyLoad.load(
+                                            {
+                                                files: ['js/controllers/rooms.js',
+                                                    'js/directives/myroom-directives.js',
+                                                ]
+                                            }
+                                        );
+                                    })
+                                });
+                        }]
+                  }
+              })
               .state('app.page.categories_create', {
                   url: '/categories/create',
                   templateUrl: 'tpl/page_category_create.html',
@@ -529,20 +656,20 @@ angular.module('app')
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
                             return $ocLazyLoad.load('angularFileUpload').then(
-      function () {
-          return $ocLazyLoad.load('toaster').then(
-              function () {
-                  return $ocLazyLoad.load('datatables').then(
-                      function () {
-                          return $ocLazyLoad.load(
-                              {
-                                  files: ['js/controllers/hotels.js',
-                                          'js/controllers/file-upload.js']
-                              });
-                      }
-                  );
-              });
-      });
+                                function () {
+                                    return $ocLazyLoad.load('toaster').then(
+                                        function () {
+                                            return $ocLazyLoad.load('datatables').then(
+                                                function () {
+                                                    return $ocLazyLoad.load(
+                                                        {
+                                                            files: ['js/controllers/hotels.js',
+                                                                    'js/controllers/file-upload.js']
+                                                        });
+                                                }
+                                            );
+                                        });
+                                });
                         }
                       ]
                   }
@@ -622,7 +749,7 @@ angular.module('app')
                                   });
                             }]
                       }
-                  })
+              })
               .state('app.page.hotel_catalogues', {
                   url: '/hotels/catalogues',
                   templateUrl: 'tpl/page_hotel_catalogue.html',

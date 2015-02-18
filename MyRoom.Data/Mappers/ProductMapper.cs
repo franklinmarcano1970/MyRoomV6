@@ -21,8 +21,6 @@ namespace MyRoom.Data.Mappers
                 Type            = productViewModel.Type,
                 Active          = productViewModel.Active,
                 Prefix          = productViewModel.Prefix,
-                Name_ENG        = productViewModel.Name_ENG,                
-                Description_ENG = productViewModel.Description_ENG,
                 UrlScanDocument = productViewModel.UrlScanDocument,
                 Pending         = productViewModel.Pending,
                 Order           = productViewModel.Order              
@@ -39,6 +37,19 @@ namespace MyRoom.Data.Mappers
                 Language7 = productViewModel.Language7,
                 Language8 = productViewModel.Language8,
                 Active = productViewModel.TranslationActive,
+            };
+
+            product.TranslationDescription = new Translation()
+            {
+                Spanish = productViewModel.SpanishDesc,
+                English = productViewModel.EnglishDesc,
+                French = productViewModel.FrenchDesc,
+                German = productViewModel.GermanDesc,
+                Language5 = productViewModel.LanguageDesc5,
+                Language6 = productViewModel.LanguageDesc6,
+                Language7 = productViewModel.LanguageDesc7,
+                Language8 = productViewModel.LanguageDesc8,
+                Active = productViewModel.TranslationActiveDesc,
             };
 
             return product;
