@@ -102,7 +102,7 @@ namespace MyRoom.API.Controllers
         //    }
         //}
         // POST: api/Categories
-        public async Task<IHttpActionResult> PostCategories(CategoryViewModel categoryViewModel)
+        public IHttpActionResult PostCategories(CategoryViewModel categoryViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -117,13 +117,22 @@ namespace MyRoom.API.Controllers
                 //} 
                 Category category = CategoryMapper.CreateModel(categoryViewModel);
                 categoryRepo.ModuleStateUnchange(category);
-                
+                 
                 if (!category.IsFirst)
                 {
                     category.Modules = null;
                 }
 
-                await categoryRepo.InsertAsync(category);
+                categoryRepo.Insert(category);
+
+                //busco hotel con el catalogo seleccionado
+                ActiveHotelCatalogRepository hotelCatalog = new ActiveHotelCatalogRepository(new MyRoomDbContext());
+                int hotelId = hotelCatalog.GetByCatalogId(categoryViewModel.CatalogId);
+                //inserto categorias a hotel relacionado
+                ActiveHotelCategoryRepository activeHotelCategoryRepo = new ActiveHotelCategoryRepository(new MyRoomDbContext());
+                List<ActiveHotelCategory> hotelscategories = new List<ActiveHotelCategory>();
+                hotelscategories.Add(new ActiveHotelCategory() { IdCategory = category.CategoryId, IdHotel = hotelId });
+                activeHotelCategoryRepo.InsertActiveHotelCategory(hotelscategories, hotelId);
 
                 return Ok(category);
             }

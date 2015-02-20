@@ -19,37 +19,39 @@ namespace MyRoom.Model
             Modules = new HashSet<Module>();
             Products = new HashSet<Product>();
             Products1 = new HashSet<Product>();
+            Orders = new HashSet<Order>();
         }
 
         [Key]
         public int Id { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         [Required]
         public string Spanish { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         [Required]
         public string English { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string French { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string German { get; set; }
 
+        [DefaultValue(true)]
         public bool Active { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string Language5 { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string Language6 { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string Language7 { get; set; }
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "ntext")]
         public string Language8 { get; set; }
 
         [JsonIgnore]
@@ -68,7 +70,10 @@ namespace MyRoom.Model
         public ICollection<Product> Products { get; set; }
 
         [JsonIgnore]
-        public ICollection<Product> Products1 { get; set; }
+        public ICollection<Order> Orders { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Product> Products1 { get; set; }
 
         [JsonIgnore]
         public ICollection<Department> Departments { get; set; }

@@ -133,6 +133,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         imageCatalog = $scope.category.Image;
     }
     
+    $scope.assignCatalogToHotel = function () {
+        $state.go('app.page.hotel_catalogues');
+    };
 
     $scope.initTabsets = function ()
     {
@@ -465,6 +468,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.Language8 = entity.Translation.Language8;
         vm.ModuleId = $scope.currentModule.ModuleId;
         vm.ModuleName = $scope.currentModule.Name;
+        vm.CatalogId = $scope.cata.selected.id;
         return vm;
     }
 }]);

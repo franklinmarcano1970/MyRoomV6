@@ -1,6 +1,7 @@
 namespace MyRoom.Model
 {
     using Newtonsoft.Json;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,7 +18,10 @@ namespace MyRoom.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int IdCategory { get; set; }
 
+        [Required]
+        [DefaultValue(true)]
         public bool Active { get; set; }
+        
         [JsonIgnore]
         public virtual Hotel Hotel { get; set; }
         [JsonIgnore]

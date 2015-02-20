@@ -30,7 +30,6 @@ namespace MyRoom.Model
         public int Number { get; set; }
 
         [Required]
-        [Column(TypeName="varchar")]
         [StringLength(150)]
         public string Name { get; set; }
 
@@ -40,7 +39,7 @@ namespace MyRoom.Model
 
         [Required]
         [DefaultValue(1)]
-        public bool IsReadForUse { get; set; }
+        public bool IsReadyForUse { get; set; }
 
         [Required]
         [DefaultValue(1)]
@@ -54,5 +53,7 @@ namespace MyRoom.Model
         [DefaultValue(0)]
         public bool Premium { get; set; }
 
+        [JsonIgnore]
+        public virtual Hotel Hotel { get; set; }
     }
 }

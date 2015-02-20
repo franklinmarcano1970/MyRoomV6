@@ -135,7 +135,6 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         });
         var vm = {};
         vm.Name = entity.Name;
-        debugger
         vm.Image = "/images/" + $state.params["id"] + "/products/" + entity.Image;
         vm.Description = entity.Description;
         vm.Price = entity.Price;

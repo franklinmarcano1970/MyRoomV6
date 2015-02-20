@@ -90,7 +90,6 @@
     <Compile Include="OrderNotification.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Room.cs" />
-    <Compile Include="RoomType.cs" />
     <Compile Include="Hotel.cs" />
     <Compile Include="MenuAccess.cs" />
     <Compile Include="Permission.cs" />

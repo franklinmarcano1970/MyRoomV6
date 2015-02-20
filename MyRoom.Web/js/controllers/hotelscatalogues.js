@@ -46,7 +46,7 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
             }
             var hotelcatalogVm = createActiveHotelCataloguesViewModel();
             hotelService.assignCatalog(hotelcatalogVm).then(function (response) {
-                $scope.toaster = { type: 'success', title: 'Success', text: 'The catalogues has been assigned to hotel' };
+                $scope.toaster = { type: 'success', title: 'Success', text: 'The hotel has been changed' };
                 $scope.pop();
             },
             function (err) {

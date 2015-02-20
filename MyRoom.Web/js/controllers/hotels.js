@@ -188,7 +188,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
                     }
                 };
                 uploader.uploadAll();
-               // uploaderUrl.uploadAll();
+                uploaderUrl.uploadAll();
                 $timeout(function () {
                     $scope.toaster = {
                         type: 'success',

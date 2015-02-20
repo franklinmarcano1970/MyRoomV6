@@ -20,10 +20,10 @@ namespace MyRoom.Model
         public int MetricLoginId { get; set; }
 
         [Column("IdHotel")]
-        public int HotelId { get; set; }
+        public int? HotelId { get; set; }
 
         [Column("IdGuest")]
-        public int GuestId { get; set; }
+        public int? GuestId { get; set; }
 
 
         [StringLength(150)]
@@ -32,5 +32,10 @@ namespace MyRoom.Model
 
         [Column(TypeName = "smalldatetime")]
         public DateTime? ActionDateTime { get; set; }
+
+        [Column("IdRoom")]
+        public int RoomId { get; set; }
+
+
     }
 }

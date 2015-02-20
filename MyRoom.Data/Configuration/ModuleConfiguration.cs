@@ -22,6 +22,11 @@ namespace MyRoom.Data.Configuration
                 mc.MapRightKey("IdCatalogue");
                 mc.ToTable("REL_CATALOGUE_MODULE");
             });
+
+            HasMany(e => e.RelUserModule)
+            .WithRequired(e => e.Module)
+            .HasForeignKey(e => e.IdModule)
+            .WillCascadeOnDelete(false);
         }
     }
 }

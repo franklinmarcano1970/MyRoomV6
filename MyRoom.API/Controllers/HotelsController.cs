@@ -33,9 +33,9 @@ namespace MyRoom.API.Controllers
 
 
         // GET: odata/Hotels        
-           public IHttpActionResult GetHotels()
+        public IHttpActionResult GetHotels()
         {
-            return Ok( hotelRepository.GetAll());
+            return Ok(hotelRepository.GetAll());
         }
 
         // GET: api/hotels/5
@@ -50,7 +50,7 @@ namespace MyRoom.API.Controllers
 
         // GET: api/hotels/catalog/5
         [Route("catalog/{key}")]
-        [HttpGet]        
+        [HttpGet]
         public IHttpActionResult GetCatalogActives(int key)
         {
             List<ActiveHotelCatalogue> catalogues = hotelRepository.GetHotelCatalogActives(key);
@@ -65,7 +65,7 @@ namespace MyRoom.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-        
+
             try
             {
                 await hotelRepository.EditAsync(hotel);
@@ -97,7 +97,7 @@ namespace MyRoom.API.Controllers
 
             return Ok(hotels);
         }
-        
+
         // POST: api/hotels/catalogues
         [Route("catalogues")]
         [HttpPost]
@@ -112,7 +112,7 @@ namespace MyRoom.API.Controllers
 
             List<ActiveHotelCatalogue> hotelCatalogues = ActiveHotelCatalogMapper.CreateModel(hotelsCataloguesViewModel);
 
-            hotelCatalogRepo.InsertActiveHotelCatalogues(hotelCatalogues);
+            hotelCatalogRepo.InsertActiveHotelCatalogues(hotelCatalogues, hotelsCataloguesViewModel.HotelId);
 
             return Ok("Catalogues Assigned to hotels");
         }
@@ -139,9 +139,13 @@ namespace MyRoom.API.Controllers
                 activeHotelProductRepo.InsertActiveHotelProduct(products, assignHotelCatalogViewModel.HotelId);
                 activeHotelCategoryRepo.InsertActiveHotelCategory(categories, assignHotelCatalogViewModel.HotelId);
                 activeHotelModuleRepo.InsertActiveHotelModule(modules, assignHotelCatalogViewModel.HotelId);
+                return Ok("Elements Assigned to hotels");
             }
-            catch { }
-            return Ok("Elements Assigned to hotels");
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
 
