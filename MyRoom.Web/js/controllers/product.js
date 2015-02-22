@@ -241,7 +241,6 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
 
 //    $scope.getAllProduct();
 }]);
-
 app.controller('ProductsListController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'toaster', '$timeout', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, toaster, $timeout) {
     $scope.products = {};
     $scope.currentProdId = 0;
@@ -294,21 +293,6 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
             $state.go('app.page.product_edit', { "id": $scope.IdCatalog });
         }
 
-        $scope.getAll = function () {
-            productService.getAll().then(function (response) {
-                $scope.products = response.data;
-            },
-            function (err) {
-                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
-                $timeout(function () {
-                    $scope.pop();
-                }, 1000);
-            });
-        };
-
-       
-
-
         $scope.selectProduct = function (id) {
             $scope.currentProdId = id;
             $('#deleteProduct').modal({
@@ -336,8 +320,6 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
 
             
         };
-        
-        $scope.getAll();
     });
 }])
 ;

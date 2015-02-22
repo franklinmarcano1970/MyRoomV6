@@ -126,12 +126,14 @@ namespace MyRoom.API.Controllers
                 //busco hotel con el catalogo seleccionado
                 ActiveHotelCatalogRepository hotelCatalog = new ActiveHotelCatalogRepository(new MyRoomDbContext());
                 int hotelId = hotelCatalog.GetByCatalogId(moduleViewModel.CatalogId);
-                //inserto categorias a hotel relacionado
-                ActiveHotelModuleRepository activeHotelModuleRepo = new ActiveHotelModuleRepository(new MyRoomDbContext());
-                List<ActiveHotelModule> hotelModules = new List<ActiveHotelModule>();
-                hotelModules.Add(new ActiveHotelModule() { IdModule = module.ModuleId, IdHotel = hotelId });
-                activeHotelModuleRepo.InsertActiveHotelModule(hotelModules, hotelId);
-
+                if (hotelId > 0)
+                { 
+                    //inserto categorias a hotel relacionado
+                    ActiveHotelModuleRepository activeHotelModuleRepo = new ActiveHotelModuleRepository(new MyRoomDbContext());
+                    List<ActiveHotelModule> hotelModules = new List<ActiveHotelModule>();
+                    hotelModules.Add(new ActiveHotelModule() { IdModule = module.ModuleId, IdHotel = hotelId });
+                    activeHotelModuleRepo.InsertActiveHotelModule(hotelModules, hotelId);
+                }
                 return Ok(module.ModuleId);
             }
             catch (Exception ex)

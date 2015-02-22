@@ -137,8 +137,8 @@ namespace MyRoom.API.Controllers
             try
             {
                 activeHotelProductRepo.InsertActiveHotelProduct(products, assignHotelCatalogViewModel.HotelId);
-                activeHotelCategoryRepo.InsertActiveHotelCategory(categories, assignHotelCatalogViewModel.HotelId);
-                activeHotelModuleRepo.InsertActiveHotelModule(modules, assignHotelCatalogViewModel.HotelId);
+                activeHotelCategoryRepo.InsertActiveHotelCategory(categories, assignHotelCatalogViewModel.HotelId, true);
+                activeHotelModuleRepo.InsertActiveHotelModule(modules, assignHotelCatalogViewModel.HotelId, true);
                 return Ok("Elements Assigned to hotels");
             }
             catch (Exception ex)
@@ -149,43 +149,17 @@ namespace MyRoom.API.Controllers
         }
 
 
-        // PATCH: odata/Hotels(5)
-        //[AcceptVerbs("PATCH", "MERGE")]
-        //public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Hotel> patch)
-        //{
-        //    Validate(patch.GetEntity());
+        [Route("products/{hotelId}")]
+        [HttpGet]
+        // GET: api/hotels/products/1
+        public IHttpActionResult GetProductsByHotel(int hotelId)
+        {
+            ActiveHotelProductRepository hotelProducts = new ActiveHotelProductRepository(new MyRoomDbContext());
+            List<Product> productsActived = hotelProducts.GetProductsByHotelId(hotelId) ;
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            return Ok(productsActived);
 
-        //    Hotel hotels = await db.Hotels.FindAsync(key);
-        //    if (hotels == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    patch.Patch(hotels);
-
-        //    try
-        //    {
-        //        await db.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!HotelsExists(key))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return Updated(hotels);
-        //}
+        }
 
         // DELETE: api/hotels/5
         [Route("{key}")]

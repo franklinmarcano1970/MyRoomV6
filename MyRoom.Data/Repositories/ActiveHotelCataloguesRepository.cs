@@ -31,8 +31,13 @@ namespace MyRoom.Data.Repositories
 
         public int GetByCatalogId(int catalogId)
         {
-            return (from h in this.Context.HotelCatalogues.Where(e => e.IdCatalogue == catalogId)
-                     select h).FirstOrDefault().IdHotel;
+            var catalog = (from h in this.Context.HotelCatalogues.Where(e => e.IdCatalogue == catalogId)
+                           select h).FirstOrDefault();
+            if (catalog != null)
+                return catalog.IdHotel;
+            else
+                return 0;
+
         }
 
         public void DeleteActiveHotelCatalogues(int hotelId)

@@ -12,7 +12,17 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'authServic
         $state.go('app.dashboard-v1');
     }
    
+
     $scope.user.username = authService.authentication.username;
+
+   // authService.refreshToken().then(function (response) {
+   //     $scope.tokenRefreshed = true;
+   //     $scope.tokenResponse = response;
+   // },
+   //function (err) {
+   //    $location.path('/access/signin');
+   //});
+
     $scope.login = function () {
         $scope.authError = '';
         authService.login($scope.user).then(function (response) {
@@ -32,5 +42,6 @@ app.controller('SigninFormController', ['$scope', '$http', '$state', 'authServic
         $state.go('access.signin');
     }
 
+    
     //$scope.authentication = authService.authentication;
 }]);

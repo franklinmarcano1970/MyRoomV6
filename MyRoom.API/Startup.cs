@@ -63,9 +63,9 @@ namespace MyRoom.API
 
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                Provider = new SimpleAuthorizationServerProvider(),
-                RefreshTokenProvider = new SimpleRefreshTokenProvider()
+              //  AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(1),
+                Provider = new SimpleAuthorizationServerProvider()
+               // RefreshTokenProvider = new SimpleRefreshTokenProvider()
             };
 
             // Token Generation

@@ -234,150 +234,150 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         }
     };
 
-    function getChildren(id) {
-        var getCategory = $http.get(serviceBase + "odata/RelModuleCategory(" + id + ")/Categories");
-        var items = [];
-        getCategory.then(function (pl) {
-            var myObj = pl.data;
-            var RelModuleCategory = [];
+    //function getChildren(id) {
+    //    var getCategory = $http.get(serviceBase + "odata/RelModuleCategory(" + id + ")/Categories");
+    //    var items = [];
+    //    getCategory.then(function (pl) {
+    //        var myObj = pl.data;
+    //        var RelModuleCategory = [];
 
-            RelModuleCategory = myObj.value;
-            var i = 0;
-            var j = $scope.sourceItems.length + 1;
-            for (i; i < RelModuleCategory.length; i++) {
-                //$scope.Catalog[j] = { "Name": RelModuleCategory[i].Name };
-                items[i] = {
-                    text: RelModuleCategory[i].Name,
-                    type: "category",
-                    nextsibling: "category",
-                    Id: RelModuleCategory[i].Id,
-                    children: getChildrenProduct(RelModuleCategory[i].Id)
-                };
-                j++;
-            };
-        },
-        function (errorPl) {
-            $log.error('failure loading users', errorPl);
-        });
+    //        RelModuleCategory = myObj.value;
+    //        var i = 0;
+    //        var j = $scope.sourceItems.length + 1;
+    //        for (i; i < RelModuleCategory.length; i++) {
+    //            //$scope.Catalog[j] = { "Name": RelModuleCategory[i].Name };
+    //            items[i] = {
+    //                text: RelModuleCategory[i].Name,
+    //                type: "category",
+    //                nextsibling: "category",
+    //                Id: RelModuleCategory[i].Id,
+    //                children: getChildrenProduct(RelModuleCategory[i].Id)
+    //            };
+    //            j++;
+    //        };
+    //    },
+    //    function (errorPl) {
+    //        $log.error('failure loading users', errorPl);
+    //    });
 
-        return items;
-    }
+    //    return items;
+    //}
 
-    function getChildrenProduct(id) {
-        //RelCategoryProducts(3) / Products
-        var getCategory = $http.get(serviceBase + "odata/RelCategoryProducts(" + id + ")/Products");
-        var items = [];
-        getCategory.then(function (pl) {
-            var myObj = pl.data;
-            var RelModuleCategory = [];
+    //function getChildrenProduct(id) {
+    //    //RelCategoryProducts(3) / Products
+    //    var getCategory = $http.get(serviceBase + "odata/RelCategoryProducts(" + id + ")/Products");
+    //    var items = [];
+    //    getCategory.then(function (pl) {
+    //        var myObj = pl.data;
+    //        var RelModuleCategory = [];
 
-            RelModuleCategory = myObj.value;
-            var i = 0;
-            var j = $scope.sourceItems.length + 1;
-            for (i; i < RelModuleCategory.length; i++) {
-                items[i] = {
-                    text: RelModuleCategory[i].Name,
-                    type: "product",
-                    nextsibling: "category",
-                    Id: RelModuleCategory[i].Id
-                };
-                j++;
-            };
-        },
-        function (errorPl) {
-            $log.error('failure loading products category', errorPl);
-        });
+    //        RelModuleCategory = myObj.value;
+    //        var i = 0;
+    //        var j = $scope.sourceItems.length + 1;
+    //        for (i; i < RelModuleCategory.length; i++) {
+    //            items[i] = {
+    //                text: RelModuleCategory[i].Name,
+    //                type: "product",
+    //                nextsibling: "category",
+    //                Id: RelModuleCategory[i].Id
+    //            };
+    //            j++;
+    //        };
+    //    },
+    //    function (errorPl) {
+    //        $log.error('failure loading products category', errorPl);
+    //    });
 
-        return items;
-    }
+    //    return items;
+    //}
     //Buscar el catalogo activo para ese hotel en ACTIVE_HOTEL_CATALOGUE
-    $scope.selectActionCatalogHotel = function (id) {
-        $scope.IdHotel = id;
-        var getActiveHotelCatalogue = $http.get(serviceBase + "odata/Hotels(" + id + ")/ActiveHotelCatalogue?filter=Active eq true");
-        getActiveHotelCatalogue.then(function (pl) {
-            var myObj = pl.data;
-            $scope.ActiveHotelCatalogue = myObj.value;
-            $scope.IdCatalog = $scope.ActiveHotelCatalogue[0].IdCatalogue
-            $scope.NameCatalogue = $scope.ActiveHotelCatalogue[0].IdCatalogue;
-            var GetCatalogue = $http.get(serviceBase + "odata/Catalogues(" + $scope.IdCatalog + ")");
-            GetCatalogue.then(function(pl)
-            {
-                var myObj = pl.data;
-                $scope.NameCatalogue = myObj.Name;
+    //$scope.selectActionCatalogHotel = function (id) {
+    //    $scope.IdHotel = id;
+    //    var getActiveHotelCatalogue = $http.get(serviceBase + "odata/Hotels(" + id + ")/ActiveHotelCatalogue?filter=Active eq true");
+    //    getActiveHotelCatalogue.then(function (pl) {
+    //        var myObj = pl.data;
+    //        $scope.ActiveHotelCatalogue = myObj.value;
+    //        $scope.IdCatalog = $scope.ActiveHotelCatalogue[0].IdCatalogue
+    //        $scope.NameCatalogue = $scope.ActiveHotelCatalogue[0].IdCatalogue;
+    //        var GetCatalogue = $http.get(serviceBase + "odata/Catalogues(" + $scope.IdCatalog + ")");
+    //        GetCatalogue.then(function(pl)
+    //        {
+    //            var myObj = pl.data;
+    //            $scope.NameCatalogue = myObj.Name;
 
-                //Listar la estrucutura del arbol con la data de los modulos, las categorias, subcategorias y los productos del catalogo activo del hotel
-                var CatalogueCategory = $http.get(serviceBase + "odata/RelCatalogueModules(" + $scope.IdCatalog + ")/Modules");
-                CatalogueCategory.then(function (pl) {
-                    var myObj = pl.data;
-                    $scope.CatalogueCategory = myObj.value;
+    //            //Listar la estrucutura del arbol con la data de los modulos, las categorias, subcategorias y los productos del catalogo activo del hotel
+    //            var CatalogueCategory = $http.get(serviceBase + "odata/RelCatalogueModules(" + $scope.IdCatalog + ")/Modules");
+    //            CatalogueCategory.then(function (pl) {
+    //                var myObj = pl.data;
+    //                $scope.CatalogueCategory = myObj.value;
 
-                    var i = 0;
-                    for (i; i < $scope.CatalogueCategory.length; i++) {
-                        $scope.sourceItems[i] = {
-                            text: $scope.CatalogueCategory[i].Name,
-                            type: "module",
-                            nextsibling: "category",
-                            Id: $scope.CatalogueCategory[i].Id,
-                            children: getChildren($scope.CatalogueCategory[i].Id)
-                        }
+    //                var i = 0;
+    //                for (i; i < $scope.CatalogueCategory.length; i++) {
+    //                    $scope.sourceItems[i] = {
+    //                        text: $scope.CatalogueCategory[i].Name,
+    //                        type: "module",
+    //                        nextsibling: "category",
+    //                        Id: $scope.CatalogueCategory[i].Id,
+    //                        children: getChildren($scope.CatalogueCategory[i].Id)
+    //                    }
 
-                    }
-                    console.info(myObj);
-                },
-                function (errorPL) {
-                })
+    //                }
+    //                console.info(myObj);
+    //            },
+    //            function (errorPL) {
+    //            })
 
-            },
-            function(errorPL){
-            })
+    //        },
+    //        function(errorPL){
+    //        })
            
-        },
-        function (errorPl) {
-            $log.error('failure loading Active hotel catalogue', errorPl);
-        });
-    }
+    //    },
+    //    function (errorPl) {
+    //        $log.error('failure loading Active hotel catalogue', errorPl);
+    //    });
+    //}
 
 
 
-    //Guardar los registros marcados en el check box y guardar registros en las siguientes tablas: ACTIVE_HOTEL_MODULE, ACTIVE_HOTEL_CATEGORY, ACTIVE_HOTEL_PRODUCT
-    $scope.activeProduct = function ()
-    {
-        var i = 0;
-        for (i; i < $scope.sourceItems.length; i++)
-        {
-            var j = 0;
-            for (j; j < $scope.sourceItems[i].children.length; j++) {
-                var k = 0;
-                for (k; k < $scope.sourceItems[i].children[j].children.length; k++) {
-                    if ($scope.sourceItems[i].children[j].children[k]._Selected == true) {
+    ////Guardar los registros marcados en el check box y guardar registros en las siguientes tablas: ACTIVE_HOTEL_MODULE, ACTIVE_HOTEL_CATEGORY, ACTIVE_HOTEL_PRODUCT
+    //$scope.activeProduct = function ()
+    //{
+    //    var i = 0;
+    //    for (i; i < $scope.sourceItems.length; i++)
+    //    {
+    //        var j = 0;
+    //        for (j; j < $scope.sourceItems[i].children.length; j++) {
+    //            var k = 0;
+    //            for (k; k < $scope.sourceItems[i].children[j].children.length; k++) {
+    //                if ($scope.sourceItems[i].children[j].children[k]._Selected == true) {
 
-                        //Procedemos a grabar en ACTIVE_HOTEL_PRODUCT
+    //                    //Procedemos a grabar en ACTIVE_HOTEL_PRODUCT
 
-                        var ActiveHotelProduct = {
-                            IdHotel: $scope.IdHotel,
-                            IdProduct: $scope.sourceItems[i].children[j].children[k].Id,
-                            Active: true
-                        };
-                        var request = $http({
-                            method: "post",
-                            url: serviceBase + "odata/ActiveHotelProduct",
-                            data: ActiveHotelProduct
-                        });
+    //                    var ActiveHotelProduct = {
+    //                        IdHotel: $scope.IdHotel,
+    //                        IdProduct: $scope.sourceItems[i].children[j].children[k].Id,
+    //                        Active: true
+    //                    };
+    //                    var request = $http({
+    //                        method: "post",
+    //                        url: serviceBase + "odata/ActiveHotelProduct",
+    //                        data: ActiveHotelProduct
+    //                    });
 
-                        var post = request;
-                        post.then(function (pl) {
+    //                    var post = request;
+    //                    post.then(function (pl) {
 
-                        }, function (err) {
-                            console.log("Err" + err);
-                        });
-                        console.info($scope.sourceItems[i].children[j].children[k].Id + " Activado");
-                    }
-                }
-            }
-        }
+    //                    }, function (err) {
+    //                        console.log("Err" + err);
+    //                    });
+    //                    console.info($scope.sourceItems[i].children[j].children[k].Id + " Activado");
+    //                }
+    //            }
+    //        }
+    //    }
         
 
-    }
+    //}
     
     $scope.activeCheckbox = function ()
     {

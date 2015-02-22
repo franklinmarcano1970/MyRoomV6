@@ -175,8 +175,11 @@
                       if ($scope.$state.$current.name == "app.page.room_create") {
                           $scope.room.HotelId = $scope.hotel.selected.Id;
                       }
-
-
+                      if ($scope.$state.$current.name == "app.page.product_list") {
+                          hotelService.getProductsActivated($scope.hotel.selected.Id).then(function (response) {
+                              $scope.products = response.data;
+                          });
+                      }
                       hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
                           $scope.IdCatalog = response.data[0].IdCatalogue;
                           $scope.loadHotelTreeCatalog($scope.IdCatalog);

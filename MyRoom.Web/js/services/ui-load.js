@@ -271,6 +271,17 @@ angular.module('ui.load', [])
 
 			return deferred.promise;
 		}
+		
+		function getProductsActivated(hotelId) {
+		    var deferred = $q.defer();
+		    return $http.get(serviceBase + 'api/hotels/products/' + hotelId).success(function (response) {
+		        deferred.resolve(response);
+		    }, function (err) {
+		        deferred.reject(err);
+		    });
+
+		    return deferred.promise;
+		}
 
 		function saveActiveProduct(assignhotelelements) {
 		    var deferred = $q.defer();
@@ -295,7 +306,8 @@ angular.module('ui.load', [])
 			getHotel: getHotel,
 			updateHotel: updateHotel,
 			assignCatalog: assignCatalog,
-			saveActiveProduct: saveActiveProduct
+			saveActiveProduct: saveActiveProduct,
+			getProductsActivated: getProductsActivated
 		};
 	}])
 	.factory('catalogService', ['$http', '$q', function ($http, $q) {
@@ -759,13 +771,13 @@ angular.module('ui.load', [])
 			if (rejection.status === 401) {
 				var authService = $injector.get('authService');
 				var authData = localStorageService.get('authorizationData');
-				
-				if (authData) {
-					if (authData.useRefreshTokens) {
-						$location.path('/refresh');
-						return $q.reject(rejection);
-					}
-				}
+//				debugger
+			//	if (authData) {
+//				    if (authData.useRefreshTokens) {				  
+	//			        $location.path('/access/signin');
+				        //return $q.reject(rejection);
+		//			}
+				//}
 				authService.logOut();
 				$location.path('/access/signin');
 
@@ -879,7 +891,6 @@ angular.module('ui.load', [])
 		authServiceFactory.fillAuthData = _fillAuthData;
 		authServiceFactory.authentication = _authentication;
 		authServiceFactory.refreshToken = _refreshToken;
-
 		//authServiceFactory.obtainAccessToken = _obtainAccessToken;
 		//authServiceFactory.externalAuthData = _externalAuthData;
 		//authServiceFactory.registerExternal = _registerExternal;

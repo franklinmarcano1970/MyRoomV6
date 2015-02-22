@@ -114,7 +114,7 @@ namespace MyRoom.Data.SampleData
                     ApplicationType = ApplicationTypes.JavaScript, 
                     Active = true, 
                     RefreshTokenLifeTime = 7200, 
-                    AllowedOrigin = HttpContext.Current.Request.Url.Host + ":" + HttpContext.Current.Request.Url.Port
+                    AllowedOrigin = "*" // HttpContext.Current.Request.Url.Host + ":" + HttpContext.Current.Request.Url.Port
 
                 },
                 new Client

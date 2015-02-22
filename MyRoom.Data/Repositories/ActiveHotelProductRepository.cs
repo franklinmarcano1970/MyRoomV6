@@ -27,9 +27,15 @@ namespace MyRoom.Data.Repositories
 
         }
 
-        public List<ActiveHotelProduct> GetProductsByHotelId(int hotelId)
+        public List<Product> GetProductsByHotelId(int hotelId)
         {
-            return this.Context.ActiveHotelProduct.Where(e => e.IdHotel == hotelId).ToList();
+            var hotelProducts = this.Context.ActiveHotelProduct.Include("Product").Where(e => e.IdHotel == hotelId).OrderBy(p => p.Product.Name).ToList();
+            List<Product> products = new List<Product>();
+            foreach (ActiveHotelProduct hotelProduct in hotelProducts)
+            {
+                products.Add(hotelProduct.Product);
+            }
+            return products;
         }
 
         public void InsertActiveHotelProduct(List<ActiveHotelProduct> items, int hotelId)
