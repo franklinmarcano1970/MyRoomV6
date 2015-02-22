@@ -25,9 +25,6 @@ namespace MyRoom.Model
         [Column("IdRoomDestination")]
         public int RoomDestinationId { get; set; }
         
-        public string Reply { get; set; }
-
-
         [Required]
         [DefaultValue(0)]
         [Column("IdHotel")]
@@ -36,6 +33,8 @@ namespace MyRoom.Model
         [Column(TypeName = "smalldatetime")]
         public DateTime? NotificationDateTime { get; set; }
 
+        public string Reply { get; set; }
+        
         [Required]
         [DefaultValue(0)]        
         public bool Old { get; set; }

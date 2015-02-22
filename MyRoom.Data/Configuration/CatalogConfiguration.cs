@@ -11,21 +11,17 @@ namespace MyRoom.Data.Configuration
     {
         public CatalogConfiguration()
         {
-            this.HasKey(x => x.CatalogId)           
-            .Property(e => e.Name)
-            .IsUnicode(false);
-
-            this.Property(e => e.Image)
-                .IsUnicode(false);
-
-            this.Property(e => e.Comment)
-                .IsUnicode(false);
-
-
-            this.HasMany(e => e.HotelCatalogues)
+         
+            HasMany(e => e.HotelCatalogues)
                 .WithRequired(e => e.Catalog)
                 .HasForeignKey(e => e.IdCatalogue)
                 .WillCascadeOnDelete(true);
+
+
+            HasMany(e => e.RelUserCatalogue)
+             .WithRequired(e => e.Catalog)
+             .HasForeignKey(e => e.IdCatalogue)
+             .WillCascadeOnDelete(false);
 
         }
     }

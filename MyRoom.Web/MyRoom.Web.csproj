@@ -157,6 +157,7 @@
     <Content Include="js\controllers\catalogues.js" />
     <Content Include="js\controllers\categories.js" />
     <Content Include="js\controllers\chart.js" />
+    <Content Include="js\controllers\refresh.js" />
     <Content Include="js\controllers\rooms.js" />
     <Content Include="js\controllers\departments.js" />
     <Content Include="js\controllers\editor.js" />

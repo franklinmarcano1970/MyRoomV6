@@ -85,13 +85,14 @@ namespace MyRoom.Data.SampleData
                     French = "Introducir Texto",
                     Active = true
                 },
-                TranslationDescription = new Translation
-                {
-                    Spanish = "Introducir Texto",
-                    English = "Introducir Texto",
-                    French = "Introducir Texto",
-                    Active = true
-                }
+                TranslationDescription = null
+                //TranslationDescription = new Translation
+                //{
+                //    Spanish = "Introducir Texto",
+                //    English = "Introducir Texto",
+                //    French = "Introducir Texto",
+                //    Active = true
+                //}
             };
 
             context.Products.Add(product);
@@ -113,7 +114,7 @@ namespace MyRoom.Data.SampleData
                     ApplicationType = ApplicationTypes.JavaScript, 
                     Active = true, 
                     RefreshTokenLifeTime = 7200, 
-                    AllowedOrigin = HttpContext.Current.Request.Url.Host + ":" + HttpContext.Current.Request.Url.Port
+                    AllowedOrigin = "*" // HttpContext.Current.Request.Url.Host + ":" + HttpContext.Current.Request.Url.Port
 
                 },
                 new Client

@@ -37,5 +37,7 @@ namespace MyRoom.Model.ViewModels
         public string Prefix { get; set; }
 
         public string ModuleName { get; set; }
+
+        public int CatalogId { get; set; }
     }
 }

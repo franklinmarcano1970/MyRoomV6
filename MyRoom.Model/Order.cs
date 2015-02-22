@@ -41,11 +41,12 @@ namespace MyRoom.Model
         [StringLength(200)]
         public string Place { get; set; }
 
+        [Required]
         [Column(TypeName="text")]
         public string Comment { get; set; }
-
+    
         [DefaultValue(0)]
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         [DefaultValue(0)]
         public bool Old { get; set; }

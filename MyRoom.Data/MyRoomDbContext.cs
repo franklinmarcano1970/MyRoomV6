@@ -42,7 +42,6 @@ namespace MyRoom.Data
         //   public virtual DbSet<RelCatalogueModule> RelCatalogueModule { get; set; }
         public virtual DbSet<CategoryProduct> CategoryProducts { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
-        public virtual DbSet<RoomType> RoomTypes { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderNotification> OrderNotifications { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
@@ -131,17 +130,17 @@ namespace MyRoom.Data
             //    .HasForeignKey(e => e.IdCatalogue)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Category>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Category>()
+            //    .Property(e => e.Name)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Category>()
-                .Property(e => e.Image)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Category>()
+            //    .Property(e => e.Image)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Category>()
-                .Property(e => e.Comment)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Category>()
+            //    .Property(e => e.Comment)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Category>()
                 .HasMany(e => e.ActiveHotelCategory)
@@ -205,9 +204,9 @@ namespace MyRoom.Data
             //    .HasForeignKey(e => e.IdHotel)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<MenuAccess>()
-                .Property(e => e.MainMenuOption)
-                .IsUnicode(false);
+            //modelBuilder.Entity<MenuAccess>()
+            //    .Property(e => e.MainMenuOption)
+            //    .IsUnicode(false);
 
             //modelBuilder.Entity<MenuAccess>()
             //    .HasMany(e => e.RelUserAccess)
@@ -215,17 +214,17 @@ namespace MyRoom.Data
             //    .HasForeignKey(e => e.IdPermission)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Module>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Module>()
+            //    .Property(e => e.Name)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Module>()
-                .Property(e => e.Image)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Module>()
+            //    .Property(e => e.Image)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Module>()
-                .Property(e => e.Comment)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Module>()
+            //    .Property(e => e.Comment)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Module>()
                 .HasMany(e => e.ActiveHotelModule)
@@ -245,43 +244,39 @@ namespace MyRoom.Data
             //    .HasForeignKey(e => e.IdModule)
             //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Module>()
-                .HasMany(e => e.RelUserModule)
-                .WithRequired(e => e.Module)
-                .HasForeignKey(e => e.IdModule)
-                .WillCascadeOnDelete(false);
+        
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Product>()
+            //    .Property(e => e.Name)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Description)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Product>()
+            //    .Property(e => e.Description)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Price)
-                .HasPrecision(19, 4);
+            //modelBuilder.Entity<Product>()
+            //    .Property(e => e.Price)
+            //    .HasPrecision(19, 4);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Image)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Product>()
+            //    .Property(e => e.Image)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Type)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Product>()
+            //    .Property(e => e.Type)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Name_ENG)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Product>()
+            //    .Property(e => e.Name_ENG)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Description_ENG)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Product>()
+            //    .Property(e => e.Description_ENG)
+            //    .IsUnicode(false);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.UrlScanDocument)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Product>()
+            //    .Property(e => e.UrlScanDocument)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Product>()
                 .HasMany(e => e.ActiveHotelProduct)

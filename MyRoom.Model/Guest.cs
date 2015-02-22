@@ -20,33 +20,26 @@ namespace MyRoom.Model
         public int GuestId { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar")]
         [StringLength(150)]
         public string Name { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar")]       
         [StringLength(150)]
         public string Surname { get; set; }
 
-        [Column(TypeName = "varchar")]
         [StringLength(150)]
         public string Email { get; set; }
 
         [Required]
-        [Column(TypeName = "varchar")]
         [StringLength(25)]
         public string Password { get; set; }
 
         [Required]
-
-        [Column(TypeName = "varchar")]
         [StringLength(25)]
         public string Dni { get; set; }
 
-        [Required]
         [StringLength(20)]
-        [Column("Sexo", TypeName="varchar")]
+        [Column("Sexo")]
         public string Gender { get; set; }
 
         [DefaultValue(0)]        
@@ -66,7 +59,7 @@ namespace MyRoom.Model
         public DateTime? CheckoutDateTime { get; set; }
     
         [StringLength(150)]
-        [Column("Email2", TypeName="varchar")]
+        [Column("Email2")]
         public string OtherEmail { get; set; }
 
         [Required]

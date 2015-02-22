@@ -17,16 +17,27 @@ namespace MyRoom.Data.Repositories
             this.Context = context;
         }
 
-        public void InsertActiveHotelCatalogues(List<ActiveHotelCatalogue> hotelCatalogues)
+        public void InsertActiveHotelCatalogues(List<ActiveHotelCatalogue> hotelCatalogues, int hotelId)
         {
-            this.DeleteActiveHotelCatalogues(hotelCatalogues[0].IdHotel);
-            if (hotelCatalogues[0].IdHotel != 0)
+            this.DeleteActiveHotelCatalogues(hotelId);
+            if (hotelCatalogues.Count > 0)
             {
                 hotelCatalogues.ForEach(delegate(ActiveHotelCatalogue hotelCatalog)
                 {
                     this.Insert(hotelCatalog);
                 });
             }
+        }
+
+        public int GetByCatalogId(int catalogId)
+        {
+            var catalog = (from h in this.Context.HotelCatalogues.Where(e => e.IdCatalogue == catalogId)
+                           select h).FirstOrDefault();
+            if (catalog != null)
+                return catalog.IdHotel;
+            else
+                return 0;
+
         }
 
         public void DeleteActiveHotelCatalogues(int hotelId)

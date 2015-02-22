@@ -33,9 +33,9 @@ namespace MyRoom.API.Controllers
 
 
         // GET: odata/Hotels        
-           public IHttpActionResult GetHotels()
+        public IHttpActionResult GetHotels()
         {
-            return Ok( hotelRepository.GetAll());
+            return Ok(hotelRepository.GetAll());
         }
 
         // GET: api/hotels/5
@@ -50,7 +50,7 @@ namespace MyRoom.API.Controllers
 
         // GET: api/hotels/catalog/5
         [Route("catalog/{key}")]
-        [HttpGet]        
+        [HttpGet]
         public IHttpActionResult GetCatalogActives(int key)
         {
             List<ActiveHotelCatalogue> catalogues = hotelRepository.GetHotelCatalogActives(key);
@@ -65,7 +65,7 @@ namespace MyRoom.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-        
+
             try
             {
                 await hotelRepository.EditAsync(hotel);
@@ -97,7 +97,7 @@ namespace MyRoom.API.Controllers
 
             return Ok(hotels);
         }
-        
+
         // POST: api/hotels/catalogues
         [Route("catalogues")]
         [HttpPost]
@@ -112,7 +112,7 @@ namespace MyRoom.API.Controllers
 
             List<ActiveHotelCatalogue> hotelCatalogues = ActiveHotelCatalogMapper.CreateModel(hotelsCataloguesViewModel);
 
-            hotelCatalogRepo.InsertActiveHotelCatalogues(hotelCatalogues);
+            hotelCatalogRepo.InsertActiveHotelCatalogues(hotelCatalogues, hotelsCataloguesViewModel.HotelId);
 
             return Ok("Catalogues Assigned to hotels");
         }
@@ -137,51 +137,29 @@ namespace MyRoom.API.Controllers
             try
             {
                 activeHotelProductRepo.InsertActiveHotelProduct(products, assignHotelCatalogViewModel.HotelId);
-                activeHotelCategoryRepo.InsertActiveHotelCategory(categories, assignHotelCatalogViewModel.HotelId);
-                activeHotelModuleRepo.InsertActiveHotelModule(modules, assignHotelCatalogViewModel.HotelId);
+                activeHotelCategoryRepo.InsertActiveHotelCategory(categories, assignHotelCatalogViewModel.HotelId, true);
+                activeHotelModuleRepo.InsertActiveHotelModule(modules, assignHotelCatalogViewModel.HotelId, true);
+                return Ok("Elements Assigned to hotels");
             }
-            catch { }
-            return Ok("Elements Assigned to hotels");
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
 
-        // PATCH: odata/Hotels(5)
-        //[AcceptVerbs("PATCH", "MERGE")]
-        //public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<Hotel> patch)
-        //{
-        //    Validate(patch.GetEntity());
+        [Route("products/{hotelId}")]
+        [HttpGet]
+        // GET: api/hotels/products/1
+        public IHttpActionResult GetProductsByHotel(int hotelId)
+        {
+            ActiveHotelProductRepository hotelProducts = new ActiveHotelProductRepository(new MyRoomDbContext());
+            List<Product> productsActived = hotelProducts.GetProductsByHotelId(hotelId) ;
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+            return Ok(productsActived);
 
-        //    Hotel hotels = await db.Hotels.FindAsync(key);
-        //    if (hotels == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    patch.Patch(hotels);
-
-        //    try
-        //    {
-        //        await db.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!HotelsExists(key))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return Updated(hotels);
-        //}
+        }
 
         // DELETE: api/hotels/5
         [Route("{key}")]

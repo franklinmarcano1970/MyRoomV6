@@ -21,7 +21,7 @@ namespace MyRoom.API.Controllers
             _repo = new AccountRepository(new MyRoomDbContext());
         }
 
-        [Authorize(Users="Admin")]
+        //[Authorize(Users="Admin")]
         [Route("")]
         public IHttpActionResult Get()
         {

@@ -25,10 +25,7 @@ namespace MyRoom.Model
         [Column("Id")]
         public int DepartmentId { get; set; }
 
-        [Required]
-        [StringLength(150)]
-        public string Name { get; set; }
-
+        [DefaultValue(1)]
         public int IdTranslationName { get; set; }
 
         [StringLength(150)]
@@ -45,11 +42,15 @@ namespace MyRoom.Model
         [Required]
         [DefaultValue(0)]
         [Column("IdHotel")]
-        public int? HotelId { get; set; }
+        public int HotelId { get; set; }
 
         [Required]
         [DefaultValue(0)]
         public bool IsExternal { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string Name { get; set; }
 
         public virtual Translation Translation { get; set; }
 

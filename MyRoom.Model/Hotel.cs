@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
@@ -18,6 +19,7 @@ namespace MyRoom.Model
             //ActiveHotelModule = new HashSet<ActiveHotelModule>();
             //ActiveHotelProduct = new HashSet<ActiveHotelProduct>();
          //   Users = new HashSet<ApplicationUser>();
+            Rooms = new HashSet<Room>();
         }       
 
         [Key]
@@ -28,10 +30,12 @@ namespace MyRoom.Model
         [StringLength(150)]
         public string Name { get; set; }
 
+        [DefaultValue(1)]
         public int IdTranslationName { get; set; }
 
         public string Image { get; set; }
 
+        [DefaultValue(true)]        
         public bool Active { get; set; }
 
         public string UrlScanMap { get; set; }
@@ -54,10 +58,12 @@ namespace MyRoom.Model
         public virtual ICollection<ActiveHotelProduct> ActiveHotelProducts { get; set; }
 
         public virtual ICollection<UserHotelPermission> UserHotelPermissions { get; set; }
-
-      
+   
         public virtual Translation Translation { get; set; }
+
+        public virtual ICollection<Room> Rooms { get; set; }
         
+
         //public virtual Department Department { get; set; }
 
         //public virtual ICollection<ApplicationUser> Users { get; set; }

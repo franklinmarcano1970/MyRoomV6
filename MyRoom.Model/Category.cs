@@ -31,7 +31,8 @@ namespace MyRoom.Model
         [Required]
         [StringLength(150)]
         public string Name { get; set; }
-
+                       
+        [DefaultValue(1)]
         public int IdTranslationName { get; set; }
 
         public string Image { get; set; }
@@ -44,6 +45,8 @@ namespace MyRoom.Model
 
         public bool IsFinal { get; set; }
 
+        [Required]
+        [DefaultValue(true)]
         public bool Active { get; set; }
 
         public string Comment { get; set; }
@@ -52,6 +55,7 @@ namespace MyRoom.Model
 
         public bool? Pending { get; set; }
 
+        [StringLength(10)]
         public string Prefix { get; set; }
 
         [JsonIgnore]

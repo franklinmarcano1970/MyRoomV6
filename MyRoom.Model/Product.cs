@@ -29,13 +29,14 @@ namespace MyRoom.Model
         [StringLength(150)]
         public string Name { get; set; }
 
+        [Required]
         [DefaultValue(1)]
         public int IdTranslationName { get; set; }
 
         [Column(TypeName = "text")]
         public string Description { get; set; }
-
-        [DefaultValue(1)]
+           
+  
         public int IdTranslationDescription { get; set; }
 
         [Column(TypeName = "money")]
@@ -58,12 +59,6 @@ namespace MyRoom.Model
 
 
         public int? IdCategoryCrossSelling { get; set; }
-
-        [StringLength(150)]
-        public string Name_ENG { get; set; }
-
-        [Column(TypeName = "text")]
-        public string Description_ENG { get; set; }
 
         public string UrlScanDocument { get; set; }
 

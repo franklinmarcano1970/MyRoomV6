@@ -18,9 +18,13 @@ namespace MyRoom.Data.Repositories
             this.Context = context;
         }
 
-        public void InsertActiveHotelModule(List<ActiveHotelModule> items, int hotelId)
+        public void InsertActiveHotelModule(List<ActiveHotelModule> items, int hotelId, bool deleteActiveModules=false)
         {
-            this.DeleteActiveHotelModule(hotelId);
+            if (deleteActiveModules)
+            { 
+                this.DeleteActiveHotelModule(hotelId);
+            } 
+            
             if (items.Count > 0)
             {
                 items.ForEach(delegate(ActiveHotelModule module)

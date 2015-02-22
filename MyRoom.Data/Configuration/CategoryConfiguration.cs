@@ -27,6 +27,11 @@ namespace MyRoom.Data.Configuration
                .HasForeignKey(e => e.IdCategory)
                .WillCascadeOnDelete(true);
 
+            HasMany(e => e.RelUserCategory)
+            .WithRequired(e => e.Category)
+            .HasForeignKey(e => e.IdCategory)
+            .WillCascadeOnDelete(false);
+
 
         }
     }
