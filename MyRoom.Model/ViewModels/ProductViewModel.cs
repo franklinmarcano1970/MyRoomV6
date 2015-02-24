@@ -45,6 +45,8 @@ namespace MyRoom.Model.ViewModels
 
         public string LanguageDesc8 { get; set; }
 
+        public int CatalogId { get; set; }
+
         public ICollection<RelatedProduct> RelatedProducts { get; set; }
 
     }

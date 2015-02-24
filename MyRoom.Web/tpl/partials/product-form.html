@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-6 column">
                             <p class="m-t"><strong>Product Ìmage</strong></p>
-                            <img id="imageProd" ng-src="{{rootFile + product.Image}}" ng-model="product.Image"  width="100" height="100" />
+                            <img id="imageProd" ng-src="{{product.Image}}" ng-model="product.Image"  width="100" height="100" />
                             <input type="file" multiple ng-file-select="" nv-file-select="" uploader="uploader" class="filestyle" data-input="false" data-buttonname="btn-success">
                         </div>
                     </div>
@@ -38,10 +38,9 @@
                         <div class="col-md-6 column">
                             <p class="m-t">Price</p>
                             <div class="input-group m-b">
-                                <span class="input-group-addon">$</span>
-                                <input name="prodPrice" oninput="maxLengthCheck(this)" type="number" maxlength="9" min="1" max="100000000" class="form-control" ng-model="product.Price" required>
-                                <span class="input-group-addon">.00</span>
+                                <input ui-jq="TouchSpin" type="text" value="0"  ng-model="product.Price"  class="form-control" data-min="1" data-max="100000000" data-step="0.1" data-decimals="2" data-prefix="$" style="display: block;">
                             </div>
+
                         </div>
                     </div>
                     <div class="row clearfix">
@@ -68,7 +67,7 @@
                         <div class="col-md-6 column">
                             <div style="margin-top: 2em!important;">
                                 <label class="m-t i-checks">
-                                    <input type="checkbox" ng-checked="product.Premium" ng-model="product.Premium" ng-init="product.Premium = true" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Premium?
+                                    <input type="checkbox" ng-checked="product.Premium" ng-model="product.Premium" class="ng-valid ng-dirty ng-valid-parse ng-touched"><i></i> Is Premium?
                                 </label>
                             </div>
                         </div>
@@ -119,22 +118,22 @@
                      <div class="row clearfix">
                           <div class="col-md-12 column">
                             <p class="m-t">Spanish:</p>
-                            <input type="text"  placeholder="Enter a Spanish Translation Description" class="form-control" ng-model="product.TranslationDesc.Spanish" required />
+                            <textarea rows="4" cols="80" placeholder="Enter a Spanish Translation Description" class="form-control" ng-model="product.TranslationDesc.Spanish" required />
                             <p class="m-t">English:</p>
-                            <input type="text" placeholder="Enter a English Translation Description"  class="form-control" ng-model="product.TranslationDesc.English" required />
+                            <textarea rows="4" cols="80" placeholder="Enter a English Translation Description"  class="form-control" ng-model="product.TranslationDesc.English" required />
                             <p class="m-t">French:</p>
-                            <input type="text" placeholder="Enter a French Translation Description" class="form-control" ng-model="product.TranslationDesc.French" />
+                            <textarea rows="4" cols="80" placeholder="Enter a French Translation Description" class="form-control" ng-model="product.TranslationDesc.French" />
                             <p class="m-t">German:</p>
-                            <input type="text" placeholder="Enter a German Translation Description" class="form-control" ng-model="product.TranslationDesc.German" />
+                            <textarea rows="4" cols="80" placeholder="Enter a German Translation Description" class="form-control" ng-model="product.TranslationDesc.German" />
 
                             <p class="m-t">Language 5:</p>
-                            <input type="text" placeholder="Enter Another Translation Description" class="form-control" ng-model="product.TranslationDesc.Language5" />
+                            <textarea rows="4" cols="80" placeholder="Enter Another Translation Description" class="form-control" ng-model="product.TranslationDesc.Language5" />
                             <p class="m-t">Language 6:</p>
-                            <input type="text" placeholder="Enter Another Translation Description" class="form-control" ng-model="product.TranslationDesc.Language6" />
+                            <textarea rows="4" cols="80" placeholder="Enter Another Translation Description" class="form-control" ng-model="product.TranslationDesc.Language6" />
                             <p class="m-t">Language 7:</p>
-                            <input type="text" placeholder="Enter Another Translation Description" class="form-control" ng-model="product.TranslationDesc.Language7" />
+                            <textarea rows="4" cols="80" placeholder="Enter Another Translation Description" class="form-control" ng-model="product.TranslationDesc.Language7" />
                             <p class="m-t">Language 8:</p>
-                            <input type="text" placeholder="Enter Another Translation Description" class="form-control" ng-model="product.TranslationDesc.Language8" />
+                            <textarea rows="4" cols="80" placeholder="Enter Another Translation Description" class="form-control" ng-model="product.TranslationDesc.Language8" />
                          </div>
                     </div>
                     <div class="m-t m-b">

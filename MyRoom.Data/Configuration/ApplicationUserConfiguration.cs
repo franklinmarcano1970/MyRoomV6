@@ -11,15 +11,36 @@ namespace MyRoom.Data.Configuration
     {
         public ApplicationUserConfiguration()
         {
-           this.HasMany(e => e.Permissions)
+           HasMany(e => e.Permissions)
            .WithRequired(e => e.User)
            .HasForeignKey(e => e.IdUser)
            .WillCascadeOnDelete(true);
 
-           this.HasMany(e => e.UserHotelPermissions)
+           HasMany(e => e.UserHotelPermissions)
               .WithRequired(e => e.User)
               .HasForeignKey(e => e.IdUser)
               .WillCascadeOnDelete(true);
+
+           HasMany(e => e.RelUserCatalogue)
+            .WithRequired(e => e.User)
+            .HasForeignKey(e => e.IdUser)
+            .WillCascadeOnDelete(false);
+
+           HasMany(e => e.RelUserCategory)
+          .WithRequired(e => e.User)
+          .HasForeignKey(e => e.IdUser)
+          .WillCascadeOnDelete(false);
+
+           HasMany(e => e.RelUserModule)
+            .WithRequired(e => e.User)
+            .HasForeignKey(e => e.IdUser)
+            .WillCascadeOnDelete(false);
+
+           HasMany(e => e.RelUserProduct)
+            .WithRequired(e => e.User)
+            .HasForeignKey(e => e.IdUser)
+            .WillCascadeOnDelete(false);
+
         }
     }
 }

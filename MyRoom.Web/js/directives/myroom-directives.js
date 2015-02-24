@@ -87,7 +87,6 @@
                   }
 
                   $scope.person = {};
-                  debugger
                   accountService.getAll().then(function (response) {
                       $scope.person = response.data;
 
@@ -180,10 +179,16 @@
                               $scope.products = response.data;
                           });
                       }
-                      hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
-                          $scope.IdCatalog = response.data[0].IdCatalogue;
-                          $scope.loadHotelTreeCatalog($scope.IdCatalog);
-                      });
+                      
+                      if ($scope.hotel.selected != undefined) {
+                          hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
+                              debugger
+                              $scope.IdCatalog = response.data[0].IdCatalogue;
+                              if ($scope.$state.$current.name != "app.page.product_list")
+                                  $scope.loadHotelTreeCatalog($scope.IdCatalog);
+                          });
+                      }
+
                   }
                   hotelService.getAll().then(function (response) {
                       $scope.hotel = response.data;

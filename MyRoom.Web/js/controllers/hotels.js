@@ -85,6 +85,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
     var uploaderUrl = $scope.uploaderUrl = new FileUploader({
         url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=1-0-0'
     });
+
     $scope.hotel = {
         Name: '',
         UTC: '',
@@ -171,6 +172,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
     $scope.my_tree = tree = {};
     $scope.my_data = [{ }]
     treedata_avm = [];
+
     $scope.saveHotel = function () {
         var file = $scope.uploader;
         

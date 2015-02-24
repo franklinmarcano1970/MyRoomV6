@@ -81,10 +81,34 @@ namespace MyRoom.Data
 
             modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
 
+            var user = modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
+            user.HasMany(u => u.Roles).WithRequired().HasForeignKey(ur => ur.UserId);
+            user.HasMany(u => u.Claims).WithRequired().HasForeignKey(uc => uc.UserId);
+            user.HasMany(u => u.Logins).WithRequired().HasForeignKey(ul => ul.UserId);
+            user.Property(u => u.UserName).IsRequired();
 
-            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id).Property(p => p.Name).IsRequired();
-            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
-            modelBuilder.Entity<IdentityUserLogin>().HasKey(u => new { u.UserId, u.LoginProvider, u.ProviderKey });
+            modelBuilder.Entity<IdentityUserRole>()
+                .HasKey(r => new { r.UserId, r.RoleId })
+                .ToTable("AspNetUserRoles");
+
+            modelBuilder.Entity<IdentityUserLogin>()
+                .HasKey(l => new { l.UserId, l.LoginProvider, l.ProviderKey })
+                .ToTable("AspNetUserLogins");
+
+            modelBuilder.Entity<IdentityUserClaim>()
+                .ToTable("AspNetUserClaims");
+
+            var role = modelBuilder.Entity<IdentityRole>()
+                .ToTable("AspNetRoles");
+            role.Property(r => r.Name).IsRequired();
+            role.HasMany(r => r.Users).WithRequired().HasForeignKey(ur => ur.RoleId);
+
+
+
+
+            //modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id).Property(p => p.Name).IsRequired();
+            //modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
+            //modelBuilder.Entity<IdentityUserLogin>().HasKey(u => new { u.UserId, u.LoginProvider, u.ProviderKey });
 
             //modelBuilder.Entity<User>()
             //    .HasMany(e => e.RelUserCatalogue)

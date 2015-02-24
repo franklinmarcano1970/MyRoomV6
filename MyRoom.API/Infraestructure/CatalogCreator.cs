@@ -107,12 +107,22 @@ namespace MyRoom.API.Infraestructure
                     foreach (CategoryProduct cp in p.CategoryProducts)
                     {
                         Product product = productRepo.GetById(cp.IdProduct);
-                        category.Children.Add(new ProductCompositeViewModel()
+
+                        ProductCompositeViewModel productVm =  new ProductCompositeViewModel()
                         {
                             ProductId = product.Id,
                             text = product.Name,
                             ActiveCheckbox = true,
+                        };
+
+                        product.ActiveHotelProduct.ForEach(delegate(ActiveHotelProduct activeProduct)
+                        {
+                            if (activeProduct.IdProduct == product.Id)
+                                productVm.IsChecked = true;
+
                         });
+
+                        category.Children.Add(productVm);
                     }
 
                     moduleVm.Children.Add(category);

@@ -15,8 +15,8 @@
                     <p class="m-t">Email</p>
                     <input rows="4" cols="68" type="email" name="Email" placeholder="Please enter a email" class="form-control" ng-model="account.Email" required >
 
-                    <p class="m-t">Password</p>
-                    <input rows="4" cols="68" type="password" name="Password" placeholder="Please enter a password" class="form-control" ng-model="account.Password" required  ng-required="state.current.name=='app.page.user_create'">
+                    <p class="m-t">Password (min. 6 characters, max. 10 characters)</p>
+                    <input ng-change="" type="password" name="Password" placeholder="Please enter a password" class="form-control" ng-model="account.Password" required  ng-pattern="/^[a-zA-Z0-9]{6,10}$/"  ng-required="state.current.name=='app.page.user_create'">
                     
                     <p class="m-t">Confirm Password</p>
                    <!-- <input rows="4" cols="68" type="password" name="userConnfirmPassword" placeholder="Please enter a password" class="form-control" ng-model="ConfirmPassword" ui-validate=" '$value==userPassword' " ui-validate-watch=" 'userPassword'" required ng-change=" step1.userPassword.$valid ? (steps.percent=30) : (steps.percent=20)">-->

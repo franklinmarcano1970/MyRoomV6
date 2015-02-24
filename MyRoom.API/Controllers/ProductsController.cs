@@ -102,17 +102,22 @@ namespace MyRoom.API.Controllers
                 productRepository.Insert(product);
 
                 product.RelatedProducts = new List<RelatedProduct>();
-
                 RelatedProductRepository relProdRepo = new RelatedProductRepository(new MyRoomDbContext());
-
                 foreach (RelatedProduct rp in productViewModel.RelatedProducts)
                 {
                     rp.IdProduct = product.Id;
                 }
-
                 relProdRepo.InsertRelatedProducts(productViewModel.RelatedProducts.ToList());
 
-                return Ok();
+                //Inserta productos a ActiveHotelProduct
+                ActiveHotelCatalogRepository hotelActiveRepo = new ActiveHotelCatalogRepository(relProdRepo.Context);
+                int hotelId = hotelActiveRepo.GetByCatalogId(productViewModel.CatalogId);                
+                if (hotelId > 0)
+                {
+                    ActiveHotelProductRepository productHotelActiveRepo = new ActiveHotelProductRepository(relProdRepo.Context);
+                    productHotelActiveRepo.Insert(new ActiveHotelProduct() { IdHotel = hotelId, IdProduct = product.Id, Active = true });
+                }
+                return Ok("Product Inserted");
             }
             catch (Exception ex)
             {

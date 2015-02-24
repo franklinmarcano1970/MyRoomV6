@@ -46,6 +46,12 @@ namespace MyRoom.Model
 
         public virtual ICollection<Permission> Permissions { get; set; }
         public virtual ICollection<UserHotelPermission> UserHotelPermissions { get; set; }
+        public virtual ICollection<RelUserCatalogue> RelUserCatalogue { get; set; }
+        public virtual ICollection<RelUserCategory> RelUserCategory { get; set; }
+        public virtual ICollection<RelUserModule> RelUserModule { get; set; }
+        public virtual ICollection<RelUserProduct> RelUserProduct { get; set; }
+                                                                  
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

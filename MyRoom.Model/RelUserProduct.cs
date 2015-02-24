@@ -11,7 +11,7 @@ namespace MyRoom.Model
     {
         public int Id { get; set; }
 
-        public int IdUser { get; set; }
+        public string IdUser { get; set; }
 
         public int IdProduct { get; set; }
 
@@ -19,7 +19,7 @@ namespace MyRoom.Model
 
         public bool? ReadWrite { get; set; }
 
-        //public User User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public Product Product { get; set; }
     }

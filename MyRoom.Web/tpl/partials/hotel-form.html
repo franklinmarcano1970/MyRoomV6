@@ -10,9 +10,8 @@
                     <p>Name:</p>
                     <input type="text" name="name" class="form-control" ng-model="hotel.Name" required ng-change="step1.name.$valid ? (steps.percent=30) : (steps.percent=20)">
                     
-                    <p class="m-t">UTC:</p>
-                    <input type="text" name="utc" class="form-control" ng-model="hotel.UTC" maxlength="3" />
-
+                    <p class="m-t">UTC:</p>                    
+                    <input ui-jq="TouchSpin" type="text" name="utc" ng-model="hotel.UTC"  maxlength="3" class="form-control" data-min="-24" data-max="24" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
                     <p class="m-t">Content Iframe Survey:</p>
                     <input type="text" name="ContentIframeSurvey" class="form-control" ng-model="hotel.ContentIframeSurvey" />
 

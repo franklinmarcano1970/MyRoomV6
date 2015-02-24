@@ -20,7 +20,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         Description: '',
         Price: '',
         Active: true,
-        Image: 'no-image.jpg',
+        Image: '/img/no-image.jpg',
         Order: '',
         Translation: {
             Spanish: '',
@@ -76,8 +76,8 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
 
     if ($state.current.name == "app.page.product_edit" && $state.params['id']) {
         var param = $state.params['id'].split("-");
-        var id = param[0];
-        var idCatalog = param[1];
+        var id = param[1];
+        var idCatalog = param[0];
         $scope.IdCatalog = idCatalog;
         productService.getProduct(id).then(function (response) {
             $scope.product = JSON.parse(response.data);
@@ -135,7 +135,11 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         });
         var vm = {};
         vm.Name = entity.Name;
-        vm.Image = "/images/" + $state.params["id"] + "/products/" + entity.Image;
+        if (entity.Image != "/img/no-image.jpg")
+            vm.Image = "/images/" + $state.params["id"] + "/products/" + entity.Image;
+        else
+            vm.Image = entity.Image;
+
         vm.Description = entity.Description;
         vm.Price = entity.Price;
         vm.ProductActive = entity.ProductActive;
@@ -165,6 +169,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         vm.LanguageDesc7 = entity.TranslationDesc.Language7;
         vm.LanguageDesc8 = entity.TranslationDesc.Language8;
 
+        vm.CatalogId = $state.params.id;
 
 
         vm.RelatedProducts = $scope.product.RelatedProducts;
@@ -173,7 +178,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
     }
 
     $scope.saveProduct = function () {
-        
+        debugger
         var productVm = createProductVM($scope.product);
         if ($state.current.name == "app.page.product_create" && $state.params['id']) {
             $scope.IdCatalog = $state.params['id'];
@@ -185,18 +190,20 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
                 $timeout(function () {
                     $scope.pop();
                 }, 1000);
-                //Para subir la imagen
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-' + $scope.IdCatalog + '-0';
-                uploader.uploadAll();
+                if ($scope.fileItem !== undefined) {
+                    //Para subir la imagen
+                    $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-' + $scope.IdCatalog + '-0';
+                    uploader.uploadAll();
+                }
                 $scope.product = {
                     Active: true,
-                    Image: 'no-image.jpg',
+                    Image: '/img/no-image.jpg',
                     Translation: {
                         Active: true
                     },
                     RelatedProducts: []
                 };
-                //$state.go('app.page.product_list');
+                $state.go('app.page.product_list');
                 // $scope.message = "The Product has been saved";
             },
             function (err) {
@@ -290,7 +297,7 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
                 return;
             }
             $scope.currentProdId = id;
-            $state.go('app.page.product_edit', { "id": $scope.IdCatalog });
+            $state.go('app.page.product_edit', { "id": $scope.IdCatalog + '-' + id });
         }
 
         $scope.selectProduct = function (id) {
