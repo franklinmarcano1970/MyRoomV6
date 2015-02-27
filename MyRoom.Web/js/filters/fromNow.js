@@ -36,43 +36,50 @@ app.filter("capitalize", function () {
 //    }
 //})
 
-app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter, res) {
+app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter) {
     var itemParent;
     return function (tree) {
         var id = 0;
         if (tree.children !== undefined) {
             if (tree.type == 'module') id = tree.ModuleId;
             if (tree.type == 'category') id = tree.CategoryId;
+            
             if (tree.type == 'product') id = tree.ProductId;
+
+            
             itemParent = tree;
             tree = tree.children;
+
+
         }
         angular.forEach(tree, function (item) {
-           // var copy = angular.fromJson(angular.toJson(item))          
-            if (item.type == 'module')   id = item.ModuleId;
-            if (item.type == 'category') {
-                id = item.CategoryId;
-            }
+            // var copy = angular.fromJson(angular.toJson(item))   
+            if (item.type !== undefined) {
+                if (item.type == 'module') id = item.ModuleId;
+                if (item.type == 'category') {
+                    id = item.CategoryId;
+                }
 
-            if (item.type == 'product') id = item.ProductId;
-            if (itemParent.IsChecked) {
-                item.IsChecked = true;
+                if (item.type == 'product') id = item.ProductId;
+                if (itemParent.IsChecked) {
+                    item.IsChecked = true;
+                }
+                else {
+                    item.IsChecked = false;
+                }
+
+                itemParent = item;
+                if (item.children != undefined || item.children != null)
+                    $filter('ItemsCheckedTreeNode')(item.children)
+
             }
-            else {
-                item.IsChecked = false;
-            }
-            itemParent = item;          
-            $filter('ItemsCheckedTreeNode')(item.children, res)
         });
-        return res;
+       
     }
 }])
 app.filter("GetCheckedTreeNode", ['$filter', function ($filter, res) {
     var res = [];
-    if (res === undefined) {
-        res = [];
-    }
-    return function (tree) {
+    return function (tree, res) {
         var id = 0;
         angular.forEach(tree, function (item) {
             // var copy = angular.fromJson(angular.toJson(item))   

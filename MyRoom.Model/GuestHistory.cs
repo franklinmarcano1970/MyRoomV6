@@ -20,16 +20,16 @@ namespace MyRoom.Model
         public int GuestHistoryId { get; set; }
 
         [Column("IdGuest")]
-        [DefaultValue(0)]
+        [DefaultValue(1)]
         public int GuestId { get; set; }
 
 
         [Column("IdHotel")]
-        [DefaultValue(0)]
+        [DefaultValue(1)]
         public int HotelId { get; set; }
 
         [Column("IdRoom")]
-        [DefaultValue(0)]
+        [DefaultValue(1)]
         public int RoomId { get; set; }
 
         [Column(TypeName = "smalldatetime")]

@@ -68,7 +68,7 @@
                                         <td>{{ catalog.Name }}</td>
                                         <td>
                                             <label class="i-checks m-b-none">
-                                                <input type="checkbox" ng-model="catalog.checked" ng-checked="catalog.checked" name="post[]" value="{{ catalog.Id }}"><i></i></label></td>
+                                            <input type="checkbox" ng-model="catalog.checked" ng-click="catalogSelect(catalog)" ng-checked="catalog.checked" name="post[]" value="{{ catalog.Id }}"><i></i></label></td>
                                     </tr>
                                 </tbody>
                             </table>

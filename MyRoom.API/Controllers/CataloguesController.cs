@@ -12,6 +12,8 @@ using System.Configuration;
 using System.Diagnostics;
 using MyRoom.ViewModels;
 using MyRoom.API.Infraestructure;
+using System.Collections.Generic;
+using MyRoom.Data.Mappers;
 
 namespace MyRoom.API.Controllers
 {
@@ -102,6 +104,37 @@ namespace MyRoom.API.Controllers
                 catalogRepository.Edit(catalog);
                 //this.CreateStructureDirectories(catalogid);
                 return Ok(catalogid);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        // POST: api/catalogues/user/1
+        [Route("user")]
+        [HttpPost]
+        public IHttpActionResult PostCataloguesUser(UserCatalogViewModel userCatalogVm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                UserCatalogRepository relUserCatalogRepo = new UserCatalogRepository(new MyRoomDbContext());
+                RelUserCatalogue relUserCatalog  = UserCatalogMapper.CreateModel(userCatalogVm);
+                relUserCatalogRepo.InsertUserCatalog(userCatalogVm, false);
+
+                //catalogRepository.Insert(catalog);
+                //int catalogid = catalog.CatalogId;
+                //catalog.Image = string.Format("{0}/{1}/{2}", ConfigurationManager.AppSettings["UploadImages"], catalogid, catalog.Image);
+                //catalogRepository.Edit(catalog);
+                //this.CreateStructureDirectories(catalogid);
+                return Ok("Permission Assigned");
 
             }
             catch (Exception ex)

@@ -2,51 +2,40 @@
     $scope.saveUserCatalog = function () {
         var i = 0;
         //guardar el catalgo del user seleccionados
-        var ItemsCheckedTreeNode = $filter('ItemsCheckedTreeNode');
         $scope.pop = function () {
             toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
         };
-
-        $scope.toaster = {
-            type: 'success',
-            title: 'Success',
-            text: 'The User Catalog has been saved'
-        };
-        var itemsChecked = ItemsCheckedTreeNode($scope.items);
-
-        $scope.pop();
-
-        //$scope.RelUserCatalog = { IdUser: $scope.IdUser, IdCatalogue: $scope.IdCatalog, ReadOnly: true, ReadWrite: true };
-        //catalogService.saveCatalogUser($scope.RelUserCatalog).then(function (response) {
-        //    angular.forEach($scope.items, function (value, key) {
-        //        if (value.type == 'module') {
-        //            if (value.active == true) {
-        //                //graba los modulos
-        //                $scope.RelUserModule = { IdUser: $scope.IdUser, IdModule: value.Id, ReadOnly: true, ReadWrite: true };
-        //                catalogService.saveModuleUser($scope.RelUserModule).then(function (response) {
-        //                }, function (err) {
-        //                    $scope.error_description = err.error_description;
-        //                });
-        //            }
-        //            angular.forEach(value.children, function (valueCategory, keyCategory) {
-        //                if (valueCategory.active == true) {
-        //                    //guardar las categorias
-        //                    $scope.RelUserCategory = { IdUser: $scope.IdUser, IdCategory: valueCategory.Id, ReadOnly: true, ReadWrite: true };
-        //                    catalogService.saveCategoryUser($scope.RelUserCategory).then(function (response) {
-        //                    }, function (err) {
-        //                        $scope.error_description = err.error_description;
-        //                    });
-        //                }
-        //            });
-        //        }
-        //    });
-        //},
-        //function (err) {
-        //    $scope.error_description = err.error_description;
-        //});
+       
+        createCatalogUserViewModel();
+      
+        catalogService.saveCatalogUser($scope.catalogUserVm).then(function (response) {
+            $scope.toaster = { type: 'success', title: 'Success', text: 'The User Catalog has been saved' };
+        },
+        function (err) {
+            $scope.toaster = {
+                type: 'error', title: 'Error', text: err.error_description
+            };
+        });
         
 
-        //$scope.pop();
+        $scope.pop();
+    }
+
+    function createCatalogUserViewModel()
+    {
+       
+        $scope.catalogUserVm = {
+            UserId: $scope.IdUser, CatalogId: $scope.IdCatalog, Elements: createCatalog()
+        }
+    }
+
+
+    function createCatalog()
+    {
+        var GetCheckedTreeNode = $filter('GetCheckedTreeNode');
+        var items = GetCheckedTreeNode($scope.items, []);
+        
+        return items;
     }
   //  var apple_selected, tree, treedata_avm, treedata_geography;
   //  $scope.IsNewRecord = 1;

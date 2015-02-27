@@ -8,7 +8,7 @@ using System.Data.Entity.Spatial;
 
 namespace MyRoom.Model
 {
-    [Table("CHECKOUT_NOTIFICATION")]
+    [Table("CHECKOUT_NOTIFICATIONS")]
     [JsonObject(IsReference = true)]
     public partial class CheckoutNotification
     {

@@ -123,6 +123,7 @@
     <Compile Include="Mappers\CategoryMapper.cs" />
     <Compile Include="Mappers\CategoryProductMapper.cs" />
     <Compile Include="Mappers\ActiveHotelCatalogMapper.cs" />
+    <Compile Include="Mappers\RelUserCatalogMapper.cs" />
     <Compile Include="Mappers\ProductMapper.cs" />
     <Compile Include="MyRoomDbContext.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="Repositories\ActiveHotelProductRepository.cs" />
     <Compile Include="Repositories\ActiveHotelCategoryRepository.cs" />
     <Compile Include="Repositories\ActiveHotelModuleRepository.cs" />
+    <Compile Include="Repositories\UserCatalogRepository.cs" />
     <Compile Include="Repositories\RoomRepository.cs" />
     <Compile Include="Repositories\DepartmentRepository.cs" />
     <Compile Include="Repositories\RelatedProductRepository.cs" />

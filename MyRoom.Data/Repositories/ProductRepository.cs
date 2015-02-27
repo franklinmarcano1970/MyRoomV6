@@ -33,7 +33,7 @@ namespace MyRoom.Data.Repositories
 
         public string GetProductById(int id)
         {
-            var product = (from c in this.Context.Products.Include("Translation")
+            var product = (from c in this.Context.Products.Include("Translation").Include("TranslationDescription")
                            where c.Id == id
                            select c).First();
 

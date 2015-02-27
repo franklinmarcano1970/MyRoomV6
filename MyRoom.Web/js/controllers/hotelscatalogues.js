@@ -93,6 +93,15 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
             return vm;
         }
 
+        $scope.catalogSelect = function(currentCatalog)
+        {
+            angular.forEach($scope.catalogues, function (item) {
+                if (item != currentCatalog) {
+                    item.checked = false;
+                }
+            });
+        }
+
         $scope.getAll();
   
     });

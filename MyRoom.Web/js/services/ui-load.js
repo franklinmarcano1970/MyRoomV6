@@ -363,9 +363,9 @@ angular.module('ui.load', [])
 
 				 return deferred.promise;
 			 };
-			 function saveCatalogUser(relUserCatalogue) {
+			 function saveCatalogUser(catalogUserVm) {
 				 var deferred = $q.defer();
-				 return $http.post(serviceBase + 'odata/RelUserCatalogues', relUserCatalogue).success(function (response) {
+				 return $http.post(serviceBase + 'api/catalogues/user', catalogUserVm).success(function (response) {
 					 deferred.resolve(response);
 				 }, function (err) {
 					 deferred.reject(err);

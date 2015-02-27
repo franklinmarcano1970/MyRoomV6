@@ -13,7 +13,7 @@ namespace MyRoom.Data
     {
         static MyRoomDbContext()
         {
-            Database.SetInitializer(new MyRoomDatabaseInitializer());
+          //  Database.SetInitializer(new MyRoomDatabaseInitializer());
         }
 
         public MyRoomDbContext()
@@ -81,7 +81,7 @@ namespace MyRoom.Data
 
             modelBuilder.Configurations.Add(new RelatedProductsConfiguration());
 
-            var user = modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
+            var user = modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUsers");
             user.HasMany(u => u.Roles).WithRequired().HasForeignKey(ur => ur.UserId);
             user.HasMany(u => u.Claims).WithRequired().HasForeignKey(uc => uc.UserId);
             user.HasMany(u => u.Logins).WithRequired().HasForeignKey(ul => ul.UserId);
@@ -89,17 +89,17 @@ namespace MyRoom.Data
 
             modelBuilder.Entity<IdentityUserRole>()
                 .HasKey(r => new { r.UserId, r.RoleId })
-                .ToTable("AspNetUserRoles");
+                .ToTable("IdentityUserRoles");
 
             modelBuilder.Entity<IdentityUserLogin>()
                 .HasKey(l => new { l.UserId, l.LoginProvider, l.ProviderKey })
-                .ToTable("AspNetUserLogins");
+                .ToTable("IdentityUserLogins");
 
             modelBuilder.Entity<IdentityUserClaim>()
-                .ToTable("AspNetUserClaims");
+                .ToTable("IdentityUserClaims");
 
             var role = modelBuilder.Entity<IdentityRole>()
-                .ToTable("AspNetRoles");
+                .ToTable("IdentityRoles");
             role.Property(r => r.Name).IsRequired();
             role.HasMany(r => r.Users).WithRequired().HasForeignKey(ur => ur.RoleId);
 

@@ -33,7 +33,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
             Language8: '',
             Active: true
         },
-        TranslationDesc: {
+        TranslationDescription: {
             Spanish: '',
             English: '',
             French: '',
@@ -80,6 +80,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         var idCatalog = param[0];
         $scope.IdCatalog = idCatalog;
         productService.getProduct(id).then(function (response) {
+            debugger
             $scope.product = JSON.parse(response.data);
             $scope.rootFile = '/images/' + $scope.IdCatalog + '/products/';
             productService.getAll().then(function (response) {
@@ -159,15 +160,15 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         vm.Language7 = entity.Translation.Language7;
         vm.Language8 = entity.Translation.Language8;
         
-        vm.SpanishDesc = entity.TranslationDesc.Spanish;
-        vm.EnglishDesc = entity.TranslationDesc.English;
-        vm.FrenchDesc = entity.TranslationDesc.French;
-        vm.GermanDesc = entity.TranslationDesc.German;
-        vm.TranslationActiveDesc = entity.TranslationDesc.Active;
-        vm.LanguageDesc5 = entity.TranslationDesc.Language5;
-        vm.LanguageDesc6 = entity.TranslationDesc.Language6;
-        vm.LanguageDesc7 = entity.TranslationDesc.Language7;
-        vm.LanguageDesc8 = entity.TranslationDesc.Language8;
+        vm.SpanishDesc = entity.TranslationDescription.Spanish;
+        vm.EnglishDesc = entity.TranslationDescription.English;
+        vm.FrenchDesc = entity.TranslationDescription.French;
+        vm.GermanDesc = entity.TranslationDescription.German;
+        vm.TranslationActiveDesc = entity.TranslationDescription.Active;
+        vm.LanguageDesc5 = entity.TranslationDescription.Language5;
+        vm.LanguageDesc6 = entity.TranslationDescription.Language6;
+        vm.LanguageDesc7 = entity.TranslationDescription.Language7;
+        vm.LanguageDesc8 = entity.TranslationDescription.Language8;
 
         vm.CatalogId = $state.params.id;
 
