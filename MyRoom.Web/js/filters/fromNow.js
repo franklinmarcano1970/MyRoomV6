@@ -78,9 +78,11 @@ app.filter("ItemsCheckedTreeNode", ['$filter', function ($filter) {
     }
 }])
 app.filter("GetCheckedTreeNode", ['$filter', function ($filter, res) {
-    var res = [];
     return function (tree, res) {
         var id = 0;
+        var res;
+        if (res === undefined)
+            res = [];
         angular.forEach(tree, function (item) {
             // var copy = angular.fromJson(angular.toJson(item))   
             if (item.IsChecked) {

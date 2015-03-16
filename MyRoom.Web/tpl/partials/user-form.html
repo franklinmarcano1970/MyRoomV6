@@ -3,6 +3,7 @@
     <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
     <!-- / toaster directive -->
     <div class="col-md-8 column">
+                  
         <tabset class="tab-container" ng-init="steps={percent:0, step1:true, step2:false}">
             <tab heading="User" active="steps.step1"> 
                 <form name="step1" class="form-horizontal form-validation ng-valid-email ng-invalid ng-invalid-required ng-valid-url ng-valid-validator ng-valid-blacklist ng-dirty ng-valid-parse ng-invalid-pattern" >                 
@@ -30,6 +31,7 @@
 
                     <div class="m-t m-b">
                         <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="saveUser()">Save To Finish</button>
+                        <button class="btn pull-right  m-b-xs btn-md btn-info btn-addon ng-pristine ng-valid ng-touched" ng-click="$state.go('app.page.user_list')"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>                                
                     </div>
                 </form>
             </tab>

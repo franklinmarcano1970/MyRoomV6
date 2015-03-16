@@ -18,7 +18,7 @@ namespace MyRoom.ViewModels
     public class UserCatalog
     {
         //Category or Module
-        public int ElementId { get; set; }
+        public int id { get; set; }
         public string Type { get; set; }
     }
 

@@ -8,16 +8,13 @@
 
                 <form name="step1" class="form-validation">
                     <p>Name:</p>
-                    <input type="text" maxlength="150" placeholder="Please enter a Name" class="form-control" ng-model="department.Name" required >
+                    <input type="text" maxlength="150" placeholder="Please enter a Name" class="form-control" ng-model="room.Name" required >
                  
                     <p class="m-t">Number:</p>
-                    <input ui-jq="TouchSpin" type="text" placeholder="Please enter a Number"  ng-model="room.number" class="form-control" value="0"  data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
+                    <input ui-jq="TouchSpin" type="text" placeholder="Please enter a Number"  ng-model="room.Number" class="form-control" value="0"  data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;">
                     
                     <p class="m-t">Hotel:</p>
                     <hotel-select></hotel-select>
-                   
-                    <p class="m-t">IdRoomType</p>
-                    
 
                     <div class="checkbox">
                         <label class="m-t i-checks">

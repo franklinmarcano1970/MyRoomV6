@@ -159,48 +159,59 @@
               restrict: 'E',
               templateUrl: 'tpl/partials/hotel-select.html',
               controller: function ($scope, hotelService) {
+                  angular.element(document).ready(function () {
+                      $scope.clear = function () {
+                          $scope.hotel.selected = undefined;
+                      };
 
-                  $scope.clear = function () {
-                      $scope.hotel.selected = undefined;
-                  };
-
-                  $scope.hotel = {};
-                  $scope.selectActionHotel = function ()
-                  {
-                      if ($scope.$state.$current.name == "app.page.department_create")
+                      $scope.hotel = {};
+                      $scope.selectActionHotel = function ()
                       {
-                          $scope.department.HotelId = $scope.hotel.selected.Id;
-                      }
-                      if ($scope.$state.$current.name == "app.page.room_create") {
-                          $scope.room.HotelId = $scope.hotel.selected.Id;
-                      }
-                      if ($scope.$state.$current.name == "app.page.product_list") {
-                          hotelService.getProductsActivated($scope.hotel.selected.Id).then(function (response) {
-                              $scope.products = response.data;
-                          });
-                      }
+                          if ($scope.$state.$current.name == "app.page.department_create" || $scope.$state.$current.name == "app.page.department_edit")
+                          {
+                              $scope.department.HotelId = $scope.hotel.selected.Id;
+                          }
+                          if ($scope.$state.$current.name == "app.page.room_create" || $scope.$state.$current.name == "app.page.room_edit") {
+                              $scope.room.HotelId = $scope.hotel.selected.Id;
+                          }
+                          if ($scope.$state.$current.name == "app.page.product_list") {
+                              hotelService.getProductsActivated($scope.hotel.selected.Id).then(function (response) {
+                                  $scope.products = response.data;
+                              });
+                          }
                       
-                      if ($scope.hotel.selected != undefined) {
-                          hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
-                              debugger
-                              $scope.IdCatalog = response.data[0].IdCatalogue;
-                              if ($scope.$state.$current.name != "app.page.product_list")
-                                  $scope.loadHotelTreeCatalog($scope.IdCatalog);
-                          });
+                          if ($scope.hotel.selected != undefined) {
+                              hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
+                                  $scope.IdCatalog = response.data[0].IdCatalogue;
+                                  if ($scope.$state.$current.name != "app.page.product_list")
+                                      $scope.loadHotelTreeCatalog($scope.IdCatalog);
+                              });
+                          }
+
                       }
+                      hotelService.getAll().then(function (response) {
+                          $scope.hotel = response.data;
+                          $scope.hotels = [$scope.hotel.length]
+                 
+                          angular.forEach($scope.hotel, function (value, key) {
+                              $scope.hotels[key] = { Id: value.HotelId, Name: value.Name };
+                              if ($scope.currentHotelId != 0 && $scope.currentHotelId == value.HotelId)
+                              {
+                                  $scope.hotel.selected = $scope.hotels[key];
+                              }
+                          });
 
-                  }
-                  hotelService.getAll().then(function (response) {
-                      $scope.hotel = response.data;
-                      $scope.hotels = [$scope.hotel.length]
-                      angular.forEach($scope.hotel, function (value, key) {
-                          $scope.hotels[key] = { Id: value.HotelId, Name: value.Name };
+                          if ($scope.$state.$current.name == "app.page.product_list") {
+                              $scope.hotel.selected = $scope.hotels[0];
+                              hotelService.getProductsActivated($scope.hotel.selected.Id).then(function (response) {
+                                  $scope.products = response.data;
+                              });
+                          }
+                      },
+                      function (err) {
+                          $scope.error_description = err.error_description;
                       });
-                  },
-                  function (err) {
-                      $scope.error_description = err.error_description;
                   });
-
               }
           };
       })

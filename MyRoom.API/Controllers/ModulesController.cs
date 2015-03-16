@@ -17,6 +17,7 @@ using MyRoom.Data;
 using MyRoom.Data.Repositories;
 using MyRoom.Model.ViewModels;
 using System.Configuration;
+using MyRoom.Data.Mappers;
 
 namespace MyRoom.API.Controllers
 {
@@ -90,38 +91,10 @@ namespace MyRoom.API.Controllers
             }
             try
             {
-                Module module = new Module() {
-                    Active = moduleViewModel.ModuleActive,
-                    Name = moduleViewModel.Name,
-                     Orden = moduleViewModel.Orden,
-                     Image =  moduleViewModel.Image,
-                     Pending = moduleViewModel.Pending,
-                     Prefix = moduleViewModel.Prefix,
-                    Comment = moduleViewModel.Comment
-                };
 
-                module.Translation = new Translation() {
-                    Spanish = moduleViewModel.Spanish,
-                    English = moduleViewModel.English,
-                    French = moduleViewModel.French,
-                    German = moduleViewModel.German,
-                    Language5 = moduleViewModel.Language5,
-                    Language6 = moduleViewModel.Language6,
-                    Language7 = moduleViewModel.Language7,
-                    Language8 = moduleViewModel.Language8,
-                    Active = moduleViewModel.TranslationActive,
-                };
-                module.Catalogues = new List<Catalog>();
-
-                module.Catalogues.Add(new Catalog()
-                {
-                    CatalogId = moduleViewModel.CatalogId,
-                    Name = moduleViewModel.CatalogName
-                });
-
+                Module module = ModuleMapper.CreateModel(moduleViewModel);
                 moduleRepo.CatalogStateUnchange(module);
                 moduleRepo.Insert(module);
-
 
                 //busco hotel con el catalogo seleccionado
                 ActiveHotelCatalogRepository hotelCatalog = new ActiveHotelCatalogRepository(new MyRoomDbContext());

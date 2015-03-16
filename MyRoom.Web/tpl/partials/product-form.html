@@ -80,7 +80,8 @@
                      </div>
                       <div class="m-t m-b">
                         <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
-                    </div>
+                        <button class="btn pull-right m-b-xs m-l-md btn-md btn-info btn-addon ng-pristine ng-valid ng-touched" ng-click="$state.go('app.page.product_list')"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>
+                      </div>
                 </form>
             </tab>
             <tab heading="Translate Name" disabled="step1.$invalid" active="steps.step2">
@@ -110,7 +111,8 @@
                     <div class="m-t m-b">
                         <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>
                         <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step3=true">Next</button>
-                    </div>
+                        <button class="btn pull-right m-b-xs m-l-md btn-md btn-info btn-addon ng-pristine ng-valid ng-touched" ng-click="$state.go('app.page.product_list')"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>
+                   </div>
                 </form>
             </tab>
              <tab heading="Translate Description" disabled="step2.$invalid" active="steps.step3">
@@ -139,6 +141,7 @@
                     <div class="m-t m-b">
                         <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Prev</button>
                         <button type="button" ng-disabled="step3.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step4=true">Next</button>
+                        <button class="btn pull-right m-b-xs m-l-md btn-md btn-info btn-addon ng-pristine ng-valid ng-touched" ng-click="$state.go('app.page.product_list')"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button> 
                     </div>
                 </form>
             </tab>
@@ -175,7 +178,7 @@
                 </p>
                 <div class="m-t m-b">
                     <button type="button" class="btn btn-default btn-rounded" ng-click="steps.step3=true">Prev</button>
-                    <button type="button" class="btn btn-default btn-rounded" ng-click="saveProduct(this)">Save To Finish</button>
+                    <button class="btn pull-right m-b-xs m-l-md btn-md btn-info btn-addon ng-pristine ng-valid ng-touched" ng-click="$state.go('app.page.product_list')"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>
                 </div>
             </tab>
         </tabset>

@@ -380,7 +380,7 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         
 
     //}
-    
+
     $scope.activeCheckbox = function ()
     {
         return item.type == 'product' || item.type == 'category';
@@ -389,13 +389,25 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
 app.controller('HotelsAssingProductController', ['$scope', '$http', '$state', 'hotelService', 'ngWebBaseSettings', 'toaster', '$timeout', '$filter', function ($scope, $http, $state, hotelService, ngWebBaseSettings, toaster, $timeout, $filter) {
     var GetCheckedTreeNode = $filter('GetCheckedTreeNode');
     //Guardar los registros marcados en el check box y guardar registros en las siguientes tablas: ACTIVE_HOTEL_MODULE, ACTIVE_HOTEL_CATEGORY, ACTIVE_HOTEL_PRODUCT
+    
+
+    $scope.showHotelAssignPopup = function () {
+        if ($scope.hotel.selected) {
+            $('#popupHotelAssignProduct').modal({
+                show: 'true'
+            });
+        }
+        else {
+            $scope.toaster = { type: 'success', title: 'Success', text: 'Please select a hotel' };
+            $scope.pop();
+        }
+    }
     $scope.activeProduct = function () {
         var getChecked = GetCheckedTreeNode($scope.items);
         var vm = {
             HotelId: $scope.hotel.selected.Id,
             'HotelCatalog': []
         };
-        debugger
         angular.forEach(getChecked, function (item) {
             vm.HotelCatalog.push({  ElementId: item.id, Type: item.type });
         });

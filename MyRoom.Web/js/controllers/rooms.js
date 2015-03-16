@@ -76,7 +76,7 @@ app.controller('RoomsListController', ['$scope', '$http', '$state', 'roomService
         $scope.getAll();
     });
 }]);
-app.controller('RoomsController', ['$scope', '$http', '$state', 'roomService', 'toaster', '$timeout', function ($scope, $http, $state, roomService, toaster, $timeout) {
+app.controller('RoomsController', ['$scope', '$http', '$state', 'roomService', 'toaster', '$timeout', '$injector', function ($scope, $http, $state, roomService, toaster, $timeout, $injector) {
     $scope.room = {
         Name: '',
         Number: '',
@@ -96,10 +96,25 @@ app.controller('RoomsController', ['$scope', '$http', '$state', 'roomService', '
    
     
     $scope.Mensaje = "";
+    var hotelService = $injector.get("hotelService");
+
+    hotelService.getAll().then(function (response) {
+        $scope.hotel = response.data;
+        $scope.hotels = [$scope.hotel.length];
+
+        angular.forEach($scope.hotel, function (value, key) {
+            $scope.hotels[key] = { Id: value.HotelId, Name: value.Name };
+        });
+    });
     $scope.pop = function () {
         toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
     };
- 
+    if ($state.current.name == "app.page.room_edit" && $state.params['id']) {
+        roomService.getRoom($state.params['id']).then(function (response) {
+            $scope.room = response.data;
+            $scope.currentHotelId = response.data.HotelId;
+        });
+    };
     $scope.saveRoom = function () {
         if ($state.current.name == "app.page.room_create") {
             roomService.saveRoom($scope.room).then(function (response) {
@@ -138,8 +153,7 @@ app.controller('RoomsController', ['$scope', '$http', '$state', 'roomService', '
                 $timeout(function () {
                     $scope.pop();
 
-                }, 1000).then(function () {
-                });
+                }, 1000);
                 $state.go('app.page.rooms_list');
             },
             function (err) {
@@ -153,4 +167,5 @@ app.controller('RoomsController', ['$scope', '$http', '$state', 'roomService', '
             });
         }
     };
+
 }]);

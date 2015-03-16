@@ -30,7 +30,7 @@ namespace MyRoom.API.Controllers
         [HttpGet]
         public IHttpActionResult GetDepartment(int key)
         {
-            return Ok(departmentRepository.GetById(key));
+            return Ok(departmentRepository.GetById  (key));
         }
 
         // PUT: api/department

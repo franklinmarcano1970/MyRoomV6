@@ -17,6 +17,12 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
             toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
         };
 
+        $scope.showHotelCataloguesPopup = function () {
+            $('#popupHotelAssign').modal({
+                show: 'true'
+            });
+        }
+
         $scope.getAll = function () {
             catalogService.getAll().then(function (response) {
                 $scope.catalogues = response.data;

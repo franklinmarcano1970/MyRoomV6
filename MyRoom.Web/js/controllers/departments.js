@@ -24,9 +24,7 @@ app.controller('DepartmentListController', ['$scope', '$http', '$state', 'depart
         }
         $scope.getAll = function () {
             departmentService.getAll().then(function (response) {
-                debugger
                 $scope.departments = response.data;
-
             },
             function (err) {
                 $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
@@ -78,7 +76,9 @@ app.controller('DepartmentListController', ['$scope', '$http', '$state', 'depart
         $scope.getAll();
     });
 }]);
-app.controller('DepartmentsController', ['$scope', '$http', '$state', 'departmentService', 'toaster', '$timeout', function ($scope, $http, $state, departmentService, toaster, $timeout) {
+app.controller('DepartmentsController', ['$scope', '$http', '$state', 'departmentService', 'toaster', '$timeout', '$injector', function ($scope, $http, $state, departmentService, toaster, $timeout, $injector) {
+    $scope.currentHotelId = 0;
+
     $scope.department = {
         Director: '',
         Name: '',
@@ -105,64 +105,112 @@ app.controller('DepartmentsController', ['$scope', '$http', '$state', 'departmen
     //    text: 'The User has been saved'
     //};
    
-    
-    $scope.Mensaje = "";
-    $scope.pop = function () {
-        toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
-    };
- 
-    $scope.saveDepartment = function () {
-        if ($state.current.name == "app.page.department_create") {
-            departmentService.saveDepartment($scope.department).then(function (response) {
-                $scope.department = {
-                    Director: '',
-                    Name: '',
-                    Email: '',
-                    Active: true,
-                    HotelId: 0,
-                    IsExternal: false,
-                    Translation: {
-                        Active: true
-                    }
-                };
-                $timeout(function () {
+    angular.element(document).ready(function () {
+        var hotelService = $injector.get("hotelService");
+
+        $scope.Mensaje = "";
+
+        hotelService.getAll().then(function (response) {
+            $scope.hotel = response.data;
+            $scope.hotels = [$scope.hotel.length];
+
+            angular.forEach($scope.hotel, function (value, key) {
+                $scope.hotels[key] = { Id: value.HotelId, Name: value.Name };
+            });
+        });
+        $scope.pop = function () {
+            toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
+        };
+        if ($state.current.name == "app.page.department_edit" && $state.params['id']) {
+            departmentService.getDepartment($state.params['id']).then(function (response) {
+                $scope.department = response.data;
+                $scope.currentHotelId = response.data.HotelId;
+
+                hotelService.getAll().then(function (response) {
+                    $scope.hotel = response.data;
+                    $scope.hotels = [$scope.hotel.length];
+
+                    angular.forEach($scope.hotel, function (value, key) {
+                        $scope.hotels[key] = { Id: value.HotelId, Name: value.Name };
+                        if ($scope.currentHotelId != 0 && $scope.currentHotelId == value.HotelId) {
+                            $scope.hotel.selected = $scope.hotels[key];
+                        }
+                    });
+
+                },
+                function (err) {
+                     $scope.error_description = err.error_description;
+                });
+                
+            });
+
+        };
+
+        $scope.selectActionHotel = function ()
+        {
+            $scope.department.HotelId = $scope.hotel.selected.Id;
+        }
+
+        $scope.saveDepartment = function () {
+            if ($state.current.name == "app.page.department_create") {
+                departmentService.saveDepartment($scope.department).then(function (response) {
+                    $scope.department = {
+                        Director: '',
+                        Name: '',
+                        Email: '',
+                        Active: true,
+                        HotelId: 0,
+                        IsExternal: false,
+                        Translation: {
+                            Active: true
+                        }
+                    };
+                    $timeout(function () {
+                        $scope.toaster = {
+                            type: 'success',
+                            title: 'Success',
+                            text: 'The Department has been saved'
+                        };
+                        $state.go('app.page.departments_list');
+                        $scope.pop();
+                    }, 1000);
+                },
+                function (err) {
+                    $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
+                    $scope.pop();
+                });
+            }
+            else {
+
+                departmentService.updateDepartment($scope.department).then(function (response) {
                     $scope.toaster = {
                         type: 'success',
                         title: 'Success',
-                        text: 'The Department has been saved'
+                        text: 'The Department has been updated'
                     };
+                    $timeout(function () {
+                        $scope.pop();
+
+                    }, 2000).then(function () {
+                       
+                    });
                     $state.go('app.page.departments_list');
-                    $scope.pop();
-                }, 2000);
-            },
-            function (err) {
-                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
-                $scope.pop();
-            });
-        }
-        else {
-            departmentService.updateDepartment($scope.department).then(function (response) {
-                $scope.toaster = {
-                    type: 'success',
-                    title: 'Success',
-                    text: 'The Department has been updated'
-                };
-                $timeout(function () {
-                    $scope.pop();
 
-                }, 1000).then(function () {
+                },
+                function (err) {
+                    $scope.toaster = {
+                        type: 'error',
+                        title: 'Error',
+                        text: err.error_description
+                    };
+
+                    $scope.pop();
                 });
-                $state.go('app.page.department_list');
-            },
-            function (err) {
-                $scope.toaster = {
-                    type: 'error',
-                    title: 'Error',
-                    text: err.error_description
-                };
+            }
 
-                $scope.pop();
-            });
-        }
-    };
+           
+        };
+
+    });
+  
 }]);

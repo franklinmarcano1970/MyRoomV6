@@ -74,14 +74,14 @@ angular.module('ui.load', [])
 
     .factory('departmentService', ['$http', '$q', function ($http, $q) {
     	function getAll() {
-    	    var deferred = $q.defer();
-    	    return $http.get(serviceBase + 'api/departments').success(function (response) {
-    	        deferred.resolve(response);
-    	    }, function (err) {
-    	        deferred.reject(err);
-    	    });
+    	  //  var deferred = $q.defer();
+    	    return $http.get(serviceBase + 'api/departments');//.success(function (response) {
+    	        //deferred.resolve(response);
+    	    //}, function (err) {
+    	    //    deferred.reject(err);
+    	    //});
 
-    	    return deferred.promise;
+    	    //return deferred.promise;
     	};
     	function saveDepartment(department) {
     	    var deferred = $q.defer();
@@ -106,14 +106,8 @@ angular.module('ui.load', [])
     	};
 
     	function getDepartment(id) {
-    	    var deferred = $q.defer();
-    	    return $http.get(serviceBase + 'api/departments/' + id).success(function (response) {
-    	        deferred.resolve(response);
-    	    }, function (err) {
-    	        deferred.reject(err);
-    	    });
+    	    return $http.get(serviceBase + 'api/departments/' + id);
 
-    	    return deferred.promise;
     	};
 
     	function removeDepartment(id) {
@@ -136,14 +130,7 @@ angular.module('ui.load', [])
     }])
 	.factory('hotelService', ['$http', '$q', function ($http, $q) {
 		function getAll() {
-			var deferred = $q.defer();
-			return $http.get(serviceBase + 'api/Hotels').success(function (response) {
-				deferred.resolve(response);
-			}, function (err) {
-				deferred.reject(err);
-			});
-
-			return deferred.promise;
+		    return $http.get(serviceBase + 'api/Hotels');
 		};
 		function assignCatalog(hotelcatalogVm) {
 		    var deferred = $q.defer();

@@ -4,6 +4,12 @@
     //$scope.sw = 1;
     //$scope.IdUser = 0;
     //$scope.RelUserHotel = [{ IdUser: 0, IdHotel: 0, ReadOnly: true, ReadWrite: 0 }];
+    $scope.showUserMenuAccessPopup = function()
+    {
+        $('#saveMenuAccess').modal({
+            show: 'true'
+        });
+    }
 
     $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
 

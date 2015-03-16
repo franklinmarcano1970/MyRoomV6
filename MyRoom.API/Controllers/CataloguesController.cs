@@ -127,13 +127,17 @@ namespace MyRoom.API.Controllers
             {
                 UserCatalogRepository relUserCatalogRepo = new UserCatalogRepository(new MyRoomDbContext());
                 RelUserCatalogue relUserCatalog  = UserCatalogMapper.CreateModel(userCatalogVm);
-                relUserCatalogRepo.InsertUserCatalog(userCatalogVm, false);
+                relUserCatalogRepo.InsertUserCatalog(userCatalogVm, true);
 
-                //catalogRepository.Insert(catalog);
-                //int catalogid = catalog.CatalogId;
-                //catalog.Image = string.Format("{0}/{1}/{2}", ConfigurationManager.AppSettings["UploadImages"], catalogid, catalog.Image);
-                //catalogRepository.Edit(catalog);
-                //this.CreateStructureDirectories(catalogid);
+
+                UserModuleRepository relUserModuleRepo = new UserModuleRepository(relUserCatalogRepo.Context);
+                List<RelUserModule> userModules = UserModuleMapper.CreateModel(userCatalogVm);
+                relUserModuleRepo.InsertUserModule(userModules, userCatalogVm.UserId, true);
+
+                UserCategoryRepository relUserCategoryRepo = new UserCategoryRepository(relUserCatalogRepo.Context);
+                List<RelUserCategory> userCategories = UserCategoryMapper.CreateModel(userCatalogVm);
+                relUserCategoryRepo.InsertUserCategory(userCategories, userCatalogVm.UserId, true);
+
                 return Ok("Permission Assigned");
 
             }

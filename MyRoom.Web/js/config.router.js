@@ -516,14 +516,18 @@ angular.module('app')
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
-                            return $ocLazyLoad.load('toaster').then(
-                                function () {
-                                    return $ocLazyLoad.load(
-                                        {
-                                            files: ['js/controllers/departments.js',
-                                            'js/directives/myroom-directives.js'                                                        ]
-                                        }
-                                    );
+                            return $ocLazyLoad.load('ui.select').then(
+                                function () {                                       
+                                    return $ocLazyLoad.load('toaster').then(
+                                        function () {
+                                            return $ocLazyLoad.load(
+                                                {
+                                                    files: ['js/directives/myroom-directives.js',
+                                                        'js/controllers/departments.js'
+                                                                                                        ]
+                                                }
+                                            );
+                                        });
                                 });
                         }]
                   }
@@ -604,13 +608,17 @@ angular.module('app')
                          function ($ocLazyLoad) {
                              return $ocLazyLoad.load('toaster').then(
                                  function () {
-                                     return $ocLazyLoad.load(
-                                         {
-                                             files: ['js/controllers/rooms.js',
-                                             'js/directives/myroom-directives.js']
-                                         }
-                                     );
-                                 });
+                                     return $ocLazyLoad.load('ui.select').then(
+                                         function () {
+
+                                         return $ocLazyLoad.load(
+                                             {
+                                                 files: ['js/controllers/rooms.js',
+                                                 'js/directives/myroom-directives.js']
+                                             }
+                                         );
+                                     });
+                               });
                          }]
                    }
                })

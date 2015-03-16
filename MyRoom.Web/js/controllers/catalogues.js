@@ -305,6 +305,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 $scope.pop();
             });
         } else { //Modificar
+            mmodule.Image = moduleViewModel.Image;
             //$scope.module.Catalogues = [{ CatalogId: $scope.IdCatalog, Name: $scope.NameCatalog, Active: true }];
             catalogService.updateModule(mmodule).then(function (response) {
                 if ($scope.fileItem === undefined)

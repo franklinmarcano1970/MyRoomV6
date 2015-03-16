@@ -83,13 +83,7 @@
     },
     "managements" : {
         "MANAGEMENTS": "Managements"
-    },
-    "your_stuff" : {
-      "YOUR_STUFF": "Your Stuff",
-      "PROFILE" : "Profile",
-      "DOCUMENTS" : "Documents"
-    }
-   
+    }   
   },
   "MILESTONE" : "Milestone",
   "RELEASE" : "Release"

@@ -551,7 +551,9 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="Properties\PublishProfiles\management-myroom - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\management-myroom - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\servicioswebmoviles-web - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\servicioswebmoviles-web - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\servicioswebmoviles-web - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\servicioswebmoviles-web - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
