@@ -16,7 +16,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     //$scope.IdModule = 0
     $scope.IdCatalog = 0;
     $scope.NameCatalog = '';
-    $scope.IdCategory= 0;
+    $scope.IdCategory = 0;
     $scope.IdTranslations = 0;
     $scope.Mensaje = "";
     $scope.catalogues = [];
@@ -24,8 +24,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.IsNew = true;
     $scope.catalog = {
         Name: '',
-        Image: 'img/no-image.jpg',
-        Pending: true,
+        Image: '/img/no-image.jpg',
+        Pending: false,
         Active: true,
         Translation: {
             Spanish: '',
@@ -43,10 +43,10 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.module = {
         ModuleId: 0,
         Name: '',
-        Image: 'img/no-image.jpg',
+        Image: '/img/no-image.jpg',
         Orden: '',
         Comment: '',
-        Pending: true,
+        Pending: false,
         Active: true,
         Prefix: '',
         Translation: {
@@ -65,10 +65,10 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     $scope.category = {
         CategoryId: 0,
         Name: '',
-        Image: 'img/no-image.jpg',
+        Image: '/img/no-image.jpg',
         Orden: '',
         Comment: '',
-        Pending: true,
+        Pending: false,
         IsFinal: true,
         Active: true,
         Prefix: '',
@@ -85,7 +85,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             Language8: '',
             Active: true
         }
-    };    
+    };
     uploader.onSuccessItem = function (fileItem, response, status, headers) {
         $scope.loadTreeCatalog($scope.IdCatalog);
     };
@@ -101,7 +101,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         }
         $scope.file = fileItem._file;
         $scope.fileItem = fileItem;
-        
+
         if ($scope.typeAction == 'catalog') {
             $scope.catalog.Image = $scope.file.name;
             var fr = new FileReader();
@@ -132,19 +132,18 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
         imageCatalog = $scope.category.Image;
     }
-    
+
     $scope.assignCatalogToHotel = function () {
         $state.go('app.page.hotel_catalogues');
     };
 
-    $scope.initTabsets = function ()
-    {
+    $scope.initTabsets = function () {
         $scope.IsNew = true;
         $scope.module = {};
         $scope.category = {};
-        $scope.module = { Image: 'img/no-image.jpg', Active: true };
-        $scope.category = { Image: 'img/no-image.jpg', Active: true };
-        $scope.showTabsetCategory=false;
+        $scope.module = { Image: '/img/no-image.jpg', Active: true };
+        $scope.category = { Image: '/img/no-image.jpg', Active: true };
+        $scope.showTabsetCategory = false;
         $scope.showTabsetModule = true;
         $scope.typeAction = 'module';
     }
@@ -163,8 +162,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     $scope.createCatalogPopup = function () {
         $scope.catalog = {
-            Image: 'img/no-image.jpg',
-            Pending: true,
+            Image: '/img/no-image.jpg',
+            Pending: false,
             Active: true,
         };
         $scope.modify = false;
@@ -176,8 +175,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     $scope.editCatalogPopup = function () {
         $scope.typeAction = 'catalog';
-        if (!$scope.cata.selected)
-        {
+        if (!$scope.cata.selected) {
             $scope.toaster = { type: 'info', title: 'Info', text: 'Select a catalog' };
             $scope.pop();
             return
@@ -187,7 +185,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         $('#newCatalog').modal({
             show: 'true'
         });
-        
+
         catalogService.getCatalog($scope.cata.selected.id).then(function (response) {
             $scope.catalog = JSON.parse(response.data);
             //if ($scope.catalog.Image != 'img/no-image.jpg')
@@ -204,7 +202,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.steps.step1 = true;
             $scope.catalog = {
                 Active: true,
-                Image: 'img/no-image.jpg',
+                Image: '/img/no-image.jpg',
                 Translation: {
                     Active: true
                 }
@@ -223,8 +221,13 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.pop();
         });
     };
-    $scope.saveCatalog = function (catalog)
-    {
+    $scope.saveCatalog = function (catalog) {
+        if (catalog.Image != "/img/no-image.jpg") {
+            $scope.catalog.Pending = true;
+        }
+        else {
+            $scope.catalog.Pending = false;
+        }
         catalogService.saveCatalog(catalog).then(function (response) {
             var res = response;
             $scope.IdCatalog = res.data;
@@ -241,8 +244,8 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=2-' + res.data + '-0';
                 uploader.uploadAll();
             }
-            
-                
+
+
             $scope.loadCatalog();
             $scope.pop();
 
@@ -250,9 +253,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.steps.step1 = true;
 
             $scope.catalog = {
-                Pending: true,
+                Pending: false,
                 Active: true,
-                Image: 'img/no-image.jpg',
+                Image: '/img/no-image.jpg',
                 Translation: {
                     Active: true
                 }
@@ -265,8 +268,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.pop();
         });
     }
-    $scope.deleteCatalog = function (id)
-    {
+    $scope.deleteCatalog = function (id) {
         catalogService.removeCatalog(id.IdCatalog).then(function (response) {
             $scope.loadCatalog();
             $scope.toaster = { type: 'success', title: 'Info', text: 'The Catalog has been removed' };
@@ -277,11 +279,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.pop();
         });
     }
-    $scope.saveModule = function(mmodule)
-    {
-        if(!$scope.cata.selected)
-        {
-            $scope.toaster = { type: 'Info', title: 'Info', text: 'Select a Catalogue'};
+    $scope.saveModule = function (mmodule) {
+        if (!$scope.cata.selected) {
+            $scope.toaster = { type: 'Info', title: 'Info', text: 'Select a Catalogue' };
             $scope.pop();
             return;
         }
@@ -296,7 +296,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     uploader.uploadAll();
                 }
 
-                $scope.toaster = { type: 'success', title: 'Success', text: 'The Module has been saved'};
+                $scope.toaster = { type: 'success', title: 'Success', text: 'The Module has been saved' };
                 $scope.pop();
                 initModule();
             },
@@ -327,16 +327,22 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         //Para subir la imagen
 
         $scope.IsNew = true;
-       
+
     };
-    function createModuleVM(entity)
-    {
+    function createModuleVM(entity) {
         var vm = {};
         vm.Name = entity.Name;
-        vm.Image = "/images/" + $scope.IdCatalog + "/modules/" + entity.Image;
         vm.ModuleActive = entity.Active;
         vm.Comment = entity.Comment;
-        vm.Pending = entity.Pending;
+        if (entity.Image != "/img/no-image.jpg") {
+            vm.Image = "/images/" + $scope.IdCatalog + "/modules/" + entity.Image;
+            vm.Pending = true;
+        }
+        else {
+            vm.Image = entity.Image;
+            vm.Pending = false;
+        }
+
         vm.Orden = entity.Orden;
         vm.Prefix = entity.Prefix;
         vm.Spanish = entity.Translation.Spanish;
@@ -357,7 +363,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         $scope.steps.step1 = true;
         $scope.loadTreeCatalog($scope.IdCatalog);
         $scope.initTabsets();
-        $scope.module = { Image: 'img/no-image.jpg', Active: true, Pending: true, IsFinal: true };
+        $scope.module = { Image: '/img/no-image.jpg', Active: true, Pending: false, IsFinal: true };
 
     }
     $scope.pop = function () {
@@ -372,10 +378,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     }
 
     $scope.saveCategory = function (category, obj) {
-        
-         if(!$scope.cata.selected)
-        {
-            $scope.toaster = { type: 'Info', title: 'Info', text: 'Select a Catalogue'};
+
+        if (!$scope.cata.selected) {
+            $scope.toaster = { type: 'Info', title: 'Info', text: 'Select a Catalogue' };
             $scope.pop();
             return;
         }
@@ -404,12 +409,12 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                 $scope.pop();
                 $scope.steps.step1 = true;
                 $scope.categoryItem = null;
-                
+
             },
             function (err) {
                 $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
                 $scope.pop();
-            });        
+            });
         }
         else { //Modificar
             //$scope.category.Modules = [{ ModuleId: $scope.IdModule, Name: 'Module', Active: true }];
@@ -419,7 +424,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     type: 'success',
                     title: 'Info',
                     text: 'The Category has been saved'
-                };   
+                };
 
                 if ($scope.fileItem === undefined)
                     $scope.loadTreeCatalog($scope.IdCatalog);
@@ -433,23 +438,31 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             function (err) {
                 $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
                 $scope.pop();
-            });            
+            });
         }
         //Para subir la imagen
         //uploader.uploadAll();
         $scope.IsNew = true;
         $scope.initTabsets();
-        $scope.category = { Image: 'img/no-image.jpg', Active: true, Pending: true, IsFinal: true };
+        $scope.category = { Image: '/img/no-image.jpg', Active: true, Pending: true, IsFinal: true };
     };
 
     function createCategoryVM(entity) {
 
         var vm = {};
         vm.Name = entity.Name;
-        vm.Image = "/images/" + $scope.IdCatalog + "/categories/" + entity.Image;
         vm.CategoryActive = entity.Active;
         vm.Comment = entity.Comment;
-        vm.Pending = entity.Pending;
+        if (entity.Image != "/img/no-image.jpg") {
+            vm.Image = "/images/" + $scope.IdCatalog + "/categories/" + entity.Image;
+            vm.Pending = true;
+        }
+        else {
+            vm.Image = entity.Image;
+            vm.Pending = false;
+
+        }
+        //vm.Pending = entity.Pending;
         vm.Orden = entity.Orden;
         vm.Prefix = entity.Prefix;
         vm.IdParentCategory = entity.IdParentCategory;

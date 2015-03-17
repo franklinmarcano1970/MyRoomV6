@@ -61,7 +61,7 @@ namespace MyRoom.Data.Repositories
         public virtual void Edit(TEntity entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
         public async Task InsertAsync(TEntity entity)

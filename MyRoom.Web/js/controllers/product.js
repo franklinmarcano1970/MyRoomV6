@@ -136,11 +136,14 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         });
         var vm = {};
         vm.Name = entity.Name;
-        if (entity.Image != "/img/no-image.jpg")
+        if (entity.Image != "/img/no-image.jpg") {
+            vm.Pending = true;
             vm.Image = "/images/" + $state.params["id"] + "/products/" + entity.Image;
-        else
+        }
+        else {
+            vm.Pending = false;
             vm.Image = entity.Image;
-
+        }
         vm.Description = entity.Description;
         vm.Price = entity.Price;
         vm.ProductActive = entity.ProductActive;
@@ -148,7 +151,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         vm.Order = entity.Order;
         vm.Type = entity.Type;
         vm.UrlScanDocument = entity.UrlScanDocument;
-        vm.Pending = entity.Pending;
+     //   vm.Pending = entity.Pending;
         vm.Active = entity.Active
         vm.Spanish = entity.Translation.Spanish;
         vm.English = entity.Translation.English;
@@ -179,7 +182,6 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
     }
 
     $scope.saveProduct = function () {
-        debugger
         var productVm = createProductVM($scope.product);
         if ($state.current.name == "app.page.product_create" && $state.params['id']) {
             $scope.IdCatalog = $state.params['id'];
@@ -218,8 +220,10 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         else {
             productService.updateProduct($scope.product).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Product has been updated' };
-                $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-' + $scope.IdCatalog + '-0';
-                uploader.uploadAll();
+                if ($scope.fileItem) {
+                    $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-' + $scope.IdCatalog + '-0';
+                    uploader.uploadAll();
+                }
                 $timeout(function () {
                     $scope.pop();
                 }, 1000);

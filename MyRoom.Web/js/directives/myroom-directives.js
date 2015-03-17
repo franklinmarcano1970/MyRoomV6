@@ -389,8 +389,8 @@
                       $scope.category = {};
                       ////$scope.rootFileModule = '/img/';
                       ////$scope.rootFileCategory = '/img/';
-                      $scope.module = { Image: 'img/no-image.jpg', Active: true };
-                      $scope.category = { Image: 'img/no-image.jpg', Pending: true, IsFinal: true, Active: true };
+                      $scope.module = { Image: '/img/no-image.jpg', Active: true };
+                      $scope.category = { Image: '/img/no-image.jpg', Pending: true, IsFinal: true, Active: true };
                       if (item.type == "module") {
                           $scope.typeAction = 'module';
                           $scope.module = {
@@ -432,7 +432,7 @@
                           $scope.showTabsetModule = true;
                       }
 
-                      $scope.category = { Image: 'img/no-image.jpg', IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory, CategoryItem: $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
+                      $scope.category = { Image: '/img/no-image.jpg', IsFirst: $scope.category.IsFirst, IdParentCategory: $scope.category.IdParentCategory, CategoryItem: $scope.categoryItem, Active: true, Pending: true, IsFinal: true };
                   }
                   $scope.deleteItems = function (item) {
                       if (item.type == "category") {

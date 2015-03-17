@@ -92,8 +92,8 @@ app.controller('HotelsController', ['$scope', '$http', '$state', 'hotelService',
         ChangeSummerTime: false,
         ContentIframeSurvey: '',
         Active: true,
-        Image: 'img/no-image.jpg',
-        UrlScanMap: 'img/no-image.jpg',
+        Image: '/img/no-image.jpg',
+        UrlScanMap: '/img/no-image.jpg',
 
         Translation: {
             Spanish: '',

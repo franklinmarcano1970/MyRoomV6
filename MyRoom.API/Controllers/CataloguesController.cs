@@ -100,7 +100,8 @@ namespace MyRoom.API.Controllers
             {
                 catalogRepository.Insert(catalog);
                 int catalogid = catalog.CatalogId;
-                catalog.Image = string.Format("{0}/{1}/{2}", ConfigurationManager.AppSettings["UploadImages"], catalogid , catalog.Image);
+                if (catalog.Image!="/img/no-image.jpg")
+                    catalog.Image = string.Format("{0}/{1}/{2}", ConfigurationManager.AppSettings["UploadImages"], catalogid , catalog.Image);
                 catalogRepository.Edit(catalog);
                 //this.CreateStructureDirectories(catalogid);
                 return Ok(catalogid);
