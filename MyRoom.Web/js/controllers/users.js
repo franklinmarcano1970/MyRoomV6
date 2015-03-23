@@ -62,7 +62,8 @@ app.controller('UsersController', ['$scope', '$http', '$state', 'accountService'
             });
         }
         else {
-            accountService.updateUser($scope.account).then(function (response) {
+            var userVm = $scope.createUserVm($scope.account);
+            accountService.updateUser(userVm).then(function (response) {
                 $scope.toaster = {
                     type: 'success',
                     title: 'Success',
@@ -86,6 +87,16 @@ app.controller('UsersController', ['$scope', '$http', '$state', 'accountService'
         }
        
 
+    };
+
+    $scope.createUserVm = function (entity) {
+        return {
+            UserId: entity.Id,
+            Name: entity.Name,
+            Surname: entity.Surname,
+            Email: entity.Email,
+            Password: entity.Password
+        };
     };
    
     $scope.getAll = function () {
@@ -143,7 +154,7 @@ app.controller('UsersListController', ['$scope', '$http', '$state', 'accountServ
             $state.go('app.page.usercatalog');
         }
         $scope.modifyUser = function (id) {
-            $scope.currentUsers.Id = id;
+            //$scope.currentUsers.Id = id;
             $state.go('app.page.user_edit', { "id": id});
         }
 

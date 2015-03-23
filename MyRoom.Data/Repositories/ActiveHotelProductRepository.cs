@@ -38,6 +38,17 @@ namespace MyRoom.Data.Repositories
             return products;
         }
 
+        public List<ActiveHotelProduct> GetActiveProductsByHotelId(int hotelId)
+        {
+            var hotelProducts = this.Context.ActiveHotelProduct.Include("Product").Where(e => e.IdHotel == hotelId).OrderBy(p => p.Product.Name).ToList();
+            List<ActiveHotelProduct> products = new List<ActiveHotelProduct>();
+            //foreach (ActiveHotelProduct hotelProduct in hotelProducts)
+            //{
+            //    products.Add(hotelProduct);
+            //}
+            return hotelProducts;
+        }
+
         public void InsertActiveHotelProduct(List<ActiveHotelProduct> items, int hotelId)
         {
             this.DeleteActiveHotelProduct(hotelId);

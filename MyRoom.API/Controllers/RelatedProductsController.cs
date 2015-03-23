@@ -14,151 +14,29 @@ using System.Web.Http.OData.Routing;
 using MyRoom.Model;
 using System.Web.Http.OData.Query;
 using MyRoom.Data;
+using MyRoom.Data.Repositories;
 
 namespace MyRoom.API.Controllers
 {
-
-    public class RelatedProductsController : ODataController
+    [Authorize]
+    [RoutePrefix("api/relatedproducts")]
+    public class RelatedProductsController : ApiController
     {
-        private MyRoomDbContext db = new MyRoomDbContext();
+        RelatedProductRepository relatedProductRepository = new RelatedProductRepository(new MyRoomDbContext());
 
-        // GET: odata/RelatedProducts
-        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
-        public IQueryable<RelatedProduct> GetRelatedProducts()
+        [Route("{prodId}/{hotelId}")]
+        [HttpGet]
+        public IHttpActionResult GetRelatedProducts(int prodId, int hotelId)
         {
-            return db.RelatedProducts;
+            return Ok(relatedProductRepository.GetActiveProductRelated(hotelId, prodId));
         }
 
-        // GET: odata/RelatedProducts(5)
-        //[EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
-        //public SingleResult<RelatedProduct> GetRelatedProducts([FromODataUri] int key)
-        //{
-        //    return SingleResult.Create(db.RelatedProducts.Where(relatedProducts => relatedProducts.Id == key));
-        //}
-
-        // PUT: odata/RelatedProducts(5)
-        public async Task<IHttpActionResult> Put([FromODataUri] int key, Delta<RelatedProduct> patch)
+        [Route("{hotelId}")]
+        [HttpGet]
+        public IHttpActionResult GetRelatedProductsByHotelId(int hotelId)
         {
-            Validate(patch.GetEntity());
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            RelatedProduct relatedProduct = await db.RelatedProducts.FindAsync(key);
-            if (relatedProduct== null)
-            {
-                return NotFound();
-            }
-
-            patch.Put(relatedProduct);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RelatedProductsExists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Updated(relatedProduct);
+            return Ok(relatedProductRepository.GetActiveProductRelated(hotelId));
         }
 
-        // POST: odata/RelatedProducts
-        public async Task<IHttpActionResult> Post(RelatedProduct relatedProduct)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.RelatedProducts.Add(relatedProduct);
-            await db.SaveChangesAsync();
-
-            return Created(relatedProduct);
-        }
-
-        // PATCH: odata/RelatedProducts(5)
-        [AcceptVerbs("PATCH", "MERGE")]
-        public async Task<IHttpActionResult> Patch([FromODataUri] int key, Delta<RelatedProduct> patch)
-        {
-            Validate(patch.GetEntity());
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            RelatedProduct relatedProducts = await db.RelatedProducts.FindAsync(key);
-            if (relatedProducts == null)
-            {
-                return NotFound();
-            }
-
-            patch.Patch(relatedProducts);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RelatedProductsExists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Updated(relatedProducts);
-        }
-
-        // DELETE: odata/RelatedProducts(5)
-        public async Task<IHttpActionResult> Delete([FromODataUri] int key)
-        {
-            RelatedProduct relatedProduct = await db.RelatedProducts.FindAsync(key);
-            if (relatedProduct == null)
-            {
-                return NotFound();
-            }
-
-            db.RelatedProducts.Remove(relatedProduct);
-            await db.SaveChangesAsync();
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        //// GET: odata/RelatedProducts(5)/Products
-        //[EnableQuery]
-        //public SingleResult<Product> GetProducts([FromODataUri] int key)
-        //{
-        //    return SingleResult.Create(db.RelatedProducts.Where(m => m.Id == key).Select(m => m.Product));
-        //}
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool RelatedProductsExists(int key)
-        {
-            return db.RelatedProducts.Count(e => e.IdRelatedProduct == key) > 0;
-        }
     }
 }

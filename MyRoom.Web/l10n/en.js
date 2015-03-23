@@ -74,7 +74,7 @@
         "HOTEL_LIST": "List",
         "HOTEL_CATALOGUES": "Assign Catalogues",
         "HOTEL_CREATE": "Create",     
-        "HOTEL_ASSIGNPROD": "Assign Products",
+        "HOTEL_ASSIGNPROD": "Assign Catalogues &Iacute;tems",
         "CATALOGUES" : "Create/Modify Catalogues Structure",
         "CATALOGUE_CREATE" : "Create",
         "CATALOG_ASSIGNPROD" : "Assign Products",

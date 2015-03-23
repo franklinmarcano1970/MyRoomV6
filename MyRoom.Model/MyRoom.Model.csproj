@@ -119,6 +119,8 @@
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CategoryCompositeViewModel.cs" />
     <Compile Include="ViewModels\ActiveHotelCataloguesViewModel.cs" />
+    <Compile Include="ViewModels\EditProfileViewModel.cs" />
+    <Compile Include="ViewModels\RelatedProductViewModel.cs" />
     <Compile Include="ViewModels\UserCatalogViewModel.cs" />
     <Compile Include="ViewModels\ICatalogChildren.cs" />
     <Compile Include="ViewModels\ProductCompositeViewModel.cs" />

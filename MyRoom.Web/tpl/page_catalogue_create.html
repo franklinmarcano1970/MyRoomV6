@@ -7,11 +7,11 @@
     <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
     <!-- / toaster directive -->
     <div class="row clearfix m-b">
-        <div class="col-md-3">
+        
+        <div class="col-md-4">
+            <div class="input-group">
             <catalog-select></catalog-select>
-        </div>
-
-        <div class="col-md-3">
+            <span class="input-group-btn">
             <div class="btn-group dropdown open" dropdown="">
                 <button class="btn btn-default" dropdown-toggle="" aria-haspopup="true" aria-expanded="true">Action <span class="caret"></span></button>
                 <ul class="dropdown-menu">
@@ -22,8 +22,11 @@
 
                 </ul>
             </div>
-        </div>
+            </span>
+          </div>
 
+
+        </div>
         <hr />
         <div class="modal fade" id="newCatalog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -55,6 +58,7 @@
                                     </div>
                                     <div class="m-t m-b">
                                         <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+                                        <button class="btn pull-right m-b-xs m-l-md btn-md btn-danger btn-addon ng-pristine ng-valid ng-touched" data-dismiss="modal""><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>
                                     </div>
                                 </form>
                             </tab>
@@ -83,7 +87,8 @@
                                         <!--<button type="button" class="btn btn-default btn-rounded" ng-click="createCatalog(this)" data-dismiss="modal">Save To Finish</button>-->
                                         <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-if="modify==false" ng-click="saveCatalog(catalog)" data-dismiss="modal">Save To Finish</button>
                                         <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-if="modify==true" ng-click="updateCatalog(catalog)" data-dismiss="modal">Update To Finish</button>
-                                    </div>
+                                        <button class="btn pull-right m-b-xs m-l-md btn-md btn-danger btn-addon ng-pristine ng-valid ng-touched" data-dismiss="modal""><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>                                                 
+                                   </div>
                                 </form>
                             </tab>
                         </tabset>
@@ -103,7 +108,7 @@
                         <h4>This step has no return back</h4>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                         <button type="button" ng-click="deleteCatalog(this)" class="btn btn-default" data-dismiss="modal">OK</button>                         
                     </div>
                 </div>
@@ -121,7 +126,7 @@
                                     <h4>CATALOGUE STRUCTURE</h4>
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn m-b-xs btn-md btn-success btn-addon" ng-click="initTabsets()"><i class="fa fa-plus"></i>NEW MODULE</button>
+                                    <button class="btn m-b-xs btn-md btn-info btn-addon" ng-click="initTabsets()"><i class="fa fa-plus"></i>NEW MODULE</button>
                                 </div>
                             </div>
                             <hr>
@@ -134,7 +139,7 @@
                         <div class="panel-body">
                             <tabset class="tab-container" ng-init="showTabsetModule = true" ng-show="showTabsetModule">
                                 <tab heading="Module" active="steps.step1" select="steps.percent=0" >
-                                    <form name="step1" class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted" >
+                                    <form name="step1" novalidate class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted" >
                                         <p>Prefix:</p>
                                         <input type="text" name="modulePrefix" maxlength="150" placeholder="Enter a Prefix" class="form-control" ng-model="module.Prefix" required ng-change="step1.name.$valid ? (steps.percent=20) : (steps.percent=10)" ng-disabled="activeCatalog" />
                                         <p class="m-t">Name</p>
@@ -146,6 +151,7 @@
                                         <input ui-jq="TouchSpin" type="text" name="moduleOrder" placeholder="Enter a Order" ng-model="module.Orden" class="form-control" data-min="0" data-max="10000" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" required style="display: block;" ng-disabled="activeCatalog">
                                         <div class="m-t m-b">
                                             <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
+                                            <button class="btn pull-right m-b-xs m-l-md btn-md btn-danger btn-addon ng-pristine ng-valid ng-touched" ng-click="initTabsets()"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>
                                         </div>
                                     </form>
                                 </tab>
@@ -172,13 +178,14 @@
                                         <div class="m-t m-b">
                                             <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>
                                             <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="saveModule(module)">Save To Finish</button>
+                                            <button class="btn pull-right m-b-xs m-l-md btn-md btn-danger btn-addon ng-pristine ng-valid ng-touched" ng-click="initTabsets()"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>
                                         </div>
                                     </form>
                                 </tab>
                             </tabset>
                             <tabset class="tab-container" ng-model="tab_category" ng-init="steps={percent:20, step1:true, step2:false}" ng-show="showTabsetCategory">
                                 <tab heading="Category" active="steps.step1" select="steps.percent=0">                                  
-                                    <form name="step1" class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted">
+                                    <form name="step1" novalidate class="form-validation ng-scope ng-dirty ng-valid-number ng-valid ng-valid-required ng-submitted">
                                         <p class="m-t">Prefix:</p>
                                         <input type="text" name="prefix" maxlength="10" class="form-control" placeholder="Please enter a Prefix"  ng-model="category.Prefix" required>
                                         <p class="m-t">Name</p>
@@ -205,9 +212,9 @@
                                         </div>
                                         <div class="m-t m-b">
                                             <button type="submit" ng-disabled="step1.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step2=true">Next</button>
-                                        </div>
-                                    </form>
-                                    
+                                            <button class="btn pull-right m-b-xs m-l-md btn-md btn-danger btn-addon ng-pristine ng-valid ng-touched" ng-click="initTabsetCategory()"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>                                   
+                                         </div>
+                                    </form>                                    
                             
                                 </tab>
                                 <tab heading="Translate" disabled="step1.$invalid" active="steps.step2" select="steps.percent=60">
@@ -233,6 +240,7 @@
                                         <div class="m-t m-b">
                                             <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="steps.step1=true">Prev</button>    
                                             <button type="button" ng-disabled="step2.$invalid" class="btn btn-default btn-rounded" ng-click="saveCategory(category)">Save To Finish</button>
+                                            <button class="btn pull-right m-b-xs m-l-md btn-md btn-danger btn-addon ng-pristine ng-valid ng-touched" ng-click="initTabsetCategory()"><i class="fa fa-arrow-circle-o-left"></i>Cancel</button>                                   
                                         </div>
                                     </form>
                                 </tab>
@@ -247,5 +255,5 @@
     </div>
 </div>
 <script>
-    $(":file").filestyle({ input: false, buttonName: "btn-success" });
+    $(":file").filestyle({ input: false, buttonName: "btn-info" });
 </script>

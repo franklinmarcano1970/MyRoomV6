@@ -58,6 +58,15 @@ namespace MyRoom.Data.Repositories
             }
             return products;
         }
+        
+        public override async System.Threading.Tasks.Task EditAsync(Product entity)
+        {
+           this.Context.Entry(entity).State = EntityState.Modified;
+           this.Context.Entry(entity.Translation).State = EntityState.Modified;
+           this.Context.Entry(entity.TranslationDescription).State = EntityState.Modified;
+           await this.Context.SaveChangesAsync();
+        }
+        
 
         //public void DeleteProductRealted(int productId)
         //{

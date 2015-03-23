@@ -112,6 +112,7 @@
                           $scope.cata.selected = undefined;
                           return;
                       }
+                      $scope.showSave = false;
                       $scope.activeCatalog = false;
                       $scope.typeAction = 'module';
                       $scope.IdCatalog = cata.id;
@@ -158,7 +159,7 @@
           return {
               restrict: 'E',
               templateUrl: 'tpl/partials/hotel-select.html',
-              controller: function ($scope, hotelService) {
+              controller: function ($scope, hotelService, $filter) {
                   angular.element(document).ready(function () {
                       $scope.clear = function () {
                           $scope.hotel.selected = undefined;
@@ -174,6 +175,7 @@
                           if ($scope.$state.$current.name == "app.page.room_create" || $scope.$state.$current.name == "app.page.room_edit") {
                               $scope.room.HotelId = $scope.hotel.selected.Id;
                           }
+                          debugger
                           if ($scope.$state.$current.name == "app.page.product_list") {
                               hotelService.getProductsActivated($scope.hotel.selected.Id).then(function (response) {
                                   $scope.products = response.data;
@@ -187,7 +189,6 @@
                                       $scope.loadHotelTreeCatalog($scope.IdCatalog);
                               });
                           }
-
                       }
                       hotelService.getAll().then(function (response) {
                           $scope.hotel = response.data;
@@ -202,10 +203,22 @@
                           });
 
                           if ($scope.$state.$current.name == "app.page.product_list") {
-                              $scope.hotel.selected = $scope.hotels[0];
+                              if ($scope.$state.params.hotel) {                                 
+                                  var idx = $filter('getHotelKeyById')($scope.hotels, $scope.$state.params.hotel)
+                                  $scope.hotel.selected = $scope.hotels[idx];
+                              } else
+                                  $scope.hotel.selected = $scope.hotels[0];
+
                               hotelService.getProductsActivated($scope.hotel.selected.Id).then(function (response) {
                                   $scope.products = response.data;
                               });
+                              if ($scope.hotel.selected != undefined) {
+                                  hotelService.getHotelCatalogId($scope.hotel.selected.Id).then(function (response) {
+                                      $scope.IdCatalog = response.data[0].IdCatalogue;
+                                      if ($scope.$state.$current.name != "app.page.product_list")
+                                          $scope.loadHotelTreeCatalog($scope.IdCatalog);
+                                  });
+                              }
                           }
                       },
                       function (err) {
@@ -282,7 +295,7 @@
                       }
                       item.selected = !item.selected;
                       $scope.currentItem = item;
-                      
+                      $scope.showSave = false;
                       if ($state.current.name == 'app.page.catalogue_assignProducts') {
                           if ($scope.currentItem.type == 'module') {
                               $scope.toaster = {

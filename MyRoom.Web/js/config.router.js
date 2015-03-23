@@ -416,7 +416,7 @@ angular.module('app')
                   }
               })
               .state('app.page.product_list', {
-                  url: '/products/list',
+                  url: '/products/list/:hotel',
                   templateUrl: 'tpl/page_product_list.html',
                   resolve: {
                       deps: ['$ocLazyLoad',
@@ -442,8 +442,9 @@ angular.module('app')
                   }
               })
               .state('app.page.product_create', {
-                  url: '/products/create/:id',
+                  url: '/products/create',
                   templateUrl: 'tpl/page_product_create.html',
+                  params: {'hotel': null, 'catalog': null},
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {
@@ -472,8 +473,9 @@ angular.module('app')
                   }
               })
               .state('app.page.product_edit', {
-                  url: '/products/edit/:id',
-                  templateUrl: 'tpl/page_product_edit.html',                  
+                  url: '/products/edit/',
+                  templateUrl: 'tpl/page_product_edit.html',
+                  params: { 'hotel': null, 'catalog': null, 'product': null },
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function ($ocLazyLoad) {

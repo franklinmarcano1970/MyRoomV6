@@ -39,3 +39,9 @@ app.config(function ($httpProvider) {
 app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
+
+/*!
+ * angular-datatables - v0.3.0
+ * https://github.com/l-lin/angular-datatables
+ * License: MIT
+ */

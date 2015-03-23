@@ -102,3 +102,16 @@ app.filter("GetCheckedTreeNode", ['$filter', function ($filter, res) {
         return res;
     }
 }])
+app.filter("getHotelKeyById", ['$filter', function ($filter) {
+    return function (hotels, hotelid) {
+        var i=0;
+        var key;
+        angular.forEach(hotels, function (item) {
+            if (item.Id == hotelid) {
+                key = i;
+            }
+            i++;
+        });
+        return key;
+    }
+}])

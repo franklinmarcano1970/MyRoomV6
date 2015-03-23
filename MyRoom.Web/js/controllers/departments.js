@@ -12,8 +12,10 @@ app.controller('DepartmentListController', ['$scope', '$http', '$state', 'depart
             DTColumnDefBuilder.newColumnDef(0),
             DTColumnDefBuilder.newColumnDef(1),
             DTColumnDefBuilder.newColumnDef(2),
-            DTColumnDefBuilder.newColumnDef(3).notSortable(),
-            DTColumnDefBuilder.newColumnDef(4).notSortable()
+            DTColumnDefBuilder.newColumnDef(3),
+            DTColumnDefBuilder.newColumnDef(5).notSortable(),
+            DTColumnDefBuilder.newColumnDef(6).notSortable(),
+            DTColumnDefBuilder.newColumnDef(7).notSortable()
         ];
         $scope.pop = function () {
             toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);

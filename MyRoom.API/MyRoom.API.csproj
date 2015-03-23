@@ -178,6 +178,7 @@
     <Compile Include="Controllers\CataloguesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CategoryProductController.cs" />
+    <Compile Include="Controllers\RelatedProductsController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />

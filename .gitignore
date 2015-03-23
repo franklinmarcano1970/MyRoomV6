@@ -22,3 +22,4 @@ MyRoom.API/obj/*
 MyRoom.API/obj/Debug/*
 *.cache
 MyRoom.API/bin/*
+MyRoom.Web/images/*

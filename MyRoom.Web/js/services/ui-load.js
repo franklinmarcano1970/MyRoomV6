@@ -685,6 +685,28 @@ angular.module('ui.load', [])
 
 			 return deferred.promise;
 		 };
+		 function getRelatedProducts(prodid, hotelid) {
+		     var deferred = $q.defer();
+		     return $http.get(serviceBase + 'api/relatedproducts/'+ prodid + '/' + hotelid).success(function (response) {
+		         deferred.resolve(response);
+		     }, function (err) {
+		         deferred.reject(err);
+		     });
+
+		     return deferred.promise;
+		 };
+
+		 function getRelatedProductsByHotelId(hotelid) {
+		     var deferred = $q.defer();
+		     return $http.get(serviceBase + 'api/relatedproducts/' + hotelid).success(function (response) {
+		         deferred.resolve(response);
+		     }, function (err) {
+		         deferred.reject(err);
+		     });
+
+		     return deferred.promise;
+		 };
+
 
 		 function saveProduct(product) {
 			 var deferred = $q.defer();
@@ -731,6 +753,8 @@ angular.module('ui.load', [])
 			 saveProduct: saveProduct,
 			 saveAssingProductCatalog: saveAssingProductCatalog,
 			 getAll: getAll,
+			 getRelatedProducts: getRelatedProducts,
+			 getRelatedProductsByHotelId: getRelatedProductsByHotelId,
 			 removeProduct: removeProduct,
 			 getProduct: getProduct,
 			 updateProduct: updateProduct

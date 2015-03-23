@@ -23,7 +23,11 @@ namespace MyRoom.Model.ViewModels
 
         public string UrlScanDocument { get; set; }
 
+        public string EmailMoreInfo { get; set; }
+
         public bool? Pending { get; set; }
+        public bool Standard { get; set; }
+        public bool Premium { get; set; }
 
         public int? Order { get; set; }
 
@@ -46,6 +50,8 @@ namespace MyRoom.Model.ViewModels
         public string LanguageDesc8 { get; set; }
 
         public int CatalogId { get; set; }
+        public int HotelId { get; set; }
+
 
         public ICollection<RelatedProduct> RelatedProducts { get; set; }
 

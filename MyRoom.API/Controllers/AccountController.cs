@@ -15,6 +15,7 @@ using System.Web.Http.OData;
 using System.Web.Http.OData.Query;
 using System.Web.Http.Description;
 using System.Collections.Generic;
+using MyRoom.ViewModels;
 
 namespace MyRoom.API.Controllers
 {
@@ -108,7 +109,7 @@ namespace MyRoom.API.Controllers
 
          //PUT: api/account/1
         [ResponseType(typeof(ApplicationUser))]
-        public async Task<IHttpActionResult> Put([FromBody]ApplicationUser user)
+        public async Task<IHttpActionResult> Put([FromBody]EditProfileViewModel userVm)
         {
             if (!ModelState.IsValid)
             {
@@ -116,8 +117,15 @@ namespace MyRoom.API.Controllers
             }
 
             UserManager<ApplicationUser> manager = _genericRepository.Manager;
+            ApplicationUser user = manager.FindById(userVm.UserId);
+            user.Name = userVm.Name;
+            user.Surname = userVm.Surname;
+            user.Email = userVm.Email;
 
-            _genericRepository.Update(user);
+            if (!string.IsNullOrEmpty(userVm.Password ))
+                user.PasswordHash = manager.PasswordHasher.HashPassword(userVm.Password);      
+
+            //_genericRepository.Update(user);
             IdentityResult result = await _genericRepository.Manager.UpdateAsync(user);
 
             if (!result.Succeeded)

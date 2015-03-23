@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
-using System.Web.Http.OData;
-using System.Web.Http.OData.Routing;
 using MyRoom.Model;
-using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
 using MyRoom.Model.ViewModels;
@@ -20,7 +13,7 @@ using MyRoom.Data.Mappers;
 
 namespace MyRoom.API.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {
@@ -111,12 +104,13 @@ namespace MyRoom.API.Controllers
 
                 //Inserta productos a ActiveHotelProduct
                 ActiveHotelCatalogRepository hotelActiveRepo = new ActiveHotelCatalogRepository(relProdRepo.Context);
-                int hotelId = hotelActiveRepo.GetByCatalogId(productViewModel.CatalogId);                
-                if (hotelId > 0)
-                {
+                //int hotelId = hotelActiveRepo.GetByCatalogId(productViewModel.CatalogId);
+                
+//                if (hotelId > 0)
+  //              {
                     ActiveHotelProductRepository productHotelActiveRepo = new ActiveHotelProductRepository(relProdRepo.Context);
-                    productHotelActiveRepo.Insert(new ActiveHotelProduct() { IdHotel = hotelId, IdProduct = product.Id, Active = true });
-                }
+                    productHotelActiveRepo.Insert(new ActiveHotelProduct() { IdHotel = productViewModel.HotelId, IdProduct = product.Id, Active = true });
+    //            }
                 return Ok("Product Inserted");
             }
             catch (Exception ex)

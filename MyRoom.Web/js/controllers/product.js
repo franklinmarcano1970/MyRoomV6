@@ -1,7 +1,7 @@
 ﻿'use strict';
 /* Controllers */
 // product controller
-app.controller('ProductsController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', '$timeout', 'FileUploader', 'ngWebBaseSettings', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster, $timeout, FileUploader, ngWebBaseSettings) {
+app.controller('ProductsController', ['$scope', '$http', '$state', '$stateParams', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', '$filter', 'toaster', '$timeout', 'FileUploader', 'ngWebBaseSettings', function ($scope, $http, $state, $stateParams, productService, DTOptionsBuilder, DTColumnDefBuilder, $filter, toaster, $timeout, FileUploader, ngWebBaseSettings) {
     var uploader = $scope.uploader = new FileUploader({
         //url: ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=5-0-0'
     });
@@ -18,10 +18,10 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         Prefix: '',
         Name: '',
         Description: '',
-        Price: '',
+        Price: '1.00',
         Active: true,
         Image: '/img/no-image.jpg',
-        Order: '',
+        Order: '0',
         Translation: {
             Spanish: '',
             English: '',
@@ -74,46 +74,62 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
     };
 
-    if ($state.current.name == "app.page.product_edit" && $state.params['id']) {
-        var param = $state.params['id'].split("-");
-        var id = param[1];
-        var idCatalog = param[0];
+    
+    if ($state.current.name == "app.page.product_edit" && $state.params['catalog']) {
+        
+//        var param = $state.params['catalog'].split("-");
+  //      var id = param[1];
+        var idCatalog = $state.params['catalog'];//.param[0];
         $scope.IdCatalog = idCatalog;
-        productService.getProduct(id).then(function (response) {
-            debugger
+        
+        productService.getProduct($state.params['product']).then(function (response) {
             $scope.product = JSON.parse(response.data);
             $scope.rootFile = '/images/' + $scope.IdCatalog + '/products/';
-            productService.getAll().then(function (response) {
-                $scope.products = response.data.filter(function (e) {
-                   return e.Id !== $scope.product.Id;
-                });
-
-                for (var j = 0 ; j < $scope.product.RelatedProducts.length; j++) {
-                    for (var i = 0 ; i < $scope.products.length; i++) {
-                        if ($scope.products[i].Id == $scope.product.RelatedProducts[j].IdRelatedProduct) {
-                            $scope.products[i].checked = true;
-                        }
-                    }
-                }
-
-            },
-            function (err) {
-                $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
-                $timeout(function () {
-                    $scope.pop();
-                }, 1000);
-            });
-
-            for (var i = 0; i < $scope.products.length - 1; i++) {
-                if ($scope.products[i].Id == $scope.product.RelatedProducts[i].IdRelatedProduct)
-                    response.data[i].checked = true;
-            }
+         
         });
 
+        productService.getRelatedProducts($state.params['product'], $state.params['hotel']).then(function (response) {
+            $scope.products = response.data;
+
+            //for (var j = 0 ; j < $scope.product.RelatedProducts.length; j++) {
+               for (var i = 0 ; i < $scope.products.length; i++) {
+                   if ($scope.products[i].Checked) {
+                        $scope.products[i].checked = true;
+                    }
+                }
+            //}
+
+        },
+         //productService.getAll().then(function (response) {
+         //    $scope.products = response.data.filter(function (e) {
+         //       return e.Id !== $scope.product.Id;
+         //    });
+
+         //    for (var j = 0 ; j < $scope.product.RelatedProducts.length; j++) {
+         //        for (var i = 0 ; i < $scope.products.length; i++) {
+         //            if ($scope.products[i].Id == $scope.product.RelatedProducts[j].IdRelatedProduct) {
+         //                $scope.products[i].checked = true;
+         //            }
+         //        }
+         //    }
+
+         //},
+         function (err) {
+             $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
+             $timeout(function () {
+                 $scope.pop();
+             }, 1000);
+         });
+
+        //for (var i = 0; i < $scope.products.length - 1; i++) {
+        //    if ($scope.products[i].Id == $scope.product.RelatedProducts[i].IdRelatedProduct)
+        //        response.data[i].checked = true;
+        //}
 
     }
     else {
-        productService.getAll().then(function (response) {
+        productService.getRelatedProductsByHotelId($state.params['hotel']).then(function (response) {
+
             $scope.products = response.data;
         },
           function (err) {
@@ -126,24 +142,35 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
     }
 
     function createProductVM(entity) {
-        $scope.product.RelatedProducts = [];
-       
+        $scope.product.RelatedProducts = [];       
         angular.forEach($scope.products, function (value, key) {
-            if (value.checked == true) {
+            if (value.Checked == true) {
                 $scope.product.RelatedProducts.push({ IdProduct: $scope.product.Id, IdRelatedProduct: value.Id });
 
             }
         });
         var vm = {};
         vm.Name = entity.Name;
-        if (entity.Image != "/img/no-image.jpg") {
+        if (entity.Image != "/img/no-image.jpg" ) {
             vm.Pending = true;
-            vm.Image = "/images/" + $state.params["id"] + "/products/" + entity.Image;
+            if ($state.current.name == "app.page.product_edit") {
+                if (entity.Image.split('/').length > 1)
+                    vm.Image = entity.Image;
+                else
+                    vm.Image = "/images/" + $state.params.catalog + "/products/" + entity.Image;
+            }
+            else {
+                vm.Image = "/images/" + $state.params["catalog"] + "/products/" + entity.Image;
+            }
+            vm.CatalogId = $state.params.catalog;
+
         }
         else {
             vm.Pending = false;
             vm.Image = entity.Image;
+            vm.CatalogId = $state.params.catalog;         
         }
+        vm.HotelId = $state.params.hotel;
         vm.Description = entity.Description;
         vm.Price = entity.Price;
         vm.ProductActive = entity.ProductActive;
@@ -151,7 +178,9 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         vm.Order = entity.Order;
         vm.Type = entity.Type;
         vm.UrlScanDocument = entity.UrlScanDocument;
-     //   vm.Pending = entity.Pending;
+        vm.EmailMoreInfo = entity.EmailMoreInfo;
+        vm.Standard = entity.Standard;
+        vm.Premium = entity.Premium;
         vm.Active = entity.Active
         vm.Spanish = entity.Translation.Spanish;
         vm.English = entity.Translation.English;
@@ -173,18 +202,16 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
         vm.LanguageDesc7 = entity.TranslationDescription.Language7;
         vm.LanguageDesc8 = entity.TranslationDescription.Language8;
 
-        vm.CatalogId = $state.params.id;
-
-
         vm.RelatedProducts = $scope.product.RelatedProducts;
         
         return vm;
     }
 
     $scope.saveProduct = function () {
+        debugger
         var productVm = createProductVM($scope.product);
-        if ($state.current.name == "app.page.product_create" && $state.params['id']) {
-            $scope.IdCatalog = $state.params['id'];
+        if ($state.current.name == "app.page.product_create" && $state.params['catalog']) {
+            $scope.IdCatalog = $state.params['catalog'];
             $scope.rootFile = '/images/' + $scope.IdCatalog + '/';
      
             productService.saveProduct(productVm).then(function (response) {
@@ -218,6 +245,8 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
             });
         }
         else {
+            $scope.product.Image = productVm.Image;
+            $scope.product.Pending = productVm.Pending;
             productService.updateProduct($scope.product).then(function (response) {
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Product has been updated' };
                 if ($scope.fileItem) {
@@ -235,7 +264,8 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
                     },
                     RelatedProducts: []
                 };
-                $state.go('app.page.product_list');
+                
+                $state.go('app.page.product_list', { 'hotel': $scope.$stateParams.hotel });
             },
             function (err) {
                 $scope.toaster = {
@@ -253,7 +283,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', 'productServi
 
 //    $scope.getAllProduct();
 }]);
-app.controller('ProductsListController', ['$scope', '$http', '$state', 'productService', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'toaster', '$timeout', function ($scope, $http, $state, productService, DTOptionsBuilder, DTColumnDefBuilder, toaster, $timeout) {
+app.controller('ProductsListController', ['$scope', '$http', '$state', 'productService', '$injector', 'DTOptionsBuilder', 'DTColumnDefBuilder', 'toaster', '$timeout', function ($scope, $http, $state, productService, $injector, DTOptionsBuilder, DTColumnDefBuilder, toaster, $timeout) {
     $scope.products = {};
     $scope.currentProdId = 0;
     $scope.IdCatalog = 0;
@@ -288,7 +318,9 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
                 $scope.pop();
                 return;
             }
-            $state.go('app.page.product_create', { "id": $scope.IdCatalog });
+            var result = { hotel: $scope.hotel.selected.Id, catalog: $scope.IdCatalog };
+
+            $state.go('app.page.product_create', result);
         };
 
         $scope.modifyProduct = function (id) {
@@ -302,7 +334,11 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
                 return;
             }
             $scope.currentProdId = id;
-            $state.go('app.page.product_edit', { "id": $scope.IdCatalog + '-' + id });
+            var result = { hotel: $scope.hotel.selected.Id, catalog: $scope.IdCatalog, product: id };
+
+            $state.go('app.page.product_edit', result);
+
+//            $state.go('app.page.product_edit', { "id": $scope.IdCatalog + '-' + id });
         }
 
         $scope.selectProduct = function (id) {
@@ -314,6 +350,7 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
 
         $scope.removeProduct = function (id) {
             productService.removeProduct(id).then(function (response) {
+                var hotelService = $injector.get("hotelService");
                 //$scope.Id = response.data.Id;
                 $scope.product = {
                     Active: true,
@@ -323,7 +360,10 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
                     }
                 };
                 $scope.pop();
-                $scope.getAll();
+               // productService.getAll();
+                hotelService.getProductsActivated($scope.hotel.selected.Id).then(function (response) {
+                    $scope.products = response.data;
+                });
                 $scope.message = "The Product has been removed";
             },
             function (err) {

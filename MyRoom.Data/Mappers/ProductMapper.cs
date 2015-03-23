@@ -23,6 +23,9 @@ namespace MyRoom.Data.Mappers
                 Prefix          = productViewModel.Prefix,
                 UrlScanDocument = productViewModel.UrlScanDocument,
                 Pending         = productViewModel.Pending,
+                EmailMoreInfo   = productViewModel.EmailMoreInfo,
+                Standard        = productViewModel.Standard,
+                Premium         = productViewModel.Premium,
                 Order           = productViewModel.Order              
             };
 

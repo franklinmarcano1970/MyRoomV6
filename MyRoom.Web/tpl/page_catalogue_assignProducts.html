@@ -6,6 +6,23 @@
     <!-- toaster directive -->
     <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
     <!-- / toaster directive -->
+      <div class="modal fade" id="popupCatalogAssignProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-check">Please Confirm</span></h4>
+                </div>
+                <div class="modal-body">
+                    <h3>Do you want to assign products to catalog?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" ng-click="saveAssingProduct()"  class="btn btn-default" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row clearfix m-b">
         <div class="col-md-3">
             <catalog-select></catalog-select>
@@ -64,7 +81,7 @@
                                 <hr>
                             </div>
                             <div class="col-md-12 column">
-                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-click="saveAssingProduct()"><i class="fa fa-plus"></i>SAVE</button>
+                                <button class="btn m-b-xs btn-md btn-info btn-addon pull-right" ng-show="showSave==true" ng-click="showCatalogAssignProductPopup()"><i class="fa fa-plus"></i>SAVE</button>
                             </div>
                         </div>
                         </div>

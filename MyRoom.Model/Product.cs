@@ -18,7 +18,7 @@ namespace MyRoom.Model
             ActiveHotelProduct = new List<ActiveHotelProduct>();
             CategoryProducts = new HashSet<CategoryProduct>();
             RelUserProduct = new HashSet<RelUserProduct>();
-            // RelatedProducts = new HashSet<RelatedProduct>();
+            RelatedProducts = new HashSet<RelatedProduct>();
         }
 
         [Key]
@@ -65,9 +65,11 @@ namespace MyRoom.Model
         public bool? Pending { get; set; }
 
         [Required]
+        [DefaultValue(true)]
         public bool Standard { get; set; }
 
         [Required]
+        [DefaultValue(false)]
         public bool Premium { get; set; }
 
         [StringLength(150)]

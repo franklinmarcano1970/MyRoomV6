@@ -88,6 +88,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     };
     uploader.onSuccessItem = function (fileItem, response, status, headers) {
         $scope.loadTreeCatalog($scope.IdCatalog);
+        $scope.fileItem = undefined;
     };
     uploader.onAfterAddingFile = function (fileItem) {
         if (fileItem.file.size > ngWebBaseSettings.fileSize) {
@@ -146,7 +147,18 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         $scope.showTabsetCategory = false;
         $scope.showTabsetModule = true;
         $scope.typeAction = 'module';
+        $scope.steps.step1 = true;
     }
+
+    $scope.initTabsetCategory = function () {
+        $scope.IsNew = true;
+        $scope.category = {};
+        $scope.category = { Image: '/img/no-image.jpg', Active: true, IsFinal: true };
+        $scope.typeAction = 'category';
+        $scope.showTabsetCategory = true;
+        $scope.steps.step1 = true;
+    }
+    
 
     $scope.removeCatalogPopup = function () {
 
@@ -197,6 +209,17 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
     }
 
     $scope.updateCatalog = function (catalog) {
+        if (catalog.Image != "/img/no-image.jpg") {
+            if (catalog.Image.split('/').length > 1)
+                catalog.Image = catalog.Image;
+            else
+                catalog.Image = "/images/" + $scope.IdCatalog + "/" + catalog.Image;
+
+            catalog.Pending = true;
+        }
+        else {
+            catalog.Pending = false;
+        }
         catalogService.updateCatalog(catalog).then(function (response) {
             $scope.loadCatalog();
             $scope.steps.step1 = true;
@@ -214,7 +237,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             }
             $scope.toaster = { type: 'success', title: 'Success', text: 'the catalog has been updated' };
             $scope.pop();
-
+            
         },
         function (err) {
             $scope.toaster = { type: 'error', title: 'Error', text: err.error_description };
@@ -306,6 +329,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             });
         } else { //Modificar
             mmodule.Image = moduleViewModel.Image;
+            mmodule.Pending = moduleViewModel.Pending;
             //$scope.module.Catalogues = [{ CatalogId: $scope.IdCatalog, Name: $scope.NameCatalog, Active: true }];
             catalogService.updateModule(mmodule).then(function (response) {
                 if ($scope.fileItem === undefined)
@@ -317,6 +341,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Module has been update' };
                 $scope.pop();
+                $scope.fileItem = undefined;
                 initModule();
             },
             function (err) {
@@ -335,7 +360,11 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.ModuleActive = entity.Active;
         vm.Comment = entity.Comment;
         if (entity.Image != "/img/no-image.jpg") {
-            vm.Image = "/images/" + $scope.IdCatalog + "/modules/" + entity.Image;
+            if (entity.Image.split('/').length > 1)
+                vm.Image = entity.Image;
+            else
+                vm.Image = "/images/" + $scope.IdCatalog + "/modules/" + entity.Image;
+
             vm.Pending = true;
         }
         else {
@@ -361,7 +390,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
 
     function initModule() {
         $scope.steps.step1 = true;
-        $scope.loadTreeCatalog($scope.IdCatalog);
+        //$scope.loadTreeCatalog($scope.IdCatalog);
         $scope.initTabsets();
         $scope.module = { Image: '/img/no-image.jpg', Active: true, Pending: false, IsFinal: true };
 
@@ -384,6 +413,7 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             $scope.pop();
             return;
         }
+        var categoryViewModel = createCategoryVM($scope.category);
         if ($scope.IsNew) {
             //$scope.category.Modules = [{ ModuleId: $scope.IdModule, Name: 'Module', Active: true }];
 
@@ -392,7 +422,6 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
             //    $scope.category.Modules = [$scope.module];
 
             //$scope.category.CategoryItem = $scope.CategoryItemId;
-            var categoryViewModel = createCategoryVM($scope.category);
             catalogService.saveCategory(categoryViewModel).then(function (response) {
                 $scope.toaster = {
                     type: 'success',
@@ -405,10 +434,12 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
                     $scope.fileItem.url = ngWebBaseSettings.webServiceBase + 'api/files/Upload?var=4-' + $scope.IdCatalog + '-' + response.data.CategoryId;
                     uploader.uploadAll();
                     $scope.fileItem = undefined;
+                    $scope.loadTreeCatalog($scope.IdCatalog);
                 }
                 $scope.pop();
                 $scope.steps.step1 = true;
                 $scope.categoryItem = null;
+                $scope.fileItem = undefined;
 
             },
             function (err) {
@@ -419,6 +450,9 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         else { //Modificar
             //$scope.category.Modules = [{ ModuleId: $scope.IdModule, Name: 'Module', Active: true }];
             //$scope.category.Modules = [$scope.module];
+            category.Image = categoryViewModel.Image;
+            category.Pending = categoryViewModel.Pending;
+
             catalogService.editCategory(category).then(function (response) {
                 $scope.toaster = {
                     type: 'success',
@@ -454,7 +488,11 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.CategoryActive = entity.Active;
         vm.Comment = entity.Comment;
         if (entity.Image != "/img/no-image.jpg") {
-            vm.Image = "/images/" + $scope.IdCatalog + "/categories/" + entity.Image;
+            if (entity.Image.split('/').length > 1)
+                vm.Image = entity.Image;
+            else
+                vm.Image = "/images/" + $scope.IdCatalog + "/categories/" + entity.Image;
+
             vm.Pending = true;
         }
         else {
@@ -480,8 +518,10 @@ app.controller('CataloguesController', ['$scope', '$http', '$state', 'catalogSer
         vm.Language6 = entity.Translation.Language6;
         vm.Language7 = entity.Translation.Language7;
         vm.Language8 = entity.Translation.Language8;
-        vm.ModuleId = $scope.currentModule.ModuleId;
-        vm.ModuleName = $scope.currentModule.Name;
+        if ($scope.IsNew) {
+            vm.ModuleId = $scope.currentModule.ModuleId;
+            vm.ModuleName = $scope.currentModule.Name;
+        }
         vm.CatalogId = $scope.cata.selected.id;
         return vm;
     }

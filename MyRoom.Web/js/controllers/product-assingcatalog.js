@@ -11,13 +11,26 @@ app.controller('AssignProductCataloguesController', ['$scope', '$http', '$state'
     $scope.pop = function () {
         toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
     };
+
+    $scope.showCatalogAssignProductPopup = function () {
+        if ($scope.cata.selected) {
+            $('#popupCatalogAssignProduct').modal({
+                show: 'true'
+            });
+        }
+        else {
+            $scope.toaster = { type: 'success', title: 'Success', text: 'Please select a Catalog' };
+            $scope.pop();
+        }
+    }
     $scope.initTabsets = function () {
         $scope.showTabsetCategory = false;
         $scope.showTabsetModule = true;
     }
+
     $scope.getProductsByCategory = function () {
+        $scope.showSave = true;
         catalogService.getProductsByCategory($scope.currentItem.CategoryId).then(function (response) {
-            debugger
             $scope.product = response.data;
 
             for (var j = 0 ; j < $scope.product.length; j++) {
