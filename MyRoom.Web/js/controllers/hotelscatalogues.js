@@ -6,7 +6,10 @@ app.controller('HotelsCataloguesController', ['$scope', '$http', '$state', 'cata
     $scope.catalogues = {};
     $scope.hotels = {};
     angular.element(document).ready(function () {
-    
+        $scope.dtOptions = DTOptionsBuilder
+                        .newOptions()
+                        .withBootstrap()
+                        .withPaginationType('full_numbers');
         $scope.dtColumnDefs = [
             DTColumnDefBuilder.newColumnDef(0),
             DTColumnDefBuilder.newColumnDef(1),

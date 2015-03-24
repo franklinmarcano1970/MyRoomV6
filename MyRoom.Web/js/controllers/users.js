@@ -208,7 +208,9 @@ app.controller('UsersHotelController', ['$scope', '$http', '$state', 'hotelServi
         
         hotelService.getAll().then(function (response) {
             $scope.hotels = response.data;
-            $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+            $scope.dtOptions = DTOptionsBuilder.newOptions()
+                                .withBootstrap()
+                                .withPaginationType('full_numbers');
 
             $scope.dtColumnDefs = [
                 DTColumnDefBuilder.newColumnDef(0),

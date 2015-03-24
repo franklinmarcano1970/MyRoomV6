@@ -7,7 +7,10 @@ app.controller('RoomsListController', ['$scope', '$http', '$state', 'roomService
     $scope.currentRoomtId = 0;;
 
     angular.element(document).ready(function () {
-        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+        $scope.dtOptions = DTOptionsBuilder
+                            .newOptions()
+                            .withBootstrap()
+                            .withPaginationType('full_numbers');
         $scope.dtColumnDefs = [
             DTColumnDefBuilder.newColumnDef(0),
             DTColumnDefBuilder.newColumnDef(1),

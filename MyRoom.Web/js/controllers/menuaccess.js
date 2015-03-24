@@ -11,7 +11,10 @@
         });
     }
 
-    $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+    $scope.dtOptions = DTOptionsBuilder
+                        .newOptions()
+                         .withBootstrap()
+                        .withPaginationType('full_numbers');
 
     $scope.dtColumnDefs = [
         DTColumnDefBuilder.newColumnDef('Id'),
