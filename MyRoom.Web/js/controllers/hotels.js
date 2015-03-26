@@ -8,6 +8,7 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
 
     angular.element(document).ready(function () {
         $scope.dtOptions = DTOptionsBuilder.newOptions()
+                                            .withOption('iDisplayLength', 50)
                                             .withBootstrap()
                                             .withPaginationType('full_numbers');
         $scope.dtColumnDefs = [
@@ -24,6 +25,15 @@ app.controller('HotelListController', ['$scope', '$http', '$state', 'hotelServic
         $scope.createHotel = function () {
             $state.go('app.page.hotel_create');
         }
+
+        $scope.assignCatalog = function () {
+            $state.go('app.page.hotel_catalogues');
+        }
+
+        $scope.assignCatalogItems = function () {
+            $state.go('app.page.hotel_assignProducts');
+        }
+        
         $scope.getAll = function () {
             hotelService.getAll().then(function (response) {
                 $scope.hotels = response.data;

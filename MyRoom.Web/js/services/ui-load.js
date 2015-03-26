@@ -319,9 +319,9 @@ angular.module('ui.load', [])
 			     return deferred.promise;
 
 			 };
-			 function getCatalogComplex(catalogId, withproducts, activemod, activecategory, hotelid) {
+			 function getCatalogComplex(catalogId, withproducts, activemod, activecategory, hotelid, userid) {
 				 var deferred = $q.defer();
-				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId + "/?withproducts=" + withproducts + "&activemod=" + activemod + "&activecategory=" + activecategory + "&hotelid=" + hotelid).success(function (response) {
+				 return $http.get(serviceBase + 'api/Catalogues/' + catalogId + "/?withproducts=" + withproducts + "&activemod=" + activemod + "&activecategory=" + activecategory + "&hotelid=" + hotelid + "&userid=" + userid).success(function (response) {
 					 deferred.resolve(response);
 				 }, function (err) {
 					 deferred.reject(err);

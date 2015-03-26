@@ -16,7 +16,11 @@ app.controller('RoomsListController', ['$scope', '$http', '$state', 'roomService
             DTColumnDefBuilder.newColumnDef(1),
             DTColumnDefBuilder.newColumnDef(2),
             DTColumnDefBuilder.newColumnDef(3).notSortable(),
-            DTColumnDefBuilder.newColumnDef(4).notSortable()
+            DTColumnDefBuilder.newColumnDef(4).notSortable(),
+            DTColumnDefBuilder.newColumnDef(5).notSortable(),
+            DTColumnDefBuilder.newColumnDef(6).notSortable(),
+            DTColumnDefBuilder.newColumnDef(7).notSortable(),
+            DTColumnDefBuilder.newColumnDef(8).notSortable()
         ];
         $scope.pop = function () {
             toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);

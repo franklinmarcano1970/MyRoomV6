@@ -499,11 +499,13 @@
                       $scope.sourceItems = {};
                       var activemod = false;
                       var activecategory = false;
+                      var userid = "";
                       if ($state.current.name == 'app.page.usercatalog') {
                           activemod = true;
                           activecategory = true;
+                          userid = $scope.person.selected.id;
                       }
-                      catalogService.getCatalogComplex(id, false, activemod, activecategory).then(function (response) {
+                      catalogService.getCatalogComplex(id, false, activemod, activecategory, 0, userid).then(function (response) {
                           $scope.catalogComplex = {};
                           $scope.catalogComplex.Modules = {};
                           $scope.sourceItems = JSON.parse(response.data);

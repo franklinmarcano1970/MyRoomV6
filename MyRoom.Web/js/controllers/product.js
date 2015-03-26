@@ -206,14 +206,16 @@ app.controller('ProductsController', ['$scope', '$http', '$state', '$stateParams
         
         return vm;
     }
-
+    $scope.cancel = function () {
+        $state.go('app.page.product_list', { 'hotel': $scope.$stateParams.hotel });
+    }
     $scope.saveProduct = function () {
         debugger
         var productVm = createProductVM($scope.product);
         if ($state.current.name == "app.page.product_create" && $state.params['catalog']) {
             $scope.IdCatalog = $state.params['catalog'];
             $scope.rootFile = '/images/' + $scope.IdCatalog + '/';
-     
+    
             productService.saveProduct(productVm).then(function (response) {
                 //$scope.Id = response.data.Id;
                 $scope.toaster = { type: 'success', title: 'Info', text: 'The Product has been saved' };
@@ -233,7 +235,7 @@ app.controller('ProductsController', ['$scope', '$http', '$state', '$stateParams
                     },
                     RelatedProducts: []
                 };
-                $state.go('app.page.product_list');
+                $state.go('app.page.product_list', { 'hotel': $scope.$stateParams.hotel });
                 // $scope.message = "The Product has been saved";
             },
             function (err) {
@@ -294,7 +296,11 @@ app.controller('ProductsListController', ['$scope', '$http', '$state', 'productS
     };
 
     angular.element(document).ready(function () {
-        $scope.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers');
+        $scope.dtOptions = DTOptionsBuilder
+                            .newOptions()
+                            .withBootstrap()
+                            .withPaginationType('full_numbers');
+
         $scope.dtColumnDefs = [
             DTColumnDefBuilder.newColumnDef('Id'),
             DTColumnDefBuilder.newColumnDef('Name'),

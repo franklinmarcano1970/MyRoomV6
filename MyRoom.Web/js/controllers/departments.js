@@ -6,9 +6,10 @@ app.controller('DepartmentListController', ['$scope', '$http', '$state', 'depart
     $scope.departments = {};
     $scope.currentDepartmentId = 0;;
 
-    angular.element(document).ready(function () {
-        $scope.dtOptions = DTOptionsBuilder
+    angular.element(document).ready(function () { 
+        $scope.dtOptions = DTOptionsBuilder                            
                             .newOptions()
+                            .withOption('iDisplayLength', 50)
                             .withBootstrap()
                             .withPaginationType('full_numbers');
         $scope.dtColumnDefs = [
@@ -16,9 +17,9 @@ app.controller('DepartmentListController', ['$scope', '$http', '$state', 'depart
             DTColumnDefBuilder.newColumnDef(1),
             DTColumnDefBuilder.newColumnDef(2),
             DTColumnDefBuilder.newColumnDef(3),
+            DTColumnDefBuilder.newColumnDef(4).notSortable(),
             DTColumnDefBuilder.newColumnDef(5).notSortable(),
-            DTColumnDefBuilder.newColumnDef(6).notSortable(),
-            DTColumnDefBuilder.newColumnDef(7).notSortable()
+            DTColumnDefBuilder.newColumnDef(6).notSortable()
         ];
         $scope.pop = function () {
             toaster.pop($scope.toaster.type, $scope.toaster.title, $scope.toaster.text);
