@@ -9,6 +9,7 @@ app.controller('RoomsListController', ['$scope', '$http', '$state', 'roomService
     angular.element(document).ready(function () {
         $scope.dtOptions = DTOptionsBuilder
                             .newOptions()
+                            .withOption('iDisplayLength', 50)
                             .withBootstrap()
                             .withPaginationType('full_numbers');
         $scope.dtColumnDefs = [
