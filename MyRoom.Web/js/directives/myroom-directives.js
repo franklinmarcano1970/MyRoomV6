@@ -473,6 +473,10 @@
                           };
                           $scope.pop();
                           $scope.loadTreeCatalog($scope.IdCatalog);
+                      },
+                      function (err) {
+                          $scope.toaster = { type: 'info', title: 'Info', text: err.data.Message };
+                          $scope.pop();
                       });
                   }
                   $scope.removeCategory = function (id) {
@@ -484,6 +488,10 @@
                           };
                           $scope.pop();
                           $scope.loadTreeCatalog($scope.IdCatalog);
+                      },
+                      function (err) {
+                          $scope.toaster = { type: 'info', title: 'Info', text: err.data.Message };
+                          $scope.pop();
                       });
                   }
 

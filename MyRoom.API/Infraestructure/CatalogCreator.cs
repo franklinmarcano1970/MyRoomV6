@@ -19,7 +19,7 @@ namespace MyRoom.API.Infraestructure
             productRepo = new ProductRepository(context);
         }
 
-        public string CreateWithOutProducts(Catalog cata, bool activemod, bool activecategory, int hotelId = 0)
+        public string CreateWithOutProducts(Catalog cata, bool activemod, bool activecategory, int hotelId = 0, string userId = "")
         {
             IList<ModuleCompositeViewModel> modules = new List<ModuleCompositeViewModel>();
 
@@ -27,7 +27,17 @@ namespace MyRoom.API.Infraestructure
             {
                 ModuleCompositeViewModel moduleVm = Helper.ConvertModuleToViewModel(m, activemod);
                 modules.Add(moduleVm);
+                //if (!string.IsNullOrEmpty(userId))
+                //{
+                //    if (activemod)
+                //    {
 
+                //        var relUsers = from r in m.RelUserModule
+                //                        select r;
+                //        moduleVm.IsChecked = m.RelUserModule..Contains() // ( new RelUserModule() { Id =  IdModule = m.ModuleId, IdUser=userId, ReadOnly=null, ReadWrite=null});
+                //        moduleVm.ActiveCheckbox = true;
+                //    }
+                //}
                 foreach (Category p in m.Categories)
                 {
                     if (moduleVm.Children == null)

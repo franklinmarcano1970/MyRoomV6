@@ -20,7 +20,7 @@ namespace MyRoom.Data.Repositories
 
         public ActiveHotelProduct GetProductsByHotelId(int hotelId, int prodId)
         {
-            var products = this.Context.ActiveHotelProduct.Where(e => e.IdHotel == hotelId && e.IdProduct == prodId).Include("Product");
+            var products = this.Context.ActiveHotelProduct.Where(e => e.IdHotel == hotelId && e.IdProduct == prodId && e.Active).Include("Product");
             if (products.Count() > 0)
                 return products.First();
             return null;
@@ -29,7 +29,7 @@ namespace MyRoom.Data.Repositories
 
         public List<Product> GetProductsByHotelId(int hotelId)
         {
-            var hotelProducts = this.Context.ActiveHotelProduct.Include("Product").Where(e => e.IdHotel == hotelId).OrderBy(p => p.Product.Name).ToList();
+            var hotelProducts = this.Context.ActiveHotelProduct.Include("Product").Where(e => e.IdHotel == hotelId && e.Active).OrderBy(p => p.Product.Name).ToList();
             List<Product> products = new List<Product>();
             foreach (ActiveHotelProduct hotelProduct in hotelProducts)
             {
@@ -40,7 +40,7 @@ namespace MyRoom.Data.Repositories
 
         public List<ActiveHotelProduct> GetActiveProductsByHotelId(int hotelId)
         {
-            var hotelProducts = this.Context.ActiveHotelProduct.Include("Product").Where(e => e.IdHotel == hotelId).OrderBy(p => p.Product.Name).ToList();
+            var hotelProducts = this.Context.ActiveHotelProduct.Include("Product").Where(e => e.IdHotel == hotelId && e.Active).OrderBy(p => p.Product.Name).ToList();
             List<ActiveHotelProduct> products = new List<ActiveHotelProduct>();
             //foreach (ActiveHotelProduct hotelProduct in hotelProducts)
             //{

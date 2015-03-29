@@ -8,16 +8,12 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
-using System.Web.Http.OData;
-using System.Web.Http.OData.Routing;
 using MyRoom.Model;
-using System.Web.Http.OData.Query;
 using MyRoom.Data;
 using MyRoom.Data.Repositories;
 using MyRoom.Model.ViewModels;
-using System.Configuration;
 using MyRoom.Data.Mappers;
+using MyRoom.API.Filters;
 
 namespace MyRoom.API.Controllers
 {
@@ -115,64 +111,16 @@ namespace MyRoom.API.Controllers
             }
             
         }
-
         
         // DELETE: api/modules/5
         [Route("{key}")]
         [HttpDelete]
+        [HasModulesChildrenActionFilter]
         public async Task<IHttpActionResult> DeleteModules(int key)
         {
-            Module module = await moduleRepo.GetByIdAsync(key);
-            if (module == null)
-            {
-                return NotFound();
-            }
-            try
-            {
-                await moduleRepo.DeleteAsync(module);
-            }
-            catch (Exception ex)
-            {
-                if (!ModuleExists(key))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw ex;
-                }
-            }
-           
-            return Ok("Module Deleted");
+            await moduleRepo.DeleteAsync(key);
+            return Ok(HttpStatusCode.NoContent);
         }
-
-        // GET: odata/Modules(5)/ActiveHotelModule
-        //[EnableQuery]
-        //public IQueryable<ActiveHotelModule> GetActiveHotelModule([FromODataUri] int key)
-        //{
-        //    return db.Modules.Where(m => m.Id == key).SelectMany(m => m.ActiveHotelModule);
-        //}
-
-        // GET: odata/Modules(5)/RelCatalogueModule
-       // [EnableQuery]
-        //public IQueryable<RelCatalogueModule> GetRelCatalogueModule([FromODataUri] int key)
-        //{
-        //    return db.Modules.Where(m => m.Id == key).SelectMany(m => m.RelCatalogueModule);
-        //}
-
-        // GET: odata/Modules(5)/RelModuleCategory
-        //[EnableQuery]
-        //public IQueryable<RelModuleCategory> GetRelModuleCategory([FromODataUri] int key)
-        //{
-        //    return db.Modules.Where(m => m.Id == key).SelectMany(m => m.RelModuleCategory);
-        //}
-
-        //// GET: odata/Modules(5)/RelUserModule
-        //[EnableQuery]
-        //public IQueryable<RelUserModule> GetRelUserModule([FromODataUri] int key)
-        //{
-        //    return db.Modules.Where(m => m.Id == key).SelectMany(m => m.RelUserModule);
-        //}
 
         protected override void Dispose(bool disposing)
         {

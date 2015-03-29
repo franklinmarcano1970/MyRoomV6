@@ -31,5 +31,14 @@ namespace MyRoom.Data.Repositories
             await this.Context.SaveChangesAsync();
 
         }
+
+        public bool HasCategoriesChildrens(int moduleId)
+        {
+            var categories = (from m in this.Context.Modules.Where(e=>e.ModuleId == moduleId && e.Active)
+                select m.Categories).FirstOrDefault();
+
+            return categories.Count() == 0;
+
+        }
     }
 }

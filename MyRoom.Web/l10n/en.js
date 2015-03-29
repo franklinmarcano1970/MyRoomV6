@@ -73,11 +73,14 @@
         "ROOMS": "Rooms", 
         "HOTEL_LIST": "Hotels",
         "HOTEL_CATALOGUES": "Assign Catalogues",
+        "HOTEL_CATALOGUES1": "Assign Catalogues to Hotels",
+        "HOTEL_CATALOGUES_ITEMS": "Assign Catalogue Items to Hotels",
         "HOTEL_CREATE": "Create",     
         "HOTEL_ASSIGNPROD": "Assign Catalogues &Iacute;tems",
         "CATALOGUES" : "Create/Modify Catalogues Structure",
+        "CONTENTMANAGEMENT" : "Content Management",
         "CATALOGUE_CREATE" : "Create",
-        "CATALOG_ASSIGNPROD" : "Assign Products",
+        "CATALOG_ASSIGNPROD" : "Assign Products to Catalogues",
         "TRANSLATIONS" : "Translations"        
       }
     },

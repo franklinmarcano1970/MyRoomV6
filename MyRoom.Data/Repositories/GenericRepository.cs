@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -71,26 +72,64 @@ namespace MyRoom.Data.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public  void Insert(TEntity entity)
+        public void Insert(TEntity entity)
         {
             DbSet.Add(entity);
-             _dbContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
         public async Task DeleteAsync(TEntity entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Deleted;
-            DbSet.Remove(entity);
+            DbEntityEntry dbEntityEntry = _dbContext.Entry(entity);
+            if (dbEntityEntry.State != EntityState.Deleted)
+            {
+                dbEntityEntry.State = EntityState.Deleted;
+            }
+            else
+            {
+                DbSet.Attach(entity);
+                DbSet.Remove(entity);
+            }
             await _dbContext.SaveChangesAsync();
+
         }
+
+        public virtual async Task DeleteAsync(int id)
+        {
+            var entity = GetById(id);
+            if (entity == null) return; // not found; assume already deleted.
+            await DeleteAsync(entity);
+        }
+
+        public virtual void Delete(int id)
+        {
+            var entity = GetById(id);
+            if (entity == null) return; // not found; assume already deleted.
+            Delete(entity);
+        }
+
+        public virtual void Delete(TEntity entity)
+        {
+            DbEntityEntry dbEntityEntry = _dbContext.Entry(entity);
+            if (dbEntityEntry.State != EntityState.Deleted)
+            {
+                dbEntityEntry.State = EntityState.Deleted;
+            }
+            else
+            {
+                DbSet.Attach(entity);
+                DbSet.Remove(entity);
+            }
+        }
+
 
         public void DeleteCollection(List<TEntity> entities)
         {
             entities.ForEach(delegate(TEntity entity)
             {
                 _dbContext.Entry(entity).State = EntityState.Deleted;
-            });              
-       
+            });
+
             DbSet.RemoveRange(entities);
             _dbContext.SaveChanges();
         }

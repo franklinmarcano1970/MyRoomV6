@@ -27,6 +27,7 @@ namespace MyRoom.Data.Configuration
             .WithRequired(e => e.Module)
             .HasForeignKey(e => e.IdModule)
             .WillCascadeOnDelete(false);
+            
         }
     }
 }

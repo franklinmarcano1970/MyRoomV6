@@ -10,6 +10,9 @@ using MyRoom.Data.Repositories;
 using MyRoom.Model.ViewModels;
 using MyRoom.Data.Mappers;
 using MyRoom.ViewModels;
+using System.Net.Http;
+using System.Net;
+using MyRoom.API.Filters;
 
 namespace MyRoom.API.Controllers
 {
@@ -178,31 +181,11 @@ namespace MyRoom.API.Controllers
         // DELETE: api/Categories/5
         [Route("{key}")]
         [HttpDelete]
+        [HasCategoriesChildrenActionFilter]
         public async Task<IHttpActionResult> DeleteCategories(int key)
-        {
-            Category category = await categoryRepo.GetByIdAsync(key);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            try
-            {
-                await categoryRepo.DeleteAsync(category);
-                return Ok("Category Deleted");
-
-            }
-            catch (Exception ex)
-            {
-                if (!CategoryExists(category.CategoryId))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw ex;
-                }
-            }
+        {         
+            await categoryRepo.DeleteAsync(key);
+            return Ok(HttpStatusCode.NoContent);
         }
 
         protected override void Dispose(bool disposing)

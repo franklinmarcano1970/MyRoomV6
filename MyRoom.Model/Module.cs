@@ -55,7 +55,7 @@ namespace MyRoom.Model
        // public virtual ICollection<RelCatalogueModule> RelCatalogueModule { get; set; }
 
         //public virtual ICollection<RelModuleCategory> RelModuleCategory { get; set; }
-       [JsonIgnore]
+       //[JsonIgnore]
         public virtual ICollection<RelUserModule> RelUserModule { get; set; }
     }
 }

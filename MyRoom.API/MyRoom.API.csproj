@@ -190,6 +190,8 @@
     <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Controllers\RelUserModulesController.cs" />
     <Compile Include="Controllers\RelUserProductsController.cs" />
+    <Compile Include="Filters\HasModulesChildrenActionFilter.cs" />
+    <Compile Include="Filters\HasCategoriesChildrenActionFilter.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Filters\ValidationActionFilter.cs" />
     <Compile Include="Infraestructure\CatalogCreator.cs" />
