@@ -4,6 +4,7 @@
 		<name>usuarios_map.xlsx</name>
 		<Placemark>
 			<name>59826</name>
+			<falla>1234</falla>
 			<description><![CDATA[OBSERVACIO: 54-001-01-07-0082-0001-000<br>RUTA_1: 33003205<br>CONSECUTIV: 415<br>NOMBRE: MARTA OLGA  RODRIGUEZ DE ARMENTA<br>DIRECCION: AVENIDA 9 #10-21<br>BARRIO: 2031-EL LLANO<br>lat: 7° 53' 9.682" N<br>long: 72° 30' 28.502" W]]></description>
 			<styleUrl>#icon-1899-0288D1</styleUrl>
 			<ExtendedData>
@@ -68007,7 +68008,7 @@
 				<color>ffD18802</color>
 				<scale>1.0</scale>
 				<Icon>
-					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+					<href>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</href>
 				</Icon>
 			</IconStyle>
 			<LabelStyle>
