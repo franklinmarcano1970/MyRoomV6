@@ -67835,7 +67835,7 @@
 		<Placemark>
 			<name>72616</name>
 			<description><![CDATA[OBSERVACIO: 54-001-01-03-0248-0006-000<br>RUTA_1: 33003220<br>CONSECUTIV: 97<br>NOMBRE: VICTOR JULIO CARRILLO<br>DIRECCION: CL 1 9-49<br>BARRIO: 2059-CALLEJON<br>lat: 7° 53' 42.034" N<br>long: 72° 30' 36.429" W]]></description>
-			<styleUrl>#icon-1899-0288D1</styleUrl>
+			<styleUrl>#icon-1899-0288D1-highlight</styleUrl>
 			<ExtendedData>
 				<Data name='OBSERVACIO'>
 					<value>54-001-01-03-0248-0006-000</value>
@@ -67869,7 +67869,7 @@
 		<Placemark>
 			<name>72617</name>
 			<description><![CDATA[OBSERVACIO: 54-001-01-03-0248-0007-001<br>RUTA_1: 33003220<br>CONSECUTIV: 100<br>NOMBRE: BETTY CECILIA SANTIAGO ORTIZ<br>DIRECCION: CL 1 9-29<br>BARRIO: 2059-CALLEJON<br>lat: 7° 53' 42.077" N<br>long: 72° 30' 36.199" W]]></description>
-			<styleUrl>#icon-1899-0288D1</styleUrl>
+			<styleUrl>#icon-1899-0288D1-highlight</styleUrl>
 			<ExtendedData>
 				<Data name='OBSERVACIO'>
 					<value>54-001-01-03-0248-0007-001</value>
@@ -67903,7 +67903,7 @@
 		<Placemark>
 			<name>72618</name>
 			<description><![CDATA[OBSERVACIO: 54-001-01-03-0248-0008-000<br>RUTA_1: 33003220<br>CONSECUTIV: 102<br>NOMBRE: PEDRO ALFONSO PE#A OTERO<br>DIRECCION: CL 1 9-27<br>BARRIO: 2059-CALLEJON<br>lat: 7° 53' 42.163" N<br>long: 72° 30' 35.739" W]]></description>
-			<styleUrl>#icon-1899-0288D1</styleUrl>
+			<styleUrl>#icon-1899-0288D1-highlight</styleUrl>
 			<ExtendedData>
 				<Data name='OBSERVACIO'>
 					<value>54-001-01-03-0248-0008-000</value>
@@ -67937,7 +67937,7 @@
 		<Placemark>
 			<name>72619</name>
 			<description><![CDATA[OBSERVACIO: 54-001-01-03-0248-0009-000<br>RUTA_1: 33003220<br>CONSECUTIV: 103<br>NOMBRE: ROSALBA  CAMARGO ANDRADE<br>DIRECCION: CL 1 9-17<br>BARRIO: 2059-CALLEJON<br>lat: 7° 53' 42.206" N<br>long: 72° 30' 35.513" W]]></description>
-			<styleUrl>#icon-1899-0288D1</styleUrl>
+			<styleUrl>#icon-1899-0288D1-highlight</styleUrl>
 			<ExtendedData>
 				<Data name='OBSERVACIO'>
 					<value>54-001-01-03-0248-0009-000</value>
@@ -67971,7 +67971,7 @@
 		<Placemark>
 			<name>72620</name>
 			<description><![CDATA[OBSERVACIO: 54-001-01-03-0248-0010-000<br>RUTA_1: 33003220<br>CONSECUTIV: 104<br>NOMBRE: LAURA MORA AGUDELO<br>DIRECCION: CL 1 9-09<br>BARRIO: 2059-CALLEJON<br>lat: 7° 53' 42.249" N<br>long: 72° 30' 35.283" W]]></description>
-			<styleUrl>#icon-1899-0288D1</styleUrl>
+			<styleUrl>#icon-1899-0288D1-highlight</styleUrl>
 			<ExtendedData>
 				<Data name='OBSERVACIO'>
 					<value>54-001-01-03-0248-0010-000</value>
